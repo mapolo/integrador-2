@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.DescuentoComercial" table="DESCUENTO_COMERCIAL" >
+        <id name="idDeco" type="java.lang.Long">
+            <column name="ID_DECO" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="persona" class="co.edu.usbcali.modelo.Persona" fetch="select">
+            <column name="ID_PERS" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="grupo" class="co.edu.usbcali.modelo.Grupo" fetch="select">
+            <column name="ID_GRPO" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="empresa" class="co.edu.usbcali.modelo.Empresa" fetch="select">
+            <column name="ID_EMPR" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="sucursalBySucursal" class="co.edu.usbcali.modelo.Sucursal" fetch="select">
+            <column name="SUCURSAL" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sucursalByIdSucu" class="co.edu.usbcali.modelo.Sucursal" fetch="select">
+            <column name="ID_SUCU" precision="10" scale="0" />
+        </many-to-one>
+        <property name="fechaInicial" type="java.util.Date">
+            <column name="FECHA_INICIAL" length="7" not-null="true" />
+        </property>
+        <property name="fechaFinal" type="java.util.Date">
+            <column name="FECHA_FINAL" length="7" not-null="true" />
+        </property>
+        <property name="espacios" type="java.lang.String">
+            <column name="ESPACIOS" length="80" />
+        </property>
+        <property name="estadoPlano" type="java.lang.Long">
+            <column name="ESTADO_PLANO" precision="1" scale="0" />
+        </property>
+        <property name="creadoAutomatico" type="java.lang.Long">
+            <column name="CREADO_AUTOMATICO" precision="1" scale="0" />
+        </property>
+        <property name="todasSucursales" type="java.lang.Long">
+            <column name="TODAS_SUCURSALES" precision="1" scale="0" />
+        </property>
+        <property name="tipoAsocGrupoItem" type="java.lang.Long">
+            <column name="TIPO_ASOC_GRUPO_ITEM" precision="3" scale="0" />
+        </property>
+        <property name="asocGrupoItem" type="java.lang.String">
+            <column name="ASOC_GRUPO_ITEM" length="3" />
+        </property>
+        <property name="porcDescMinItem" type="java.lang.Double">
+            <column name="PORC_DESC_MIN_ITEM" precision="6" scale="3" />
+        </property>
+        <property name="porcDescItem" type="java.lang.Double">
+            <column name="PORC_DESC_ITEM" precision="6" scale="3" />
+        </property>
+        <property name="porcDescMaxItem" type="java.lang.Double">
+            <column name="PORC_DESC_MAX_ITEM" precision="6" scale="3" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

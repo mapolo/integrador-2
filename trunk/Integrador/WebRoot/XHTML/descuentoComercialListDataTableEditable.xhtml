@@ -1,0 +1,418 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="DescuentoComercialData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{descuentoComercialView.data}" var="descuentoComercial"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{descuentoComercialView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{descuentoComercial.if(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}}" sortBy="#{descuentoComercial.if(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}}" 
+							headerText="if(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.if(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.if(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{descuentoComercial.asocGrupoItem}" sortBy="#{descuentoComercial.asocGrupoItem}" 
+							headerText="asocGrupoItem">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.asocGrupoItem}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.asocGrupoItem}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.creadoAutomatico}" sortBy="#{descuentoComercial.creadoAutomatico}" 
+							headerText="creadoAutomatico">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.creadoAutomatico}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.creadoAutomatico}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.espacios}" sortBy="#{descuentoComercial.espacios}" 
+							headerText="espacios">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.espacios}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.espacios}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.estadoPlano}" sortBy="#{descuentoComercial.estadoPlano}" 
+							headerText="estadoPlano">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.estadoPlano}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.estadoPlano}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.estadoRegistro}" sortBy="#{descuentoComercial.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.operCreador}" sortBy="#{descuentoComercial.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.operModifica}" sortBy="#{descuentoComercial.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.porcDescItem}" sortBy="#{descuentoComercial.porcDescItem}" 
+							headerText="porcDescItem">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.porcDescItem}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.porcDescItem}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.porcDescMaxItem}" sortBy="#{descuentoComercial.porcDescMaxItem}" 
+							headerText="porcDescMaxItem">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.porcDescMaxItem}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.porcDescMaxItem}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.porcDescMinItem}" sortBy="#{descuentoComercial.porcDescMinItem}" 
+							headerText="porcDescMinItem">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.porcDescMinItem}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.porcDescMinItem}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.tipoAsocGrupoItem}" sortBy="#{descuentoComercial.tipoAsocGrupoItem}" 
+							headerText="tipoAsocGrupoItem">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.tipoAsocGrupoItem}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.tipoAsocGrupoItem}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.todasSucursales}" sortBy="#{descuentoComercial.todasSucursales}" 
+							headerText="todasSucursales">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.todasSucursales}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.todasSucursales}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.idEmpr_Empresa}" sortBy="#{descuentoComercial.idEmpr_Empresa}" 
+							headerText="idEmpr_Empresa">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.idEmpr_Empresa}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.idEmpr_Empresa}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.idGrpo_Grupo}" sortBy="#{descuentoComercial.idGrpo_Grupo}" 
+							headerText="idGrpo_Grupo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.idGrpo_Grupo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.idGrpo_Grupo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.idPers_Persona}" sortBy="#{descuentoComercial.idPers_Persona}" 
+							headerText="idPers_Persona">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.idPers_Persona}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.idPers_Persona}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{descuentoComercial.idSucu_Sucursal}" sortBy="#{descuentoComercial.idSucu_Sucursal}" 
+							headerText="idSucu_Sucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.idSucu_Sucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{descuentoComercial.idSucu_Sucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{descuentoComercial.fechaCreacion}" sortBy="#{descuentoComercial.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{descuentoComercial.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{descuentoComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{descuentoComercial.fechaFinal}" sortBy="#{descuentoComercial.fechaFinal}" 
+							headerText="fechaFinal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.fechaFinal}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{descuentoComercial.fechaFinal}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{descuentoComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{descuentoComercial.fechaInicial}" sortBy="#{descuentoComercial.fechaInicial}" 
+							headerText="fechaInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.fechaInicial}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{descuentoComercial.fechaInicial}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{descuentoComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{descuentoComercial.fechaModificacion}" sortBy="#{descuentoComercial.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{descuentoComercial.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{descuentoComercial.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{descuentoComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{descuentoComercialView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{descuentoComercial}"  target="#{descuentoComercialView.selectedDescuentoComercial}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

@@ -1,0 +1,244 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableEmpresa" header="EmpresaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{empresaView.data}" var="empresa"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{empresa.idEmpr}" sortBy="#{empresa.idEmpr}" >
+										 <f:facet name="header">
+										<h:outputText value="idEmpr"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.idEmpr}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{empresa.apartadoAereo}" sortBy="#{empresa.apartadoAereo}" >
+										 <f:facet name="header">
+										<h:outputText value="ApartadoAereo"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.apartadoAereo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.direccion}" sortBy="#{empresa.direccion}" >
+										 <f:facet name="header">
+										<h:outputText value="Direccion"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.direccion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.email}" sortBy="#{empresa.email}" >
+										 <f:facet name="header">
+										<h:outputText value="Email"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.email}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.estadoRegistro}" sortBy="#{empresa.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.fax}" sortBy="#{empresa.fax}" >
+										 <f:facet name="header">
+										<h:outputText value="Fax"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.fax}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.fechaCreacion}" sortBy="#{empresa.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.fechaModificacion}" sortBy="#{empresa.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.identificacion}" sortBy="#{empresa.identificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Identificacion"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.identificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.operCreador}" sortBy="#{empresa.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.operModifica}" sortBy="#{empresa.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.telefono1}" sortBy="#{empresa.telefono1}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono1"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.telefono1}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.telefono2}" sortBy="#{empresa.telefono2}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono2"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.telefono2}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.idDipo_DivisionPolitica}" sortBy="#{empresa.idDipo_DivisionPolitica}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDipo_DivisionPolitica"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.idDipo_DivisionPolitica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.idPers_Persona}" sortBy="#{empresa.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{empresa.idTiid_TipoIdentificacion}" sortBy="#{empresa.idTiid_TipoIdentificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTiid_TipoIdentificacion"/>
+										</f:facet>
+										 <h:outputText value="#{empresa.idTiid_TipoIdentificacion}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogEmpresa"
+										actionListener="#{empresaView.action_edit}">
+										<f:attribute name="selectedEmpresa" value="#{empresa}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{empresaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedEmpresa" value="#{empresa}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{empresaView.action_new()}" update=":dialogEmpresa" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogEmpresa" appendToBody="true" draggable="true"
+						closable="false" visible="#{empresaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelEmpresa" header="Empresa">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdEmpr" value="IdEmpr"/>
+									 <p:inputText id="txtIdEmpr" binding="#{empresaView.txtIdEmpr}">
+									 <p:ajax update=":dialogEmpresa" listener="#{empresaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgApartadoAereo" value=" ApartadoAereo"/>
+									<p:inputText id="txtApartadoAereo" disabled="true" binding="#{empresaView.txtApartadoAereo}"/>
+																		<h:outputText id="msgDireccion" value=" Direccion"/>
+									<p:inputText id="txtDireccion" disabled="true" binding="#{empresaView.txtDireccion}"/>
+																		<h:outputText id="msgEmail" value=" Email"/>
+									<p:inputText id="txtEmail" disabled="true" binding="#{empresaView.txtEmail}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{empresaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgFax" value=" Fax"/>
+									<p:inputText id="txtFax" disabled="true" binding="#{empresaView.txtFax}"/>
+																		<h:outputText id="msgIdentificacion" value=" Identificacion"/>
+									<p:inputText id="txtIdentificacion" disabled="true" binding="#{empresaView.txtIdentificacion}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{empresaView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{empresaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{empresaView.txtOperModifica}"/>
+																		<h:outputText id="msgTelefono1" value=" Telefono1"/>
+									<p:inputText id="txtTelefono1" disabled="true" binding="#{empresaView.txtTelefono1}"/>
+																		<h:outputText id="msgTelefono2" value=" Telefono2"/>
+									<p:inputText id="txtTelefono2" disabled="true" binding="#{empresaView.txtTelefono2}"/>
+																		<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+									<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{empresaView.txtIdDipo_DivisionPolitica}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{empresaView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdTiid_TipoIdentificacion" value=" IdTiid_TipoIdentificacion"/>
+									<p:inputText id="txtIdTiid_TipoIdentificacion" disabled="true" binding="#{empresaView.txtIdTiid_TipoIdentificacion}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{empresaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{empresaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{empresaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{empresaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{empresaView.btnSave}" value="Save" action="#{empresaView.action_save()}" update=":dialogEmpresa :frm:panelDataTableEmpresa" />
+									<p:commandButton id="btnClear" value="Clear" action="#{empresaView.action_clear()}" update=":dialogEmpresa" />
+									<p:commandButton id="btnExit" value="Exit" action="#{empresaView.action_closeDialog()}" update=":dialogEmpresa" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

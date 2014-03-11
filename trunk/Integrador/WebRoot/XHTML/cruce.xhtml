@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectCruceTitle" header="Cruce" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}" value="If(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}"/>
+						 <p:inputText id="txtIf(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}" binding="#{cruceView.txtIf(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{cruceView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgDescuento" value=" Descuento"/>
+						<p:inputText id="txtDescuento" disabled="true" binding="#{cruceView.txtDescuento}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{cruceView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{cruceView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{cruceView.txtOperModifica}"/>
+												<h:outputText id="msgIdDefi_DescuentoFinanciero" value=" IdDefi_DescuentoFinanciero"/>
+						<p:inputText id="txtIdDefi_DescuentoFinanciero" disabled="true" binding="#{cruceView.txtIdDefi_DescuentoFinanciero}"/>
+												<h:outputText id="msgIdRddo_RboDetalleDocumentos" value=" IdRddo_RboDetalleDocumentos"/>
+						<p:inputText id="txtIdRddo_RboDetalleDocumentos" disabled="true" binding="#{cruceView.txtIdRddo_RboDetalleDocumentos}"/>
+												<h:outputText id="msgIdRdfp_RboDetalleFormasPago" value=" IdRdfp_RboDetalleFormasPago"/>
+						<p:inputText id="txtIdRdfp_RboDetalleFormasPago" disabled="true" binding="#{cruceView.txtIdRdfp_RboDetalleFormasPago}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{cruceView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{cruceView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{cruceView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{cruceView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{cruceView.action_save}" update="msg,panel,panelBotones"          binding="#{cruceView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{cruceView.action_modify}" update="msg,panel,panelBotones"    binding="#{cruceView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{cruceView.action_delete}" update="msg,panel,panelBotones"    binding="#{cruceView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{cruceView.action_clear}" update="msg,panel,panelBotones"      binding="#{cruceView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

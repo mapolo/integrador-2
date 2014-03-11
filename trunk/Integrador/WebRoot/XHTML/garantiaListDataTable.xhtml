@@ -1,0 +1,313 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableGarantia" header="GarantiaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{garantiaView.data}" var="garantia"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{garantia.idGar}" sortBy="#{garantia.idGar}" >
+										 <f:facet name="header">
+										<h:outputText value="idGar"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idGar}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{garantia.alineacionTrazabilidad}" sortBy="#{garantia.alineacionTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="AlineacionTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.alineacionTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.anoTrazabilidad}" sortBy="#{garantia.anoTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="AnoTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.anoTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.diaTrazabilidad}" sortBy="#{garantia.diaTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="DiaTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.diaTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.estado}" sortBy="#{garantia.estado}" >
+										 <f:facet name="header">
+										<h:outputText value="Estado"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.estado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.estadoRegistro}" sortBy="#{garantia.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.fechaCambio}" sortBy="#{garantia.fechaCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCambio"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.fechaCambio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.fechaCreacion}" sortBy="#{garantia.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.fechaModificacion}" sortBy="#{garantia.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.fechaVenta}" sortBy="#{garantia.fechaVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaVenta"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.fechaVenta}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.lineaTrazabilidad}" sortBy="#{garantia.lineaTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="LineaTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.lineaTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.mesTrazabilidad}" sortBy="#{garantia.mesTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="MesTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.mesTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.numeroGarantia}" sortBy="#{garantia.numeroGarantia}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroGarantia"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.numeroGarantia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.observacion}" sortBy="#{garantia.observacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Observacion"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.observacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.operCreador}" sortBy="#{garantia.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.operModifica}" sortBy="#{garantia.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.placaTrazabilidad}" sortBy="#{garantia.placaTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="PlacaTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.placaTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.turnoTrazabilidad}" sortBy="#{garantia.turnoTrazabilidad}" >
+										 <f:facet name="header">
+										<h:outputText value="TurnoTrazabilidad"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.turnoTrazabilidad}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idBate_Bateriologo}" sortBy="#{garantia.idBate_Bateriologo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdBate_Bateriologo"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idBate_Bateriologo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idClfa_ClaveFabricacion}" sortBy="#{garantia.idClfa_ClaveFabricacion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdClfa_ClaveFabricacion"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idClfa_ClaveFabricacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idDocu_Documento}" sortBy="#{garantia.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idCfal_Fallas}" sortBy="#{garantia.idCfal_Fallas}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCfal_Fallas"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idCfal_Fallas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idRefe_Referencia}" sortBy="#{garantia.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idRefe_Referencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{garantia.idTiga_TipoGarantia}" sortBy="#{garantia.idTiga_TipoGarantia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTiga_TipoGarantia"/>
+										</f:facet>
+										 <h:outputText value="#{garantia.idTiga_TipoGarantia}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGarantia"
+										actionListener="#{garantiaView.action_edit}">
+										<f:attribute name="selectedGarantia" value="#{garantia}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{garantiaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGarantia" value="#{garantia}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{garantiaView.action_new()}" update=":dialogGarantia" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGarantia" appendToBody="true" draggable="true"
+						closable="false" visible="#{garantiaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelGarantia" header="Garantia">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdGar" value="IdGar"/>
+									 <p:inputText id="txtIdGar" binding="#{garantiaView.txtIdGar}">
+									 <p:ajax update=":dialogGarantia" listener="#{garantiaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAlineacionTrazabilidad" value=" AlineacionTrazabilidad"/>
+									<p:inputText id="txtAlineacionTrazabilidad" disabled="true" binding="#{garantiaView.txtAlineacionTrazabilidad}"/>
+																		<h:outputText id="msgAnoTrazabilidad" value=" AnoTrazabilidad"/>
+									<p:inputText id="txtAnoTrazabilidad" disabled="true" binding="#{garantiaView.txtAnoTrazabilidad}"/>
+																		<h:outputText id="msgDiaTrazabilidad" value=" DiaTrazabilidad"/>
+									<p:inputText id="txtDiaTrazabilidad" disabled="true" binding="#{garantiaView.txtDiaTrazabilidad}"/>
+																		<h:outputText id="msgEstado" value=" Estado"/>
+									<p:inputText id="txtEstado" disabled="true" binding="#{garantiaView.txtEstado}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{garantiaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgLineaTrazabilidad" value=" LineaTrazabilidad"/>
+									<p:inputText id="txtLineaTrazabilidad" disabled="true" binding="#{garantiaView.txtLineaTrazabilidad}"/>
+																		<h:outputText id="msgMesTrazabilidad" value=" MesTrazabilidad"/>
+									<p:inputText id="txtMesTrazabilidad" disabled="true" binding="#{garantiaView.txtMesTrazabilidad}"/>
+																		<h:outputText id="msgNumeroGarantia" value=" NumeroGarantia"/>
+									<p:inputText id="txtNumeroGarantia" disabled="true" binding="#{garantiaView.txtNumeroGarantia}"/>
+																		<h:outputText id="msgObservacion" value=" Observacion"/>
+									<p:inputText id="txtObservacion" disabled="true" binding="#{garantiaView.txtObservacion}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{garantiaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{garantiaView.txtOperModifica}"/>
+																		<h:outputText id="msgPlacaTrazabilidad" value=" PlacaTrazabilidad"/>
+									<p:inputText id="txtPlacaTrazabilidad" disabled="true" binding="#{garantiaView.txtPlacaTrazabilidad}"/>
+																		<h:outputText id="msgTurnoTrazabilidad" value=" TurnoTrazabilidad"/>
+									<p:inputText id="txtTurnoTrazabilidad" disabled="true" binding="#{garantiaView.txtTurnoTrazabilidad}"/>
+																		<h:outputText id="msgIdBate_Bateriologo" value=" IdBate_Bateriologo"/>
+									<p:inputText id="txtIdBate_Bateriologo" disabled="true" binding="#{garantiaView.txtIdBate_Bateriologo}"/>
+																		<h:outputText id="msgIdClfa_ClaveFabricacion" value=" IdClfa_ClaveFabricacion"/>
+									<p:inputText id="txtIdClfa_ClaveFabricacion" disabled="true" binding="#{garantiaView.txtIdClfa_ClaveFabricacion}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{garantiaView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdCfal_Fallas" value=" IdCfal_Fallas"/>
+									<p:inputText id="txtIdCfal_Fallas" disabled="true" binding="#{garantiaView.txtIdCfal_Fallas}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{garantiaView.txtIdRefe_Referencia}"/>
+																		<h:outputText id="msgIdTiga_TipoGarantia" value=" IdTiga_TipoGarantia"/>
+									<p:inputText id="txtIdTiga_TipoGarantia" disabled="true" binding="#{garantiaView.txtIdTiga_TipoGarantia}"/>
+																		
+																													<h:outputText id="msgFechaCambio" value=" FechaCambio"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{garantiaView.txtFechaCambio}" >
+										<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaCambio}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{garantiaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{garantiaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaVenta" value=" FechaVenta"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{garantiaView.txtFechaVenta}" >
+										<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaVenta}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{garantiaView.btnSave}" value="Save" action="#{garantiaView.action_save()}" update=":dialogGarantia :frm:panelDataTableGarantia" />
+									<p:commandButton id="btnClear" value="Clear" action="#{garantiaView.action_clear()}" update=":dialogGarantia" />
+									<p:commandButton id="btnExit" value="Exit" action="#{garantiaView.action_closeDialog()}" update=":dialogGarantia" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,247 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableDocumento" header="DocumentoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{documentoView.data}" var="documento"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{documento.idDocu}" sortBy="#{documento.idDocu}" >
+										 <f:facet name="header">
+										<h:outputText value="idDocu"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idDocu}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{documento.estadoRegistro}" sortBy="#{documento.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{documento.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.fechaCreacion}" sortBy="#{documento.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{documento.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.fechaDocumento}" sortBy="#{documento.fechaDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{documento.fechaDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.fechaModificacion}" sortBy="#{documento.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{documento.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.numeroDefinitivo}" sortBy="#{documento.numeroDefinitivo}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroDefinitivo"/>
+										</f:facet>
+										 <h:outputText value="#{documento.numeroDefinitivo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.numeroDocumento}" sortBy="#{documento.numeroDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{documento.numeroDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.operCreador}" sortBy="#{documento.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{documento.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.operModifica}" sortBy="#{documento.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{documento.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.valorTotal}" sortBy="#{documento.valorTotal}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorTotal"/>
+										</f:facet>
+										 <h:outputText value="#{documento.valorTotal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idCusa_Causal}" sortBy="#{documento.idCusa_Causal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCusa_Causal"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idCusa_Causal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idCodo_ConsecutivoDocumento}" sortBy="#{documento.idCodo_ConsecutivoDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCodo_ConsecutivoDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idCodo_ConsecutivoDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idEsdo_EstadoDocumento}" sortBy="#{documento.idEsdo_EstadoDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEsdo_EstadoDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idEsdo_EstadoDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idReco_RelacionComercial}" sortBy="#{documento.idReco_RelacionComercial}" >
+										 <f:facet name="header">
+										<h:outputText value="IdReco_RelacionComercial"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idReco_RelacionComercial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idSucu_Sucursal}" sortBy="#{documento.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idSucu_Sucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idTido_TipoDocumento}" sortBy="#{documento.idTido_TipoDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTido_TipoDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idTido_TipoDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{documento.idUnve_UnidadVenta}" sortBy="#{documento.idUnve_UnidadVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnve_UnidadVenta"/>
+										</f:facet>
+										 <h:outputText value="#{documento.idUnve_UnidadVenta}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogDocumento"
+										actionListener="#{documentoView.action_edit}">
+										<f:attribute name="selectedDocumento" value="#{documento}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{documentoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedDocumento" value="#{documento}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{documentoView.action_new()}" update=":dialogDocumento" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogDocumento" appendToBody="true" draggable="true"
+						closable="false" visible="#{documentoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelDocumento" header="Documento">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdDocu" value="IdDocu"/>
+									 <p:inputText id="txtIdDocu" binding="#{documentoView.txtIdDocu}">
+									 <p:ajax update=":dialogDocumento" listener="#{documentoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{documentoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNumeroDefinitivo" value=" NumeroDefinitivo"/>
+									<p:inputText id="txtNumeroDefinitivo" disabled="true" binding="#{documentoView.txtNumeroDefinitivo}"/>
+																		<h:outputText id="msgNumeroDocumento" value=" NumeroDocumento"/>
+									<p:inputText id="txtNumeroDocumento" disabled="true" binding="#{documentoView.txtNumeroDocumento}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{documentoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{documentoView.txtOperModifica}"/>
+																		<h:outputText id="msgValorTotal" value=" ValorTotal"/>
+									<p:inputText id="txtValorTotal" disabled="true" binding="#{documentoView.txtValorTotal}"/>
+																		<h:outputText id="msgIdCusa_Causal" value=" IdCusa_Causal"/>
+									<p:inputText id="txtIdCusa_Causal" disabled="true" binding="#{documentoView.txtIdCusa_Causal}"/>
+																		<h:outputText id="msgIdCodo_ConsecutivoDocumento" value=" IdCodo_ConsecutivoDocumento"/>
+									<p:inputText id="txtIdCodo_ConsecutivoDocumento" disabled="true" binding="#{documentoView.txtIdCodo_ConsecutivoDocumento}"/>
+																		<h:outputText id="msgIdEsdo_EstadoDocumento" value=" IdEsdo_EstadoDocumento"/>
+									<p:inputText id="txtIdEsdo_EstadoDocumento" disabled="true" binding="#{documentoView.txtIdEsdo_EstadoDocumento}"/>
+																		<h:outputText id="msgIdReco_RelacionComercial" value=" IdReco_RelacionComercial"/>
+									<p:inputText id="txtIdReco_RelacionComercial" disabled="true" binding="#{documentoView.txtIdReco_RelacionComercial}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{documentoView.txtIdSucu_Sucursal}"/>
+																		<h:outputText id="msgIdTido_TipoDocumento" value=" IdTido_TipoDocumento"/>
+									<p:inputText id="txtIdTido_TipoDocumento" disabled="true" binding="#{documentoView.txtIdTido_TipoDocumento}"/>
+																		<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+									<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{documentoView.txtIdUnve_UnidadVenta}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{documentoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaDocumento" value=" FechaDocumento"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{documentoView.txtFechaDocumento}" >
+										<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaDocumento}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{documentoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{documentoView.btnSave}" value="Save" action="#{documentoView.action_save()}" update=":dialogDocumento :frm:panelDataTableDocumento" />
+									<p:commandButton id="btnClear" value="Clear" action="#{documentoView.action_clear()}" update=":dialogDocumento" />
+									<p:commandButton id="btnExit" value="Exit" action="#{documentoView.action_closeDialog()}" update=":dialogDocumento" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,271 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableGrupo" header="GrupoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{grupoView.data}" var="grupo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{grupo.idGrpo}" sortBy="#{grupo.idGrpo}" >
+										 <f:facet name="header">
+										<h:outputText value="idGrpo"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.idGrpo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{grupo.asociado}" sortBy="#{grupo.asociado}" >
+										 <f:facet name="header">
+										<h:outputText value="Asociado"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.asociado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.division}" sortBy="#{grupo.division}" >
+										 <f:facet name="header">
+										<h:outputText value="Division"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.division}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.especial}" sortBy="#{grupo.especial}" >
+										 <f:facet name="header">
+										<h:outputText value="Especial"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.especial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.estadoRegistro}" sortBy="#{grupo.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.fechaCreacion}" sortBy="#{grupo.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.fechaModificacion}" sortBy="#{grupo.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.grupo_1}" sortBy="#{grupo.grupo_1}" >
+										 <f:facet name="header">
+										<h:outputText value="Grupo_1"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.grupo_1}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.manejaOrdenCompra}" sortBy="#{grupo.manejaOrdenCompra}" >
+										 <f:facet name="header">
+										<h:outputText value="ManejaOrdenCompra"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.manejaOrdenCompra}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.margenMinimoBodega}" sortBy="#{grupo.margenMinimoBodega}" >
+										 <f:facet name="header">
+										<h:outputText value="MargenMinimoBodega"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.margenMinimoBodega}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.margenMinimoEnergiteca}" sortBy="#{grupo.margenMinimoEnergiteca}" >
+										 <f:facet name="header">
+										<h:outputText value="MargenMinimoEnergiteca"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.margenMinimoEnergiteca}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.modificaReferencia}" sortBy="#{grupo.modificaReferencia}" >
+										 <f:facet name="header">
+										<h:outputText value="ModificaReferencia"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.modificaReferencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.nombre}" sortBy="#{grupo.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.operCreador}" sortBy="#{grupo.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.operModifica}" sortBy="#{grupo.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.pideGalones}" sortBy="#{grupo.pideGalones}" >
+										 <f:facet name="header">
+										<h:outputText value="PideGalones"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.pideGalones}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.sugeridoPedido}" sortBy="#{grupo.sugeridoPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="SugeridoPedido"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.sugeridoPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.tipoNivel}" sortBy="#{grupo.tipoNivel}" >
+										 <f:facet name="header">
+										<h:outputText value="TipoNivel"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.tipoNivel}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.idFlia_Familia}" sortBy="#{grupo.idFlia_Familia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdFlia_Familia"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.idFlia_Familia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupo.idGrpo_Grupo}" sortBy="#{grupo.idGrpo_Grupo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdGrpo_Grupo"/>
+										</f:facet>
+										 <h:outputText value="#{grupo.idGrpo_Grupo}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGrupo"
+										actionListener="#{grupoView.action_edit}">
+										<f:attribute name="selectedGrupo" value="#{grupo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{grupoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGrupo" value="#{grupo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{grupoView.action_new()}" update=":dialogGrupo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGrupo" appendToBody="true" draggable="true"
+						closable="false" visible="#{grupoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelGrupo" header="Grupo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdGrpo" value="IdGrpo"/>
+									 <p:inputText id="txtIdGrpo" binding="#{grupoView.txtIdGrpo}">
+									 <p:ajax update=":dialogGrupo" listener="#{grupoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAsociado" value=" Asociado"/>
+									<p:inputText id="txtAsociado" disabled="true" binding="#{grupoView.txtAsociado}"/>
+																		<h:outputText id="msgDivision" value=" Division"/>
+									<p:inputText id="txtDivision" disabled="true" binding="#{grupoView.txtDivision}"/>
+																		<h:outputText id="msgEspecial" value=" Especial"/>
+									<p:inputText id="txtEspecial" disabled="true" binding="#{grupoView.txtEspecial}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{grupoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgGrupo_1" value=" Grupo_1"/>
+									<p:inputText id="txtGrupo_1" disabled="true" binding="#{grupoView.txtGrupo_1}"/>
+																		<h:outputText id="msgManejaOrdenCompra" value=" ManejaOrdenCompra"/>
+									<p:inputText id="txtManejaOrdenCompra" disabled="true" binding="#{grupoView.txtManejaOrdenCompra}"/>
+																		<h:outputText id="msgMargenMinimoBodega" value=" MargenMinimoBodega"/>
+									<p:inputText id="txtMargenMinimoBodega" disabled="true" binding="#{grupoView.txtMargenMinimoBodega}"/>
+																		<h:outputText id="msgMargenMinimoEnergiteca" value=" MargenMinimoEnergiteca"/>
+									<p:inputText id="txtMargenMinimoEnergiteca" disabled="true" binding="#{grupoView.txtMargenMinimoEnergiteca}"/>
+																		<h:outputText id="msgModificaReferencia" value=" ModificaReferencia"/>
+									<p:inputText id="txtModificaReferencia" disabled="true" binding="#{grupoView.txtModificaReferencia}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{grupoView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{grupoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{grupoView.txtOperModifica}"/>
+																		<h:outputText id="msgPideGalones" value=" PideGalones"/>
+									<p:inputText id="txtPideGalones" disabled="true" binding="#{grupoView.txtPideGalones}"/>
+																		<h:outputText id="msgSugeridoPedido" value=" SugeridoPedido"/>
+									<p:inputText id="txtSugeridoPedido" disabled="true" binding="#{grupoView.txtSugeridoPedido}"/>
+																		<h:outputText id="msgTipoNivel" value=" TipoNivel"/>
+									<p:inputText id="txtTipoNivel" disabled="true" binding="#{grupoView.txtTipoNivel}"/>
+																		<h:outputText id="msgIdFlia_Familia" value=" IdFlia_Familia"/>
+									<p:inputText id="txtIdFlia_Familia" disabled="true" binding="#{grupoView.txtIdFlia_Familia}"/>
+																		<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+									<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{grupoView.txtIdGrpo_Grupo}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{grupoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{grupoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{grupoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{grupoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{grupoView.btnSave}" value="Save" action="#{grupoView.action_save()}" update=":dialogGrupo :frm:panelDataTableGrupo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{grupoView.action_clear()}" update=":dialogGrupo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{grupoView.action_closeDialog()}" update=":dialogGrupo" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

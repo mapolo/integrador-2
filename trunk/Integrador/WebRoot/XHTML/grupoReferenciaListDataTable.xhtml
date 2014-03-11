@@ -1,0 +1,184 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableGrupoReferencia" header="GrupoReferenciaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{grupoReferenciaView.data}" var="grupoReferencia"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{grupoReferencia.idGrre}" sortBy="#{grupoReferencia.idGrre}" >
+										 <f:facet name="header">
+										<h:outputText value="idGrre"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.idGrre}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{grupoReferencia.activo}" sortBy="#{grupoReferencia.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.estadoRegistro}" sortBy="#{grupoReferencia.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.fechaCreacion}" sortBy="#{grupoReferencia.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.fechaInactivo}" sortBy="#{grupoReferencia.fechaInactivo}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInactivo"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.fechaInactivo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.fechaModificacion}" sortBy="#{grupoReferencia.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.operCreador}" sortBy="#{grupoReferencia.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.operModifica}" sortBy="#{grupoReferencia.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.idGrpo_Grupo}" sortBy="#{grupoReferencia.idGrpo_Grupo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdGrpo_Grupo"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.idGrpo_Grupo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{grupoReferencia.idRefe_Referencia}" sortBy="#{grupoReferencia.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{grupoReferencia.idRefe_Referencia}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogGrupoReferencia"
+										actionListener="#{grupoReferenciaView.action_edit}">
+										<f:attribute name="selectedGrupoReferencia" value="#{grupoReferencia}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{grupoReferenciaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedGrupoReferencia" value="#{grupoReferencia}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{grupoReferenciaView.action_new()}" update=":dialogGrupoReferencia" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogGrupoReferencia" appendToBody="true" draggable="true"
+						closable="false" visible="#{grupoReferenciaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelGrupoReferencia" header="GrupoReferencia">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdGrre" value="IdGrre"/>
+									 <p:inputText id="txtIdGrre" binding="#{grupoReferenciaView.txtIdGrre}">
+									 <p:ajax update=":dialogGrupoReferencia" listener="#{grupoReferenciaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{grupoReferenciaView.txtActivo}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{grupoReferenciaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{grupoReferenciaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{grupoReferenciaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+									<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{grupoReferenciaView.txtIdGrpo_Grupo}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{grupoReferenciaView.txtIdRefe_Referencia}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{grupoReferenciaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{grupoReferenciaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInactivo" value=" FechaInactivo"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{grupoReferenciaView.txtFechaInactivo}" >
+										<p:ajax event="dateSelect" listener="#{grupoReferenciaView.listener_txtFechaInactivo}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{grupoReferenciaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{grupoReferenciaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{grupoReferenciaView.btnSave}" value="Save" action="#{grupoReferenciaView.action_save()}" update=":dialogGrupoReferencia :frm:panelDataTableGrupoReferencia" />
+									<p:commandButton id="btnClear" value="Clear" action="#{grupoReferenciaView.action_clear()}" update=":dialogGrupoReferencia" />
+									<p:commandButton id="btnExit" value="Exit" action="#{grupoReferenciaView.action_closeDialog()}" update=":dialogGrupoReferencia" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

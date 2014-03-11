@@ -1,0 +1,316 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head> 
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+	
+    <h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+			
+			<ui:define name="body">	
+			<f:view>
+		<h:form>
+			
+			<!-- Crud -->
+			<!--<p:dialog width="600" height="600" widgetVar="crud"
+				header="Welcome to Zathura with PrimeFaces" showEffect="explode" hideEffect="explode">
+
+				<div align="center">
+					<h:panelGrid columns="3">
+					 					<h:link outcome="goAtencionVendedor" value="AtencionVendedor" style="color:blue;" />	
+										<h:link outcome="goBanco" value="Banco" style="color:blue;" />	
+										<h:link outcome="goBateriologo" value="Bateriologo" style="color:blue;" />	
+										<h:link outcome="goCamposParametrizables" value="CamposParametrizables" style="color:blue;" />	
+										<h:link outcome="goCartera" value="Cartera" style="color:blue;" />	
+										<h:link outcome="goCausal" value="Causal" style="color:blue;" />	
+										<h:link outcome="goChequePosfechado" value="ChequePosfechado" style="color:blue;" />	
+										<h:link outcome="goClaveFabricacion" value="ClaveFabricacion" style="color:blue;" />	
+										<h:link outcome="goClavesParaRotar" value="ClavesParaRotar" style="color:blue;" />	
+										<h:link outcome="goCliente" value="Cliente" style="color:blue;" />	
+										<h:link outcome="goCompania" value="Compania" style="color:blue;" />	
+										<h:link outcome="goConceptoRecibo" value="ConceptoRecibo" style="color:blue;" />	
+										<h:link outcome="goConfSemanasAno" value="ConfSemanasAno" style="color:blue;" />	
+										<h:link outcome="goConsecutivoDocumento" value="ConsecutivoDocumento" style="color:blue;" />	
+										<h:link outcome="goContacto" value="Contacto" style="color:blue;" />	
+										<h:link outcome="goCruce" value="Cruce" style="color:blue;" />	
+										<h:link outcome="goDescuentoComercial" value="DescuentoComercial" style="color:blue;" />	
+										<h:link outcome="goDescuentoFinanciero" value="DescuentoFinanciero" style="color:blue;" />	
+										<h:link outcome="goDetalleVisita" value="DetalleVisita" style="color:blue;" />	
+										<h:link outcome="goDiasSemana" value="DiasSemana" style="color:blue;" />	
+										<h:link outcome="goDistribucionCartera" value="DistribucionCartera" style="color:blue;" />	
+										<h:link outcome="goDivisionPolitica" value="DivisionPolitica" style="color:blue;" />	
+										<h:link outcome="goDocumento" value="Documento" style="color:blue;" />	
+										<h:link outcome="goEmpresa" value="Empresa" style="color:blue;" />	
+										<h:link outcome="goEstadoDocumento" value="EstadoDocumento" style="color:blue;" />	
+										<h:link outcome="goFallas" value="Fallas" style="color:blue;" />	
+										<h:link outcome="goFamilia" value="Familia" style="color:blue;" />	
+										<h:link outcome="goFrecuenciaSemana" value="FrecuenciaSemana" style="color:blue;" />	
+										<h:link outcome="goFrecuenciaVisita" value="FrecuenciaVisita" style="color:blue;" />	
+										<h:link outcome="goGarantia" value="Garantia" style="color:blue;" />	
+										<h:link outcome="goGrupo" value="Grupo" style="color:blue;" />	
+										<h:link outcome="goGrupoReferencia" value="GrupoReferencia" style="color:blue;" />	
+										<h:link outcome="goItemLogisticaReversiva" value="ItemLogisticaReversiva" style="color:blue;" />	
+										<h:link outcome="goItemRotacion" value="ItemRotacion" style="color:blue;" />	
+										<h:link outcome="goListaPrecios" value="ListaPrecios" style="color:blue;" />	
+										<h:link outcome="goListaPreciosEspeciales" value="ListaPreciosEspeciales" style="color:blue;" />	
+										<h:link outcome="goLogisticaReversiva" value="LogisticaReversiva" style="color:blue;" />	
+										<h:link outcome="goMovimientoInventario" value="MovimientoInventario" style="color:blue;" />	
+										<h:link outcome="goMovimientoVendedor" value="MovimientoVendedor" style="color:blue;" />	
+										<h:link outcome="goMultifamilia" value="Multifamilia" style="color:blue;" />	
+										<h:link outcome="goOrdenesDeCompra" value="OrdenesDeCompra" style="color:blue;" />	
+										<h:link outcome="goPedido" value="Pedido" style="color:blue;" />	
+										<h:link outcome="goPeriodoGarantia" value="PeriodoGarantia" style="color:blue;" />	
+										<h:link outcome="goPersona" value="Persona" style="color:blue;" />	
+										<h:link outcome="goPresupuestoCartera" value="PresupuestoCartera" style="color:blue;" />	
+										<h:link outcome="goPresupuestoVentas" value="PresupuestoVentas" style="color:blue;" />	
+										<h:link outcome="goProgramacionAdicional" value="ProgramacionAdicional" style="color:blue;" />	
+										<h:link outcome="goProgramacionVisitas" value="ProgramacionVisitas" style="color:blue;" />	
+										<h:link outcome="goPronosticoVenta" value="PronosticoVenta" style="color:blue;" />	
+										<h:link outcome="goProveedor" value="Proveedor" style="color:blue;" />	
+										<h:link outcome="goRboDetalleDocumentos" value="RboDetalleDocumentos" style="color:blue;" />	
+										<h:link outcome="goRboDetalleFormasPago" value="RboDetalleFormasPago" style="color:blue;" />	
+										<h:link outcome="goRecibo" value="Recibo" style="color:blue;" />	
+										<h:link outcome="goReferencia" value="Referencia" style="color:blue;" />	
+										<h:link outcome="goReferenciaSucursal" value="ReferenciaSucursal" style="color:blue;" />	
+										<h:link outcome="goRegionalGeografica" value="RegionalGeografica" style="color:blue;" />	
+										<h:link outcome="goRelacionComercial" value="RelacionComercial" style="color:blue;" />	
+										<h:link outcome="goRutaDistribucion" value="RutaDistribucion" style="color:blue;" />	
+										<h:link outcome="goRutaRelacionComercial" value="RutaRelacionComercial" style="color:blue;" />	
+										<h:link outcome="goSaldoInicialInventario" value="SaldoInicialInventario" style="color:blue;" />	
+										<h:link outcome="goSemana" value="Semana" style="color:blue;" />	
+										<h:link outcome="goSolicitudCambio" value="SolicitudCambio" style="color:blue;" />	
+										<h:link outcome="goSolicitudCampo" value="SolicitudCampo" style="color:blue;" />	
+										<h:link outcome="goStockInventarioMensual" value="StockInventarioMensual" style="color:blue;" />	
+										<h:link outcome="goSucursal" value="Sucursal" style="color:blue;" />	
+										<h:link outcome="goTabla" value="Tabla" style="color:blue;" />	
+										<h:link outcome="goTipoCartera" value="TipoCartera" style="color:blue;" />	
+										<h:link outcome="goTipoCausal" value="TipoCausal" style="color:blue;" />	
+										<h:link outcome="goTipoContacto" value="TipoContacto" style="color:blue;" />	
+										<h:link outcome="goTipoDivision" value="TipoDivision" style="color:blue;" />	
+										<h:link outcome="goTipoDocumento" value="TipoDocumento" style="color:blue;" />	
+										<h:link outcome="goTipoFormaPago" value="TipoFormaPago" style="color:blue;" />	
+										<h:link outcome="goTipoGarantia" value="TipoGarantia" style="color:blue;" />	
+										<h:link outcome="goTipoIdentificacion" value="TipoIdentificacion" style="color:blue;" />	
+										<h:link outcome="goTipoLista" value="TipoLista" style="color:blue;" />	
+										<h:link outcome="goTipoSucursal" value="TipoSucursal" style="color:blue;" />	
+										<h:link outcome="goUnidadNegocio" value="UnidadNegocio" style="color:blue;" />	
+										<h:link outcome="goUnidadVenta" value="UnidadVenta" style="color:blue;" />	
+										<h:link outcome="goVendedor" value="Vendedor" style="color:blue;" />	
+										<h:link outcome="goVisita" value="Visita" style="color:blue;" />	
+										</h:panelGrid>
+				</div>
+			</p:dialog>-->
+			
+			<!-- table -->
+			<p:dialog width="600" height="600" widgetVar="table"
+				header="Welcome to Zathura with PrimeFaces" showEffect="explode" hideEffect="explode">
+			
+			<div align="center">	
+			   <h:panelGrid columns="3">
+				  				  <h:link outcome="goAtencionVendedorListDataTable" value="AtencionVendedor-Data" style="color:blue;" />
+				  				  <h:link outcome="goBancoListDataTable" value="Banco-Data" style="color:blue;" />
+				  				  <h:link outcome="goBateriologoListDataTable" value="Bateriologo-Data" style="color:blue;" />
+				  				  <h:link outcome="goCamposParametrizablesListDataTable" value="CamposParametrizables-Data" style="color:blue;" />
+				  				  <h:link outcome="goCarteraListDataTable" value="Cartera-Data" style="color:blue;" />
+				  				  <h:link outcome="goCausalListDataTable" value="Causal-Data" style="color:blue;" />
+				  				  <h:link outcome="goChequePosfechadoListDataTable" value="ChequePosfechado-Data" style="color:blue;" />
+				  				  <h:link outcome="goClaveFabricacionListDataTable" value="ClaveFabricacion-Data" style="color:blue;" />
+				  				  <h:link outcome="goClavesParaRotarListDataTable" value="ClavesParaRotar-Data" style="color:blue;" />
+				  				  <h:link outcome="goClienteListDataTable" value="Cliente-Data" style="color:blue;" />
+				  				  <h:link outcome="goCompaniaListDataTable" value="Compania-Data" style="color:blue;" />
+				  				  <h:link outcome="goConceptoReciboListDataTable" value="ConceptoRecibo-Data" style="color:blue;" />
+				  				  <h:link outcome="goConfSemanasAnoListDataTable" value="ConfSemanasAno-Data" style="color:blue;" />
+				  				  <h:link outcome="goConsecutivoDocumentoListDataTable" value="ConsecutivoDocumento-Data" style="color:blue;" />
+				  				  <h:link outcome="goContactoListDataTable" value="Contacto-Data" style="color:blue;" />
+				  				  <h:link outcome="goCruceListDataTable" value="Cruce-Data" style="color:blue;" />
+				  				  <h:link outcome="goDescuentoComercialListDataTable" value="DescuentoComercial-Data" style="color:blue;" />
+				  				  <h:link outcome="goDescuentoFinancieroListDataTable" value="DescuentoFinanciero-Data" style="color:blue;" />
+				  				  <h:link outcome="goDetalleVisitaListDataTable" value="DetalleVisita-Data" style="color:blue;" />
+				  				  <h:link outcome="goDiasSemanaListDataTable" value="DiasSemana-Data" style="color:blue;" />
+				  				  <h:link outcome="goDistribucionCarteraListDataTable" value="DistribucionCartera-Data" style="color:blue;" />
+				  				  <h:link outcome="goDivisionPoliticaListDataTable" value="DivisionPolitica-Data" style="color:blue;" />
+				  				  <h:link outcome="goDocumentoListDataTable" value="Documento-Data" style="color:blue;" />
+				  				  <h:link outcome="goEmpresaListDataTable" value="Empresa-Data" style="color:blue;" />
+				  				  <h:link outcome="goEstadoDocumentoListDataTable" value="EstadoDocumento-Data" style="color:blue;" />
+				  				  <h:link outcome="goFallasListDataTable" value="Fallas-Data" style="color:blue;" />
+				  				  <h:link outcome="goFamiliaListDataTable" value="Familia-Data" style="color:blue;" />
+				  				  <h:link outcome="goFrecuenciaSemanaListDataTable" value="FrecuenciaSemana-Data" style="color:blue;" />
+				  				  <h:link outcome="goFrecuenciaVisitaListDataTable" value="FrecuenciaVisita-Data" style="color:blue;" />
+				  				  <h:link outcome="goGarantiaListDataTable" value="Garantia-Data" style="color:blue;" />
+				  				  <h:link outcome="goGrupoListDataTable" value="Grupo-Data" style="color:blue;" />
+				  				  <h:link outcome="goGrupoReferenciaListDataTable" value="GrupoReferencia-Data" style="color:blue;" />
+				  				  <h:link outcome="goItemLogisticaReversivaListDataTable" value="ItemLogisticaReversiva-Data" style="color:blue;" />
+				  				  <h:link outcome="goItemRotacionListDataTable" value="ItemRotacion-Data" style="color:blue;" />
+				  				  <h:link outcome="goListaPreciosListDataTable" value="ListaPrecios-Data" style="color:blue;" />
+				  				  <h:link outcome="goListaPreciosEspecialesListDataTable" value="ListaPreciosEspeciales-Data" style="color:blue;" />
+				  				  <h:link outcome="goLogisticaReversivaListDataTable" value="LogisticaReversiva-Data" style="color:blue;" />
+				  				  <h:link outcome="goMovimientoInventarioListDataTable" value="MovimientoInventario-Data" style="color:blue;" />
+				  				  <h:link outcome="goMovimientoVendedorListDataTable" value="MovimientoVendedor-Data" style="color:blue;" />
+				  				  <h:link outcome="goMultifamiliaListDataTable" value="Multifamilia-Data" style="color:blue;" />
+				  				  <h:link outcome="goOrdenesDeCompraListDataTable" value="OrdenesDeCompra-Data" style="color:blue;" />
+				  				  <h:link outcome="goPedidoListDataTable" value="Pedido-Data" style="color:blue;" />
+				  				  <h:link outcome="goPeriodoGarantiaListDataTable" value="PeriodoGarantia-Data" style="color:blue;" />
+				  				  <h:link outcome="goPersonaListDataTable" value="Persona-Data" style="color:blue;" />
+				  				  <h:link outcome="goPresupuestoCarteraListDataTable" value="PresupuestoCartera-Data" style="color:blue;" />
+				  				  <h:link outcome="goPresupuestoVentasListDataTable" value="PresupuestoVentas-Data" style="color:blue;" />
+				  				  <h:link outcome="goProgramacionAdicionalListDataTable" value="ProgramacionAdicional-Data" style="color:blue;" />
+				  				  <h:link outcome="goProgramacionVisitasListDataTable" value="ProgramacionVisitas-Data" style="color:blue;" />
+				  				  <h:link outcome="goPronosticoVentaListDataTable" value="PronosticoVenta-Data" style="color:blue;" />
+				  				  <h:link outcome="goProveedorListDataTable" value="Proveedor-Data" style="color:blue;" />
+				  				  <h:link outcome="goRboDetalleDocumentosListDataTable" value="RboDetalleDocumentos-Data" style="color:blue;" />
+				  				  <h:link outcome="goRboDetalleFormasPagoListDataTable" value="RboDetalleFormasPago-Data" style="color:blue;" />
+				  				  <h:link outcome="goReciboListDataTable" value="Recibo-Data" style="color:blue;" />
+				  				  <h:link outcome="goReferenciaListDataTable" value="Referencia-Data" style="color:blue;" />
+				  				  <h:link outcome="goReferenciaSucursalListDataTable" value="ReferenciaSucursal-Data" style="color:blue;" />
+				  				  <h:link outcome="goRegionalGeograficaListDataTable" value="RegionalGeografica-Data" style="color:blue;" />
+				  				  <h:link outcome="goRelacionComercialListDataTable" value="RelacionComercial-Data" style="color:blue;" />
+				  				  <h:link outcome="goRutaDistribucionListDataTable" value="RutaDistribucion-Data" style="color:blue;" />
+				  				  <h:link outcome="goRutaRelacionComercialListDataTable" value="RutaRelacionComercial-Data" style="color:blue;" />
+				  				  <h:link outcome="goSaldoInicialInventarioListDataTable" value="SaldoInicialInventario-Data" style="color:blue;" />
+				  				  <h:link outcome="goSemanaListDataTable" value="Semana-Data" style="color:blue;" />
+				  				  <h:link outcome="goSolicitudCambioListDataTable" value="SolicitudCambio-Data" style="color:blue;" />
+				  				  <h:link outcome="goSolicitudCampoListDataTable" value="SolicitudCampo-Data" style="color:blue;" />
+				  				  <h:link outcome="goStockInventarioMensualListDataTable" value="StockInventarioMensual-Data" style="color:blue;" />
+				  				  <h:link outcome="goSucursalListDataTable" value="Sucursal-Data" style="color:blue;" />
+				  				  <h:link outcome="goTablaListDataTable" value="Tabla-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoCarteraListDataTable" value="TipoCartera-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoCausalListDataTable" value="TipoCausal-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoContactoListDataTable" value="TipoContacto-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoDivisionListDataTable" value="TipoDivision-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoDocumentoListDataTable" value="TipoDocumento-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoFormaPagoListDataTable" value="TipoFormaPago-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoGarantiaListDataTable" value="TipoGarantia-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoIdentificacionListDataTable" value="TipoIdentificacion-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoListaListDataTable" value="TipoLista-Data" style="color:blue;" />
+				  				  <h:link outcome="goTipoSucursalListDataTable" value="TipoSucursal-Data" style="color:blue;" />
+				  				  <h:link outcome="goUnidadNegocioListDataTable" value="UnidadNegocio-Data" style="color:blue;" />
+				  				  <h:link outcome="goUnidadVentaListDataTable" value="UnidadVenta-Data" style="color:blue;" />
+				  				  <h:link outcome="goVendedorListDataTable" value="Vendedor-Data" style="color:blue;" />
+				  				  <h:link outcome="goVisitaListDataTable" value="Visita-Data" style="color:blue;" />
+				  				</h:panelGrid>
+				
+			</div>	
+			</p:dialog>	
+			
+			<!-- TableEditable -->
+			<!--<p:dialog width="600" height="600" widgetVar="tableEditable"
+				header="Welcome to Zathura with PrimeFaces" showEffect="explode" hideEffect="explode">
+			
+			<div align="center">
+				<h:panelGrid columns="3">
+				  				  <h:link outcome="goAtencionVendedorListDataTableEditable" value="AtencionVendedor-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goBancoListDataTableEditable" value="Banco-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goBateriologoListDataTableEditable" value="Bateriologo-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goCamposParametrizablesListDataTableEditable" value="CamposParametrizables-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goCarteraListDataTableEditable" value="Cartera-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goCausalListDataTableEditable" value="Causal-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goChequePosfechadoListDataTableEditable" value="ChequePosfechado-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goClaveFabricacionListDataTableEditable" value="ClaveFabricacion-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goClavesParaRotarListDataTableEditable" value="ClavesParaRotar-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goClienteListDataTableEditable" value="Cliente-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goCompaniaListDataTableEditable" value="Compania-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goConceptoReciboListDataTableEditable" value="ConceptoRecibo-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goConfSemanasAnoListDataTableEditable" value="ConfSemanasAno-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goConsecutivoDocumentoListDataTableEditable" value="ConsecutivoDocumento-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goContactoListDataTableEditable" value="Contacto-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goCruceListDataTableEditable" value="Cruce-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDescuentoComercialListDataTableEditable" value="DescuentoComercial-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDescuentoFinancieroListDataTableEditable" value="DescuentoFinanciero-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDetalleVisitaListDataTableEditable" value="DetalleVisita-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDiasSemanaListDataTableEditable" value="DiasSemana-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDistribucionCarteraListDataTableEditable" value="DistribucionCartera-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDivisionPoliticaListDataTableEditable" value="DivisionPolitica-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goDocumentoListDataTableEditable" value="Documento-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goEmpresaListDataTableEditable" value="Empresa-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goEstadoDocumentoListDataTableEditable" value="EstadoDocumento-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goFallasListDataTableEditable" value="Fallas-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goFamiliaListDataTableEditable" value="Familia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goFrecuenciaSemanaListDataTableEditable" value="FrecuenciaSemana-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goFrecuenciaVisitaListDataTableEditable" value="FrecuenciaVisita-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goGarantiaListDataTableEditable" value="Garantia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goGrupoListDataTableEditable" value="Grupo-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goGrupoReferenciaListDataTableEditable" value="GrupoReferencia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goItemLogisticaReversivaListDataTableEditable" value="ItemLogisticaReversiva-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goItemRotacionListDataTableEditable" value="ItemRotacion-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goListaPreciosListDataTableEditable" value="ListaPrecios-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goListaPreciosEspecialesListDataTableEditable" value="ListaPreciosEspeciales-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goLogisticaReversivaListDataTableEditable" value="LogisticaReversiva-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goMovimientoInventarioListDataTableEditable" value="MovimientoInventario-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goMovimientoVendedorListDataTableEditable" value="MovimientoVendedor-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goMultifamiliaListDataTableEditable" value="Multifamilia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goOrdenesDeCompraListDataTableEditable" value="OrdenesDeCompra-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPedidoListDataTableEditable" value="Pedido-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPeriodoGarantiaListDataTableEditable" value="PeriodoGarantia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPersonaListDataTableEditable" value="Persona-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPresupuestoCarteraListDataTableEditable" value="PresupuestoCartera-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPresupuestoVentasListDataTableEditable" value="PresupuestoVentas-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goProgramacionAdicionalListDataTableEditable" value="ProgramacionAdicional-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goProgramacionVisitasListDataTableEditable" value="ProgramacionVisitas-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goPronosticoVentaListDataTableEditable" value="PronosticoVenta-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goProveedorListDataTableEditable" value="Proveedor-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRboDetalleDocumentosListDataTableEditable" value="RboDetalleDocumentos-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRboDetalleFormasPagoListDataTableEditable" value="RboDetalleFormasPago-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goReciboListDataTableEditable" value="Recibo-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goReferenciaListDataTableEditable" value="Referencia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goReferenciaSucursalListDataTableEditable" value="ReferenciaSucursal-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRegionalGeograficaListDataTableEditable" value="RegionalGeografica-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRelacionComercialListDataTableEditable" value="RelacionComercial-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRutaDistribucionListDataTableEditable" value="RutaDistribucion-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goRutaRelacionComercialListDataTableEditable" value="RutaRelacionComercial-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goSaldoInicialInventarioListDataTableEditable" value="SaldoInicialInventario-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goSemanaListDataTableEditable" value="Semana-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goSolicitudCambioListDataTableEditable" value="SolicitudCambio-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goSolicitudCampoListDataTableEditable" value="SolicitudCampo-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goStockInventarioMensualListDataTableEditable" value="StockInventarioMensual-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goSucursalListDataTableEditable" value="Sucursal-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTablaListDataTableEditable" value="Tabla-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoCarteraListDataTableEditable" value="TipoCartera-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoCausalListDataTableEditable" value="TipoCausal-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoContactoListDataTableEditable" value="TipoContacto-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoDivisionListDataTableEditable" value="TipoDivision-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoDocumentoListDataTableEditable" value="TipoDocumento-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoFormaPagoListDataTableEditable" value="TipoFormaPago-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoGarantiaListDataTableEditable" value="TipoGarantia-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoIdentificacionListDataTableEditable" value="TipoIdentificacion-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoListaListDataTableEditable" value="TipoLista-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goTipoSucursalListDataTableEditable" value="TipoSucursal-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goUnidadNegocioListDataTableEditable" value="UnidadNegocio-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goUnidadVentaListDataTableEditable" value="UnidadVenta-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goVendedorListDataTableEditable" value="Vendedor-Data-Editable" style="color:blue;" />
+				  				  <h:link outcome="goVisitaListDataTableEditable" value="Visita-Data-Editable" style="color:blue;" />
+				  				</h:panelGrid>	
+			</div>	
+			</p:dialog>	-->
+			
+			<!-- cambiar las rutas de las imagenes -->
+			<p:stack icon="/images/home.png">
+				<!--<p:menuitem value="Crud" icon="/images/crud.png"
+					onclick="crud.show();" oncomplete="table.hide();tableEditable.hide();" />-->
+				<p:menuitem value="DataTable" icon="/images/dataTable.png"
+					onclick="table.show();" oncomplete="crud.hide();tableEditable.hide();" />
+				<!--<p:menuitem value="DataTableEditable" icon="/images/dataTableEditable.png" onclick="tableEditable.show();" oncomplete="table.hide();crud.hide();"/>-->
+			</p:stack>
+
+			
+		</h:form>
+          </f:view>
+	    </ui:define>    
+		
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footerInitialMenu.jspx" />
+	   </ui:define>		
+			
+   </ui:composition>	
+	</h:body>
+									
+ </html>
+

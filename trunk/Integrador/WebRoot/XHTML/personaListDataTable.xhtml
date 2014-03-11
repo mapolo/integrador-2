@@ -1,0 +1,271 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTablePersona" header="PersonaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{personaView.data}" var="persona"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{persona.idPers}" sortBy="#{persona.idPers}" >
+										 <f:facet name="header">
+										<h:outputText value="idPers"/>
+										</f:facet>
+										 <h:outputText value="#{persona.idPers}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{persona.apartadoAereo}" sortBy="#{persona.apartadoAereo}" >
+										 <f:facet name="header">
+										<h:outputText value="ApartadoAereo"/>
+										</f:facet>
+										 <h:outputText value="#{persona.apartadoAereo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.digitoVerificacion}" sortBy="#{persona.digitoVerificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="DigitoVerificacion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.digitoVerificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.direccion}" sortBy="#{persona.direccion}" >
+										 <f:facet name="header">
+										<h:outputText value="Direccion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.direccion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.email}" sortBy="#{persona.email}" >
+										 <f:facet name="header">
+										<h:outputText value="Email"/>
+										</f:facet>
+										 <h:outputText value="#{persona.email}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.estadoPersona}" sortBy="#{persona.estadoPersona}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoPersona"/>
+										</f:facet>
+										 <h:outputText value="#{persona.estadoPersona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.estadoRegistro}" sortBy="#{persona.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{persona.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.fechaCreacion}" sortBy="#{persona.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.fechaModificacion}" sortBy="#{persona.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.identificacion}" sortBy="#{persona.identificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Identificacion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.identificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.operCreador}" sortBy="#{persona.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{persona.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.operModifica}" sortBy="#{persona.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{persona.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.primerApellido}" sortBy="#{persona.primerApellido}" >
+										 <f:facet name="header">
+										<h:outputText value="PrimerApellido"/>
+										</f:facet>
+										 <h:outputText value="#{persona.primerApellido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.primerNombre}" sortBy="#{persona.primerNombre}" >
+										 <f:facet name="header">
+										<h:outputText value="PrimerNombre"/>
+										</f:facet>
+										 <h:outputText value="#{persona.primerNombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.segundoApellido}" sortBy="#{persona.segundoApellido}" >
+										 <f:facet name="header">
+										<h:outputText value="SegundoApellido"/>
+										</f:facet>
+										 <h:outputText value="#{persona.segundoApellido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.segundoNombre}" sortBy="#{persona.segundoNombre}" >
+										 <f:facet name="header">
+										<h:outputText value="SegundoNombre"/>
+										</f:facet>
+										 <h:outputText value="#{persona.segundoNombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.telefono1}" sortBy="#{persona.telefono1}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono1"/>
+										</f:facet>
+										 <h:outputText value="#{persona.telefono1}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.telefono2}" sortBy="#{persona.telefono2}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono2"/>
+										</f:facet>
+										 <h:outputText value="#{persona.telefono2}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.idDipo_DivisionPolitica}" sortBy="#{persona.idDipo_DivisionPolitica}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDipo_DivisionPolitica"/>
+										</f:facet>
+										 <h:outputText value="#{persona.idDipo_DivisionPolitica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{persona.idTiid_TipoIdentificacion}" sortBy="#{persona.idTiid_TipoIdentificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTiid_TipoIdentificacion"/>
+										</f:facet>
+										 <h:outputText value="#{persona.idTiid_TipoIdentificacion}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogPersona"
+										actionListener="#{personaView.action_edit}">
+										<f:attribute name="selectedPersona" value="#{persona}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{personaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedPersona" value="#{persona}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{personaView.action_new()}" update=":dialogPersona" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogPersona" appendToBody="true" draggable="true"
+						closable="false" visible="#{personaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelPersona" header="Persona">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPers" value="IdPers"/>
+									 <p:inputText id="txtIdPers" binding="#{personaView.txtIdPers}">
+									 <p:ajax update=":dialogPersona" listener="#{personaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgApartadoAereo" value=" ApartadoAereo"/>
+									<p:inputText id="txtApartadoAereo" disabled="true" binding="#{personaView.txtApartadoAereo}"/>
+																		<h:outputText id="msgDigitoVerificacion" value=" DigitoVerificacion"/>
+									<p:inputText id="txtDigitoVerificacion" disabled="true" binding="#{personaView.txtDigitoVerificacion}"/>
+																		<h:outputText id="msgDireccion" value=" Direccion"/>
+									<p:inputText id="txtDireccion" disabled="true" binding="#{personaView.txtDireccion}"/>
+																		<h:outputText id="msgEmail" value=" Email"/>
+									<p:inputText id="txtEmail" disabled="true" binding="#{personaView.txtEmail}"/>
+																		<h:outputText id="msgEstadoPersona" value=" EstadoPersona"/>
+									<p:inputText id="txtEstadoPersona" disabled="true" binding="#{personaView.txtEstadoPersona}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{personaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgIdentificacion" value=" Identificacion"/>
+									<p:inputText id="txtIdentificacion" disabled="true" binding="#{personaView.txtIdentificacion}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{personaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{personaView.txtOperModifica}"/>
+																		<h:outputText id="msgPrimerApellido" value=" PrimerApellido"/>
+									<p:inputText id="txtPrimerApellido" disabled="true" binding="#{personaView.txtPrimerApellido}"/>
+																		<h:outputText id="msgPrimerNombre" value=" PrimerNombre"/>
+									<p:inputText id="txtPrimerNombre" disabled="true" binding="#{personaView.txtPrimerNombre}"/>
+																		<h:outputText id="msgSegundoApellido" value=" SegundoApellido"/>
+									<p:inputText id="txtSegundoApellido" disabled="true" binding="#{personaView.txtSegundoApellido}"/>
+																		<h:outputText id="msgSegundoNombre" value=" SegundoNombre"/>
+									<p:inputText id="txtSegundoNombre" disabled="true" binding="#{personaView.txtSegundoNombre}"/>
+																		<h:outputText id="msgTelefono1" value=" Telefono1"/>
+									<p:inputText id="txtTelefono1" disabled="true" binding="#{personaView.txtTelefono1}"/>
+																		<h:outputText id="msgTelefono2" value=" Telefono2"/>
+									<p:inputText id="txtTelefono2" disabled="true" binding="#{personaView.txtTelefono2}"/>
+																		<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+									<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{personaView.txtIdDipo_DivisionPolitica}"/>
+																		<h:outputText id="msgIdTiid_TipoIdentificacion" value=" IdTiid_TipoIdentificacion"/>
+									<p:inputText id="txtIdTiid_TipoIdentificacion" disabled="true" binding="#{personaView.txtIdTiid_TipoIdentificacion}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{personaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{personaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{personaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{personaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{personaView.btnSave}" value="Save" action="#{personaView.action_save()}" update=":dialogPersona :frm:panelDataTablePersona" />
+									<p:commandButton id="btnClear" value="Clear" action="#{personaView.action_clear()}" update=":dialogPersona" />
+									<p:commandButton id="btnExit" value="Exit" action="#{personaView.action_closeDialog()}" update=":dialogPersona" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

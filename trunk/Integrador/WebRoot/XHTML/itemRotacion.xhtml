@@ -1,0 +1,133 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectItemRotacionTitle" header="ItemRotacion" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}" value="If(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}"/>
+						 <p:inputText id="txtIf(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}" binding="#{itemRotacionView.txtIf(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{itemRotacionView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgAutorizado" value=" Autorizado"/>
+						<p:inputText id="txtAutorizado" disabled="true" binding="#{itemRotacionView.txtAutorizado}"/>
+												<h:outputText id="msgCantidadCambio" value=" CantidadCambio"/>
+						<p:inputText id="txtCantidadCambio" disabled="true" binding="#{itemRotacionView.txtCantidadCambio}"/>
+												<h:outputText id="msgCantidadOrdenada" value=" CantidadOrdenada"/>
+						<p:inputText id="txtCantidadOrdenada" disabled="true" binding="#{itemRotacionView.txtCantidadOrdenada}"/>
+												<h:outputText id="msgCantidadPedida" value=" CantidadPedida"/>
+						<p:inputText id="txtCantidadPedida" disabled="true" binding="#{itemRotacionView.txtCantidadPedida}"/>
+												<h:outputText id="msgCausalNoCambio" value=" CausalNoCambio"/>
+						<p:inputText id="txtCausalNoCambio" disabled="true" binding="#{itemRotacionView.txtCausalNoCambio}"/>
+												<h:outputText id="msgEstado" value=" Estado"/>
+						<p:inputText id="txtEstado" disabled="true" binding="#{itemRotacionView.txtEstado}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{itemRotacionView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNumeroDespacho" value=" NumeroDespacho"/>
+						<p:inputText id="txtNumeroDespacho" disabled="true" binding="#{itemRotacionView.txtNumeroDespacho}"/>
+												<h:outputText id="msgNumeroGarantia" value=" NumeroGarantia"/>
+						<p:inputText id="txtNumeroGarantia" disabled="true" binding="#{itemRotacionView.txtNumeroGarantia}"/>
+												<h:outputText id="msgObservacion" value=" Observacion"/>
+						<p:inputText id="txtObservacion" disabled="true" binding="#{itemRotacionView.txtObservacion}"/>
+												<h:outputText id="msgObservacionCambio" value=" ObservacionCambio"/>
+						<p:inputText id="txtObservacionCambio" disabled="true" binding="#{itemRotacionView.txtObservacionCambio}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{itemRotacionView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{itemRotacionView.txtOperModifica}"/>
+												<h:outputText id="msgIdClfa_ClaveFabricacion" value=" IdClfa_ClaveFabricacion"/>
+						<p:inputText id="txtIdClfa_ClaveFabricacion" disabled="true" binding="#{itemRotacionView.txtIdClfa_ClaveFabricacion}"/>
+												<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+						<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{itemRotacionView.txtIdDocu_Documento}"/>
+												<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+						<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{itemRotacionView.txtIdRefe_Referencia}"/>
+												
+																				<h:outputText id="msgFechaAutorizacion" value=" FechaAutorizacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaAutorizacion}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaAutorizacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaCambio" value=" FechaCambio"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaCambio}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCambio}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaCausal" value=" FechaCausal"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaCausal}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCausal}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaMovimiento" value=" FechaMovimiento"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaMovimiento}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaMovimiento}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaOrdenada" value=" FechaOrdenada"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{itemRotacionView.txtFechaOrdenada}" >
+							<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaOrdenada}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{itemRotacionView.action_save}" update="msg,panel,panelBotones"          binding="#{itemRotacionView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{itemRotacionView.action_modify}" update="msg,panel,panelBotones"    binding="#{itemRotacionView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{itemRotacionView.action_delete}" update="msg,panel,panelBotones"    binding="#{itemRotacionView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{itemRotacionView.action_clear}" update="msg,panel,panelBotones"      binding="#{itemRotacionView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

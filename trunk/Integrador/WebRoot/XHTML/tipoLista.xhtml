@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectTipoListaTitle" header="TipoLista" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidTili()==null){throw new ZMessManager().new EmptyFieldException("idTili");}" value="If(entity.getidTili()==null){throw new ZMessManager().new EmptyFieldException("idTili");}"/>
+						 <p:inputText id="txtIf(entity.getidTili()==null){throw new ZMessManager().new EmptyFieldException("idTili");}" binding="#{tipoListaView.txtIf(entity.getidTili()==null){throw new ZMessManager().new EmptyFieldException("idTili");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{tipoListaView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigo" value=" Codigo"/>
+						<p:inputText id="txtCodigo" disabled="true" binding="#{tipoListaView.txtCodigo}"/>
+												<h:outputText id="msgDescripcion" value=" Descripcion"/>
+						<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoListaView.txtDescripcion}"/>
+												<h:outputText id="msgEsCombinacion" value=" EsCombinacion"/>
+						<p:inputText id="txtEsCombinacion" disabled="true" binding="#{tipoListaView.txtEsCombinacion}"/>
+												<h:outputText id="msgEspacios" value=" Espacios"/>
+						<p:inputText id="txtEspacios" disabled="true" binding="#{tipoListaView.txtEspacios}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoListaView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoListaView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoListaView.txtOperModifica}"/>
+												<h:outputText id="msgIdTisu_TipoSucursal" value=" IdTisu_TipoSucursal"/>
+						<p:inputText id="txtIdTisu_TipoSucursal" disabled="true" binding="#{tipoListaView.txtIdTisu_TipoSucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tipoListaView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{tipoListaView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tipoListaView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{tipoListaView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{tipoListaView.action_save}" update="msg,panel,panelBotones"          binding="#{tipoListaView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{tipoListaView.action_modify}" update="msg,panel,panelBotones"    binding="#{tipoListaView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{tipoListaView.action_delete}" update="msg,panel,panelBotones"    binding="#{tipoListaView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{tipoListaView.action_clear}" update="msg,panel,panelBotones"      binding="#{tipoListaView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

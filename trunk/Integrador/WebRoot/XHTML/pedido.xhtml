@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectPedidoTitle" header="Pedido" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}" value="If(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}"/>
+						 <p:inputText id="txtIf(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}" binding="#{pedidoView.txtIf(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{pedidoView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCantidadAdicionadas" value=" CantidadAdicionadas"/>
+						<p:inputText id="txtCantidadAdicionadas" disabled="true" binding="#{pedidoView.txtCantidadAdicionadas}"/>
+												<h:outputText id="msgCantidadCanceladas" value=" CantidadCanceladas"/>
+						<p:inputText id="txtCantidadCanceladas" disabled="true" binding="#{pedidoView.txtCantidadCanceladas}"/>
+												<h:outputText id="msgCantidadComprometida" value=" CantidadComprometida"/>
+						<p:inputText id="txtCantidadComprometida" disabled="true" binding="#{pedidoView.txtCantidadComprometida}"/>
+												<h:outputText id="msgCantidadDespRecibir" value=" CantidadDespRecibir"/>
+						<p:inputText id="txtCantidadDespRecibir" disabled="true" binding="#{pedidoView.txtCantidadDespRecibir}"/>
+												<h:outputText id="msgCantidadOrdenada" value=" CantidadOrdenada"/>
+						<p:inputText id="txtCantidadOrdenada" disabled="true" binding="#{pedidoView.txtCantidadOrdenada}"/>
+												<h:outputText id="msgCantidadPedidas" value=" CantidadPedidas"/>
+						<p:inputText id="txtCantidadPedidas" disabled="true" binding="#{pedidoView.txtCantidadPedidas}"/>
+												<h:outputText id="msgClasePedido" value=" ClasePedido"/>
+						<p:inputText id="txtClasePedido" disabled="true" binding="#{pedidoView.txtClasePedido}"/>
+												<h:outputText id="msgComprometida" value=" Comprometida"/>
+						<p:inputText id="txtComprometida" disabled="true" binding="#{pedidoView.txtComprometida}"/>
+												<h:outputText id="msgCondicionPago" value=" CondicionPago"/>
+						<p:inputText id="txtCondicionPago" disabled="true" binding="#{pedidoView.txtCondicionPago}"/>
+												<h:outputText id="msgCostoVenta" value=" CostoVenta"/>
+						<p:inputText id="txtCostoVenta" disabled="true" binding="#{pedidoView.txtCostoVenta}"/>
+												<h:outputText id="msgEspacios" value=" Espacios"/>
+						<p:inputText id="txtEspacios" disabled="true" binding="#{pedidoView.txtEspacios}"/>
+												<h:outputText id="msgEstadoPedido" value=" EstadoPedido"/>
+						<p:inputText id="txtEstadoPedido" disabled="true" binding="#{pedidoView.txtEstadoPedido}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{pedidoView.txtEstadoRegistro}"/>
+												<h:outputText id="msgEstadoSysgol" value=" EstadoSysgol"/>
+						<p:inputText id="txtEstadoSysgol" disabled="true" binding="#{pedidoView.txtEstadoSysgol}"/>
+												<h:outputText id="msgExistenciaAnterior" value=" ExistenciaAnterior"/>
+						<p:inputText id="txtExistenciaAnterior" disabled="true" binding="#{pedidoView.txtExistenciaAnterior}"/>
+												<h:outputText id="msgHoraPedido" value=" HoraPedido"/>
+						<p:inputText id="txtHoraPedido" disabled="true" binding="#{pedidoView.txtHoraPedido}"/>
+												<h:outputText id="msgNumeroFactura" value=" NumeroFactura"/>
+						<p:inputText id="txtNumeroFactura" disabled="true" binding="#{pedidoView.txtNumeroFactura}"/>
+												<h:outputText id="msgNumeroPedido" value=" NumeroPedido"/>
+						<p:inputText id="txtNumeroPedido" disabled="true" binding="#{pedidoView.txtNumeroPedido}"/>
+												<h:outputText id="msgObservacion" value=" Observacion"/>
+						<p:inputText id="txtObservacion" disabled="true" binding="#{pedidoView.txtObservacion}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{pedidoView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{pedidoView.txtOperModifica}"/>
+												<h:outputText id="msgOrdenDespacho" value=" OrdenDespacho"/>
+						<p:inputText id="txtOrdenDespacho" disabled="true" binding="#{pedidoView.txtOrdenDespacho}"/>
+												<h:outputText id="msgPorcentajeDescuento" value=" PorcentajeDescuento"/>
+						<p:inputText id="txtPorcentajeDescuento" disabled="true" binding="#{pedidoView.txtPorcentajeDescuento}"/>
+												<h:outputText id="msgPrecioEspecial" value=" PrecioEspecial"/>
+						<p:inputText id="txtPrecioEspecial" disabled="true" binding="#{pedidoView.txtPrecioEspecial}"/>
+												<h:outputText id="msgPrecioVenta" value=" PrecioVenta"/>
+						<p:inputText id="txtPrecioVenta" disabled="true" binding="#{pedidoView.txtPrecioVenta}"/>
+												<h:outputText id="msgUrgencia" value=" Urgencia"/>
+						<p:inputText id="txtUrgencia" disabled="true" binding="#{pedidoView.txtUrgencia}"/>
+												<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+						<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{pedidoView.txtIdDocu_Documento}"/>
+												<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+						<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{pedidoView.txtIdRefe_Referencia}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{pedidoView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaDeseada" value=" FechaDeseada"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{pedidoView.txtFechaDeseada}" >
+							<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaDeseada}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaFactura" value=" FechaFactura"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{pedidoView.txtFechaFactura}" >
+							<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaFactura}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{pedidoView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaPedido" value=" FechaPedido"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{pedidoView.txtFechaPedido}" >
+							<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaPedido}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{pedidoView.action_save}" update="msg,panel,panelBotones"          binding="#{pedidoView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{pedidoView.action_modify}" update="msg,panel,panelBotones"    binding="#{pedidoView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{pedidoView.action_delete}" update="msg,panel,panelBotones"    binding="#{pedidoView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{pedidoView.action_clear}" update="msg,panel,panelBotones"      binding="#{pedidoView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

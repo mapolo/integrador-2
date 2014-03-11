@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectGrupoTitle" header="Grupo" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}" value="If(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}"/>
+						 <p:inputText id="txtIf(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}" binding="#{grupoView.txtIf(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{grupoView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgAsociado" value=" Asociado"/>
+						<p:inputText id="txtAsociado" disabled="true" binding="#{grupoView.txtAsociado}"/>
+												<h:outputText id="msgDivision" value=" Division"/>
+						<p:inputText id="txtDivision" disabled="true" binding="#{grupoView.txtDivision}"/>
+												<h:outputText id="msgEspecial" value=" Especial"/>
+						<p:inputText id="txtEspecial" disabled="true" binding="#{grupoView.txtEspecial}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{grupoView.txtEstadoRegistro}"/>
+												<h:outputText id="msgGrupo_1" value=" Grupo_1"/>
+						<p:inputText id="txtGrupo_1" disabled="true" binding="#{grupoView.txtGrupo_1}"/>
+												<h:outputText id="msgManejaOrdenCompra" value=" ManejaOrdenCompra"/>
+						<p:inputText id="txtManejaOrdenCompra" disabled="true" binding="#{grupoView.txtManejaOrdenCompra}"/>
+												<h:outputText id="msgMargenMinimoBodega" value=" MargenMinimoBodega"/>
+						<p:inputText id="txtMargenMinimoBodega" disabled="true" binding="#{grupoView.txtMargenMinimoBodega}"/>
+												<h:outputText id="msgMargenMinimoEnergiteca" value=" MargenMinimoEnergiteca"/>
+						<p:inputText id="txtMargenMinimoEnergiteca" disabled="true" binding="#{grupoView.txtMargenMinimoEnergiteca}"/>
+												<h:outputText id="msgModificaReferencia" value=" ModificaReferencia"/>
+						<p:inputText id="txtModificaReferencia" disabled="true" binding="#{grupoView.txtModificaReferencia}"/>
+												<h:outputText id="msgNombre" value=" Nombre"/>
+						<p:inputText id="txtNombre" disabled="true" binding="#{grupoView.txtNombre}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{grupoView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{grupoView.txtOperModifica}"/>
+												<h:outputText id="msgPideGalones" value=" PideGalones"/>
+						<p:inputText id="txtPideGalones" disabled="true" binding="#{grupoView.txtPideGalones}"/>
+												<h:outputText id="msgSugeridoPedido" value=" SugeridoPedido"/>
+						<p:inputText id="txtSugeridoPedido" disabled="true" binding="#{grupoView.txtSugeridoPedido}"/>
+												<h:outputText id="msgTipoNivel" value=" TipoNivel"/>
+						<p:inputText id="txtTipoNivel" disabled="true" binding="#{grupoView.txtTipoNivel}"/>
+												<h:outputText id="msgIdFlia_Familia" value=" IdFlia_Familia"/>
+						<p:inputText id="txtIdFlia_Familia" disabled="true" binding="#{grupoView.txtIdFlia_Familia}"/>
+												<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+						<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{grupoView.txtIdGrpo_Grupo}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{grupoView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{grupoView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{grupoView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{grupoView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{grupoView.action_save}" update="msg,panel,panelBotones"          binding="#{grupoView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{grupoView.action_modify}" update="msg,panel,panelBotones"    binding="#{grupoView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{grupoView.action_delete}" update="msg,panel,panelBotones"    binding="#{grupoView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{grupoView.action_clear}" update="msg,panel,panelBotones"      binding="#{grupoView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

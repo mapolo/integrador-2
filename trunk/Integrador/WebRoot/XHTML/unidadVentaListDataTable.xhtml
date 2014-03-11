@@ -1,0 +1,184 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableUnidadVenta" header="UnidadVentaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{unidadVentaView.data}" var="unidadVenta"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{unidadVenta.idUnve}" sortBy="#{unidadVenta.idUnve}" >
+										 <f:facet name="header">
+										<h:outputText value="idUnve"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.idUnve}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{unidadVenta.activo}" sortBy="#{unidadVenta.activo}" >
+										 <f:facet name="header">
+										<h:outputText value="Activo"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.activo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.estadoRegistro}" sortBy="#{unidadVenta.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.fechaCreacion}" sortBy="#{unidadVenta.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.fechaInactivo}" sortBy="#{unidadVenta.fechaInactivo}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInactivo"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.fechaInactivo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.fechaModificacion}" sortBy="#{unidadVenta.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.operCreador}" sortBy="#{unidadVenta.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.operModifica}" sortBy="#{unidadVenta.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.idUnne_UnidadNegocio}" sortBy="#{unidadVenta.idUnne_UnidadNegocio}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnne_UnidadNegocio"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.idUnne_UnidadNegocio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{unidadVenta.idVend_Vendedor}" sortBy="#{unidadVenta.idVend_Vendedor}" >
+										 <f:facet name="header">
+										<h:outputText value="IdVend_Vendedor"/>
+										</f:facet>
+										 <h:outputText value="#{unidadVenta.idVend_Vendedor}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogUnidadVenta"
+										actionListener="#{unidadVentaView.action_edit}">
+										<f:attribute name="selectedUnidadVenta" value="#{unidadVenta}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{unidadVentaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedUnidadVenta" value="#{unidadVenta}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{unidadVentaView.action_new()}" update=":dialogUnidadVenta" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogUnidadVenta" appendToBody="true" draggable="true"
+						closable="false" visible="#{unidadVentaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelUnidadVenta" header="UnidadVenta">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdUnve" value="IdUnve"/>
+									 <p:inputText id="txtIdUnve" binding="#{unidadVentaView.txtIdUnve}">
+									 <p:ajax update=":dialogUnidadVenta" listener="#{unidadVentaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgActivo" value=" Activo"/>
+									<p:inputText id="txtActivo" disabled="true" binding="#{unidadVentaView.txtActivo}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{unidadVentaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{unidadVentaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{unidadVentaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdUnne_UnidadNegocio" value=" IdUnne_UnidadNegocio"/>
+									<p:inputText id="txtIdUnne_UnidadNegocio" disabled="true" binding="#{unidadVentaView.txtIdUnne_UnidadNegocio}"/>
+																		<h:outputText id="msgIdVend_Vendedor" value=" IdVend_Vendedor"/>
+									<p:inputText id="txtIdVend_Vendedor" disabled="true" binding="#{unidadVentaView.txtIdVend_Vendedor}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{unidadVentaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{unidadVentaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInactivo" value=" FechaInactivo"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{unidadVentaView.txtFechaInactivo}" >
+										<p:ajax event="dateSelect" listener="#{unidadVentaView.listener_txtFechaInactivo}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{unidadVentaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{unidadVentaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{unidadVentaView.btnSave}" value="Save" action="#{unidadVentaView.action_save()}" update=":dialogUnidadVenta :frm:panelDataTableUnidadVenta" />
+									<p:commandButton id="btnClear" value="Clear" action="#{unidadVentaView.action_clear()}" update=":dialogUnidadVenta" />
+									<p:commandButton id="btnExit" value="Exit" action="#{unidadVentaView.action_closeDialog()}" update=":dialogUnidadVenta" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

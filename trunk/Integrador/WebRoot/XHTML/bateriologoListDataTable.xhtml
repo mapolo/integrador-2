@@ -1,0 +1,172 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableBateriologo" header="BateriologoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{bateriologoView.data}" var="bateriologo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{bateriologo.idBate}" sortBy="#{bateriologo.idBate}" >
+										 <f:facet name="header">
+										<h:outputText value="idBate"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.idBate}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{bateriologo.codigo}" sortBy="#{bateriologo.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.estadoRegistro}" sortBy="#{bateriologo.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.fechaCreacion}" sortBy="#{bateriologo.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.fechaModificacion}" sortBy="#{bateriologo.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.nombreCompleto}" sortBy="#{bateriologo.nombreCompleto}" >
+										 <f:facet name="header">
+										<h:outputText value="NombreCompleto"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.nombreCompleto}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.operCreador}" sortBy="#{bateriologo.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.operModifica}" sortBy="#{bateriologo.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{bateriologo.idSucu_Sucursal}" sortBy="#{bateriologo.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{bateriologo.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogBateriologo"
+										actionListener="#{bateriologoView.action_edit}">
+										<f:attribute name="selectedBateriologo" value="#{bateriologo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{bateriologoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedBateriologo" value="#{bateriologo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{bateriologoView.action_new()}" update=":dialogBateriologo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogBateriologo" appendToBody="true" draggable="true"
+						closable="false" visible="#{bateriologoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelBateriologo" header="Bateriologo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdBate" value="IdBate"/>
+									 <p:inputText id="txtIdBate" binding="#{bateriologoView.txtIdBate}">
+									 <p:ajax update=":dialogBateriologo" listener="#{bateriologoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{bateriologoView.txtCodigo}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{bateriologoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNombreCompleto" value=" NombreCompleto"/>
+									<p:inputText id="txtNombreCompleto" disabled="true" binding="#{bateriologoView.txtNombreCompleto}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{bateriologoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{bateriologoView.txtOperModifica}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{bateriologoView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{bateriologoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{bateriologoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{bateriologoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{bateriologoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{bateriologoView.btnSave}" value="Save" action="#{bateriologoView.action_save()}" update=":dialogBateriologo :frm:panelDataTableBateriologo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{bateriologoView.action_clear()}" update=":dialogBateriologo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{bateriologoView.action_closeDialog()}" update=":dialogBateriologo" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

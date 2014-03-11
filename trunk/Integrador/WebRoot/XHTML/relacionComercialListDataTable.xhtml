@@ -1,0 +1,199 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableRelacionComercial" header="RelacionComercialData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{relacionComercialView.data}" var="relacionComercial"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{relacionComercial.idReco}" sortBy="#{relacionComercial.idReco}" >
+										 <f:facet name="header">
+										<h:outputText value="idReco"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.idReco}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{relacionComercial.estadoRegistro}" sortBy="#{relacionComercial.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.fechaCreacion}" sortBy="#{relacionComercial.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.fechaModificacion}" sortBy="#{relacionComercial.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.limiteCredito}" sortBy="#{relacionComercial.limiteCredito}" >
+										 <f:facet name="header">
+										<h:outputText value="LimiteCredito"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.limiteCredito}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.liquidaIva}" sortBy="#{relacionComercial.liquidaIva}" >
+										 <f:facet name="header">
+										<h:outputText value="LiquidaIva"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.liquidaIva}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.observacion}" sortBy="#{relacionComercial.observacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Observacion"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.observacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.operCreador}" sortBy="#{relacionComercial.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.operModifica}" sortBy="#{relacionComercial.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.idEmpr_Empresa}" sortBy="#{relacionComercial.idEmpr_Empresa}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEmpr_Empresa"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.idEmpr_Empresa}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.idPers_Persona}" sortBy="#{relacionComercial.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{relacionComercial.idSucu_Sucursal}" sortBy="#{relacionComercial.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{relacionComercial.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogRelacionComercial"
+										actionListener="#{relacionComercialView.action_edit}">
+										<f:attribute name="selectedRelacionComercial" value="#{relacionComercial}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{relacionComercialView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedRelacionComercial" value="#{relacionComercial}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{relacionComercialView.action_new()}" update=":dialogRelacionComercial" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogRelacionComercial" appendToBody="true" draggable="true"
+						closable="false" visible="#{relacionComercialView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelRelacionComercial" header="RelacionComercial">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdReco" value="IdReco"/>
+									 <p:inputText id="txtIdReco" binding="#{relacionComercialView.txtIdReco}">
+									 <p:ajax update=":dialogRelacionComercial" listener="#{relacionComercialView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{relacionComercialView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgLimiteCredito" value=" LimiteCredito"/>
+									<p:inputText id="txtLimiteCredito" disabled="true" binding="#{relacionComercialView.txtLimiteCredito}"/>
+																		<h:outputText id="msgLiquidaIva" value=" LiquidaIva"/>
+									<p:inputText id="txtLiquidaIva" disabled="true" binding="#{relacionComercialView.txtLiquidaIva}"/>
+																		<h:outputText id="msgObservacion" value=" Observacion"/>
+									<p:inputText id="txtObservacion" disabled="true" binding="#{relacionComercialView.txtObservacion}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{relacionComercialView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{relacionComercialView.txtOperModifica}"/>
+																		<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+									<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{relacionComercialView.txtIdEmpr_Empresa}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{relacionComercialView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{relacionComercialView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{relacionComercialView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{relacionComercialView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{relacionComercialView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{relacionComercialView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{relacionComercialView.btnSave}" value="Save" action="#{relacionComercialView.action_save()}" update=":dialogRelacionComercial :frm:panelDataTableRelacionComercial" />
+									<p:commandButton id="btnClear" value="Clear" action="#{relacionComercialView.action_clear()}" update=":dialogRelacionComercial" />
+									<p:commandButton id="btnExit" value="Exit" action="#{relacionComercialView.action_closeDialog()}" update=":dialogRelacionComercial" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

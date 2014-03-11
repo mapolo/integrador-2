@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectClienteTitle" header="Cliente" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidClie()==null){throw new ZMessManager().new EmptyFieldException("idClie");}" value="If(entity.getidClie()==null){throw new ZMessManager().new EmptyFieldException("idClie");}"/>
+						 <p:inputText id="txtIf(entity.getidClie()==null){throw new ZMessManager().new EmptyFieldException("idClie");}" binding="#{clienteView.txtIf(entity.getidClie()==null){throw new ZMessManager().new EmptyFieldException("idClie");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{clienteView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{clienteView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{clienteView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{clienteView.txtOperModifica}"/>
+												<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+						<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{clienteView.txtIdEmpr_Empresa}"/>
+												<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+						<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{clienteView.txtIdPers_Persona}"/>
+												<h:outputText id="msgIdTica_TipoCartera" value=" IdTica_TipoCartera"/>
+						<p:inputText id="txtIdTica_TipoCartera" disabled="true" binding="#{clienteView.txtIdTica_TipoCartera}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{clienteView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{clienteView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{clienteView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{clienteView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{clienteView.action_save}" update="msg,panel,panelBotones"          binding="#{clienteView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{clienteView.action_modify}" update="msg,panel,panelBotones"    binding="#{clienteView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{clienteView.action_delete}" update="msg,panel,panelBotones"    binding="#{clienteView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{clienteView.action_clear}" update="msg,panel,panelBotones"      binding="#{clienteView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

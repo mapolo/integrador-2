@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="BancoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{bancoView.data}" var="banco"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{bancoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{banco.if(entity.getidBanc()==null){throw new ZMessManager().new EmptyFieldException("idBanc");}}" sortBy="#{banco.if(entity.getidBanc()==null){throw new ZMessManager().new EmptyFieldException("idBanc");}}" 
+							headerText="if(entity.getidBanc()==null){throw new ZMessManager().new EmptyFieldException("idBanc");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.if(entity.getidBanc()==null){throw new ZMessManager().new EmptyFieldException("idBanc");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.if(entity.getidBanc()==null){throw new ZMessManager().new EmptyFieldException("idBanc");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{banco.codigo}" sortBy="#{banco.codigo}" 
+							headerText="codigo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.codigo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.codigo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.confirmaCheque}" sortBy="#{banco.confirmaCheque}" 
+							headerText="confirmaCheque">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.confirmaCheque}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.confirmaCheque}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.consigna}" sortBy="#{banco.consigna}" 
+							headerText="consigna">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.consigna}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.consigna}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.cuentaBanco}" sortBy="#{banco.cuentaBanco}" 
+							headerText="cuentaBanco">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.cuentaBanco}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.cuentaBanco}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.cuentaDescuento}" sortBy="#{banco.cuentaDescuento}" 
+							headerText="cuentaDescuento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.cuentaDescuento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.cuentaDescuento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.descripcion}" sortBy="#{banco.descripcion}" 
+							headerText="descripcion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.descripcion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.descripcion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.estadoRegistro}" sortBy="#{banco.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.importaPda}" sortBy="#{banco.importaPda}" 
+							headerText="importaPda">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.importaPda}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.importaPda}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.manejaBeneficiario}" sortBy="#{banco.manejaBeneficiario}" 
+							headerText="manejaBeneficiario">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.manejaBeneficiario}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.manejaBeneficiario}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.operCreador}" sortBy="#{banco.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{banco.operModifica}" sortBy="#{banco.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{banco.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{banco.fechaCreacion}" sortBy="#{banco.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{banco.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{bancoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{banco.fechaModificacion}" sortBy="#{banco.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{banco.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{banco.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{bancoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{bancoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{banco}"  target="#{bancoView.selectedBanco}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

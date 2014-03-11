@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<h:form id="form">
+
+					<p:panel id="td" header="Tipo de Documento">
+						<p:messages id="msg" showDetail="true" />
+						<p:growl id="men" />
+
+						<p:dataTable var="car" value="#{tipoDocumentoView.data}"
+							id="listaTDo" editable="true" scrollable="true"
+							scrollHeight="400" filteredValue="#{tipoDocumentoView.data}">
+
+							<p:ajax event="rowEdit" listener="#{tipoDocumentoView.onEdit}" />
+							<p:ajax event="rowEditCancel"
+								listener="#{tipoDocumentoView.onCancel}" />
+
+							<p:column headerText="Editar" style="width:11%">
+								<p:rowEditor />
+							</p:column>
+
+							<p:column headerText="ID" style="width:10%" sortBy="idTido"
+								filterBy="idTido">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.idTido}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.idTido}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Codigo" style="width:20%" sortBy="codigo"
+								filterBy="codigo">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.codigo}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.codigo}" style="width:100%"
+											disabled="false" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Descripción" style="width:20%">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputLabel value="#{car.descripcion}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<p:inputTextarea value="#{car.descripcion}" style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Afecta el Inventario" style="width:20%"
+								filterBy="afectaInventario"
+								filterOptions="#{tipoDocumentoView.manufacturerOptions2}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.afectaInventario}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu value="#{tipoDocumentoView.afectaInventario}">
+											<f:selectItem itemLabel="S" itemValue="S" />
+											<f:selectItem itemLabel="N" itemValue="N" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Signo del Inventario" style="width:20%"
+								filterBy="signoInventario"
+								filterOptions="#{tipoDocumentoView.manufacturerOptions3}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.signoInventario}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu value="#{tipoDocumentoView.signoInventario}">
+											<f:selectItem itemLabel="+" itemValue="+" />
+											<f:selectItem itemLabel="-" itemValue="-" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Afecta la Cartera" style="width:20%"
+								filterBy="afectaCartea"
+								filterOptions="#{tipoDocumentoView.manufacturerOptions2}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.afectaCartea}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu value="#{tipoDocumentoView.afectaCartea}">
+											<f:selectItem itemLabel="S" itemValue="S" />
+											<f:selectItem itemLabel="N" itemValue="N" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Signo de la Cartera" style="width:20%"
+								filterBy="signoCartera"
+								filterOptions="#{tipoDocumentoView.manufacturerOptions3}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.signoCartera}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu value="#{tipoDocumentoView.signoCartera}">
+											<f:selectItem itemLabel="+" itemValue="+" />
+											<f:selectItem itemLabel="-" itemValue="-" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Fecha de Creación" style="width:20%"
+								filterBy="fechaCreacion" sortBy="fechaCreacion">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.fechaCreacion}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Operador Creador" style="width:20%"
+								filterBy="operCreador" sortBy="operCreador">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.operCreador}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.operCreador}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Estado del Registro" style="width:20%"
+								filterBy="estadoRegistro"
+								filterOptions="#{tipoDocumentoView.manufacturerOptions}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.estadoRegistro}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu value="#{tipoDocumentoView.estadoRegistro}">
+											<f:selectItem itemLabel="A" itemValue="A" />
+											<f:selectItem itemLabel="R" itemValue="R" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton id="viewButton" value="Crear"
+									icon="ui-icon-documen" update=":form"
+									oncomplete="PF('carDialog').show()" />
+							</f:facet>
+
+							<f:facet name="footer">
+								<p:commandButton id="returnButton" value="Menu"
+									icon="ui-icon-documen" update=":form" action="#{menuView.menu}" />
+							</f:facet>
+
+						</p:dataTable>
+
+
+
+						<!--		Ventana emergente          -->
+
+						<p:dialog id="dialog" header="Tipo de Documento"
+							widgetVar="carDialog" resizable="false" width="400"
+							showEffect="clip" hideEffect="fold">
+
+							<h:panelGrid columns="2" id="panel">
+
+
+								<h:outputText id="msgCodigo" value="Codigo" />
+								<p:inputText id="txtCodigo" value="#{tipoDocumentoView.codigo}"
+									binding="#{tipoDocumentoView.txtCodigo}" />
+
+								<h:outputText id="msgDescripcion" value="Descripción" />
+								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+									value="#{tipoDocumentoView.descripcion}"
+									binding="#{tipoDocumentoView.txtDescripcion}" />
+
+								<h:outputText id="msgAfectaInventario"
+									value="Afecta el Inventario" />
+								<p:selectOneMenu
+									binding="#{tipoDocumentoView.aafectaInventario}"
+									value="#{tipoDocumentoView.afectaInventario}" disabled="false">
+									<f:selectItem itemLabel="S" itemValue="S" />
+									<f:selectItem itemLabel="N" itemValue="N" />
+								</p:selectOneMenu>
+
+								<h:outputText id="msgSignoInventario"
+									value=" Signo del Inventario" />
+								<p:selectOneMenu binding="#{tipoDocumentoView.zignoInventario}"
+									value="#{tipoDocumentoView.signoInventario}" disabled="false">
+									<f:selectItem itemLabel="+" itemValue="+" />
+									<f:selectItem itemLabel="-" itemValue="-" />
+								</p:selectOneMenu>
+
+								<h:outputText id="msgAfectaCartea" value="Afecta la Cartera" />
+								<p:selectOneMenu binding="#{tipoDocumentoView.aafectaCartea}"
+									value="#{tipoDocumentoView.afectaCartea}" disabled="false">
+									<f:selectItem itemLabel="S" itemValue="S" />
+									<f:selectItem itemLabel="N" itemValue="N" />
+								</p:selectOneMenu>
+
+								<h:outputText id="msgSignoCartera" value="Signo de la Cartera" />
+								<p:selectOneMenu binding="#{tipoDocumentoView.zignoCartera}"
+									value="#{tipoDocumentoView.signoCartera}" disabled="false">
+									<f:selectItem itemLabel="+" itemValue="+" />
+									<f:selectItem itemLabel="-" itemValue="-" />
+								</p:selectOneMenu>
+
+
+								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<p:selectOneMenu binding="#{tipoDocumentoView.estado}"
+									value="#{tipoDocumentoView.estadoRegistro}">
+									<f:selectItem itemLabel="A" itemValue="A" />
+									<f:selectItem itemLabel="R" itemValue="R" />
+								</p:selectOneMenu>
+
+							</h:panelGrid>
+
+							<h:panelGrid id="panelBotones" columns="1">
+
+								<p:commandButton id="btnGuardar" value="Guardar"
+									action="#{tipoDocumentoView.action_create}"
+									binding="#{tipoDocumentoView.btnSave}"
+									update="listaTDo,msg,panel,panelBotones" />
+
+							</h:panelGrid>
+						</p:dialog>
+					</p:panel>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

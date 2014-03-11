@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableAtencionVendedor" header="AtencionVendedorData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{atencionVendedorView.data}" var="atencionVendedor"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{atencionVendedor.idAtve}" sortBy="#{atencionVendedor.idAtve}" >
+										 <f:facet name="header">
+										<h:outputText value="idAtve"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.idAtve}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{atencionVendedor.estadoRegistro}" sortBy="#{atencionVendedor.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.fechaCreacion}" sortBy="#{atencionVendedor.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.fechaModificacion}" sortBy="#{atencionVendedor.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.operCreador}" sortBy="#{atencionVendedor.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.operModifica}" sortBy="#{atencionVendedor.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.idReco_RelacionComercial}" sortBy="#{atencionVendedor.idReco_RelacionComercial}" >
+										 <f:facet name="header">
+										<h:outputText value="IdReco_RelacionComercial"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.idReco_RelacionComercial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{atencionVendedor.idVend_Vendedor}" sortBy="#{atencionVendedor.idVend_Vendedor}" >
+										 <f:facet name="header">
+										<h:outputText value="IdVend_Vendedor"/>
+										</f:facet>
+										 <h:outputText value="#{atencionVendedor.idVend_Vendedor}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogAtencionVendedor"
+										actionListener="#{atencionVendedorView.action_edit}">
+										<f:attribute name="selectedAtencionVendedor" value="#{atencionVendedor}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{atencionVendedorView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedAtencionVendedor" value="#{atencionVendedor}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{atencionVendedorView.action_new()}" update=":dialogAtencionVendedor" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogAtencionVendedor" appendToBody="true" draggable="true"
+						closable="false" visible="#{atencionVendedorView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelAtencionVendedor" header="AtencionVendedor">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdAtve" value="IdAtve"/>
+									 <p:inputText id="txtIdAtve" binding="#{atencionVendedorView.txtIdAtve}">
+									 <p:ajax update=":dialogAtencionVendedor" listener="#{atencionVendedorView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{atencionVendedorView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{atencionVendedorView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{atencionVendedorView.txtOperModifica}"/>
+																		<h:outputText id="msgIdReco_RelacionComercial" value=" IdReco_RelacionComercial"/>
+									<p:inputText id="txtIdReco_RelacionComercial" disabled="true" binding="#{atencionVendedorView.txtIdReco_RelacionComercial}"/>
+																		<h:outputText id="msgIdVend_Vendedor" value=" IdVend_Vendedor"/>
+									<p:inputText id="txtIdVend_Vendedor" disabled="true" binding="#{atencionVendedorView.txtIdVend_Vendedor}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{atencionVendedorView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{atencionVendedorView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{atencionVendedorView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{atencionVendedorView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{atencionVendedorView.btnSave}" value="Save" action="#{atencionVendedorView.action_save()}" update=":dialogAtencionVendedor :frm:panelDataTableAtencionVendedor" />
+									<p:commandButton id="btnClear" value="Clear" action="#{atencionVendedorView.action_clear()}" update=":dialogAtencionVendedor" />
+									<p:commandButton id="btnExit" value="Exit" action="#{atencionVendedorView.action_closeDialog()}" update=":dialogAtencionVendedor" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

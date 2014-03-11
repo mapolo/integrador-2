@@ -1,0 +1,232 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableCartera" header="CarteraData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{carteraView.data}" var="cartera"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{cartera.idCart}" sortBy="#{cartera.idCart}" >
+										 <f:facet name="header">
+										<h:outputText value="idCart"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.idCart}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{cartera.estadoRegistro}" sortBy="#{cartera.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.fechaCreacion}" sortBy="#{cartera.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.fechaModificacion}" sortBy="#{cartera.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.fechaPago}" sortBy="#{cartera.fechaPago}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaPago"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.fechaPago}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.fechaVencimiento}" sortBy="#{cartera.fechaVencimiento}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaVencimiento"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.fechaVencimiento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.interes}" sortBy="#{cartera.interes}" >
+										 <f:facet name="header">
+										<h:outputText value="Interes"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.interes}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.numeroCuotas}" sortBy="#{cartera.numeroCuotas}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroCuotas"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.numeroCuotas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.operCreador}" sortBy="#{cartera.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.operModifica}" sortBy="#{cartera.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.saldo}" sortBy="#{cartera.saldo}" >
+										 <f:facet name="header">
+										<h:outputText value="Saldo"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.saldo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.valorBase}" sortBy="#{cartera.valorBase}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorBase"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.valorBase}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.valorTotal}" sortBy="#{cartera.valorTotal}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorTotal"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.valorTotal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.idDocu_Documento}" sortBy="#{cartera.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cartera.idGrpo_Grupo}" sortBy="#{cartera.idGrpo_Grupo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdGrpo_Grupo"/>
+										</f:facet>
+										 <h:outputText value="#{cartera.idGrpo_Grupo}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogCartera"
+										actionListener="#{carteraView.action_edit}">
+										<f:attribute name="selectedCartera" value="#{cartera}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{carteraView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedCartera" value="#{cartera}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{carteraView.action_new()}" update=":dialogCartera" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogCartera" appendToBody="true" draggable="true"
+						closable="false" visible="#{carteraView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelCartera" header="Cartera">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdCart" value="IdCart"/>
+									 <p:inputText id="txtIdCart" binding="#{carteraView.txtIdCart}">
+									 <p:ajax update=":dialogCartera" listener="#{carteraView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{carteraView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgInteres" value=" Interes"/>
+									<p:inputText id="txtInteres" disabled="true" binding="#{carteraView.txtInteres}"/>
+																		<h:outputText id="msgNumeroCuotas" value=" NumeroCuotas"/>
+									<p:inputText id="txtNumeroCuotas" disabled="true" binding="#{carteraView.txtNumeroCuotas}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{carteraView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{carteraView.txtOperModifica}"/>
+																		<h:outputText id="msgSaldo" value=" Saldo"/>
+									<p:inputText id="txtSaldo" disabled="true" binding="#{carteraView.txtSaldo}"/>
+																		<h:outputText id="msgValorBase" value=" ValorBase"/>
+									<p:inputText id="txtValorBase" disabled="true" binding="#{carteraView.txtValorBase}"/>
+																		<h:outputText id="msgValorTotal" value=" ValorTotal"/>
+									<p:inputText id="txtValorTotal" disabled="true" binding="#{carteraView.txtValorTotal}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{carteraView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+									<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{carteraView.txtIdGrpo_Grupo}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{carteraView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{carteraView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{carteraView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{carteraView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaPago" value=" FechaPago"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{carteraView.txtFechaPago}" >
+										<p:ajax event="dateSelect" listener="#{carteraView.listener_txtFechaPago}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaVencimiento" value=" FechaVencimiento"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{carteraView.txtFechaVencimiento}" >
+										<p:ajax event="dateSelect" listener="#{carteraView.listener_txtFechaVencimiento}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{carteraView.btnSave}" value="Save" action="#{carteraView.action_save()}" update=":dialogCartera :frm:panelDataTableCartera" />
+									<p:commandButton id="btnClear" value="Clear" action="#{carteraView.action_clear()}" update=":dialogCartera" />
+									<p:commandButton id="btnExit" value="Exit" action="#{carteraView.action_closeDialog()}" update=":dialogCartera" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

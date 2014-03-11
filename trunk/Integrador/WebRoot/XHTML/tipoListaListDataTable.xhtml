@@ -1,0 +1,190 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableTipoLista" header="TipoListaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tipoListaView.data}" var="tipoLista"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tipoLista.idTili}" sortBy="#{tipoLista.idTili}" >
+										 <f:facet name="header">
+										<h:outputText value="idTili"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.idTili}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tipoLista.codigo}" sortBy="#{tipoLista.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.descripcion}" sortBy="#{tipoLista.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.esCombinacion}" sortBy="#{tipoLista.esCombinacion}" >
+										 <f:facet name="header">
+										<h:outputText value="EsCombinacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.esCombinacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.espacios}" sortBy="#{tipoLista.espacios}" >
+										 <f:facet name="header">
+										<h:outputText value="Espacios"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.espacios}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.estadoRegistro}" sortBy="#{tipoLista.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.fechaCreacion}" sortBy="#{tipoLista.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.fechaModificacion}" sortBy="#{tipoLista.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.operCreador}" sortBy="#{tipoLista.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.operModifica}" sortBy="#{tipoLista.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoLista.idTisu_TipoSucursal}" sortBy="#{tipoLista.idTisu_TipoSucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTisu_TipoSucursal"/>
+										</f:facet>
+										 <h:outputText value="#{tipoLista.idTisu_TipoSucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTipoLista"
+										actionListener="#{tipoListaView.action_edit}">
+										<f:attribute name="selectedTipoLista" value="#{tipoLista}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tipoListaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTipoLista" value="#{tipoLista}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tipoListaView.action_new()}" update=":dialogTipoLista" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTipoLista" appendToBody="true" draggable="true"
+						closable="false" visible="#{tipoListaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelTipoLista" header="TipoLista">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdTili" value="IdTili"/>
+									 <p:inputText id="txtIdTili" binding="#{tipoListaView.txtIdTili}">
+									 <p:ajax update=":dialogTipoLista" listener="#{tipoListaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{tipoListaView.txtCodigo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoListaView.txtDescripcion}"/>
+																		<h:outputText id="msgEsCombinacion" value=" EsCombinacion"/>
+									<p:inputText id="txtEsCombinacion" disabled="true" binding="#{tipoListaView.txtEsCombinacion}"/>
+																		<h:outputText id="msgEspacios" value=" Espacios"/>
+									<p:inputText id="txtEspacios" disabled="true" binding="#{tipoListaView.txtEspacios}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoListaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoListaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoListaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdTisu_TipoSucursal" value=" IdTisu_TipoSucursal"/>
+									<p:inputText id="txtIdTisu_TipoSucursal" disabled="true" binding="#{tipoListaView.txtIdTisu_TipoSucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoListaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoListaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoListaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoListaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tipoListaView.btnSave}" value="Save" action="#{tipoListaView.action_save()}" update=":dialogTipoLista :frm:panelDataTableTipoLista" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tipoListaView.action_clear()}" update=":dialogTipoLista" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tipoListaView.action_closeDialog()}" update=":dialogTipoLista" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

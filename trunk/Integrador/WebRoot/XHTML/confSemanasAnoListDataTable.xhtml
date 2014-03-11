@@ -1,0 +1,178 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableConfSemanasAno" header="ConfSemanasAnoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{confSemanasAnoView.data}" var="confSemanasAno"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{confSemanasAno.idCfsa}" sortBy="#{confSemanasAno.idCfsa}" >
+										 <f:facet name="header">
+										<h:outputText value="idCfsa"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.idCfsa}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{confSemanasAno.estadoRegistro}" sortBy="#{confSemanasAno.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.fechaCreacion}" sortBy="#{confSemanasAno.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.fechaFinal}" sortBy="#{confSemanasAno.fechaFinal}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaFinal"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.fechaFinal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.fechaInicial}" sortBy="#{confSemanasAno.fechaInicial}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInicial"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.fechaInicial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.fechaModificacion}" sortBy="#{confSemanasAno.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.operCreador}" sortBy="#{confSemanasAno.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.operModifica}" sortBy="#{confSemanasAno.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{confSemanasAno.idSema_Semana}" sortBy="#{confSemanasAno.idSema_Semana}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSema_Semana"/>
+										</f:facet>
+										 <h:outputText value="#{confSemanasAno.idSema_Semana}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogConfSemanasAno"
+										actionListener="#{confSemanasAnoView.action_edit}">
+										<f:attribute name="selectedConfSemanasAno" value="#{confSemanasAno}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{confSemanasAnoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedConfSemanasAno" value="#{confSemanasAno}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{confSemanasAnoView.action_new()}" update=":dialogConfSemanasAno" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogConfSemanasAno" appendToBody="true" draggable="true"
+						closable="false" visible="#{confSemanasAnoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelConfSemanasAno" header="ConfSemanasAno">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdCfsa" value="IdCfsa"/>
+									 <p:inputText id="txtIdCfsa" binding="#{confSemanasAnoView.txtIdCfsa}">
+									 <p:ajax update=":dialogConfSemanasAno" listener="#{confSemanasAnoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{confSemanasAnoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{confSemanasAnoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{confSemanasAnoView.txtOperModifica}"/>
+																		<h:outputText id="msgIdSema_Semana" value=" IdSema_Semana"/>
+									<p:inputText id="txtIdSema_Semana" disabled="true" binding="#{confSemanasAnoView.txtIdSema_Semana}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{confSemanasAnoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{confSemanasAnoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaFinal" value=" FechaFinal"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{confSemanasAnoView.txtFechaFinal}" >
+										<p:ajax event="dateSelect" listener="#{confSemanasAnoView.listener_txtFechaFinal}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInicial" value=" FechaInicial"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{confSemanasAnoView.txtFechaInicial}" >
+										<p:ajax event="dateSelect" listener="#{confSemanasAnoView.listener_txtFechaInicial}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{confSemanasAnoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{confSemanasAnoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{confSemanasAnoView.btnSave}" value="Save" action="#{confSemanasAnoView.action_save()}" update=":dialogConfSemanasAno :frm:panelDataTableConfSemanasAno" />
+									<p:commandButton id="btnClear" value="Clear" action="#{confSemanasAnoView.action_clear()}" update=":dialogConfSemanasAno" />
+									<p:commandButton id="btnExit" value="Exit" action="#{confSemanasAnoView.action_closeDialog()}" update=":dialogConfSemanasAno" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

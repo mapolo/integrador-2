@@ -1,0 +1,262 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableChequePosfechado" header="ChequePosfechadoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{chequePosfechadoView.data}" var="chequePosfechado"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{chequePosfechado.idChps}" sortBy="#{chequePosfechado.idChps}" >
+										 <f:facet name="header">
+										<h:outputText value="idChps"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.idChps}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{chequePosfechado.bancoCambiado}" sortBy="#{chequePosfechado.bancoCambiado}" >
+										 <f:facet name="header">
+										<h:outputText value="BancoCambiado"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.bancoCambiado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.estado}" sortBy="#{chequePosfechado.estado}" >
+										 <f:facet name="header">
+										<h:outputText value="Estado"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.estado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.estadoRegistro}" sortBy="#{chequePosfechado.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.fechaActualizacion}" sortBy="#{chequePosfechado.fechaActualizacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaActualizacion"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.fechaActualizacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.fechaAplazada}" sortBy="#{chequePosfechado.fechaAplazada}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaAplazada"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.fechaAplazada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.fechaConsignacion}" sortBy="#{chequePosfechado.fechaConsignacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaConsignacion"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.fechaConsignacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.fechaCreacion}" sortBy="#{chequePosfechado.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.fechaModificacion}" sortBy="#{chequePosfechado.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.inaplicado}" sortBy="#{chequePosfechado.inaplicado}" >
+										 <f:facet name="header">
+										<h:outputText value="Inaplicado"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.inaplicado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.numChqCambiado}" sortBy="#{chequePosfechado.numChqCambiado}" >
+										 <f:facet name="header">
+										<h:outputText value="NumChqCambiado"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.numChqCambiado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.numeroCheque}" sortBy="#{chequePosfechado.numeroCheque}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroCheque"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.numeroCheque}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.operCreador}" sortBy="#{chequePosfechado.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.operModifica}" sortBy="#{chequePosfechado.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.otroValor}" sortBy="#{chequePosfechado.otroValor}" >
+										 <f:facet name="header">
+										<h:outputText value="OtroValor"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.otroValor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.recaudador}" sortBy="#{chequePosfechado.recaudador}" >
+										 <f:facet name="header">
+										<h:outputText value="Recaudador"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.recaudador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.telefono}" sortBy="#{chequePosfechado.telefono}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.telefono}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{chequePosfechado.valor}" sortBy="#{chequePosfechado.valor}" >
+										 <f:facet name="header">
+										<h:outputText value="Valor"/>
+										</f:facet>
+										 <h:outputText value="#{chequePosfechado.valor}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogChequePosfechado"
+										actionListener="#{chequePosfechadoView.action_edit}">
+										<f:attribute name="selectedChequePosfechado" value="#{chequePosfechado}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{chequePosfechadoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedChequePosfechado" value="#{chequePosfechado}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{chequePosfechadoView.action_new()}" update=":dialogChequePosfechado" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogChequePosfechado" appendToBody="true" draggable="true"
+						closable="false" visible="#{chequePosfechadoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelChequePosfechado" header="ChequePosfechado">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdChps" value="IdChps"/>
+									 <p:inputText id="txtIdChps" binding="#{chequePosfechadoView.txtIdChps}">
+									 <p:ajax update=":dialogChequePosfechado" listener="#{chequePosfechadoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgBancoCambiado" value=" BancoCambiado"/>
+									<p:inputText id="txtBancoCambiado" disabled="true" binding="#{chequePosfechadoView.txtBancoCambiado}"/>
+																		<h:outputText id="msgEstado" value=" Estado"/>
+									<p:inputText id="txtEstado" disabled="true" binding="#{chequePosfechadoView.txtEstado}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{chequePosfechadoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgInaplicado" value=" Inaplicado"/>
+									<p:inputText id="txtInaplicado" disabled="true" binding="#{chequePosfechadoView.txtInaplicado}"/>
+																		<h:outputText id="msgNumChqCambiado" value=" NumChqCambiado"/>
+									<p:inputText id="txtNumChqCambiado" disabled="true" binding="#{chequePosfechadoView.txtNumChqCambiado}"/>
+																		<h:outputText id="msgNumeroCheque" value=" NumeroCheque"/>
+									<p:inputText id="txtNumeroCheque" disabled="true" binding="#{chequePosfechadoView.txtNumeroCheque}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{chequePosfechadoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{chequePosfechadoView.txtOperModifica}"/>
+																		<h:outputText id="msgOtroValor" value=" OtroValor"/>
+									<p:inputText id="txtOtroValor" disabled="true" binding="#{chequePosfechadoView.txtOtroValor}"/>
+																		<h:outputText id="msgRecaudador" value=" Recaudador"/>
+									<p:inputText id="txtRecaudador" disabled="true" binding="#{chequePosfechadoView.txtRecaudador}"/>
+																		<h:outputText id="msgTelefono" value=" Telefono"/>
+									<p:inputText id="txtTelefono" disabled="true" binding="#{chequePosfechadoView.txtTelefono}"/>
+																		<h:outputText id="msgValor" value=" Valor"/>
+									<p:inputText id="txtValor" disabled="true" binding="#{chequePosfechadoView.txtValor}"/>
+																		
+																													<h:outputText id="msgFechaActualizacion" value=" FechaActualizacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{chequePosfechadoView.txtFechaActualizacion}" >
+										<p:ajax event="dateSelect" listener="#{chequePosfechadoView.listener_txtFechaActualizacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaAplazada" value=" FechaAplazada"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{chequePosfechadoView.txtFechaAplazada}" >
+										<p:ajax event="dateSelect" listener="#{chequePosfechadoView.listener_txtFechaAplazada}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaConsignacion" value=" FechaConsignacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{chequePosfechadoView.txtFechaConsignacion}" >
+										<p:ajax event="dateSelect" listener="#{chequePosfechadoView.listener_txtFechaConsignacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{chequePosfechadoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{chequePosfechadoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{chequePosfechadoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{chequePosfechadoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{chequePosfechadoView.btnSave}" value="Save" action="#{chequePosfechadoView.action_save()}" update=":dialogChequePosfechado :frm:panelDataTableChequePosfechado" />
+									<p:commandButton id="btnClear" value="Clear" action="#{chequePosfechadoView.action_clear()}" update=":dialogChequePosfechado" />
+									<p:commandButton id="btnExit" value="Exit" action="#{chequePosfechadoView.action_closeDialog()}" update=":dialogChequePosfechado" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

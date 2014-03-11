@@ -1,0 +1,394 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="GrupoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{grupoView.data}" var="grupo"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{grupoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{grupo.if(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}}" sortBy="#{grupo.if(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}}" 
+							headerText="if(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.if(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.if(entity.getidGrpo()==null){throw new ZMessManager().new EmptyFieldException("idGrpo");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{grupo.asociado}" sortBy="#{grupo.asociado}" 
+							headerText="asociado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.asociado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.asociado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.division}" sortBy="#{grupo.division}" 
+							headerText="division">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.division}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.division}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.especial}" sortBy="#{grupo.especial}" 
+							headerText="especial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.especial}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.especial}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.estadoRegistro}" sortBy="#{grupo.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.grupo_1}" sortBy="#{grupo.grupo_1}" 
+							headerText="grupo_1">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.grupo_1}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.grupo_1}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.manejaOrdenCompra}" sortBy="#{grupo.manejaOrdenCompra}" 
+							headerText="manejaOrdenCompra">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.manejaOrdenCompra}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.manejaOrdenCompra}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.margenMinimoBodega}" sortBy="#{grupo.margenMinimoBodega}" 
+							headerText="margenMinimoBodega">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.margenMinimoBodega}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.margenMinimoBodega}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.margenMinimoEnergiteca}" sortBy="#{grupo.margenMinimoEnergiteca}" 
+							headerText="margenMinimoEnergiteca">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.margenMinimoEnergiteca}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.margenMinimoEnergiteca}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.modificaReferencia}" sortBy="#{grupo.modificaReferencia}" 
+							headerText="modificaReferencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.modificaReferencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.modificaReferencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.nombre}" sortBy="#{grupo.nombre}" 
+							headerText="nombre">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.nombre}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.nombre}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.operCreador}" sortBy="#{grupo.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.operModifica}" sortBy="#{grupo.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.pideGalones}" sortBy="#{grupo.pideGalones}" 
+							headerText="pideGalones">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.pideGalones}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.pideGalones}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.sugeridoPedido}" sortBy="#{grupo.sugeridoPedido}" 
+							headerText="sugeridoPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.sugeridoPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.sugeridoPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.tipoNivel}" sortBy="#{grupo.tipoNivel}" 
+							headerText="tipoNivel">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.tipoNivel}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.tipoNivel}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.idFlia_Familia}" sortBy="#{grupo.idFlia_Familia}" 
+							headerText="idFlia_Familia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.idFlia_Familia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.idFlia_Familia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{grupo.idGrpo_Grupo}" sortBy="#{grupo.idGrpo_Grupo}" 
+							headerText="idGrpo_Grupo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.idGrpo_Grupo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{grupo.idGrpo_Grupo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{grupo.fechaCreacion}" sortBy="#{grupo.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{grupo.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{grupoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{grupo.fechaModificacion}" sortBy="#{grupo.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{grupo.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{grupo.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{grupoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{grupoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{grupo}"  target="#{grupoView.selectedGrupo}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

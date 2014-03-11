@@ -1,0 +1,322 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="CarteraData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{carteraView.data}" var="cartera"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{carteraView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{cartera.if(entity.getidCart()==null){throw new ZMessManager().new EmptyFieldException("idCart");}}" sortBy="#{cartera.if(entity.getidCart()==null){throw new ZMessManager().new EmptyFieldException("idCart");}}" 
+							headerText="if(entity.getidCart()==null){throw new ZMessManager().new EmptyFieldException("idCart");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.if(entity.getidCart()==null){throw new ZMessManager().new EmptyFieldException("idCart");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.if(entity.getidCart()==null){throw new ZMessManager().new EmptyFieldException("idCart");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{cartera.estadoRegistro}" sortBy="#{cartera.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.interes}" sortBy="#{cartera.interes}" 
+							headerText="interes">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.interes}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.interes}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.numeroCuotas}" sortBy="#{cartera.numeroCuotas}" 
+							headerText="numeroCuotas">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.numeroCuotas}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.numeroCuotas}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.operCreador}" sortBy="#{cartera.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.operModifica}" sortBy="#{cartera.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.saldo}" sortBy="#{cartera.saldo}" 
+							headerText="saldo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.saldo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.saldo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.valorBase}" sortBy="#{cartera.valorBase}" 
+							headerText="valorBase">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.valorBase}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.valorBase}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.valorTotal}" sortBy="#{cartera.valorTotal}" 
+							headerText="valorTotal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.valorTotal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.valorTotal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.idDocu_Documento}" sortBy="#{cartera.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cartera.idGrpo_Grupo}" sortBy="#{cartera.idGrpo_Grupo}" 
+							headerText="idGrpo_Grupo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.idGrpo_Grupo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cartera.idGrpo_Grupo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{cartera.fechaCreacion}" sortBy="#{cartera.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cartera.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{carteraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{cartera.fechaModificacion}" sortBy="#{cartera.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cartera.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{carteraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{cartera.fechaPago}" sortBy="#{cartera.fechaPago}" 
+							headerText="fechaPago">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.fechaPago}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cartera.fechaPago}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{carteraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{cartera.fechaVencimiento}" sortBy="#{cartera.fechaVencimiento}" 
+							headerText="fechaVencimiento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cartera.fechaVencimiento}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cartera.fechaVencimiento}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{carteraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{carteraView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{cartera}"  target="#{carteraView.selectedCartera}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

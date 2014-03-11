@@ -1,0 +1,208 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTablePresupuestoVentas" header="PresupuestoVentasData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{presupuestoVentasView.data}" var="presupuestoVentas"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{presupuestoVentas.idPven}" sortBy="#{presupuestoVentas.idPven}" >
+										 <f:facet name="header">
+										<h:outputText value="idPven"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.idPven}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{presupuestoVentas.ano}" sortBy="#{presupuestoVentas.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.canal}" sortBy="#{presupuestoVentas.canal}" >
+										 <f:facet name="header">
+										<h:outputText value="Canal"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.canal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.cantidadPresupuesto}" sortBy="#{presupuestoVentas.cantidadPresupuesto}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadPresupuesto"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.cantidadPresupuesto}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.estadoRegistro}" sortBy="#{presupuestoVentas.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.fechaCreacion}" sortBy="#{presupuestoVentas.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.fechaModificacion}" sortBy="#{presupuestoVentas.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.mes}" sortBy="#{presupuestoVentas.mes}" >
+										 <f:facet name="header">
+										<h:outputText value="Mes"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.mes}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.operCreador}" sortBy="#{presupuestoVentas.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.operModifica}" sortBy="#{presupuestoVentas.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.valorPresupuesto}" sortBy="#{presupuestoVentas.valorPresupuesto}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorPresupuesto"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.valorPresupuesto}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.idFlia_Familia}" sortBy="#{presupuestoVentas.idFlia_Familia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdFlia_Familia"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.idFlia_Familia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{presupuestoVentas.idUnve_UnidadVenta}" sortBy="#{presupuestoVentas.idUnve_UnidadVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnve_UnidadVenta"/>
+										</f:facet>
+										 <h:outputText value="#{presupuestoVentas.idUnve_UnidadVenta}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogPresupuestoVentas"
+										actionListener="#{presupuestoVentasView.action_edit}">
+										<f:attribute name="selectedPresupuestoVentas" value="#{presupuestoVentas}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{presupuestoVentasView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedPresupuestoVentas" value="#{presupuestoVentas}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{presupuestoVentasView.action_new()}" update=":dialogPresupuestoVentas" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogPresupuestoVentas" appendToBody="true" draggable="true"
+						closable="false" visible="#{presupuestoVentasView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelPresupuestoVentas" header="PresupuestoVentas">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPven" value="IdPven"/>
+									 <p:inputText id="txtIdPven" binding="#{presupuestoVentasView.txtIdPven}">
+									 <p:ajax update=":dialogPresupuestoVentas" listener="#{presupuestoVentasView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{presupuestoVentasView.txtAno}"/>
+																		<h:outputText id="msgCanal" value=" Canal"/>
+									<p:inputText id="txtCanal" disabled="true" binding="#{presupuestoVentasView.txtCanal}"/>
+																		<h:outputText id="msgCantidadPresupuesto" value=" CantidadPresupuesto"/>
+									<p:inputText id="txtCantidadPresupuesto" disabled="true" binding="#{presupuestoVentasView.txtCantidadPresupuesto}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{presupuestoVentasView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgMes" value=" Mes"/>
+									<p:inputText id="txtMes" disabled="true" binding="#{presupuestoVentasView.txtMes}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{presupuestoVentasView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{presupuestoVentasView.txtOperModifica}"/>
+																		<h:outputText id="msgValorPresupuesto" value=" ValorPresupuesto"/>
+									<p:inputText id="txtValorPresupuesto" disabled="true" binding="#{presupuestoVentasView.txtValorPresupuesto}"/>
+																		<h:outputText id="msgIdFlia_Familia" value=" IdFlia_Familia"/>
+									<p:inputText id="txtIdFlia_Familia" disabled="true" binding="#{presupuestoVentasView.txtIdFlia_Familia}"/>
+																		<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+									<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{presupuestoVentasView.txtIdUnve_UnidadVenta}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{presupuestoVentasView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{presupuestoVentasView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{presupuestoVentasView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{presupuestoVentasView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{presupuestoVentasView.btnSave}" value="Save" action="#{presupuestoVentasView.action_save()}" update=":dialogPresupuestoVentas :frm:panelDataTablePresupuestoVentas" />
+									<p:commandButton id="btnClear" value="Clear" action="#{presupuestoVentasView.action_clear()}" update=":dialogPresupuestoVentas" />
+									<p:commandButton id="btnExit" value="Exit" action="#{presupuestoVentasView.action_closeDialog()}" update=":dialogPresupuestoVentas" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	
