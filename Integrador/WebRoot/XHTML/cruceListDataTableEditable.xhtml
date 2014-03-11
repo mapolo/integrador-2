@@ -1,0 +1,234 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="CruceData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{cruceView.data}" var="cruce"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{cruceView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{cruce.if(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}}" sortBy="#{cruce.if(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}}" 
+							headerText="if(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.if(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.if(entity.getidCrce()==null){throw new ZMessManager().new EmptyFieldException("idCrce");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{cruce.descuento}" sortBy="#{cruce.descuento}" 
+							headerText="descuento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.descuento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.descuento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.estadoRegistro}" sortBy="#{cruce.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.operCreador}" sortBy="#{cruce.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.operModifica}" sortBy="#{cruce.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.idDefi_DescuentoFinanciero}" sortBy="#{cruce.idDefi_DescuentoFinanciero}" 
+							headerText="idDefi_DescuentoFinanciero">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.idDefi_DescuentoFinanciero}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.idDefi_DescuentoFinanciero}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.idRddo_RboDetalleDocumentos}" sortBy="#{cruce.idRddo_RboDetalleDocumentos}" 
+							headerText="idRddo_RboDetalleDocumentos">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.idRddo_RboDetalleDocumentos}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.idRddo_RboDetalleDocumentos}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{cruce.idRdfp_RboDetalleFormasPago}" sortBy="#{cruce.idRdfp_RboDetalleFormasPago}" 
+							headerText="idRdfp_RboDetalleFormasPago">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.idRdfp_RboDetalleFormasPago}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{cruce.idRdfp_RboDetalleFormasPago}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{cruce.fechaCreacion}" sortBy="#{cruce.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cruce.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{cruceView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{cruce.fechaModificacion}" sortBy="#{cruce.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{cruce.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{cruce.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{cruceView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{cruceView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{cruce}"  target="#{cruceView.selectedCruce}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

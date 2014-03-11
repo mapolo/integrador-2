@@ -1,0 +1,244 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableStockInventarioMensual" header="StockInventarioMensualData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{stockInventarioMensualView.data}" var="stockInventarioMensual"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{stockInventarioMensual.idStin}" sortBy="#{stockInventarioMensual.idStin}" >
+										 <f:facet name="header">
+										<h:outputText value="idStin"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.idStin}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{stockInventarioMensual.ano}" sortBy="#{stockInventarioMensual.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.cantidadEntrada}" sortBy="#{stockInventarioMensual.cantidadEntrada}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadEntrada"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.cantidadEntrada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.cantidadSalidas}" sortBy="#{stockInventarioMensual.cantidadSalidas}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadSalidas"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.cantidadSalidas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.costoEntradas}" sortBy="#{stockInventarioMensual.costoEntradas}" >
+										 <f:facet name="header">
+										<h:outputText value="CostoEntradas"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.costoEntradas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.costoSalidas}" sortBy="#{stockInventarioMensual.costoSalidas}" >
+										 <f:facet name="header">
+										<h:outputText value="CostoSalidas"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.costoSalidas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.estadoRegistro}" sortBy="#{stockInventarioMensual.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.fechaCreacion}" sortBy="#{stockInventarioMensual.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.fechaModificacion}" sortBy="#{stockInventarioMensual.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.maximoDistribucion}" sortBy="#{stockInventarioMensual.maximoDistribucion}" >
+										 <f:facet name="header">
+										<h:outputText value="MaximoDistribucion"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.maximoDistribucion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.maximoPedido}" sortBy="#{stockInventarioMensual.maximoPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="MaximoPedido"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.maximoPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.mes}" sortBy="#{stockInventarioMensual.mes}" >
+										 <f:facet name="header">
+										<h:outputText value="Mes"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.mes}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.minimoDistribucion}" sortBy="#{stockInventarioMensual.minimoDistribucion}" >
+										 <f:facet name="header">
+										<h:outputText value="MinimoDistribucion"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.minimoDistribucion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.minimoPedido}" sortBy="#{stockInventarioMensual.minimoPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="MinimoPedido"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.minimoPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.operCreador}" sortBy="#{stockInventarioMensual.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.operModifica}" sortBy="#{stockInventarioMensual.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{stockInventarioMensual.idSini_SaldoInicialInventario}" sortBy="#{stockInventarioMensual.idSini_SaldoInicialInventario}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSini_SaldoInicialInventario"/>
+										</f:facet>
+										 <h:outputText value="#{stockInventarioMensual.idSini_SaldoInicialInventario}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogStockInventarioMensual"
+										actionListener="#{stockInventarioMensualView.action_edit}">
+										<f:attribute name="selectedStockInventarioMensual" value="#{stockInventarioMensual}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{stockInventarioMensualView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedStockInventarioMensual" value="#{stockInventarioMensual}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{stockInventarioMensualView.action_new()}" update=":dialogStockInventarioMensual" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogStockInventarioMensual" appendToBody="true" draggable="true"
+						closable="false" visible="#{stockInventarioMensualView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelStockInventarioMensual" header="StockInventarioMensual">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdStin" value="IdStin"/>
+									 <p:inputText id="txtIdStin" binding="#{stockInventarioMensualView.txtIdStin}">
+									 <p:ajax update=":dialogStockInventarioMensual" listener="#{stockInventarioMensualView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{stockInventarioMensualView.txtAno}"/>
+																		<h:outputText id="msgCantidadEntrada" value=" CantidadEntrada"/>
+									<p:inputText id="txtCantidadEntrada" disabled="true" binding="#{stockInventarioMensualView.txtCantidadEntrada}"/>
+																		<h:outputText id="msgCantidadSalidas" value=" CantidadSalidas"/>
+									<p:inputText id="txtCantidadSalidas" disabled="true" binding="#{stockInventarioMensualView.txtCantidadSalidas}"/>
+																		<h:outputText id="msgCostoEntradas" value=" CostoEntradas"/>
+									<p:inputText id="txtCostoEntradas" disabled="true" binding="#{stockInventarioMensualView.txtCostoEntradas}"/>
+																		<h:outputText id="msgCostoSalidas" value=" CostoSalidas"/>
+									<p:inputText id="txtCostoSalidas" disabled="true" binding="#{stockInventarioMensualView.txtCostoSalidas}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{stockInventarioMensualView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgMaximoDistribucion" value=" MaximoDistribucion"/>
+									<p:inputText id="txtMaximoDistribucion" disabled="true" binding="#{stockInventarioMensualView.txtMaximoDistribucion}"/>
+																		<h:outputText id="msgMaximoPedido" value=" MaximoPedido"/>
+									<p:inputText id="txtMaximoPedido" disabled="true" binding="#{stockInventarioMensualView.txtMaximoPedido}"/>
+																		<h:outputText id="msgMes" value=" Mes"/>
+									<p:inputText id="txtMes" disabled="true" binding="#{stockInventarioMensualView.txtMes}"/>
+																		<h:outputText id="msgMinimoDistribucion" value=" MinimoDistribucion"/>
+									<p:inputText id="txtMinimoDistribucion" disabled="true" binding="#{stockInventarioMensualView.txtMinimoDistribucion}"/>
+																		<h:outputText id="msgMinimoPedido" value=" MinimoPedido"/>
+									<p:inputText id="txtMinimoPedido" disabled="true" binding="#{stockInventarioMensualView.txtMinimoPedido}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{stockInventarioMensualView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{stockInventarioMensualView.txtOperModifica}"/>
+																		<h:outputText id="msgIdSini_SaldoInicialInventario" value=" IdSini_SaldoInicialInventario"/>
+									<p:inputText id="txtIdSini_SaldoInicialInventario" disabled="true" binding="#{stockInventarioMensualView.txtIdSini_SaldoInicialInventario}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{stockInventarioMensualView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{stockInventarioMensualView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{stockInventarioMensualView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{stockInventarioMensualView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{stockInventarioMensualView.btnSave}" value="Save" action="#{stockInventarioMensualView.action_save()}" update=":dialogStockInventarioMensual :frm:panelDataTableStockInventarioMensual" />
+									<p:commandButton id="btnClear" value="Clear" action="#{stockInventarioMensualView.action_clear()}" update=":dialogStockInventarioMensual" />
+									<p:commandButton id="btnExit" value="Exit" action="#{stockInventarioMensualView.action_closeDialog()}" update=":dialogStockInventarioMensual" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

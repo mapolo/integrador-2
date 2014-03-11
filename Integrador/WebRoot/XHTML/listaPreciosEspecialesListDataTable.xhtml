@@ -1,0 +1,241 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableListaPreciosEspeciales" header="ListaPreciosEspecialesData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{listaPreciosEspecialesView.data}" var="listaPreciosEspeciales"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{listaPreciosEspeciales.idLipe}" sortBy="#{listaPreciosEspeciales.idLipe}" >
+										 <f:facet name="header">
+										<h:outputText value="idLipe"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.idLipe}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{listaPreciosEspeciales.concepto}" sortBy="#{listaPreciosEspeciales.concepto}" >
+										 <f:facet name="header">
+										<h:outputText value="Concepto"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.concepto}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.espacios}" sortBy="#{listaPreciosEspeciales.espacios}" >
+										 <f:facet name="header">
+										<h:outputText value="Espacios"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.espacios}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.estadoRegistro}" sortBy="#{listaPreciosEspeciales.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.fechaCreacion}" sortBy="#{listaPreciosEspeciales.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.fechaInicial}" sortBy="#{listaPreciosEspeciales.fechaInicial}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInicial"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.fechaInicial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.fechaModificacion}" sortBy="#{listaPreciosEspeciales.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.fechaVencimiento}" sortBy="#{listaPreciosEspeciales.fechaVencimiento}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaVencimiento"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.fechaVencimiento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.operCreador}" sortBy="#{listaPreciosEspeciales.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.operModifica}" sortBy="#{listaPreciosEspeciales.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.precio}" sortBy="#{listaPreciosEspeciales.precio}" >
+										 <f:facet name="header">
+										<h:outputText value="Precio"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.precio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.tipoGrabado}" sortBy="#{listaPreciosEspeciales.tipoGrabado}" >
+										 <f:facet name="header">
+										<h:outputText value="TipoGrabado"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.tipoGrabado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.idEmpr_Empresa}" sortBy="#{listaPreciosEspeciales.idEmpr_Empresa}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEmpr_Empresa"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.idEmpr_Empresa}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.idPers_Persona}" sortBy="#{listaPreciosEspeciales.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.idRefe_Referencia}" sortBy="#{listaPreciosEspeciales.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.idRefe_Referencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{listaPreciosEspeciales.idSucu_Sucursal}" sortBy="#{listaPreciosEspeciales.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{listaPreciosEspeciales.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogListaPreciosEspeciales"
+										actionListener="#{listaPreciosEspecialesView.action_edit}">
+										<f:attribute name="selectedListaPreciosEspeciales" value="#{listaPreciosEspeciales}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{listaPreciosEspecialesView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedListaPreciosEspeciales" value="#{listaPreciosEspeciales}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{listaPreciosEspecialesView.action_new()}" update=":dialogListaPreciosEspeciales" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogListaPreciosEspeciales" appendToBody="true" draggable="true"
+						closable="false" visible="#{listaPreciosEspecialesView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelListaPreciosEspeciales" header="ListaPreciosEspeciales">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdLipe" value="IdLipe"/>
+									 <p:inputText id="txtIdLipe" binding="#{listaPreciosEspecialesView.txtIdLipe}">
+									 <p:ajax update=":dialogListaPreciosEspeciales" listener="#{listaPreciosEspecialesView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgConcepto" value=" Concepto"/>
+									<p:inputText id="txtConcepto" disabled="true" binding="#{listaPreciosEspecialesView.txtConcepto}"/>
+																		<h:outputText id="msgEspacios" value=" Espacios"/>
+									<p:inputText id="txtEspacios" disabled="true" binding="#{listaPreciosEspecialesView.txtEspacios}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{listaPreciosEspecialesView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{listaPreciosEspecialesView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{listaPreciosEspecialesView.txtOperModifica}"/>
+																		<h:outputText id="msgPrecio" value=" Precio"/>
+									<p:inputText id="txtPrecio" disabled="true" binding="#{listaPreciosEspecialesView.txtPrecio}"/>
+																		<h:outputText id="msgTipoGrabado" value=" TipoGrabado"/>
+									<p:inputText id="txtTipoGrabado" disabled="true" binding="#{listaPreciosEspecialesView.txtTipoGrabado}"/>
+																		<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+									<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{listaPreciosEspecialesView.txtIdEmpr_Empresa}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{listaPreciosEspecialesView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{listaPreciosEspecialesView.txtIdRefe_Referencia}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{listaPreciosEspecialesView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{listaPreciosEspecialesView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInicial" value=" FechaInicial"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{listaPreciosEspecialesView.txtFechaInicial}" >
+										<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaInicial}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{listaPreciosEspecialesView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaVencimiento" value=" FechaVencimiento"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{listaPreciosEspecialesView.txtFechaVencimiento}" >
+										<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaVencimiento}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{listaPreciosEspecialesView.btnSave}" value="Save" action="#{listaPreciosEspecialesView.action_save()}" update=":dialogListaPreciosEspeciales :frm:panelDataTableListaPreciosEspeciales" />
+									<p:commandButton id="btnClear" value="Clear" action="#{listaPreciosEspecialesView.action_clear()}" update=":dialogListaPreciosEspeciales" />
+									<p:commandButton id="btnExit" value="Exit" action="#{listaPreciosEspecialesView.action_closeDialog()}" update=":dialogListaPreciosEspeciales" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.SaldoInicialInventario" table="SALDO_INICIAL_INVENTARIO" >
+        <id name="idSini" type="java.lang.Long">
+            <column name="ID_SINI" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="referenciaSucursal" class="co.edu.usbcali.modelo.ReferenciaSucursal" fetch="select">
+            <column name="ID_RESU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="ano" type="java.lang.Long">
+            <column name="ANO" precision="5" scale="0" not-null="true" />
+        </property>
+        <property name="saldoInicial" type="java.lang.Double">
+            <column name="SALDO_INICIAL" precision="12" not-null="true" />
+        </property>
+        <property name="costoInicial" type="java.lang.Double">
+            <column name="COSTO_INICIAL" precision="14" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="stockInventarioMensuals" inverse="true" lazy="true" table="STOCK_INVENTARIO_MENSUAL" fetch="select">
+            <key>
+                <column name="ID_SINI" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.StockInventarioMensual" />
+        </set>
+    </class>
+</hibernate-mapping>

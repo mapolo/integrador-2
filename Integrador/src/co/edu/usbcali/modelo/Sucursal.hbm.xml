@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Sucursal" table="SUCURSAL" >
+        <id name="idSucu" type="java.lang.Long">
+            <column name="ID_SUCU" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="persona" class="co.edu.usbcali.modelo.Persona" fetch="select">
+            <column name="ID_PERS" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="regionalGeografica" class="co.edu.usbcali.modelo.RegionalGeografica" fetch="select">
+            <column name="ID_REGE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="empresa" class="co.edu.usbcali.modelo.Empresa" fetch="select">
+            <column name="ID_EMPR" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="divisionPolitica" class="co.edu.usbcali.modelo.DivisionPolitica" fetch="select">
+            <column name="ID_DIPO" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="sucursal" class="co.edu.usbcali.modelo.Sucursal" fetch="select">
+            <column name="SUCURSAL_PADRE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="tipoSucursal" class="co.edu.usbcali.modelo.TipoSucursal" fetch="select">
+            <column name="ID_TISU" precision="10" scale="0" />
+        </many-to-one>
+        <property name="codigo" type="java.lang.String">
+            <column name="CODIGO" length="3" />
+        </property>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" length="100" />
+        </property>
+        <property name="direccion" type="java.lang.String">
+            <column name="DIRECCION" length="100" />
+        </property>
+        <property name="telefono" type="java.lang.String">
+            <column name="TELEFONO" length="30" />
+        </property>
+        <property name="zipCode" type="java.lang.String">
+            <column name="ZIP_CODE" length="30" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="EMAIL" length="100" />
+        </property>
+        <property name="estadoSucursal" type="java.lang.String">
+            <column name="ESTADO_SUCURSAL" length="1" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="rboDetalleDocumentoses" inverse="true" lazy="true" table="RBO_DETALLE_DOCUMENTOS" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.RboDetalleDocumentos" />
+        </set>
+        <set name="clavesParaRotars" inverse="true" lazy="true" table="CLAVES_PARA_ROTAR" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ClavesParaRotar" />
+        </set>
+        <set name="consecutivoDocumentos" inverse="true" lazy="true" table="CONSECUTIVO_DOCUMENTO" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ConsecutivoDocumento" />
+        </set>
+        <set name="descuentoComercialsForSucursal" inverse="true" lazy="true" table="DESCUENTO_COMERCIAL" fetch="select">
+            <key>
+                <column name="SUCURSAL" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.DescuentoComercial" />
+        </set>
+        <set name="relacionComercialsForSucursalHija" inverse="true" lazy="true" table="RELACION_COMERCIAL" fetch="select">
+            <key>
+                <column name="SUCURSAL_HIJA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.RelacionComercial" />
+        </set>
+        <set name="sucursals" inverse="true" lazy="true" table="SUCURSAL" fetch="select">
+            <key>
+                <column name="SUCURSAL_PADRE" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Sucursal" />
+        </set>
+        <set name="listaPreciosEspecialesesForIdSucu" inverse="true" lazy="true" table="LISTA_PRECIOS_ESPECIALES" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ListaPreciosEspeciales" />
+        </set>
+        <set name="ordenesDeCompras" inverse="true" lazy="true" table="ORDENES_DE_COMPRA" fetch="select">
+            <key>
+                <column name="SUCURSAL_RECIBE" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.OrdenesDeCompra" />
+        </set>
+        <set name="contactos" inverse="true" lazy="true" table="CONTACTO" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Contacto" />
+        </set>
+        <set name="bateriologos" inverse="true" lazy="true" table="BATERIOLOGO" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Bateriologo" />
+        </set>
+        <set name="multifamilias" inverse="true" lazy="true" table="MULTIFAMILIA" fetch="select">
+            <key>
+                <column name="SUCURSAL_HIJA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Multifamilia" />
+        </set>
+        <set name="documentos" inverse="true" lazy="true" table="DOCUMENTO" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Documento" />
+        </set>
+        <set name="movimientoInventariosForSucursalEntrega" inverse="true" lazy="true" table="MOVIMIENTO_INVENTARIO" fetch="select">
+            <key>
+                <column name="SUCURSAL_ENTREGA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.MovimientoInventario" />
+        </set>
+        <set name="listaPrecioses" inverse="true" lazy="true" table="LISTA_PRECIOS" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ListaPrecios" />
+        </set>
+        <set name="movimientoInventariosForSucursalRecibeEnvia" inverse="true" lazy="true" table="MOVIMIENTO_INVENTARIO" fetch="select">
+            <key>
+                <column name="SUCURSAL_RECIBE_ENVIA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.MovimientoInventario" />
+        </set>
+        <set name="descuentoComercialsForIdSucu" inverse="true" lazy="true" table="DESCUENTO_COMERCIAL" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.DescuentoComercial" />
+        </set>
+        <set name="listaPreciosEspecialesesForSucursal" inverse="true" lazy="true" table="LISTA_PRECIOS_ESPECIALES" fetch="select">
+            <key>
+                <column name="SUCURSAL" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ListaPreciosEspeciales" />
+        </set>
+        <set name="relacionComercialsForSucursalPadre" inverse="true" lazy="true" table="RELACION_COMERCIAL" fetch="select">
+            <key>
+                <column name="SUCURSAL_PADRE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.RelacionComercial" />
+        </set>
+        <set name="referenciaSucursals" inverse="true" lazy="true" table="REFERENCIA_SUCURSAL" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ReferenciaSucursal" />
+        </set>
+        <set name="pronosticoVentas" inverse="true" lazy="true" table="PRONOSTICO_VENTA" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.PronosticoVenta" />
+        </set>
+        <set name="vendedors" inverse="true" lazy="true" table="VENDEDOR" fetch="select">
+            <key>
+                <column name="ID_SUCU" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Vendedor" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,190 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableVendedor" header="VendedorData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{vendedorView.data}" var="vendedor"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{vendedor.idVend}" sortBy="#{vendedor.idVend}" >
+										 <f:facet name="header">
+										<h:outputText value="idVend"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.idVend}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{vendedor.codigo}" sortBy="#{vendedor.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.email}" sortBy="#{vendedor.email}" >
+										 <f:facet name="header">
+										<h:outputText value="Email"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.email}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.estadoRegistro}" sortBy="#{vendedor.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.fechaCreacion}" sortBy="#{vendedor.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.fechaModificacion}" sortBy="#{vendedor.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.operCreador}" sortBy="#{vendedor.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.operModifica}" sortBy="#{vendedor.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.idPers_Persona}" sortBy="#{vendedor.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.idSucu_Sucursal}" sortBy="#{vendedor.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.idSucu_Sucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{vendedor.idVend_Vendedor}" sortBy="#{vendedor.idVend_Vendedor}" >
+										 <f:facet name="header">
+										<h:outputText value="IdVend_Vendedor"/>
+										</f:facet>
+										 <h:outputText value="#{vendedor.idVend_Vendedor}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogVendedor"
+										actionListener="#{vendedorView.action_edit}">
+										<f:attribute name="selectedVendedor" value="#{vendedor}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{vendedorView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedVendedor" value="#{vendedor}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{vendedorView.action_new()}" update=":dialogVendedor" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogVendedor" appendToBody="true" draggable="true"
+						closable="false" visible="#{vendedorView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelVendedor" header="Vendedor">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdVend" value="IdVend"/>
+									 <p:inputText id="txtIdVend" binding="#{vendedorView.txtIdVend}">
+									 <p:ajax update=":dialogVendedor" listener="#{vendedorView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{vendedorView.txtCodigo}"/>
+																		<h:outputText id="msgEmail" value=" Email"/>
+									<p:inputText id="txtEmail" disabled="true" binding="#{vendedorView.txtEmail}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{vendedorView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{vendedorView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{vendedorView.txtOperModifica}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{vendedorView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{vendedorView.txtIdSucu_Sucursal}"/>
+																		<h:outputText id="msgIdVend_Vendedor" value=" IdVend_Vendedor"/>
+									<p:inputText id="txtIdVend_Vendedor" disabled="true" binding="#{vendedorView.txtIdVend_Vendedor}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{vendedorView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{vendedorView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{vendedorView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{vendedorView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{vendedorView.btnSave}" value="Save" action="#{vendedorView.action_save()}" update=":dialogVendedor :frm:panelDataTableVendedor" />
+									<p:commandButton id="btnClear" value="Clear" action="#{vendedorView.action_clear()}" update=":dialogVendedor" />
+									<p:commandButton id="btnExit" value="Exit" action="#{vendedorView.action_closeDialog()}" update=":dialogVendedor" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

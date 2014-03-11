@@ -1,0 +1,266 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="ItemLogisticaReversivaData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{itemLogisticaReversivaView.data}" var="itemLogisticaReversiva"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{itemLogisticaReversivaView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{itemLogisticaReversiva.if(entity.getidItlr()==null){throw new ZMessManager().new EmptyFieldException("idItlr");}}" sortBy="#{itemLogisticaReversiva.if(entity.getidItlr()==null){throw new ZMessManager().new EmptyFieldException("idItlr");}}" 
+							headerText="if(entity.getidItlr()==null){throw new ZMessManager().new EmptyFieldException("idItlr");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.if(entity.getidItlr()==null){throw new ZMessManager().new EmptyFieldException("idItlr");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.if(entity.getidItlr()==null){throw new ZMessManager().new EmptyFieldException("idItlr");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{itemLogisticaReversiva.cantidadRecibida}" sortBy="#{itemLogisticaReversiva.cantidadRecibida}" 
+							headerText="cantidadRecibida">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.cantidadRecibida}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.cantidadRecibida}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.cantidadSolicitada}" sortBy="#{itemLogisticaReversiva.cantidadSolicitada}" 
+							headerText="cantidadSolicitada">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.cantidadSolicitada}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.cantidadSolicitada}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.estadoRegistro}" sortBy="#{itemLogisticaReversiva.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.observacion}" sortBy="#{itemLogisticaReversiva.observacion}" 
+							headerText="observacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.observacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.observacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.operCreador}" sortBy="#{itemLogisticaReversiva.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.operModifica}" sortBy="#{itemLogisticaReversiva.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.valor}" sortBy="#{itemLogisticaReversiva.valor}" 
+							headerText="valor">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.valor}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.valor}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.idLore_LogisticaReversiva}" sortBy="#{itemLogisticaReversiva.idLore_LogisticaReversiva}" 
+							headerText="idLore_LogisticaReversiva">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.idLore_LogisticaReversiva}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.idLore_LogisticaReversiva}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemLogisticaReversiva.idRefe_Referencia}" sortBy="#{itemLogisticaReversiva.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemLogisticaReversiva.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{itemLogisticaReversiva.fechaCreacion}" sortBy="#{itemLogisticaReversiva.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemLogisticaReversiva.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemLogisticaReversivaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemLogisticaReversiva.fechaModificacion}" sortBy="#{itemLogisticaReversiva.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemLogisticaReversiva.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemLogisticaReversiva.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemLogisticaReversivaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{itemLogisticaReversivaView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{itemLogisticaReversiva}"  target="#{itemLogisticaReversivaView.selectedItemLogisticaReversiva}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

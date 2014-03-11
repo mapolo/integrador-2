@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectListaPreciosEspecialesTitle" header="ListaPreciosEspeciales" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidLipe()==null){throw new ZMessManager().new EmptyFieldException("idLipe");}" value="If(entity.getidLipe()==null){throw new ZMessManager().new EmptyFieldException("idLipe");}"/>
+						 <p:inputText id="txtIf(entity.getidLipe()==null){throw new ZMessManager().new EmptyFieldException("idLipe");}" binding="#{listaPreciosEspecialesView.txtIf(entity.getidLipe()==null){throw new ZMessManager().new EmptyFieldException("idLipe");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{listaPreciosEspecialesView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgConcepto" value=" Concepto"/>
+						<p:inputText id="txtConcepto" disabled="true" binding="#{listaPreciosEspecialesView.txtConcepto}"/>
+												<h:outputText id="msgEspacios" value=" Espacios"/>
+						<p:inputText id="txtEspacios" disabled="true" binding="#{listaPreciosEspecialesView.txtEspacios}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{listaPreciosEspecialesView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{listaPreciosEspecialesView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{listaPreciosEspecialesView.txtOperModifica}"/>
+												<h:outputText id="msgPrecio" value=" Precio"/>
+						<p:inputText id="txtPrecio" disabled="true" binding="#{listaPreciosEspecialesView.txtPrecio}"/>
+												<h:outputText id="msgTipoGrabado" value=" TipoGrabado"/>
+						<p:inputText id="txtTipoGrabado" disabled="true" binding="#{listaPreciosEspecialesView.txtTipoGrabado}"/>
+												<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+						<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{listaPreciosEspecialesView.txtIdEmpr_Empresa}"/>
+												<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+						<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{listaPreciosEspecialesView.txtIdPers_Persona}"/>
+												<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+						<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{listaPreciosEspecialesView.txtIdRefe_Referencia}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{listaPreciosEspecialesView.txtIdSucu_Sucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{listaPreciosEspecialesView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaInicial" value=" FechaInicial"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{listaPreciosEspecialesView.txtFechaInicial}" >
+							<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaInicial}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{listaPreciosEspecialesView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaVencimiento" value=" FechaVencimiento"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{listaPreciosEspecialesView.txtFechaVencimiento}" >
+							<p:ajax event="dateSelect" listener="#{listaPreciosEspecialesView.listener_txtFechaVencimiento}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{listaPreciosEspecialesView.action_save}" update="msg,panel,panelBotones"          binding="#{listaPreciosEspecialesView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{listaPreciosEspecialesView.action_modify}" update="msg,panel,panelBotones"    binding="#{listaPreciosEspecialesView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{listaPreciosEspecialesView.action_delete}" update="msg,panel,panelBotones"    binding="#{listaPreciosEspecialesView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{listaPreciosEspecialesView.action_clear}" update="msg,panel,panelBotones"      binding="#{listaPreciosEspecialesView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

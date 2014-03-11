@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectGarantiaTitle" header="Garantia" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}" value="If(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}"/>
+						 <p:inputText id="txtIf(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}" binding="#{garantiaView.txtIf(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{garantiaView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgAlineacionTrazabilidad" value=" AlineacionTrazabilidad"/>
+						<p:inputText id="txtAlineacionTrazabilidad" disabled="true" binding="#{garantiaView.txtAlineacionTrazabilidad}"/>
+												<h:outputText id="msgAnoTrazabilidad" value=" AnoTrazabilidad"/>
+						<p:inputText id="txtAnoTrazabilidad" disabled="true" binding="#{garantiaView.txtAnoTrazabilidad}"/>
+												<h:outputText id="msgDiaTrazabilidad" value=" DiaTrazabilidad"/>
+						<p:inputText id="txtDiaTrazabilidad" disabled="true" binding="#{garantiaView.txtDiaTrazabilidad}"/>
+												<h:outputText id="msgEstado" value=" Estado"/>
+						<p:inputText id="txtEstado" disabled="true" binding="#{garantiaView.txtEstado}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{garantiaView.txtEstadoRegistro}"/>
+												<h:outputText id="msgLineaTrazabilidad" value=" LineaTrazabilidad"/>
+						<p:inputText id="txtLineaTrazabilidad" disabled="true" binding="#{garantiaView.txtLineaTrazabilidad}"/>
+												<h:outputText id="msgMesTrazabilidad" value=" MesTrazabilidad"/>
+						<p:inputText id="txtMesTrazabilidad" disabled="true" binding="#{garantiaView.txtMesTrazabilidad}"/>
+												<h:outputText id="msgNumeroGarantia" value=" NumeroGarantia"/>
+						<p:inputText id="txtNumeroGarantia" disabled="true" binding="#{garantiaView.txtNumeroGarantia}"/>
+												<h:outputText id="msgObservacion" value=" Observacion"/>
+						<p:inputText id="txtObservacion" disabled="true" binding="#{garantiaView.txtObservacion}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{garantiaView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{garantiaView.txtOperModifica}"/>
+												<h:outputText id="msgPlacaTrazabilidad" value=" PlacaTrazabilidad"/>
+						<p:inputText id="txtPlacaTrazabilidad" disabled="true" binding="#{garantiaView.txtPlacaTrazabilidad}"/>
+												<h:outputText id="msgTurnoTrazabilidad" value=" TurnoTrazabilidad"/>
+						<p:inputText id="txtTurnoTrazabilidad" disabled="true" binding="#{garantiaView.txtTurnoTrazabilidad}"/>
+												<h:outputText id="msgIdBate_Bateriologo" value=" IdBate_Bateriologo"/>
+						<p:inputText id="txtIdBate_Bateriologo" disabled="true" binding="#{garantiaView.txtIdBate_Bateriologo}"/>
+												<h:outputText id="msgIdClfa_ClaveFabricacion" value=" IdClfa_ClaveFabricacion"/>
+						<p:inputText id="txtIdClfa_ClaveFabricacion" disabled="true" binding="#{garantiaView.txtIdClfa_ClaveFabricacion}"/>
+												<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+						<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{garantiaView.txtIdDocu_Documento}"/>
+												<h:outputText id="msgIdCfal_Fallas" value=" IdCfal_Fallas"/>
+						<p:inputText id="txtIdCfal_Fallas" disabled="true" binding="#{garantiaView.txtIdCfal_Fallas}"/>
+												<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+						<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{garantiaView.txtIdRefe_Referencia}"/>
+												<h:outputText id="msgIdTiga_TipoGarantia" value=" IdTiga_TipoGarantia"/>
+						<p:inputText id="txtIdTiga_TipoGarantia" disabled="true" binding="#{garantiaView.txtIdTiga_TipoGarantia}"/>
+												
+																				<h:outputText id="msgFechaCambio" value=" FechaCambio"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{garantiaView.txtFechaCambio}" >
+							<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaCambio}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{garantiaView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{garantiaView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaVenta" value=" FechaVenta"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{garantiaView.txtFechaVenta}" >
+							<p:ajax event="dateSelect" listener="#{garantiaView.listener_txtFechaVenta}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{garantiaView.action_save}" update="msg,panel,panelBotones"          binding="#{garantiaView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{garantiaView.action_modify}" update="msg,panel,panelBotones"    binding="#{garantiaView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{garantiaView.action_delete}" update="msg,panel,panelBotones"    binding="#{garantiaView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{garantiaView.action_clear}" update="msg,panel,panelBotones"      binding="#{garantiaView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

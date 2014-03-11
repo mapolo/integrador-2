@@ -1,0 +1,108 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectSucursalTitle" header="Sucursal" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidSucu()==null){throw new ZMessManager().new EmptyFieldException("idSucu");}" value="If(entity.getidSucu()==null){throw new ZMessManager().new EmptyFieldException("idSucu");}"/>
+						 <p:inputText id="txtIf(entity.getidSucu()==null){throw new ZMessManager().new EmptyFieldException("idSucu");}" binding="#{sucursalView.txtIf(entity.getidSucu()==null){throw new ZMessManager().new EmptyFieldException("idSucu");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{sucursalView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigo" value=" Codigo"/>
+						<p:inputText id="txtCodigo" disabled="true" binding="#{sucursalView.txtCodigo}"/>
+												<h:outputText id="msgDireccion" value=" Direccion"/>
+						<p:inputText id="txtDireccion" disabled="true" binding="#{sucursalView.txtDireccion}"/>
+												<h:outputText id="msgEmail" value=" Email"/>
+						<p:inputText id="txtEmail" disabled="true" binding="#{sucursalView.txtEmail}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{sucursalView.txtEstadoRegistro}"/>
+												<h:outputText id="msgEstadoSucursal" value=" EstadoSucursal"/>
+						<p:inputText id="txtEstadoSucursal" disabled="true" binding="#{sucursalView.txtEstadoSucursal}"/>
+												<h:outputText id="msgNombre" value=" Nombre"/>
+						<p:inputText id="txtNombre" disabled="true" binding="#{sucursalView.txtNombre}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{sucursalView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{sucursalView.txtOperModifica}"/>
+												<h:outputText id="msgTelefono" value=" Telefono"/>
+						<p:inputText id="txtTelefono" disabled="true" binding="#{sucursalView.txtTelefono}"/>
+												<h:outputText id="msgZipCode" value=" ZipCode"/>
+						<p:inputText id="txtZipCode" disabled="true" binding="#{sucursalView.txtZipCode}"/>
+												<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+						<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{sucursalView.txtIdDipo_DivisionPolitica}"/>
+												<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+						<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{sucursalView.txtIdEmpr_Empresa}"/>
+												<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+						<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{sucursalView.txtIdPers_Persona}"/>
+												<h:outputText id="msgIdRege_RegionalGeografica" value=" IdRege_RegionalGeografica"/>
+						<p:inputText id="txtIdRege_RegionalGeografica" disabled="true" binding="#{sucursalView.txtIdRege_RegionalGeografica}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{sucursalView.txtIdSucu_Sucursal}"/>
+												<h:outputText id="msgIdTisu_TipoSucursal" value=" IdTisu_TipoSucursal"/>
+						<p:inputText id="txtIdTisu_TipoSucursal" disabled="true" binding="#{sucursalView.txtIdTisu_TipoSucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{sucursalView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{sucursalView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{sucursalView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{sucursalView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{sucursalView.action_save}" update="msg,panel,panelBotones"          binding="#{sucursalView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{sucursalView.action_modify}" update="msg,panel,panelBotones"    binding="#{sucursalView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{sucursalView.action_delete}" update="msg,panel,panelBotones"    binding="#{sucursalView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{sucursalView.action_clear}" update="msg,panel,panelBotones"      binding="#{sucursalView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

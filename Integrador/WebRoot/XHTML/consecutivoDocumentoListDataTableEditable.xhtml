@@ -1,0 +1,282 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="ConsecutivoDocumentoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{consecutivoDocumentoView.data}" var="consecutivoDocumento"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{consecutivoDocumentoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{consecutivoDocumento.if(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}}" sortBy="#{consecutivoDocumento.if(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}}" 
+							headerText="if(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.if(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.if(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{consecutivoDocumento.codigoTerminal}" sortBy="#{consecutivoDocumento.codigoTerminal}" 
+							headerText="codigoTerminal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.codigoTerminal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.codigoTerminal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.consecutivoActual}" sortBy="#{consecutivoDocumento.consecutivoActual}" 
+							headerText="consecutivoActual">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.consecutivoActual}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.consecutivoActual}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.consecutivoFinal}" sortBy="#{consecutivoDocumento.consecutivoFinal}" 
+							headerText="consecutivoFinal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.consecutivoFinal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.consecutivoFinal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.consecutivoInicial}" sortBy="#{consecutivoDocumento.consecutivoInicial}" 
+							headerText="consecutivoInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.consecutivoInicial}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.consecutivoInicial}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.estadoRegistro}" sortBy="#{consecutivoDocumento.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.operCreador}" sortBy="#{consecutivoDocumento.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.operModifica}" sortBy="#{consecutivoDocumento.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.idSucu_Sucursal}" sortBy="#{consecutivoDocumento.idSucu_Sucursal}" 
+							headerText="idSucu_Sucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.idSucu_Sucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.idSucu_Sucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.idTido_TipoDocumento}" sortBy="#{consecutivoDocumento.idTido_TipoDocumento}" 
+							headerText="idTido_TipoDocumento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.idTido_TipoDocumento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.idTido_TipoDocumento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{consecutivoDocumento.idVend_Vendedor}" sortBy="#{consecutivoDocumento.idVend_Vendedor}" 
+							headerText="idVend_Vendedor">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.idVend_Vendedor}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{consecutivoDocumento.idVend_Vendedor}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{consecutivoDocumento.fechaCreacion}" sortBy="#{consecutivoDocumento.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{consecutivoDocumento.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{consecutivoDocumentoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{consecutivoDocumento.fechaModificacion}" sortBy="#{consecutivoDocumento.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{consecutivoDocumento.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{consecutivoDocumento.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{consecutivoDocumentoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{consecutivoDocumentoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{consecutivoDocumento}"  target="#{consecutivoDocumentoView.selectedConsecutivoDocumento}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

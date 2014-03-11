@@ -1,0 +1,438 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="OrdenesDeCompraData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{ordenesDeCompraView.data}" var="ordenesDeCompra"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{ordenesDeCompraView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{ordenesDeCompra.if(entity.getidOrdc()==null){throw new ZMessManager().new EmptyFieldException("idOrdc");}}" sortBy="#{ordenesDeCompra.if(entity.getidOrdc()==null){throw new ZMessManager().new EmptyFieldException("idOrdc");}}" 
+							headerText="if(entity.getidOrdc()==null){throw new ZMessManager().new EmptyFieldException("idOrdc");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.if(entity.getidOrdc()==null){throw new ZMessManager().new EmptyFieldException("idOrdc");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.if(entity.getidOrdc()==null){throw new ZMessManager().new EmptyFieldException("idOrdc");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{ordenesDeCompra.cantidadPedida}" sortBy="#{ordenesDeCompra.cantidadPedida}" 
+							headerText="cantidadPedida">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.cantidadPedida}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.cantidadPedida}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.cantidadRecibido}" sortBy="#{ordenesDeCompra.cantidadRecibido}" 
+							headerText="cantidadRecibido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.cantidadRecibido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.cantidadRecibido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.estadoRegistro}" sortBy="#{ordenesDeCompra.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.iva}" sortBy="#{ordenesDeCompra.iva}" 
+							headerText="iva">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.iva}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.iva}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.numeroFactura}" sortBy="#{ordenesDeCompra.numeroFactura}" 
+							headerText="numeroFactura">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.numeroFactura}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.numeroFactura}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.numeroPedido}" sortBy="#{ordenesDeCompra.numeroPedido}" 
+							headerText="numeroPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.numeroPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.numeroPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.operCreador}" sortBy="#{ordenesDeCompra.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.operModifica}" sortBy="#{ordenesDeCompra.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.porcentajeDescuento}" sortBy="#{ordenesDeCompra.porcentajeDescuento}" 
+							headerText="porcentajeDescuento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.porcentajeDescuento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.porcentajeDescuento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.precioUnitarioPedido}" sortBy="#{ordenesDeCompra.precioUnitarioPedido}" 
+							headerText="precioUnitarioPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.precioUnitarioPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.precioUnitarioPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.precioUnitarioRecibdo}" sortBy="#{ordenesDeCompra.precioUnitarioRecibdo}" 
+							headerText="precioUnitarioRecibdo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.precioUnitarioRecibdo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.precioUnitarioRecibdo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.idDocu_Documento}" sortBy="#{ordenesDeCompra.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.idEmpr_Empresa}" sortBy="#{ordenesDeCompra.idEmpr_Empresa}" 
+							headerText="idEmpr_Empresa">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.idEmpr_Empresa}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.idEmpr_Empresa}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.idPers_Persona}" sortBy="#{ordenesDeCompra.idPers_Persona}" 
+							headerText="idPers_Persona">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.idPers_Persona}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.idPers_Persona}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.idRefe_Referencia}" sortBy="#{ordenesDeCompra.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{ordenesDeCompra.idSucu_Sucursal}" sortBy="#{ordenesDeCompra.idSucu_Sucursal}" 
+							headerText="idSucu_Sucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.idSucu_Sucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{ordenesDeCompra.idSucu_Sucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{ordenesDeCompra.fechaCreacion}" sortBy="#{ordenesDeCompra.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{ordenesDeCompra.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{ordenesDeCompraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{ordenesDeCompra.fechaEntrega}" sortBy="#{ordenesDeCompra.fechaEntrega}" 
+							headerText="fechaEntrega">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.fechaEntrega}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{ordenesDeCompra.fechaEntrega}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{ordenesDeCompraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{ordenesDeCompra.fechaModificacion}" sortBy="#{ordenesDeCompra.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{ordenesDeCompra.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{ordenesDeCompraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{ordenesDeCompra.fechaPedido}" sortBy="#{ordenesDeCompra.fechaPedido}" 
+							headerText="fechaPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.fechaPedido}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{ordenesDeCompra.fechaPedido}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{ordenesDeCompraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{ordenesDeCompra.fechaRecibido}" sortBy="#{ordenesDeCompra.fechaRecibido}" 
+							headerText="fechaRecibido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{ordenesDeCompra.fechaRecibido}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{ordenesDeCompra.fechaRecibido}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{ordenesDeCompraView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{ordenesDeCompraView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{ordenesDeCompra}"  target="#{ordenesDeCompraView.selectedOrdenesDeCompra}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

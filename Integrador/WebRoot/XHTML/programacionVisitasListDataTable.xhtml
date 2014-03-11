@@ -1,0 +1,172 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableProgramacionVisitas" header="ProgramacionVisitasData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{programacionVisitasView.data}" var="programacionVisitas"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{programacionVisitas.idPrvi}" sortBy="#{programacionVisitas.idPrvi}" >
+										 <f:facet name="header">
+										<h:outputText value="idPrvi"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.idPrvi}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{programacionVisitas.estadoRegistro}" sortBy="#{programacionVisitas.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.fechaCreacion}" sortBy="#{programacionVisitas.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.fechaModificacion}" sortBy="#{programacionVisitas.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.operCreador}" sortBy="#{programacionVisitas.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.operModifica}" sortBy="#{programacionVisitas.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.idAtve_AtencionVendedor}" sortBy="#{programacionVisitas.idAtve_AtencionVendedor}" >
+										 <f:facet name="header">
+										<h:outputText value="IdAtve_AtencionVendedor"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.idAtve_AtencionVendedor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.idDise_DiasSemana}" sortBy="#{programacionVisitas.idDise_DiasSemana}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDise_DiasSemana"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.idDise_DiasSemana}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{programacionVisitas.idFrvi_FrecuenciaVisita}" sortBy="#{programacionVisitas.idFrvi_FrecuenciaVisita}" >
+										 <f:facet name="header">
+										<h:outputText value="IdFrvi_FrecuenciaVisita"/>
+										</f:facet>
+										 <h:outputText value="#{programacionVisitas.idFrvi_FrecuenciaVisita}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogProgramacionVisitas"
+										actionListener="#{programacionVisitasView.action_edit}">
+										<f:attribute name="selectedProgramacionVisitas" value="#{programacionVisitas}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{programacionVisitasView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedProgramacionVisitas" value="#{programacionVisitas}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{programacionVisitasView.action_new()}" update=":dialogProgramacionVisitas" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogProgramacionVisitas" appendToBody="true" draggable="true"
+						closable="false" visible="#{programacionVisitasView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelProgramacionVisitas" header="ProgramacionVisitas">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPrvi" value="IdPrvi"/>
+									 <p:inputText id="txtIdPrvi" binding="#{programacionVisitasView.txtIdPrvi}">
+									 <p:ajax update=":dialogProgramacionVisitas" listener="#{programacionVisitasView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{programacionVisitasView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{programacionVisitasView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{programacionVisitasView.txtOperModifica}"/>
+																		<h:outputText id="msgIdAtve_AtencionVendedor" value=" IdAtve_AtencionVendedor"/>
+									<p:inputText id="txtIdAtve_AtencionVendedor" disabled="true" binding="#{programacionVisitasView.txtIdAtve_AtencionVendedor}"/>
+																		<h:outputText id="msgIdDise_DiasSemana" value=" IdDise_DiasSemana"/>
+									<p:inputText id="txtIdDise_DiasSemana" disabled="true" binding="#{programacionVisitasView.txtIdDise_DiasSemana}"/>
+																		<h:outputText id="msgIdFrvi_FrecuenciaVisita" value=" IdFrvi_FrecuenciaVisita"/>
+									<p:inputText id="txtIdFrvi_FrecuenciaVisita" disabled="true" binding="#{programacionVisitasView.txtIdFrvi_FrecuenciaVisita}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{programacionVisitasView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{programacionVisitasView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{programacionVisitasView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{programacionVisitasView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{programacionVisitasView.btnSave}" value="Save" action="#{programacionVisitasView.action_save()}" update=":dialogProgramacionVisitas :frm:panelDataTableProgramacionVisitas" />
+									<p:commandButton id="btnClear" value="Clear" action="#{programacionVisitasView.action_clear()}" update=":dialogProgramacionVisitas" />
+									<p:commandButton id="btnExit" value="Exit" action="#{programacionVisitasView.action_closeDialog()}" update=":dialogProgramacionVisitas" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

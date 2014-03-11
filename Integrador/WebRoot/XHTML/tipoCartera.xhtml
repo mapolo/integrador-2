@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectTipoCarteraTitle" header="TipoCartera" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidTica()==null){throw new ZMessManager().new EmptyFieldException("idTica");}" value="If(entity.getidTica()==null){throw new ZMessManager().new EmptyFieldException("idTica");}"/>
+						 <p:inputText id="txtIf(entity.getidTica()==null){throw new ZMessManager().new EmptyFieldException("idTica");}" binding="#{tipoCarteraView.txtIf(entity.getidTica()==null){throw new ZMessManager().new EmptyFieldException("idTica");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{tipoCarteraView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigo" value=" Codigo"/>
+						<p:inputText id="txtCodigo" disabled="true" binding="#{tipoCarteraView.txtCodigo}"/>
+												<h:outputText id="msgDescripcion" value=" Descripcion"/>
+						<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoCarteraView.txtDescripcion}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoCarteraView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoCarteraView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoCarteraView.txtOperModifica}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tipoCarteraView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{tipoCarteraView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{tipoCarteraView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{tipoCarteraView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{tipoCarteraView.action_save}" update="msg,panel,panelBotones"          binding="#{tipoCarteraView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{tipoCarteraView.action_modify}" update="msg,panel,panelBotones"    binding="#{tipoCarteraView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{tipoCarteraView.action_delete}" update="msg,panel,panelBotones"    binding="#{tipoCarteraView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{tipoCarteraView.action_clear}" update="msg,panel,panelBotones"      binding="#{tipoCarteraView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

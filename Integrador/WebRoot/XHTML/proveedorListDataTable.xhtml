@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableProveedor" header="ProveedorData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{proveedorView.data}" var="proveedor"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{proveedor.idProv}" sortBy="#{proveedor.idProv}" >
+										 <f:facet name="header">
+										<h:outputText value="idProv"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.idProv}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{proveedor.estadoRegistro}" sortBy="#{proveedor.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.fechaCreacion}" sortBy="#{proveedor.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.fechaModificacion}" sortBy="#{proveedor.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.operCreador}" sortBy="#{proveedor.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.operModifica}" sortBy="#{proveedor.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.idEmpr_Empresa}" sortBy="#{proveedor.idEmpr_Empresa}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEmpr_Empresa"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.idEmpr_Empresa}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{proveedor.idPers_Persona}" sortBy="#{proveedor.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{proveedor.idPers_Persona}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogProveedor"
+										actionListener="#{proveedorView.action_edit}">
+										<f:attribute name="selectedProveedor" value="#{proveedor}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{proveedorView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedProveedor" value="#{proveedor}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{proveedorView.action_new()}" update=":dialogProveedor" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogProveedor" appendToBody="true" draggable="true"
+						closable="false" visible="#{proveedorView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelProveedor" header="Proveedor">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdProv" value="IdProv"/>
+									 <p:inputText id="txtIdProv" binding="#{proveedorView.txtIdProv}">
+									 <p:ajax update=":dialogProveedor" listener="#{proveedorView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{proveedorView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{proveedorView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{proveedorView.txtOperModifica}"/>
+																		<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+									<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{proveedorView.txtIdEmpr_Empresa}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{proveedorView.txtIdPers_Persona}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{proveedorView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{proveedorView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{proveedorView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{proveedorView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{proveedorView.btnSave}" value="Save" action="#{proveedorView.action_save()}" update=":dialogProveedor :frm:panelDataTableProveedor" />
+									<p:commandButton id="btnClear" value="Clear" action="#{proveedorView.action_clear()}" update=":dialogProveedor" />
+									<p:commandButton id="btnExit" value="Exit" action="#{proveedorView.action_closeDialog()}" update=":dialogProveedor" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Recibo" table="RECIBO" >
+        <id name="idRcbo" type="java.lang.Long">
+            <column name="ID_RCBO" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="documento" class="co.edu.usbcali.modelo.Documento" fetch="select">
+            <column name="ID_DOCU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="unidadVenta" class="co.edu.usbcali.modelo.UnidadVenta" fetch="select">
+            <column name="ID_UNVE" precision="10" scale="0" />
+        </many-to-one>
+        <property name="observacion" type="java.lang.String">
+            <column name="OBSERVACION" length="1000" />
+        </property>
+        <property name="numeroRboProvisional" type="java.lang.Long">
+            <column name="NUMERO_RBO_PROVISIONAL" precision="20" scale="0" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <property name="fechaTransaccion" type="java.util.Date">
+            <column name="FECHA_TRANSACCION" length="7" />
+        </property>
+        <set name="rboDetalleDocumentoses" inverse="true" lazy="true" table="RBO_DETALLE_DOCUMENTOS" fetch="select">
+            <key>
+                <column name="ID_RCBO" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.RboDetalleDocumentos" />
+        </set>
+        <set name="rboDetalleFormasPagos" inverse="true" lazy="true" table="RBO_DETALLE_FORMAS_PAGO" fetch="select">
+            <key>
+                <column name="ID_RCBO" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.RboDetalleFormasPago" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,322 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableItemRotacion" header="ItemRotacionData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{itemRotacionView.data}" var="itemRotacion"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{itemRotacion.idItro}" sortBy="#{itemRotacion.idItro}" >
+										 <f:facet name="header">
+										<h:outputText value="idItro"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.idItro}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{itemRotacion.autorizado}" sortBy="#{itemRotacion.autorizado}" >
+										 <f:facet name="header">
+										<h:outputText value="Autorizado"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.autorizado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.cantidadCambio}" sortBy="#{itemRotacion.cantidadCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadCambio"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.cantidadCambio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.cantidadOrdenada}" sortBy="#{itemRotacion.cantidadOrdenada}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadOrdenada"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.cantidadOrdenada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.cantidadPedida}" sortBy="#{itemRotacion.cantidadPedida}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadPedida"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.cantidadPedida}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.causalNoCambio}" sortBy="#{itemRotacion.causalNoCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="CausalNoCambio"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.causalNoCambio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.estado}" sortBy="#{itemRotacion.estado}" >
+										 <f:facet name="header">
+										<h:outputText value="Estado"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.estado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.estadoRegistro}" sortBy="#{itemRotacion.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaAutorizacion}" sortBy="#{itemRotacion.fechaAutorizacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaAutorizacion"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaAutorizacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaCambio}" sortBy="#{itemRotacion.fechaCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCambio"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaCambio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaCausal}" sortBy="#{itemRotacion.fechaCausal}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCausal"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaCausal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaCreacion}" sortBy="#{itemRotacion.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaModificacion}" sortBy="#{itemRotacion.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaMovimiento}" sortBy="#{itemRotacion.fechaMovimiento}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaMovimiento"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaMovimiento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.fechaOrdenada}" sortBy="#{itemRotacion.fechaOrdenada}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaOrdenada"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.fechaOrdenada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.numeroDespacho}" sortBy="#{itemRotacion.numeroDespacho}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroDespacho"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.numeroDespacho}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.numeroGarantia}" sortBy="#{itemRotacion.numeroGarantia}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroGarantia"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.numeroGarantia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.observacion}" sortBy="#{itemRotacion.observacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Observacion"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.observacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.observacionCambio}" sortBy="#{itemRotacion.observacionCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="ObservacionCambio"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.observacionCambio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.operCreador}" sortBy="#{itemRotacion.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.operModifica}" sortBy="#{itemRotacion.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.idClfa_ClaveFabricacion}" sortBy="#{itemRotacion.idClfa_ClaveFabricacion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdClfa_ClaveFabricacion"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.idClfa_ClaveFabricacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.idDocu_Documento}" sortBy="#{itemRotacion.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{itemRotacion.idRefe_Referencia}" sortBy="#{itemRotacion.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{itemRotacion.idRefe_Referencia}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogItemRotacion"
+										actionListener="#{itemRotacionView.action_edit}">
+										<f:attribute name="selectedItemRotacion" value="#{itemRotacion}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{itemRotacionView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedItemRotacion" value="#{itemRotacion}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{itemRotacionView.action_new()}" update=":dialogItemRotacion" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogItemRotacion" appendToBody="true" draggable="true"
+						closable="false" visible="#{itemRotacionView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelItemRotacion" header="ItemRotacion">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdItro" value="IdItro"/>
+									 <p:inputText id="txtIdItro" binding="#{itemRotacionView.txtIdItro}">
+									 <p:ajax update=":dialogItemRotacion" listener="#{itemRotacionView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAutorizado" value=" Autorizado"/>
+									<p:inputText id="txtAutorizado" disabled="true" binding="#{itemRotacionView.txtAutorizado}"/>
+																		<h:outputText id="msgCantidadCambio" value=" CantidadCambio"/>
+									<p:inputText id="txtCantidadCambio" disabled="true" binding="#{itemRotacionView.txtCantidadCambio}"/>
+																		<h:outputText id="msgCantidadOrdenada" value=" CantidadOrdenada"/>
+									<p:inputText id="txtCantidadOrdenada" disabled="true" binding="#{itemRotacionView.txtCantidadOrdenada}"/>
+																		<h:outputText id="msgCantidadPedida" value=" CantidadPedida"/>
+									<p:inputText id="txtCantidadPedida" disabled="true" binding="#{itemRotacionView.txtCantidadPedida}"/>
+																		<h:outputText id="msgCausalNoCambio" value=" CausalNoCambio"/>
+									<p:inputText id="txtCausalNoCambio" disabled="true" binding="#{itemRotacionView.txtCausalNoCambio}"/>
+																		<h:outputText id="msgEstado" value=" Estado"/>
+									<p:inputText id="txtEstado" disabled="true" binding="#{itemRotacionView.txtEstado}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{itemRotacionView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNumeroDespacho" value=" NumeroDespacho"/>
+									<p:inputText id="txtNumeroDespacho" disabled="true" binding="#{itemRotacionView.txtNumeroDespacho}"/>
+																		<h:outputText id="msgNumeroGarantia" value=" NumeroGarantia"/>
+									<p:inputText id="txtNumeroGarantia" disabled="true" binding="#{itemRotacionView.txtNumeroGarantia}"/>
+																		<h:outputText id="msgObservacion" value=" Observacion"/>
+									<p:inputText id="txtObservacion" disabled="true" binding="#{itemRotacionView.txtObservacion}"/>
+																		<h:outputText id="msgObservacionCambio" value=" ObservacionCambio"/>
+									<p:inputText id="txtObservacionCambio" disabled="true" binding="#{itemRotacionView.txtObservacionCambio}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{itemRotacionView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{itemRotacionView.txtOperModifica}"/>
+																		<h:outputText id="msgIdClfa_ClaveFabricacion" value=" IdClfa_ClaveFabricacion"/>
+									<p:inputText id="txtIdClfa_ClaveFabricacion" disabled="true" binding="#{itemRotacionView.txtIdClfa_ClaveFabricacion}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{itemRotacionView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{itemRotacionView.txtIdRefe_Referencia}"/>
+																		
+																													<h:outputText id="msgFechaAutorizacion" value=" FechaAutorizacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaAutorizacion}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaAutorizacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCambio" value=" FechaCambio"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaCambio}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCambio}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCausal" value=" FechaCausal"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaCausal}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCausal}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaMovimiento" value=" FechaMovimiento"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaMovimiento}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaMovimiento}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaOrdenada" value=" FechaOrdenada"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{itemRotacionView.txtFechaOrdenada}" >
+										<p:ajax event="dateSelect" listener="#{itemRotacionView.listener_txtFechaOrdenada}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{itemRotacionView.btnSave}" value="Save" action="#{itemRotacionView.action_save()}" update=":dialogItemRotacion :frm:panelDataTableItemRotacion" />
+									<p:commandButton id="btnClear" value="Clear" action="#{itemRotacionView.action_clear()}" update=":dialogItemRotacion" />
+									<p:commandButton id="btnExit" value="Exit" action="#{itemRotacionView.action_closeDialog()}" update=":dialogItemRotacion" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

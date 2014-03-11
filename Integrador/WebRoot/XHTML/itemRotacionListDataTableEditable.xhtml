@@ -1,0 +1,478 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="ItemRotacionData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{itemRotacionView.data}" var="itemRotacion"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{itemRotacionView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{itemRotacion.if(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}}" sortBy="#{itemRotacion.if(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}}" 
+							headerText="if(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.if(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.if(entity.getidItro()==null){throw new ZMessManager().new EmptyFieldException("idItro");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{itemRotacion.autorizado}" sortBy="#{itemRotacion.autorizado}" 
+							headerText="autorizado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.autorizado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.autorizado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.cantidadCambio}" sortBy="#{itemRotacion.cantidadCambio}" 
+							headerText="cantidadCambio">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.cantidadCambio}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.cantidadCambio}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.cantidadOrdenada}" sortBy="#{itemRotacion.cantidadOrdenada}" 
+							headerText="cantidadOrdenada">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.cantidadOrdenada}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.cantidadOrdenada}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.cantidadPedida}" sortBy="#{itemRotacion.cantidadPedida}" 
+							headerText="cantidadPedida">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.cantidadPedida}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.cantidadPedida}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.causalNoCambio}" sortBy="#{itemRotacion.causalNoCambio}" 
+							headerText="causalNoCambio">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.causalNoCambio}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.causalNoCambio}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.estado}" sortBy="#{itemRotacion.estado}" 
+							headerText="estado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.estado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.estado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.estadoRegistro}" sortBy="#{itemRotacion.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.numeroDespacho}" sortBy="#{itemRotacion.numeroDespacho}" 
+							headerText="numeroDespacho">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.numeroDespacho}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.numeroDespacho}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.numeroGarantia}" sortBy="#{itemRotacion.numeroGarantia}" 
+							headerText="numeroGarantia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.numeroGarantia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.numeroGarantia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.observacion}" sortBy="#{itemRotacion.observacion}" 
+							headerText="observacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.observacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.observacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.observacionCambio}" sortBy="#{itemRotacion.observacionCambio}" 
+							headerText="observacionCambio">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.observacionCambio}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.observacionCambio}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.operCreador}" sortBy="#{itemRotacion.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.operModifica}" sortBy="#{itemRotacion.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.idClfa_ClaveFabricacion}" sortBy="#{itemRotacion.idClfa_ClaveFabricacion}" 
+							headerText="idClfa_ClaveFabricacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.idClfa_ClaveFabricacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.idClfa_ClaveFabricacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.idDocu_Documento}" sortBy="#{itemRotacion.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{itemRotacion.idRefe_Referencia}" sortBy="#{itemRotacion.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{itemRotacion.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{itemRotacion.fechaAutorizacion}" sortBy="#{itemRotacion.fechaAutorizacion}" 
+							headerText="fechaAutorizacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaAutorizacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaAutorizacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaCambio}" sortBy="#{itemRotacion.fechaCambio}" 
+							headerText="fechaCambio">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaCambio}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaCambio}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaCausal}" sortBy="#{itemRotacion.fechaCausal}" 
+							headerText="fechaCausal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaCausal}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaCausal}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaCreacion}" sortBy="#{itemRotacion.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaModificacion}" sortBy="#{itemRotacion.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaMovimiento}" sortBy="#{itemRotacion.fechaMovimiento}" 
+							headerText="fechaMovimiento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaMovimiento}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaMovimiento}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{itemRotacion.fechaOrdenada}" sortBy="#{itemRotacion.fechaOrdenada}" 
+							headerText="fechaOrdenada">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{itemRotacion.fechaOrdenada}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{itemRotacion.fechaOrdenada}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{itemRotacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{itemRotacionView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{itemRotacion}"  target="#{itemRotacionView.selectedItemRotacion}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

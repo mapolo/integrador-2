@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableClavesParaRotar" header="ClavesParaRotarData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{clavesParaRotarView.data}" var="clavesParaRotar"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{clavesParaRotar.idClpr}" sortBy="#{clavesParaRotar.idClpr}" >
+										 <f:facet name="header">
+										<h:outputText value="idClpr"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.idClpr}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{clavesParaRotar.ano}" sortBy="#{clavesParaRotar.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.estadoRegistro}" sortBy="#{clavesParaRotar.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.fechaCreacion}" sortBy="#{clavesParaRotar.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.fechaModificacion}" sortBy="#{clavesParaRotar.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.mes}" sortBy="#{clavesParaRotar.mes}" >
+										 <f:facet name="header">
+										<h:outputText value="Mes"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.mes}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.operCreador}" sortBy="#{clavesParaRotar.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.operModifica}" sortBy="#{clavesParaRotar.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.idClfa_ClaveFabricacion}" sortBy="#{clavesParaRotar.idClfa_ClaveFabricacion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdClfa_ClaveFabricacion"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.idClfa_ClaveFabricacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{clavesParaRotar.idSucu_Sucursal}" sortBy="#{clavesParaRotar.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{clavesParaRotar.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogClavesParaRotar"
+										actionListener="#{clavesParaRotarView.action_edit}">
+										<f:attribute name="selectedClavesParaRotar" value="#{clavesParaRotar}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{clavesParaRotarView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedClavesParaRotar" value="#{clavesParaRotar}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{clavesParaRotarView.action_new()}" update=":dialogClavesParaRotar" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogClavesParaRotar" appendToBody="true" draggable="true"
+						closable="false" visible="#{clavesParaRotarView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelClavesParaRotar" header="ClavesParaRotar">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdClpr" value="IdClpr"/>
+									 <p:inputText id="txtIdClpr" binding="#{clavesParaRotarView.txtIdClpr}">
+									 <p:ajax update=":dialogClavesParaRotar" listener="#{clavesParaRotarView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{clavesParaRotarView.txtAno}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{clavesParaRotarView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgMes" value=" Mes"/>
+									<p:inputText id="txtMes" disabled="true" binding="#{clavesParaRotarView.txtMes}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{clavesParaRotarView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{clavesParaRotarView.txtOperModifica}"/>
+																		<h:outputText id="msgIdClfa_ClaveFabricacion" value=" IdClfa_ClaveFabricacion"/>
+									<p:inputText id="txtIdClfa_ClaveFabricacion" disabled="true" binding="#{clavesParaRotarView.txtIdClfa_ClaveFabricacion}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{clavesParaRotarView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{clavesParaRotarView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{clavesParaRotarView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{clavesParaRotarView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{clavesParaRotarView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{clavesParaRotarView.btnSave}" value="Save" action="#{clavesParaRotarView.action_save()}" update=":dialogClavesParaRotar :frm:panelDataTableClavesParaRotar" />
+									<p:commandButton id="btnClear" value="Clear" action="#{clavesParaRotarView.action_clear()}" update=":dialogClavesParaRotar" />
+									<p:commandButton id="btnExit" value="Exit" action="#{clavesParaRotarView.action_closeDialog()}" update=":dialogClavesParaRotar" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

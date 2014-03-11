@@ -1,0 +1,118 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectDescuentoComercialTitle" header="DescuentoComercial" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}" value="If(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}"/>
+						 <p:inputText id="txtIf(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}" binding="#{descuentoComercialView.txtIf(entity.getidDeco()==null){throw new ZMessManager().new EmptyFieldException("idDeco");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{descuentoComercialView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgAsocGrupoItem" value=" AsocGrupoItem"/>
+						<p:inputText id="txtAsocGrupoItem" disabled="true" binding="#{descuentoComercialView.txtAsocGrupoItem}"/>
+												<h:outputText id="msgCreadoAutomatico" value=" CreadoAutomatico"/>
+						<p:inputText id="txtCreadoAutomatico" disabled="true" binding="#{descuentoComercialView.txtCreadoAutomatico}"/>
+												<h:outputText id="msgEspacios" value=" Espacios"/>
+						<p:inputText id="txtEspacios" disabled="true" binding="#{descuentoComercialView.txtEspacios}"/>
+												<h:outputText id="msgEstadoPlano" value=" EstadoPlano"/>
+						<p:inputText id="txtEstadoPlano" disabled="true" binding="#{descuentoComercialView.txtEstadoPlano}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{descuentoComercialView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{descuentoComercialView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{descuentoComercialView.txtOperModifica}"/>
+												<h:outputText id="msgPorcDescItem" value=" PorcDescItem"/>
+						<p:inputText id="txtPorcDescItem" disabled="true" binding="#{descuentoComercialView.txtPorcDescItem}"/>
+												<h:outputText id="msgPorcDescMaxItem" value=" PorcDescMaxItem"/>
+						<p:inputText id="txtPorcDescMaxItem" disabled="true" binding="#{descuentoComercialView.txtPorcDescMaxItem}"/>
+												<h:outputText id="msgPorcDescMinItem" value=" PorcDescMinItem"/>
+						<p:inputText id="txtPorcDescMinItem" disabled="true" binding="#{descuentoComercialView.txtPorcDescMinItem}"/>
+												<h:outputText id="msgTipoAsocGrupoItem" value=" TipoAsocGrupoItem"/>
+						<p:inputText id="txtTipoAsocGrupoItem" disabled="true" binding="#{descuentoComercialView.txtTipoAsocGrupoItem}"/>
+												<h:outputText id="msgTodasSucursales" value=" TodasSucursales"/>
+						<p:inputText id="txtTodasSucursales" disabled="true" binding="#{descuentoComercialView.txtTodasSucursales}"/>
+												<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+						<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{descuentoComercialView.txtIdEmpr_Empresa}"/>
+												<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+						<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{descuentoComercialView.txtIdGrpo_Grupo}"/>
+												<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+						<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{descuentoComercialView.txtIdPers_Persona}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{descuentoComercialView.txtIdSucu_Sucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{descuentoComercialView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{descuentoComercialView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaFinal" value=" FechaFinal"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{descuentoComercialView.txtFechaFinal}" >
+							<p:ajax event="dateSelect" listener="#{descuentoComercialView.listener_txtFechaFinal}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaInicial" value=" FechaInicial"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{descuentoComercialView.txtFechaInicial}" >
+							<p:ajax event="dateSelect" listener="#{descuentoComercialView.listener_txtFechaInicial}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{descuentoComercialView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{descuentoComercialView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{descuentoComercialView.action_save}" update="msg,panel,panelBotones"          binding="#{descuentoComercialView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{descuentoComercialView.action_modify}" update="msg,panel,panelBotones"    binding="#{descuentoComercialView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{descuentoComercialView.action_delete}" update="msg,panel,panelBotones"    binding="#{descuentoComercialView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{descuentoComercialView.action_clear}" update="msg,panel,panelBotones"      binding="#{descuentoComercialView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

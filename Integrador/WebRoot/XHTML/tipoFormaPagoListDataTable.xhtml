@@ -1,0 +1,217 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableTipoFormaPago" header="TipoFormaPagoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tipoFormaPagoView.data}" var="tipoFormaPago"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tipoFormaPago.idTfpa}" sortBy="#{tipoFormaPago.idTfpa}" >
+										 <f:facet name="header">
+										<h:outputText value="idTfpa"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.idTfpa}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tipoFormaPago.codigo}" sortBy="#{tipoFormaPago.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.descripcion}" sortBy="#{tipoFormaPago.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.dsctoFechaDoc}" sortBy="#{tipoFormaPago.dsctoFechaDoc}" >
+										 <f:facet name="header">
+										<h:outputText value="DsctoFechaDoc"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.dsctoFechaDoc}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.esPosfechado}" sortBy="#{tipoFormaPago.esPosfechado}" >
+										 <f:facet name="header">
+										<h:outputText value="EsPosfechado"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.esPosfechado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.estadoRegistro}" sortBy="#{tipoFormaPago.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.exijeNumeroDocumento}" sortBy="#{tipoFormaPago.exijeNumeroDocumento}" >
+										 <f:facet name="header">
+										<h:outputText value="ExijeNumeroDocumento"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.exijeNumeroDocumento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.fechaCreacion}" sortBy="#{tipoFormaPago.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.fechaModificacion}" sortBy="#{tipoFormaPago.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.importaPda}" sortBy="#{tipoFormaPago.importaPda}" >
+										 <f:facet name="header">
+										<h:outputText value="ImportaPda"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.importaPda}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.manejaCheque}" sortBy="#{tipoFormaPago.manejaCheque}" >
+										 <f:facet name="header">
+										<h:outputText value="ManejaCheque"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.manejaCheque}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.manejaTarjeta}" sortBy="#{tipoFormaPago.manejaTarjeta}" >
+										 <f:facet name="header">
+										<h:outputText value="ManejaTarjeta"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.manejaTarjeta}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.operCreador}" sortBy="#{tipoFormaPago.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoFormaPago.operModifica}" sortBy="#{tipoFormaPago.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{tipoFormaPago.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTipoFormaPago"
+										actionListener="#{tipoFormaPagoView.action_edit}">
+										<f:attribute name="selectedTipoFormaPago" value="#{tipoFormaPago}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tipoFormaPagoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTipoFormaPago" value="#{tipoFormaPago}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tipoFormaPagoView.action_new()}" update=":dialogTipoFormaPago" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTipoFormaPago" appendToBody="true" draggable="true"
+						closable="false" visible="#{tipoFormaPagoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelTipoFormaPago" header="TipoFormaPago">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdTfpa" value="IdTfpa"/>
+									 <p:inputText id="txtIdTfpa" binding="#{tipoFormaPagoView.txtIdTfpa}">
+									 <p:ajax update=":dialogTipoFormaPago" listener="#{tipoFormaPagoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{tipoFormaPagoView.txtCodigo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoFormaPagoView.txtDescripcion}"/>
+																		<h:outputText id="msgDsctoFechaDoc" value=" DsctoFechaDoc"/>
+									<p:inputText id="txtDsctoFechaDoc" disabled="true" binding="#{tipoFormaPagoView.txtDsctoFechaDoc}"/>
+																		<h:outputText id="msgEsPosfechado" value=" EsPosfechado"/>
+									<p:inputText id="txtEsPosfechado" disabled="true" binding="#{tipoFormaPagoView.txtEsPosfechado}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoFormaPagoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgExijeNumeroDocumento" value=" ExijeNumeroDocumento"/>
+									<p:inputText id="txtExijeNumeroDocumento" disabled="true" binding="#{tipoFormaPagoView.txtExijeNumeroDocumento}"/>
+																		<h:outputText id="msgImportaPda" value=" ImportaPda"/>
+									<p:inputText id="txtImportaPda" disabled="true" binding="#{tipoFormaPagoView.txtImportaPda}"/>
+																		<h:outputText id="msgManejaCheque" value=" ManejaCheque"/>
+									<p:inputText id="txtManejaCheque" disabled="true" binding="#{tipoFormaPagoView.txtManejaCheque}"/>
+																		<h:outputText id="msgManejaTarjeta" value=" ManejaTarjeta"/>
+									<p:inputText id="txtManejaTarjeta" disabled="true" binding="#{tipoFormaPagoView.txtManejaTarjeta}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoFormaPagoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoFormaPagoView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoFormaPagoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoFormaPagoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoFormaPagoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoFormaPagoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tipoFormaPagoView.btnSave}" value="Save" action="#{tipoFormaPagoView.action_save()}" update=":dialogTipoFormaPago :frm:panelDataTableTipoFormaPago" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tipoFormaPagoView.action_clear()}" update=":dialogTipoFormaPago" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tipoFormaPagoView.action_closeDialog()}" update=":dialogTipoFormaPago" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

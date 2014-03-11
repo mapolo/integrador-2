@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableSolicitudCampo" header="SolicitudCampoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{solicitudCampoView.data}" var="solicitudCampo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{solicitudCampo.idSoca}" sortBy="#{solicitudCampo.idSoca}" >
+										 <f:facet name="header">
+										<h:outputText value="idSoca"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.idSoca}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{solicitudCampo.estadoRegistro}" sortBy="#{solicitudCampo.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.fechaCreacion}" sortBy="#{solicitudCampo.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.fechaModificacion}" sortBy="#{solicitudCampo.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.operCreador}" sortBy="#{solicitudCampo.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.operModifica}" sortBy="#{solicitudCampo.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.valorCadena}" sortBy="#{solicitudCampo.valorCadena}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorCadena"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.valorCadena}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.valorNumerico}" sortBy="#{solicitudCampo.valorNumerico}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorNumerico"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.valorNumerico}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.idCapa_CamposParametrizables}" sortBy="#{solicitudCampo.idCapa_CamposParametrizables}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCapa_CamposParametrizables"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.idCapa_CamposParametrizables}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{solicitudCampo.idSocb_SolicitudCambio}" sortBy="#{solicitudCampo.idSocb_SolicitudCambio}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSocb_SolicitudCambio"/>
+										</f:facet>
+										 <h:outputText value="#{solicitudCampo.idSocb_SolicitudCambio}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSolicitudCampo"
+										actionListener="#{solicitudCampoView.action_edit}">
+										<f:attribute name="selectedSolicitudCampo" value="#{solicitudCampo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{solicitudCampoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSolicitudCampo" value="#{solicitudCampo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{solicitudCampoView.action_new()}" update=":dialogSolicitudCampo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSolicitudCampo" appendToBody="true" draggable="true"
+						closable="false" visible="#{solicitudCampoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelSolicitudCampo" header="SolicitudCampo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdSoca" value="IdSoca"/>
+									 <p:inputText id="txtIdSoca" binding="#{solicitudCampoView.txtIdSoca}">
+									 <p:ajax update=":dialogSolicitudCampo" listener="#{solicitudCampoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{solicitudCampoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{solicitudCampoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{solicitudCampoView.txtOperModifica}"/>
+																		<h:outputText id="msgValorCadena" value=" ValorCadena"/>
+									<p:inputText id="txtValorCadena" disabled="true" binding="#{solicitudCampoView.txtValorCadena}"/>
+																		<h:outputText id="msgValorNumerico" value=" ValorNumerico"/>
+									<p:inputText id="txtValorNumerico" disabled="true" binding="#{solicitudCampoView.txtValorNumerico}"/>
+																		<h:outputText id="msgIdCapa_CamposParametrizables" value=" IdCapa_CamposParametrizables"/>
+									<p:inputText id="txtIdCapa_CamposParametrizables" disabled="true" binding="#{solicitudCampoView.txtIdCapa_CamposParametrizables}"/>
+																		<h:outputText id="msgIdSocb_SolicitudCambio" value=" IdSocb_SolicitudCambio"/>
+									<p:inputText id="txtIdSocb_SolicitudCambio" disabled="true" binding="#{solicitudCampoView.txtIdSocb_SolicitudCambio}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{solicitudCampoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{solicitudCampoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{solicitudCampoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{solicitudCampoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{solicitudCampoView.btnSave}" value="Save" action="#{solicitudCampoView.action_save()}" update=":dialogSolicitudCampo :frm:panelDataTableSolicitudCampo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{solicitudCampoView.action_clear()}" update=":dialogSolicitudCampo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{solicitudCampoView.action_closeDialog()}" update=":dialogSolicitudCampo" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

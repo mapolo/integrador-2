@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<body>
+	<h:form id="form">
+
+		<p:growl id="growl" showDetail="true" />
+
+		<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menu Principal"
+			style="text-align: center;">
+			<p:messages id="msg" showDetail="true" />
+
+
+			<p:megaMenu autoDisplay="false">
+				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+					url="http://www.mac.com.co/" />
+
+				<p:submenu label="Gestión de Datos" icon="ui-icon-pencil">
+					<p:column>
+
+						<p:submenu label="Tipo">
+							<p:menuitem value="Tipo de Causal" url="tipoCausal.xhtml" />
+
+							<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
+
+							<p:menuitem value="Tipo de División" url="tipoDivision.xhtml" />
+
+							<p:menuitem value="Tipo de Documento" url="tipoDocumento.xhtml" />
+
+							<p:menuitem value="Tipo Forma de Pago" url="tipoFormaPago.xhtml" />
+
+							<p:menuitem value="Tipo de Garantía" url="tipoGarantia.xhtml" />
+
+							<p:menuitem value="Tipo de Identificación"
+								url="tipoIdentificacion.xhtml" />
+
+							<p:menuitem value="Tipo de Sucursal" url="tipoSucursal.xhtml" />
+
+
+						</p:submenu>
+
+						<p:submenu label="Clave">
+							<p:menuitem value="Clave de Fabricacion"
+								url="claveFabricacion.xhtml" />
+						</p:submenu>
+
+						<p:submenu label="Recibo">
+							<p:menuitem value="Concepto del Recibo"
+								url="conceptoRecibo.xhtml" />
+						</p:submenu>
+					</p:column>
+				</p:submenu>
+
+				<p:menuitem value="Enviar Reporte"
+					url="https://www.hotmail.com/?mkt=es" icon="ui-icon-document" />
+
+				<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+					icon="ui-icon-close" style="text-align: right" />
+			</p:megaMenu>
+
+		</p:panel>
+	</h:form>
+</body>
+</html>

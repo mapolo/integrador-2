@@ -1,0 +1,202 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="RutaRelacionComercialData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{rutaRelacionComercialView.data}" var="rutaRelacionComercial"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{rutaRelacionComercialView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{rutaRelacionComercial.if(entity.getidRrec()==null){throw new ZMessManager().new EmptyFieldException("idRrec");}}" sortBy="#{rutaRelacionComercial.if(entity.getidRrec()==null){throw new ZMessManager().new EmptyFieldException("idRrec");}}" 
+							headerText="if(entity.getidRrec()==null){throw new ZMessManager().new EmptyFieldException("idRrec");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.if(entity.getidRrec()==null){throw new ZMessManager().new EmptyFieldException("idRrec");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.if(entity.getidRrec()==null){throw new ZMessManager().new EmptyFieldException("idRrec");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{rutaRelacionComercial.estadoRegistro}" sortBy="#{rutaRelacionComercial.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rutaRelacionComercial.operCreador}" sortBy="#{rutaRelacionComercial.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rutaRelacionComercial.operModifica}" sortBy="#{rutaRelacionComercial.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rutaRelacionComercial.idAtve_AtencionVendedor}" sortBy="#{rutaRelacionComercial.idAtve_AtencionVendedor}" 
+							headerText="idAtve_AtencionVendedor">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.idAtve_AtencionVendedor}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.idAtve_AtencionVendedor}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rutaRelacionComercial.idRudi_RutaDistribucion}" sortBy="#{rutaRelacionComercial.idRudi_RutaDistribucion}" 
+							headerText="idRudi_RutaDistribucion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.idRudi_RutaDistribucion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rutaRelacionComercial.idRudi_RutaDistribucion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{rutaRelacionComercial.fechaCreacion}" sortBy="#{rutaRelacionComercial.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{rutaRelacionComercial.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{rutaRelacionComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{rutaRelacionComercial.fechaModificacion}" sortBy="#{rutaRelacionComercial.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rutaRelacionComercial.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{rutaRelacionComercial.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{rutaRelacionComercialView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{rutaRelacionComercialView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{rutaRelacionComercial}"  target="#{rutaRelacionComercialView.selectedRutaRelacionComercial}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	
