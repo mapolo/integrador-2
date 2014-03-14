@@ -5,6 +5,7 @@ import co.edu.usbcali.modelo.*;
 import co.edu.usbcali.modelo.dto.TipoDocumentoDTO;
 import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
+import co.edu.usbcali.modelo.dto.TipoSucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.*;
 import co.edu.usbcali.utilities.*;
 
@@ -289,6 +290,9 @@ public class TipoFormaPagoView {
 			descripcion = ((TipoFormaPagoDTO) event.getObject())
 					.getDescripcion();
 			entity.setDescripcion(descripcion);
+			
+			codigo = ((TipoFormaPagoDTO) event.getObject()).getCodigo();
+			entity.setCodigo(codigo);
 
 			Long manejaCheque = new Long(manejaCh.getValue().toString());
 			entity.setManejaCheque(manejaCheque);

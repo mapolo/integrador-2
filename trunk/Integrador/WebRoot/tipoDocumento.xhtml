@@ -42,7 +42,7 @@ body {
 
 						<p:dataTable var="car" value="#{tipoDocumentoView.data}"
 							id="listaTDo" editable="true" scrollable="true"
-							scrollHeight="400" filteredValue="#{tipoDocumentoView.data}">
+							scrollHeight="300" filteredValue="#{tipoDocumentoView.data}">
 
 							<p:ajax event="rowEdit" listener="#{tipoDocumentoView.onEdit}" />
 							<p:ajax event="rowEditCancel"
@@ -230,17 +230,17 @@ body {
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="Codigo:" />
 								<p:inputText id="txtCodigo" value="#{tipoDocumentoView.codigo}"
 									binding="#{tipoDocumentoView.txtCodigo}" />
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
+								<h:outputText id="msgDescripcion" value="Descripción:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									value="#{tipoDocumentoView.descripcion}"
 									binding="#{tipoDocumentoView.txtDescripcion}" />
 
 								<h:outputText id="msgAfectaInventario"
-									value="Afecta el Inventario" />
+									value="*Afecta el Inventario:" />
 								<p:selectOneMenu
 									binding="#{tipoDocumentoView.aafectaInventario}"
 									value="#{tipoDocumentoView.afectaInventario}" disabled="false">
@@ -249,21 +249,21 @@ body {
 								</p:selectOneMenu>
 
 								<h:outputText id="msgSignoInventario"
-									value=" Signo del Inventario" />
+									value="Signo del Inventario:" />
 								<p:selectOneMenu binding="#{tipoDocumentoView.zignoInventario}"
 									value="#{tipoDocumentoView.signoInventario}" disabled="false">
 									<f:selectItem itemLabel="+" itemValue="+" />
 									<f:selectItem itemLabel="-" itemValue="-" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgAfectaCartea" value="Afecta la Cartera" />
+								<h:outputText id="msgAfectaCartea" value="*Afecta la Cartera:" />
 								<p:selectOneMenu binding="#{tipoDocumentoView.aafectaCartea}"
 									value="#{tipoDocumentoView.afectaCartea}" disabled="false">
 									<f:selectItem itemLabel="S" itemValue="S" />
 									<f:selectItem itemLabel="N" itemValue="N" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgSignoCartera" value="Signo de la Cartera" />
+								<h:outputText id="msgSignoCartera" value="Signo de la Cartera:" />
 								<p:selectOneMenu binding="#{tipoDocumentoView.zignoCartera}"
 									value="#{tipoDocumentoView.signoCartera}" disabled="false">
 									<f:selectItem itemLabel="+" itemValue="+" />
@@ -271,7 +271,7 @@ body {
 								</p:selectOneMenu>
 
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoDocumentoView.estado}"
 									value="#{tipoDocumentoView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -279,6 +279,8 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 

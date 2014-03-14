@@ -44,7 +44,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{tipoIdentificacionView.data}"
-							scrollable="true" scrollHeight="400" id="tablaPrincipal"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
 							editable="true" filteredValue="#{tipoIdentificacionView.data}">
 
 							<p:ajax event="rowEdit"
@@ -163,9 +163,7 @@ body {
 
 							<h:panelGrid columns="2" id="panel">
 
-
-
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="*Codigo:" />
 								<p:inputText id="txtCodigo"
 									value="#{tipoIdentificacionView.codigo}"
 									binding="#{tipoIdentificacionView.txtCodigo}" />
@@ -175,8 +173,7 @@ body {
 									value="#{tipoIdentificacionView.descripcion}"
 									binding="#{tipoIdentificacionView.txtDescripcion}" />
 
-
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoIdentificacionView.estado}"
 									value="#{tipoIdentificacionView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -184,6 +181,9 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
+							
 							<h:panelGrid id="panelBotones" columns="1">
 
 								<p:commandButton id="btnGuardar" value="Guardar"

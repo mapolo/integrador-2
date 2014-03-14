@@ -13,8 +13,6 @@
 		<ui:define name="header">
 
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -43,9 +41,8 @@ body {
 						<p:messages id="msg" showDetail="true" />
 						<p:growl id="men" />
 
-
 						<p:dataTable var="car" value="#{claveFabricacionView.data}"
-							scrollable="true" scrollHeight="400" id="tablaPrincipal"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
 							editable="true" filteredValue="#{claveFabricacionView.data}">
 
 							<p:ajax event="rowEdit" listener="#{claveFabricacionView.onEdit}" />
@@ -178,12 +175,12 @@ body {
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="Codigo:" />
 								<p:inputText id="txtCodigo"
 									value="#{claveFabricacionView.codigo}"
 									binding="#{claveFabricacionView.txtCodigo}" />
 
-								<h:outputText id="msgFechaInicial" value="Fecha Inicial" />
+								<h:outputText id="msgFechaInicial" value="*Fecha Inicial:" />
 								<p:calendar showOn="button" navigator="true" locale="en"
 									binding="#{claveFabricacionView.txtFechaInicial}">
 									<p:ajax event="dateSelect"
@@ -191,7 +188,7 @@ body {
 										update="men" />
 								</p:calendar>
 
-								<h:outputText id="msgFechaFinal" value="Fecha Final" />
+								<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
 								<p:calendar showOn="button" navigator="true" locale="en"
 									binding="#{claveFabricacionView.txtFechaFinal}">
 									<p:ajax event="dateSelect"
@@ -200,7 +197,8 @@ body {
 								</p:calendar>
 
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro"
+									value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{claveFabricacionView.estado}"
 									value="#{claveFabricacionView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -208,6 +206,8 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+
+							<p:separator id="separator" />
 
 							<h:panelGrid id="panelBotones" columns="1">
 

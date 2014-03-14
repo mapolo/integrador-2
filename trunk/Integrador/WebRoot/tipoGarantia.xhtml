@@ -43,7 +43,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{tipoGarantiaView.data}"
-							scrollable="true" scrollHeight="400" id="tablaPrincipal"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
 							editable="true" filteredValue="#{tipoGarantiaView.data}">
 
 							<p:ajax event="rowEdit" listener="#{tipoGarantiaView.onEdit}" />
@@ -167,27 +167,25 @@ body {
 
 
 
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="*Codigo:" />
 								<p:inputText id="txtCodigo" value="#{tipoGarantiaView.codigo}"
 									binding="#{tipoGarantiaView.txtCodigo}" />
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
+								<h:outputText id="msgDescripcion" value="Descripción:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									value="#{tipoGarantiaView.descripcion}"
 									binding="#{tipoGarantiaView.txtDescripcion}" />
 
-
-
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoGarantiaView.estado}"
 									value="#{tipoGarantiaView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
 									<f:selectItem itemLabel="R" itemValue="R" />
 								</p:selectOneMenu>
 
-
-
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 
@@ -199,14 +197,9 @@ body {
 							</h:panelGrid>
 						</p:dialog>
 					</p:panel>
-
 				</h:form>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

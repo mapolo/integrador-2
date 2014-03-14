@@ -42,7 +42,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{tipoCarteraView.data}"
-							scrollable="true" scrollHeight="400" id="tablaPrincipal"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
 							editable="true" filteredValue="#{tipoCarteraView.data}">
 
 							<p:ajax event="rowEdit" listener="#{tipoCarteraView.onEdit}" />
@@ -164,17 +164,17 @@ body {
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="*Codigo:" />
 								<p:inputText id="txtCodigo" value="#{tipoCarteraView.codigo}"
 									binding="#{tipoCarteraView.txtCodigo}" />
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
+								<h:outputText id="msgDescripcion" value="Descripción:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									value="#{tipoCarteraView.descripcion}"
 									binding="#{tipoCarteraView.txtDescripcion}" />
 
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoCarteraView.estado}"
 									value="#{tipoCarteraView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -182,6 +182,8 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 
