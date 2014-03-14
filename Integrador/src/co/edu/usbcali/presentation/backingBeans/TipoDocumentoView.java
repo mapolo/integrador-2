@@ -27,6 +27,7 @@ import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.TipoDocumento;
 import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 import co.edu.usbcali.modelo.dto.TipoDocumentoDTO;
+import co.edu.usbcali.modelo.dto.TipoGarantiaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -212,10 +213,13 @@ public class TipoDocumentoView {
 					.getTipoDocumento(((TipoDocumentoDTO) event.getObject())
 							.getIdTido());
 
-			// operCreador =((TipoDivisionDTO)
-			// event.getObject()).getOperCreador();
-			// entity.setOperCreador(operCreador);
+			descripcion = ((TipoDocumentoDTO) event.getObject())
+					.getDescripcion();
+			entity.setDescripcion(descripcion);
 
+			codigo = ((TipoDocumentoDTO) event.getObject()).getCodigo();
+			entity.setCodigo(codigo);
+			
 			entity.setAfectaInventario(afectaInventario);
 			entity.setSignoInventario(signoInventario);
 
@@ -227,13 +231,6 @@ public class TipoDocumentoView {
 			String usuario =(String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
-
-			/*System.out.println("afectaI:" + afectaInventario + "; signoI:"
-					+ signoInventario + ";afectaC " + afectaCartea + ";SingoC"
-					+ signoCartera + "; Estado " + estadoRegistro);*/
-
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.updateTipoDocumento(entity);
 			data = businessDelegatorView.getDataTipoDocumento();

@@ -43,7 +43,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{conceptoReciboView.data}"
-							scrollable="true" scrollHeight="400" id="tablaPrincipal"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
 							editable="true" filteredValue="#{conceptoReciboView.data}">
 
 							<p:ajax event="rowEdit" listener="#{conceptoReciboView.onEdit}" />
@@ -184,26 +184,24 @@ body {
 
 							<h:panelGrid columns="2" id="panel">
 
-
-
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="*Codigo:" />
 								<p:inputText id="txtCodigo" value="#{conceptoReciboView.codigo}"
 									binding="#{conceptoReciboView.txtCodigo}" />
 
-								<h:outputText id="msgAplicaCartera" value="Aplica Cartera" />
+								<h:outputText id="msgAplicaCartera" value="Aplica Cartera:" />
 								<p:selectOneMenu binding="#{conceptoReciboView.aaplicaCartea}"
 									value="#{conceptoReciboView.aplicaCartera}">
 									<f:selectItem itemLabel="S" itemValue="S" />
 									<f:selectItem itemLabel="N" itemValue="N" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
+								<h:outputText id="msgDescripcion" value="*Descripción:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									value="#{conceptoReciboView.descripcion}"
 									binding="#{conceptoReciboView.txtDescripcion}" />
 
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{conceptoReciboView.estado}"
 									value="#{conceptoReciboView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -211,6 +209,8 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 
@@ -220,18 +220,11 @@ body {
 									update="tablaPrincipal,msg,panel,panelBotones" />
 
 							</h:panelGrid>
-
 						</p:dialog>
-
 					</p:panel>
-
 				</h:form>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

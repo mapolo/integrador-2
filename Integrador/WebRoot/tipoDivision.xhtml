@@ -42,7 +42,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{tipoDivisionView.data}"
-							id="listaTD" editable="true" scrollable="true" scrollHeight="500"
+							id="listaTD" editable="true" scrollable="true" scrollHeight="300"
 							filteredValue="#{tipoDivisionView.data}">
 
 							<p:ajax event="rowEdit" listener="#{tipoDivisionView.onEdit}" />
@@ -150,11 +150,11 @@ body {
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="msgNombre" value="Nombre" />
+								<h:outputText id="msgNombre" value="*Nombre:" />
 								<p:inputText id="txtNombre" value="#{tipoDivisionView.nombre}"
 									binding="#{tipoDivisionView.txtNombre}" />
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoDivisionView.txtEstadoRegistro}"
 									value="#{tipoDivisionView.estadoRegistro}">
 
@@ -162,9 +162,9 @@ body {
 									<f:selectItem itemLabel="R" itemValue="R" />
 								</p:selectOneMenu>
 
-
-
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 
@@ -174,18 +174,11 @@ body {
 									update="listaTD,msg,panel,panelBotones" />
 
 							</h:panelGrid>
-
 						</p:dialog>
-
 					</p:panel>
-
 				</h:form>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

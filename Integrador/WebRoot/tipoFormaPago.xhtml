@@ -42,7 +42,7 @@ body {
 						<p:growl id="men" />
 
 						<p:dataTable var="car" value="#{tipoFormaPagoView.data}"
-							id="listaTF" editable="true" scrollable="true" scrollHeight="400"
+							id="listaTF" editable="true" scrollable="true" scrollHeight="300"
 							filteredValue="#{tipoFormaPagoView.data}">
 
 							<p:ajax event="rowEdit" listener="#{tipoFormaPagoView.onEdit}" />
@@ -260,31 +260,31 @@ body {
 
 						<!--                   Ventana emergente           -->
 
-						<p:dialog id="dialog" header="Tipo Forma de Pago"
+						<p:dialog id="dialog" header="Tipo de Forma de Pago"
 							widgetVar="carDialog" resizable="false" width="400"
 							showEffect="clip" hideEffect="fold">
 
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="msgCodigo" value="Codigo" />
+								<h:outputText id="msgCodigo" value="*Codigo:" />
 								<p:inputText id="txtCodigo" disabled="false"
 									value="#{tipoFormaPagoView.codigo}"
 									binding="#{tipoFormaPagoView.txtCodigo}" />
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
+								<h:outputText id="msgDescripcion" value="*Descripción:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									disabled="false" value="#{tipoFormaPagoView.descripcion}"
 									binding="#{tipoFormaPagoView.txtDescripcion}" />
 
-								<h:outputText id="msgManejaCheque" value="Maneja Cheque" />
+								<h:outputText id="msgManejaCheque" value="Maneja Cheque:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.manejaCh}"
 									value="#{tipoFormaPagoView.manejaCheque}" disabled="false">
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="0" itemValue="0" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgManejaTarjeta" value="Maneja Tarjeta" />
+								<h:outputText id="msgManejaTarjeta" value="Maneja Tarjeta:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.manejaTc}"
 									value="#{tipoFormaPagoView.manejaTarjeta}" disabled="false">
 									<f:selectItem itemLabel="1" itemValue="1" />
@@ -292,7 +292,7 @@ body {
 								</p:selectOneMenu>
 
 								<h:outputText id="msgExijeNumeroDocumento"
-									value="Exije Numero de Documento" />
+									value="Exije Numero de Documento:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.exige}"
 									value="#{tipoFormaPagoView.exijeNumeroDocumento}"
 									disabled="false">
@@ -300,14 +300,14 @@ body {
 									<f:selectItem itemLabel="0" itemValue="0" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgEsPosfechado" value="Es PosFechado" />
+								<h:outputText id="msgEsPosfechado" value="Es PosFechado:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.es}"
 									value="#{tipoFormaPagoView.esPosfechado}" disabled="false">
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="0" itemValue="0" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgImportaPda" value="Importa PDA" />
+								<h:outputText id="msgImportaPda" value="Importa PDA:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.importa}"
 									value="#{tipoFormaPagoView.importaPda}" disabled="false">
 									<f:selectItem itemLabel="1" itemValue="1" />
@@ -315,14 +315,14 @@ body {
 								</p:selectOneMenu>
 
 								<h:outputText id="msgDsctoFechaDoc"
-									value="Descuento Fecha Documento" />
+									value="Descuento Fecha Documento:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.descuento}"
 									value="#{tipoFormaPagoView.dsctoFechaDoc}" disabled="false">
 									<f:selectItem itemLabel="1" itemValue="1" />
 									<f:selectItem itemLabel="0" itemValue="0" />
 								</p:selectOneMenu>
 
-								<h:outputText id="msgEstadoRegistro" value="Estado del Registro" />
+								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 								<p:selectOneMenu binding="#{tipoFormaPagoView.estado}"
 									value="#{tipoFormaPagoView.estadoRegistro}" disabled="false">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -330,6 +330,8 @@ body {
 								</p:selectOneMenu>
 
 							</h:panelGrid>
+							
+							<p:separator id="separator"/> 
 
 							<h:panelGrid id="panelBotones" columns="1">
 
