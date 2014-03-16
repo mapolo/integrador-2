@@ -1,7 +1,6 @@
 package co.edu.usbcali.dataaccess.api;
 
 import java.io.Serializable;
-
 import java.util.List;
 
 /**

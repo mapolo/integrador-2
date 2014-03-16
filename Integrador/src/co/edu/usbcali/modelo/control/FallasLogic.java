@@ -1,26 +1,22 @@
 package co.edu.usbcali.modelo.control;
 
-import co.edu.usbcali.dataaccess.dao.*;
-import co.edu.usbcali.exceptions.*;
-import co.edu.usbcali.modelo.*;
-import co.edu.usbcali.modelo.dto.FallasDTO;
-import co.edu.usbcali.utilities.Utilities;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.context.annotation.Scope;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import co.edu.usbcali.dataaccess.dao.IFallasDAO;
+import co.edu.usbcali.dataaccess.dao.IGarantiaDAO;
+import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.Fallas;
+import co.edu.usbcali.modelo.Garantia;
+import co.edu.usbcali.modelo.dto.FallasDTO;
+import co.edu.usbcali.utilities.Utilities;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura
@@ -100,15 +96,7 @@ public class FallasLogic implements IFallasLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCfal() == null) {
-				throw new ZMessManager().new EmptyFieldException("idCfal");
-			}
-
-			if ((entity.getIdCfal() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdCfal(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idCfal");
-			}
+			
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -132,9 +120,7 @@ public class FallasLogic implements IFallasLogic {
 						"operModifica");
 			}
 
-			if (getFallas(entity.getIdCfal()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			fallasDAO.save(entity);
 		} catch (Exception e) {
@@ -216,15 +202,7 @@ public class FallasLogic implements IFallasLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCfal() == null) {
-				throw new ZMessManager().new EmptyFieldException("idCfal");
-			}
-
-			if ((entity.getIdCfal() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdCfal(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idCfal");
-			}
+			
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");

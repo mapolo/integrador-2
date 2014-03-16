@@ -30,13 +30,25 @@
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
+				
+				<p:megaMenu autoDisplay="false">
+
+				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+					url="menu.xhtml" />
+
+
+				<p:menuitem value="cerrar sesion"
+					url="login.xhtml" icon="ui-icon-close" />
+					
+			</p:megaMenu>
+				
 
 				<style type="text/css">
 body {
 	background: black;
 }
 </style>
-
+<div id="logo" align="center">
 				<h:form id="form">
 					<p:panel id="ti" header="Tipo de Identificación">
 
@@ -195,6 +207,7 @@ body {
 						</p:dialog>
 					</p:panel>
 				</h:form>
+				</div>
 			</f:view>
 		</ui:define>
 	</ui:composition>

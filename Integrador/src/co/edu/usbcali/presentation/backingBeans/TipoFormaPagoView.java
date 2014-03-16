@@ -1,29 +1,10 @@
 package co.edu.usbcali.presentation.backingBeans;
 
-import co.edu.usbcali.exceptions.*;
-import co.edu.usbcali.modelo.*;
-import co.edu.usbcali.modelo.dto.TipoDocumentoDTO;
-import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
-import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
-import co.edu.usbcali.modelo.dto.TipoSucursalDTO;
-import co.edu.usbcali.presentation.businessDelegate.*;
-import co.edu.usbcali.utilities.*;
-
-import org.primefaces.component.calendar.*;
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.inputtextarea.InputTextarea;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.RowEditEvent;
-
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -34,6 +15,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
+
+import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.TipoFormaPago;
+import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
+import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
+import co.edu.usbcali.utilities.FacesUtils;
 
 /**
  * 
@@ -287,8 +281,9 @@ public class TipoFormaPagoView {
 			// operCreador =((TipoDivisionDTO)
 			// event.getObject()).getOperCreador();
 			// entity.setOperCreador(operCreador);
-			descripcion = ((TipoFormaPagoDTO) event.getObject())
-					.getDescripcion();
+			
+			
+			descripcion = ((TipoFormaPagoDTO) event.getObject()).getDescripcion();
 			entity.setDescripcion(descripcion);
 			
 			codigo = ((TipoFormaPagoDTO) event.getObject()).getCodigo();

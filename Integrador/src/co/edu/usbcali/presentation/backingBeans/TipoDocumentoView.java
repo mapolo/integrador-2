@@ -25,9 +25,7 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.TipoDocumento;
-import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 import co.edu.usbcali.modelo.dto.TipoDocumentoDTO;
-import co.edu.usbcali.modelo.dto.TipoGarantiaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 

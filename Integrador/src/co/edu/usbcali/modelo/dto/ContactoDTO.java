@@ -1,9 +1,6 @@
 package co.edu.usbcali.modelo.dto;
 
-import co.edu.usbcali.modelo.Contacto;
-
 import java.io.Serializable;
-
 import java.util.Date;
 
 /**

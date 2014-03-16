@@ -1,26 +1,52 @@
 package co.edu.usbcali.modelo.control;
 
-import co.edu.usbcali.dataaccess.dao.*;
-import co.edu.usbcali.exceptions.*;
-import co.edu.usbcali.modelo.*;
-import co.edu.usbcali.modelo.dto.SucursalDTO;
-import co.edu.usbcali.utilities.Utilities;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.context.annotation.Scope;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import co.edu.usbcali.dataaccess.dao.IBateriologoDAO;
+import co.edu.usbcali.dataaccess.dao.IClavesParaRotarDAO;
+import co.edu.usbcali.dataaccess.dao.IConsecutivoDocumentoDAO;
+import co.edu.usbcali.dataaccess.dao.IContactoDAO;
+import co.edu.usbcali.dataaccess.dao.IDescuentoComercialDAO;
+import co.edu.usbcali.dataaccess.dao.IDocumentoDAO;
+import co.edu.usbcali.dataaccess.dao.IListaPreciosDAO;
+import co.edu.usbcali.dataaccess.dao.IListaPreciosEspecialesDAO;
+import co.edu.usbcali.dataaccess.dao.IMovimientoInventarioDAO;
+import co.edu.usbcali.dataaccess.dao.IMultifamiliaDAO;
+import co.edu.usbcali.dataaccess.dao.IOrdenesDeCompraDAO;
+import co.edu.usbcali.dataaccess.dao.IPronosticoVentaDAO;
+import co.edu.usbcali.dataaccess.dao.IRboDetalleDocumentosDAO;
+import co.edu.usbcali.dataaccess.dao.IReferenciaSucursalDAO;
+import co.edu.usbcali.dataaccess.dao.IRelacionComercialDAO;
+import co.edu.usbcali.dataaccess.dao.ISucursalDAO;
+import co.edu.usbcali.dataaccess.dao.IVendedorDAO;
+import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.Bateriologo;
+import co.edu.usbcali.modelo.ClavesParaRotar;
+import co.edu.usbcali.modelo.ConsecutivoDocumento;
+import co.edu.usbcali.modelo.Contacto;
+import co.edu.usbcali.modelo.DescuentoComercial;
+import co.edu.usbcali.modelo.Documento;
+import co.edu.usbcali.modelo.ListaPrecios;
+import co.edu.usbcali.modelo.ListaPreciosEspeciales;
+import co.edu.usbcali.modelo.MovimientoInventario;
+import co.edu.usbcali.modelo.Multifamilia;
+import co.edu.usbcali.modelo.OrdenesDeCompra;
+import co.edu.usbcali.modelo.PronosticoVenta;
+import co.edu.usbcali.modelo.RboDetalleDocumentos;
+import co.edu.usbcali.modelo.ReferenciaSucursal;
+import co.edu.usbcali.modelo.RelacionComercial;
+import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.Vendedor;
+import co.edu.usbcali.modelo.dto.SucursalDTO;
+import co.edu.usbcali.utilities.Utilities;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura
