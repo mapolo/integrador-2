@@ -6,13 +6,18 @@
 
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	
 </h:head>
 
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
+		
 
 		</ui:define>
+
+
 
 		<ui:define name="body">
 			<f:view>
@@ -23,17 +28,33 @@
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
 				</p:dialog>
+				
+				
 
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
+				
+       
+	 
+				<p:megaMenu autoDisplay="false">
 
+				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+					url="menu.xhtml" />
+
+
+				<p:menuitem value="cerrar sesion"
+					url="login.xhtml" icon="ui-icon-close" />
+			
+			</p:megaMenu>
+		
+	
 				<style type="text/css">
 body {
 	background: black;
 }
 </style>
-
+<div id="logo" align="center">
 				<h:form id="form">
 
 					<p:panel id="msgProjectClaveFabricacionTitle"
@@ -143,7 +164,7 @@ body {
 
 									<f:facet name="input">
 										<h:selectOneMenu
-											value="#{claveFabricacionView.estadoRegistro}">
+											value="#{claveFabricacionViewionView.estadoRegistro}">
 											<f:selectItem itemLabel="A" itemValue="A" />
 											<f:selectItem itemLabel="R" itemValue="R" />
 										</h:selectOneMenu>
@@ -219,6 +240,7 @@ body {
 						</p:dialog>
 					</p:panel>
 				</h:form>
+				</div>
 			</f:view>
 		</ui:define>
 	</ui:composition>

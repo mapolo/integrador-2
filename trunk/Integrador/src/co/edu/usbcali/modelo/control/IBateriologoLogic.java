@@ -1,14 +1,9 @@
 package co.edu.usbcali.modelo.control;
 
+import java.util.List;
+
 import co.edu.usbcali.modelo.Bateriologo;
 import co.edu.usbcali.modelo.dto.BateriologoDTO;
-
-import java.math.BigDecimal;
-
-import java.util.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura

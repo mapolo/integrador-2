@@ -1,25 +1,9 @@
 package co.edu.usbcali.presentation.backingBeans;
 
-import co.edu.usbcali.exceptions.*;
-import co.edu.usbcali.modelo.*;
-import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
-import co.edu.usbcali.modelo.dto.TipoGarantiaDTO;
-import co.edu.usbcali.presentation.businessDelegate.*;
-import co.edu.usbcali.utilities.*;
-
-import org.primefaces.component.calendar.*;
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.component.selectonemenu.SelectOneMenu;
-import org.primefaces.context.RequestContext;
-import org.primefaces.event.RowEditEvent;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -30,6 +14,19 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.component.calendar.Calendar;
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
+import org.primefaces.event.RowEditEvent;
+
+import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.ClaveFabricacion;
+import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
+import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
+import co.edu.usbcali.utilities.FacesUtils;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura
@@ -104,6 +101,7 @@ public class ClaveFabricacionView {
 			entity.setCodigo(codigo);
 
 			entity.setEstadoRegistro(estadoRegistro);
+			
 			String usuario =(String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 

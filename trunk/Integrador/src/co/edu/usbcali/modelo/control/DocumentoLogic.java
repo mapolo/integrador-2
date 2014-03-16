@@ -1,26 +1,42 @@
 package co.edu.usbcali.modelo.control;
 
-import co.edu.usbcali.dataaccess.dao.*;
-import co.edu.usbcali.exceptions.*;
-import co.edu.usbcali.modelo.*;
-import co.edu.usbcali.modelo.dto.DocumentoDTO;
-import co.edu.usbcali.utilities.Utilities;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.context.annotation.Scope;
-
-import org.springframework.stereotype.Service;
-
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import co.edu.usbcali.dataaccess.dao.ICarteraDAO;
+import co.edu.usbcali.dataaccess.dao.IDetalleVisitaDAO;
+import co.edu.usbcali.dataaccess.dao.IDocumentoDAO;
+import co.edu.usbcali.dataaccess.dao.IGarantiaDAO;
+import co.edu.usbcali.dataaccess.dao.IItemRotacionDAO;
+import co.edu.usbcali.dataaccess.dao.ILogisticaReversivaDAO;
+import co.edu.usbcali.dataaccess.dao.IMovimientoInventarioDAO;
+import co.edu.usbcali.dataaccess.dao.IOrdenesDeCompraDAO;
+import co.edu.usbcali.dataaccess.dao.IPedidoDAO;
+import co.edu.usbcali.dataaccess.dao.IRboDetalleDocumentosDAO;
+import co.edu.usbcali.dataaccess.dao.IRboDetalleFormasPagoDAO;
+import co.edu.usbcali.dataaccess.dao.IReciboDAO;
+import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.Cartera;
+import co.edu.usbcali.modelo.DetalleVisita;
+import co.edu.usbcali.modelo.Documento;
+import co.edu.usbcali.modelo.Garantia;
+import co.edu.usbcali.modelo.ItemRotacion;
+import co.edu.usbcali.modelo.LogisticaReversiva;
+import co.edu.usbcali.modelo.MovimientoInventario;
+import co.edu.usbcali.modelo.OrdenesDeCompra;
+import co.edu.usbcali.modelo.Pedido;
+import co.edu.usbcali.modelo.RboDetalleDocumentos;
+import co.edu.usbcali.modelo.RboDetalleFormasPago;
+import co.edu.usbcali.modelo.Recibo;
+import co.edu.usbcali.modelo.dto.DocumentoDTO;
+import co.edu.usbcali.utilities.Utilities;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura

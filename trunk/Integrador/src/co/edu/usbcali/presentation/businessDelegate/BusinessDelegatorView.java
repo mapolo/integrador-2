@@ -1,5 +1,11 @@
 package co.edu.usbcali.presentation.businessDelegate;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+
 import co.edu.usbcali.modelo.AtencionVendedor;
 import co.edu.usbcali.modelo.Banco;
 import co.edu.usbcali.modelo.Bateriologo;
@@ -80,38 +86,6 @@ import co.edu.usbcali.modelo.UnidadNegocio;
 import co.edu.usbcali.modelo.UnidadVenta;
 import co.edu.usbcali.modelo.Vendedor;
 import co.edu.usbcali.modelo.Visita;
-import co.edu.usbcali.modelo.control.AtencionVendedorLogic;
-import co.edu.usbcali.modelo.control.BancoLogic;
-import co.edu.usbcali.modelo.control.BateriologoLogic;
-import co.edu.usbcali.modelo.control.CamposParametrizablesLogic;
-import co.edu.usbcali.modelo.control.CarteraLogic;
-import co.edu.usbcali.modelo.control.CausalLogic;
-import co.edu.usbcali.modelo.control.ChequePosfechadoLogic;
-import co.edu.usbcali.modelo.control.ClaveFabricacionLogic;
-import co.edu.usbcali.modelo.control.ClavesParaRotarLogic;
-import co.edu.usbcali.modelo.control.ClienteLogic;
-import co.edu.usbcali.modelo.control.CompaniaLogic;
-import co.edu.usbcali.modelo.control.ConceptoReciboLogic;
-import co.edu.usbcali.modelo.control.ConfSemanasAnoLogic;
-import co.edu.usbcali.modelo.control.ConsecutivoDocumentoLogic;
-import co.edu.usbcali.modelo.control.ContactoLogic;
-import co.edu.usbcali.modelo.control.CruceLogic;
-import co.edu.usbcali.modelo.control.DescuentoComercialLogic;
-import co.edu.usbcali.modelo.control.DescuentoFinancieroLogic;
-import co.edu.usbcali.modelo.control.DetalleVisitaLogic;
-import co.edu.usbcali.modelo.control.DiasSemanaLogic;
-import co.edu.usbcali.modelo.control.DistribucionCarteraLogic;
-import co.edu.usbcali.modelo.control.DivisionPoliticaLogic;
-import co.edu.usbcali.modelo.control.DocumentoLogic;
-import co.edu.usbcali.modelo.control.EmpresaLogic;
-import co.edu.usbcali.modelo.control.EstadoDocumentoLogic;
-import co.edu.usbcali.modelo.control.FallasLogic;
-import co.edu.usbcali.modelo.control.FamiliaLogic;
-import co.edu.usbcali.modelo.control.FrecuenciaSemanaLogic;
-import co.edu.usbcali.modelo.control.FrecuenciaVisitaLogic;
-import co.edu.usbcali.modelo.control.GarantiaLogic;
-import co.edu.usbcali.modelo.control.GrupoLogic;
-import co.edu.usbcali.modelo.control.GrupoReferenciaLogic;
 import co.edu.usbcali.modelo.control.IAtencionVendedorLogic;
 import co.edu.usbcali.modelo.control.IBancoLogic;
 import co.edu.usbcali.modelo.control.IBateriologoLogic;
@@ -192,54 +166,6 @@ import co.edu.usbcali.modelo.control.IUnidadNegocioLogic;
 import co.edu.usbcali.modelo.control.IUnidadVentaLogic;
 import co.edu.usbcali.modelo.control.IVendedorLogic;
 import co.edu.usbcali.modelo.control.IVisitaLogic;
-import co.edu.usbcali.modelo.control.ItemLogisticaReversivaLogic;
-import co.edu.usbcali.modelo.control.ItemRotacionLogic;
-import co.edu.usbcali.modelo.control.ListaPreciosEspecialesLogic;
-import co.edu.usbcali.modelo.control.ListaPreciosLogic;
-import co.edu.usbcali.modelo.control.LogisticaReversivaLogic;
-import co.edu.usbcali.modelo.control.MovimientoInventarioLogic;
-import co.edu.usbcali.modelo.control.MovimientoVendedorLogic;
-import co.edu.usbcali.modelo.control.MultifamiliaLogic;
-import co.edu.usbcali.modelo.control.OrdenesDeCompraLogic;
-import co.edu.usbcali.modelo.control.PedidoLogic;
-import co.edu.usbcali.modelo.control.PeriodoGarantiaLogic;
-import co.edu.usbcali.modelo.control.PersonaLogic;
-import co.edu.usbcali.modelo.control.PresupuestoCarteraLogic;
-import co.edu.usbcali.modelo.control.PresupuestoVentasLogic;
-import co.edu.usbcali.modelo.control.ProgramacionAdicionalLogic;
-import co.edu.usbcali.modelo.control.ProgramacionVisitasLogic;
-import co.edu.usbcali.modelo.control.PronosticoVentaLogic;
-import co.edu.usbcali.modelo.control.ProveedorLogic;
-import co.edu.usbcali.modelo.control.RboDetalleDocumentosLogic;
-import co.edu.usbcali.modelo.control.RboDetalleFormasPagoLogic;
-import co.edu.usbcali.modelo.control.ReciboLogic;
-import co.edu.usbcali.modelo.control.ReferenciaLogic;
-import co.edu.usbcali.modelo.control.ReferenciaSucursalLogic;
-import co.edu.usbcali.modelo.control.RegionalGeograficaLogic;
-import co.edu.usbcali.modelo.control.RelacionComercialLogic;
-import co.edu.usbcali.modelo.control.RutaDistribucionLogic;
-import co.edu.usbcali.modelo.control.RutaRelacionComercialLogic;
-import co.edu.usbcali.modelo.control.SaldoInicialInventarioLogic;
-import co.edu.usbcali.modelo.control.SemanaLogic;
-import co.edu.usbcali.modelo.control.SolicitudCambioLogic;
-import co.edu.usbcali.modelo.control.SolicitudCampoLogic;
-import co.edu.usbcali.modelo.control.StockInventarioMensualLogic;
-import co.edu.usbcali.modelo.control.SucursalLogic;
-import co.edu.usbcali.modelo.control.TablaLogic;
-import co.edu.usbcali.modelo.control.TipoCarteraLogic;
-import co.edu.usbcali.modelo.control.TipoCausalLogic;
-import co.edu.usbcali.modelo.control.TipoContactoLogic;
-import co.edu.usbcali.modelo.control.TipoDivisionLogic;
-import co.edu.usbcali.modelo.control.TipoDocumentoLogic;
-import co.edu.usbcali.modelo.control.TipoFormaPagoLogic;
-import co.edu.usbcali.modelo.control.TipoGarantiaLogic;
-import co.edu.usbcali.modelo.control.TipoIdentificacionLogic;
-import co.edu.usbcali.modelo.control.TipoListaLogic;
-import co.edu.usbcali.modelo.control.TipoSucursalLogic;
-import co.edu.usbcali.modelo.control.UnidadNegocioLogic;
-import co.edu.usbcali.modelo.control.UnidadVentaLogic;
-import co.edu.usbcali.modelo.control.VendedorLogic;
-import co.edu.usbcali.modelo.control.VisitaLogic;
 import co.edu.usbcali.modelo.dto.AtencionVendedorDTO;
 import co.edu.usbcali.modelo.dto.BancoDTO;
 import co.edu.usbcali.modelo.dto.BateriologoDTO;
@@ -320,19 +246,6 @@ import co.edu.usbcali.modelo.dto.UnidadNegocioDTO;
 import co.edu.usbcali.modelo.dto.UnidadVentaDTO;
 import co.edu.usbcali.modelo.dto.VendedorDTO;
 import co.edu.usbcali.modelo.dto.VisitaDTO;
-import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.context.annotation.Scope;
-
-import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Use a Business Delegate to reduce coupling between presentation-tier clients
