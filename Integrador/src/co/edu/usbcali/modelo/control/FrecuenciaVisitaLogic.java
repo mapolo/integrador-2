@@ -112,15 +112,7 @@ public class FrecuenciaVisitaLogic implements IFrecuenciaVisitaLogic {
 						"frecuencia");
 			}
 
-			if (entity.getIdFrvi() == null) {
-				throw new ZMessManager().new EmptyFieldException("idFrvi");
-			}
-
-			if ((entity.getIdFrvi() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdFrvi(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idFrvi");
-			}
+			
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -144,10 +136,7 @@ public class FrecuenciaVisitaLogic implements IFrecuenciaVisitaLogic {
 						"operModifica");
 			}
 
-			if (getFrecuenciaVisita(entity.getIdFrvi()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
-
+			
 			frecuenciaVisitaDAO.save(entity);
 		} catch (Exception e) {
 			throw e;

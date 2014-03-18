@@ -12,39 +12,56 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Banco;
 import co.edu.usbcali.modelo.dto.BancoDTO;
+import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class BancoView {
 	private InputText txtCodigo;
-	private InputText txtConfirmaCheque;
-	private InputText txtConsigna;
+	private SelectOneMenu txtConfirmaCheque;
+	private SelectOneMenu txtConsigna;
 	private InputText txtCuentaBanco;
 	private InputText txtCuentaDescuento;
-	private InputText txtDescripcion;
-	private InputText txtEstadoRegistro;
-	private InputText txtImportaPda;
-	private InputText txtManejaBeneficiario;
+	private InputTextarea txtDescripcion;
+	private SelectOneMenu txtEstadoRegistro;
+	private SelectOneMenu txtImportaPda;
+	private SelectOneMenu txtManejaBeneficiario;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtIdBanc;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
+	
+	private String codigo;
+	private String confirmaCheque;
+	private String consigna;
+	private String cuentaBanco;
+	private String cuentaDescuento;
+	private String descripcion;
+	private String estadoRegistro;
+	private String importaPda;
+	private String manejaBeneficiario;
+	private String operCreador;
+	private String operModifica;
+	private String idBanc;
+	private String fechaCreacion;
+	private String fechaModificacion;
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -55,10 +72,81 @@ public class BancoView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+	private SelectItem[] manufacturerOptions2;
+
+	String manufacturers[] = { "A", "R" };
+	String manufacturers2[] = { "1", "0" };
 
 	public BancoView() {
 		super();
+		setManufacturerOptions(createFilterOptions(manufacturers));
+		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
+	
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getBanco(((BancoDTO) event.getObject()).getIdBanc());
+						
+			codigo = ((BancoDTO) event.getObject()).getCodigo();
+			entity.setCodigo(codigo); 	
+			descripcion = ((BancoDTO) event.getObject()).getDescripcion();
+			entity.setDescripcion(descripcion);
+			Long consigna = new Long(txtConsigna.getValue().toString());
+			entity.setConsigna(consigna);
+			System.out.println("consigana:_" + consigna);
+			
+			Long confirmaCheque = new Long(txtConfirmaCheque.getValue().toString());
+			entity.setConfirmaCheque(confirmaCheque);
+			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue().toString());
+			entity.setManejaBeneficiario(manejaBeneficiario);
+			Long importaPda = new Long(txtImportaPda.getValue().toString());
+			entity.setImportaPda(importaPda);
+			
+			cuentaBanco = ((BancoDTO) event.getObject()).getCuentaBanco();
+			entity.setCuentaBanco(cuentaBanco); 
+			cuentaDescuento = ((BancoDTO) event.getObject()).getCuentaDescuento();
+			entity.setCuentaDescuento(cuentaDescuento); 
+
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+
+			businessDelegatorView.updateBanco(entity);
+			data = businessDelegatorView.getDataBanco();
+			RequestContext.getCurrentInstance().reset("form:b");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
+				((BancoDTO) event.getObject()).getIdBanc() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((BancoDTO) event.getObject()).getIdBanc());
+	}
+
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -69,18 +157,6 @@ public class BancoView {
 			}
 
 			txtCodigo.setValue(bancoDTO.getCodigo());
-
-			if (txtConfirmaCheque == null) {
-				txtConfirmaCheque = new InputText();
-			}
-
-			txtConfirmaCheque.setValue(bancoDTO.getConfirmaCheque());
-
-			if (txtConsigna == null) {
-				txtConsigna = new InputText();
-			}
-
-			txtConsigna.setValue(bancoDTO.getConsigna());
 
 			if (txtCuentaBanco == null) {
 				txtCuentaBanco = new InputText();
@@ -95,28 +171,10 @@ public class BancoView {
 			txtCuentaDescuento.setValue(bancoDTO.getCuentaDescuento());
 
 			if (txtDescripcion == null) {
-				txtDescripcion = new InputText();
+				txtDescripcion = new InputTextarea();
 			}
 
 			txtDescripcion.setValue(bancoDTO.getDescripcion());
-
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(bancoDTO.getEstadoRegistro());
-
-			if (txtImportaPda == null) {
-				txtImportaPda = new InputText();
-			}
-
-			txtImportaPda.setValue(bancoDTO.getImportaPda());
-
-			if (txtManejaBeneficiario == null) {
-				txtManejaBeneficiario = new InputText();
-			}
-
-			txtManejaBeneficiario.setValue(bancoDTO.getManejaBeneficiario());
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -137,13 +195,13 @@ public class BancoView {
 			txtIdBanc.setValue(bancoDTO.getIdBanc());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(bancoDTO.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(bancoDTO.getFechaModificacion());
@@ -167,76 +225,76 @@ public class BancoView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			txtCodigo.setDisabled(true);
+			//txtCodigo.setDisabled(true);
 		}
 
 		if (txtConfirmaCheque != null) {
 			txtConfirmaCheque.setValue(null);
-			txtConfirmaCheque.setDisabled(true);
+			//txtConfirmaCheque.setDisabled(true);
 		}
 
 		if (txtConsigna != null) {
 			txtConsigna.setValue(null);
-			txtConsigna.setDisabled(true);
+			//txtConsigna.setDisabled(true);
 		}
 
 		if (txtCuentaBanco != null) {
 			txtCuentaBanco.setValue(null);
-			txtCuentaBanco.setDisabled(true);
+			//txtCuentaBanco.setDisabled(true);
 		}
 
 		if (txtCuentaDescuento != null) {
 			txtCuentaDescuento.setValue(null);
-			txtCuentaDescuento.setDisabled(true);
+		//	txtCuentaDescuento.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			txtDescripcion.setDisabled(true);
+		//	txtDescripcion.setDisabled(true);
 		}
 
 		if (txtEstadoRegistro != null) {
 			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
+		//	txtEstadoRegistro.setDisabled(true);
 		}
 
 		if (txtImportaPda != null) {
 			txtImportaPda.setValue(null);
-			txtImportaPda.setDisabled(true);
+		//	txtImportaPda.setDisabled(true);
 		}
 
 		if (txtManejaBeneficiario != null) {
 			txtManejaBeneficiario.setValue(null);
-			txtManejaBeneficiario.setDisabled(true);
+		//	txtManejaBeneficiario.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+		//	txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+		//	txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+		//	txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+		//	txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdBanc != null) {
 			txtIdBanc.setValue(null);
-			txtIdBanc.setDisabled(false);
+		//	txtIdBanc.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -265,7 +323,7 @@ public class BancoView {
 			Long idBanc = new Long(txtIdBanc.getValue().toString());
 			entity = businessDelegatorView.getBanco(idBanc);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
@@ -374,26 +432,33 @@ public class BancoView {
 		try {
 			entity = new Banco();
 
-			Long idBanc = new Long(txtIdBanc.getValue().toString());
-
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(false);
+			
+			String usuario =(String) session.getAttribute("Usuario");
+			
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			entity.setConfirmaCheque(FacesUtils.checkLong(txtConfirmaCheque));
-			entity.setConsigna(FacesUtils.checkLong(txtConsigna));
-			entity.setCuentaBanco(FacesUtils.checkString(txtCuentaBanco));
-			entity.setCuentaDescuento(FacesUtils
-					.checkString(txtCuentaDescuento));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdBanc(idBanc);
-			entity.setImportaPda(FacesUtils.checkLong(txtImportaPda));
-			entity.setManejaBeneficiario(FacesUtils
-					.checkLong(txtManejaBeneficiario));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setCuentaBanco(FacesUtils.checkString(txtCuentaBanco));
+			entity.setCuentaDescuento(FacesUtils.checkString(txtCuentaDescuento));
+			
+			Long consigna = new Long(txtConsigna.getValue().toString());
+			entity.setConsigna(consigna);
+			Long confirmaCheque = new Long(txtConfirmaCheque.getValue().toString());
+			entity.setConfirmaCheque(confirmaCheque);
+			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue().toString());
+			entity.setManejaBeneficiario(manejaBeneficiario);
+			Long importaPda = new Long(txtImportaPda.getValue().toString());
+			entity.setImportaPda(importaPda);		
+			
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+			
 			businessDelegatorView.saveBanco(entity);
+			data = businessDelegatorView.getDataBanco();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -519,22 +584,6 @@ public class BancoView {
 		this.txtCodigo = txtCodigo;
 	}
 
-	public InputText getTxtConfirmaCheque() {
-		return txtConfirmaCheque;
-	}
-
-	public void setTxtConfirmaCheque(InputText txtConfirmaCheque) {
-		this.txtConfirmaCheque = txtConfirmaCheque;
-	}
-
-	public InputText getTxtConsigna() {
-		return txtConsigna;
-	}
-
-	public void setTxtConsigna(InputText txtConsigna) {
-		this.txtConsigna = txtConsigna;
-	}
-
 	public InputText getTxtCuentaBanco() {
 		return txtCuentaBanco;
 	}
@@ -551,36 +600,12 @@ public class BancoView {
 		this.txtCuentaDescuento = txtCuentaDescuento;
 	}
 
-	public InputText getTxtDescripcion() {
+	public InputTextarea getTxtDescripcion() {
 		return txtDescripcion;
 	}
 
-	public void setTxtDescripcion(InputText txtDescripcion) {
+	public void setTxtDescripcion(InputTextarea txtDescripcion) {
 		this.txtDescripcion = txtDescripcion;
-	}
-
-	public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}
-
-	public InputText getTxtImportaPda() {
-		return txtImportaPda;
-	}
-
-	public void setTxtImportaPda(InputText txtImportaPda) {
-		this.txtImportaPda = txtImportaPda;
-	}
-
-	public InputText getTxtManejaBeneficiario() {
-		return txtManejaBeneficiario;
-	}
-
-	public void setTxtManejaBeneficiario(InputText txtManejaBeneficiario) {
-		this.txtManejaBeneficiario = txtManejaBeneficiario;
 	}
 
 	public InputText getTxtOperCreador() {
@@ -599,19 +624,19 @@ public class BancoView {
 		this.txtOperModifica = txtOperModifica;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -699,4 +724,172 @@ public class BancoView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getConfirmaCheque() {
+		return confirmaCheque;
+	}
+
+	public void setConfirmaCheque(String confirmaCheque) {
+		this.confirmaCheque = confirmaCheque;
+	}
+
+	public String getConsigna() {
+		return consigna;
+	}
+
+	public void setConsigna(String consigna) {
+		this.consigna = consigna;
+	}
+
+	public String getCuentaBanco() {
+		return cuentaBanco;
+	}
+
+	public void setCuentaBanco(String cuentaBanco) {
+		this.cuentaBanco = cuentaBanco;
+	}
+
+	public String getCuentaDescuento() {
+		return cuentaDescuento;
+	}
+
+	public void setCuentaDescuento(String cuentaDescuento) {
+		this.cuentaDescuento = cuentaDescuento;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getImportaPda() {
+		return importaPda;
+	}
+
+	public void setImportaPda(String importaPda) {
+		this.importaPda = importaPda;
+	}
+
+	public String getManejaBeneficiario() {
+		return manejaBeneficiario;
+	}
+
+	public void setManejaBeneficiario(String manejaBeneficiario) {
+		this.manejaBeneficiario = manejaBeneficiario;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getIdBanc() {
+		return idBanc;
+	}
+
+	public void setIdBanc(String idBanc) {
+		this.idBanc = idBanc;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public SelectItem[] getManufacturerOptions2() {
+		return manufacturerOptions2;
+	}
+
+	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
+		this.manufacturerOptions2 = manufacturerOptions2;
+	}
+
+	public SelectOneMenu getTxtConfirmaCheque() {
+		return txtConfirmaCheque;
+	}
+
+	public void setTxtConfirmaCheque(SelectOneMenu txtConfirmaCheque) {
+		this.txtConfirmaCheque = txtConfirmaCheque;
+	}
+
+	public SelectOneMenu getTxtConsigna() {
+		return txtConsigna;
+	}
+
+	public void setTxtConsigna(SelectOneMenu txtConsigna) {
+		this.txtConsigna = txtConsigna;
+	}
+
+	public SelectOneMenu getTxtEstadoRegistro() {
+		return txtEstadoRegistro;
+	}
+
+	public void setTxtEstadoRegistro(SelectOneMenu txtEstadoRegistro) {
+		this.txtEstadoRegistro = txtEstadoRegistro;
+	}
+
+	public SelectOneMenu getTxtImportaPda() {
+		return txtImportaPda;
+	}
+
+	public void setTxtImportaPda(SelectOneMenu txtImportaPda) {
+		this.txtImportaPda = txtImportaPda;
+	}
+
+	public SelectOneMenu getTxtManejaBeneficiario() {
+		return txtManejaBeneficiario;
+	}
+
+	public void setTxtManejaBeneficiario(SelectOneMenu txtManejaBeneficiario) {
+		this.txtManejaBeneficiario = txtManejaBeneficiario;
+	}	
 }

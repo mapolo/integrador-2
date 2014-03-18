@@ -164,7 +164,7 @@ body {
 
 									<f:facet name="input">
 										<h:selectOneMenu
-											value="#{claveFabricacionViewionView.estadoRegistro}">
+											value="#{claveFabricacionView.estadoRegistro}">
 											<f:selectItem itemLabel="A" itemValue="A" />
 											<f:selectItem itemLabel="R" itemValue="R" />
 										</h:selectOneMenu>
@@ -192,6 +192,7 @@ body {
 						<p:dialog id="dialog" header="Clave de Fabricación"
 							widgetVar="carDialog" resizable="false" width="400"
 							showEffect="clip" hideEffect="fold">
+<p:messages id="messages"  autoUpdate="true"  />
 
 							<h:panelGrid columns="2" id="panel">
 

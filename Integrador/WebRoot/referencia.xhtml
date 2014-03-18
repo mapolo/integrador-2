@@ -1,0 +1,810 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+
+		</ui:define>
+
+
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="cerrar sesion" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+					<h:form id="form">
+
+						<p:panel id="msgProjectReferenciaTitle" header="Referencia">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{referenciaView.data}"
+								scrollable="true" scrollHeight="300" id="banco" editable="true"
+								filteredValue="#{referenciaView.data}">
+
+								<p:ajax event="rowEdit" listener="#{referenciaView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{referenciaView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:6%">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idRefe" sortBy="idRefe">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idRefe}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idRefe}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="descripcion" filterBy="descripcion"
+									headerText="Descripción" sortBy="descripcion"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.descripcion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.descripcion}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="descripcionCorta" filterBy="descripcionCorta"
+									headerText="Descripcion Corta" sortBy="descripcionCorta"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.descripcionCorta}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.descripcionCorta}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="unidadMedida" filterBy="unidadMedida"
+									headerText="unidadMedida" sortBy="unidadMedida"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.unidadMedida}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.unidadMedida}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="unidadMedidaProvisional"
+									filterBy="unidadMedidaProvisional"
+									headerText="unidadMedidaProvisional"
+									sortBy="unidadMedidaProvisional" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.unidadMedidaProvisional}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.unidadMedidaProvisional}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="marca" filterBy="marca" headerText="marca"
+									sortBy="marca" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.marca}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.marca}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="equivalente1" filterBy="equivalente1"
+									headerText="equivalente1" sortBy="equivalente1"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.equivalente1}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.equivalente1}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="equivalente2" filterBy="equivalente2"
+									headerText="equivalente2" sortBy="equivalente2"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.equivalente2}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.equivalente2}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="volumen" filterBy="volumen" headerText="volumen"
+									sortBy="volumen" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.volumen}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.volumen}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="galones" filterBy="galones" headerText="galones"
+									sortBy="galones" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.galones}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.galones}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="porcentajeIva" filterBy="porcentajeIva"
+									headerText="porcentajeIva" sortBy="porcentajeIva"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcentajeIva}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.porcentajeIva}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="pideCantidad" filterBy="pideCantidad"
+									headerText="pideCantidad" sortBy="pideCantidad"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.pideCantidad}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.pideCantidad}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="pideValor" filterBy="pideValor"
+									headerText="pideValor" sortBy="pideValor"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.pideValor}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.pideValor}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="costo" filterBy="costo" headerText="costo"
+									sortBy="costo" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.costo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.costo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="aplicacion" filterBy="aplicacion"
+									headerText="aplicacion" sortBy="aplicacion"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.aplicacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.aplicacion}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="descripcionTecnica" filterBy="descripcionTecnica"
+									headerText="descripcionTecnica" sortBy="descripcionTecnica"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.descripcionTecnica}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.descripcionTecnica}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="esGarantia" filterBy="esGarantia"
+									headerText="esGarantia" sortBy="esGarantia"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.esGarantia}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.esGarantia}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="peso" filterBy="peso" headerText="peso"
+									sortBy="peso" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.peso}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.peso}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="qPorCaja" filterBy="qPorCaja"
+									headerText="qPorCaja" sortBy="qPorCaja"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.qPorCaja}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.qPorCaja}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="fechaVigentePBodega"
+									headerText="fechaVigentePBodega">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaVigentePBodega}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaVigentePBodega}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoPBodega"
+									filterBy="margenMinimoPBodega" headerText="margenMinimoPBodega"
+									sortBy="margenMinimoPBodega" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoPBodega}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoPBodega}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoGBodega"
+									filterBy="margenMinimoGBodega" headerText="margenMinimoGBodega"
+									sortBy="margenMinimoGBodega" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoGBodega}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoGBodega}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoRefBodega"
+									filterBy="margenMinimoRefBodega"
+									headerText="margenMinimoRefBodega"
+									sortBy="margenMinimoRefBodega" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoRefBodega}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoRefBodega}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="fechaVigentePEne" headerText="fechaVigentePEne">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaVigentePEne}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaVigentePEne}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoPEne" filterBy="margenMinimoPEne"
+									headerText="margenMinimoPEne" sortBy="margenMinimoPEne"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoPEne}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoPEne}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoRefEne" filterBy="margenMinimoRefEne"
+									headerText="margenMinimoRefEne" sortBy="margenMinimoRefEne"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoRefEne}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoRefEne}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="margenMinimoGEne" filterBy="margenMinimoGEne"
+									headerText="margenMinimoGEne" sortBy="margenMinimoGEne"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.margenMinimoGEne}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.margenMinimoGEne}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="productoEspecial" filterBy="productoEspecial"
+									headerText="productoEspecial" sortBy="productoEspecial"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.productoEspecial}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.productoEspecial}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="productoConsumo" filterBy="productoConsumo"
+									headerText="productoConsumo" sortBy="productoConsumo"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.productoConsumo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.productoConsumo}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="manejaLote" filterBy="manejaLote"
+									headerText="manejaLote" sortBy="manejaLote"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.manejaLote}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.manejaLote}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="manejaDecimales" filterBy="manejaDecimales"
+									headerText="manejaDecimales" sortBy="manejaDecimales"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.manejaDecimales}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.manejaDecimales}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="codigoBarras" filterBy="codigoBarras"
+									headerText="codigoBarras" sortBy="codigoBarras"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigoBarras}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigoBarras}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" filterBy="operCreador"
+									sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="Estado del Registro"
+									filterBy="estadoRegistro"
+									filterOptions="#{referenciaView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{referenciaView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Referencia" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<h:panelGrid columns="6" id="panel">
+
+									<h:outputText id="msgCodigo" value="Codigo:" />
+									<p:inputText id="txtCodigo" value="#{referenciaView.codigo}"
+										binding="#{referenciaView.txtCodigo}" />
+
+									<h:outputText id="msgQPorCaja" value=" QPorCaja" />
+									<p:inputText id="txtQPorCaja" value="#{referenciaView.qPorCaja}"
+										binding="#{referenciaView.txtQPorCaja}" />
+
+									<h:outputText id="msgAplicacion" value=" Aplicacion" />
+									<p:inputText id="txtAplicacion"
+										value="#{referenciaView.aplicacion}"
+										binding="#{referenciaView.txtAplicacion}" />
+
+									<h:outputText id="msgCodigoBarras" value=" CodigoBarras" />
+									<p:inputText id="txtCodigoBarras"
+										value="#{referenciaView.codigoBarras}"
+										binding="#{referenciaView.txtCodigoBarras}" />
+
+									<h:outputText id="msgCosto" value=" Costo" />
+									<p:inputText id="txtCosto" value="#{referenciaView.costo}"
+										binding="#{referenciaView.txtCosto}" />
+
+									<h:outputText id="msgDescripcion" value="Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										value="#{referenciaView.descripcion}"
+										binding="#{referenciaView.txtDescripcion}" />
+
+									<h:outputText id="msgDescripcionCorta" value="DescripcionCorta" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcionCorta"
+										value="#{referenciaView.descripcionCorta}"
+										binding="#{referenciaView.txtDescripcionCorta}" />
+
+
+									<h:outputText id="msgDescripcionTecnica"
+										value="DescripcionTecnica" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcionTecnica"
+										value="#{referenciaView.descripcionTecnica}"
+										binding="#{referenciaView.txtDescripcionTecnica}" />
+
+
+									<h:outputText id="msgEquivalente1" value=" Equivalente1" />
+									<p:inputText id="txtEquivalente1"
+										value="#{referenciaView.equivalente1}"
+										binding="#{referenciaView.txtEquivalente1}" />
+
+									<h:outputText id="msgEquivalente2" value=" Equivalente2" />
+									<p:inputText id="txtEquivalente2"
+										value="#{referenciaView.equivalente2}"
+										binding="#{referenciaView.txtEquivalente2}" />
+
+									<h:outputText id="msgEsGarantia" value=" EsGarantia" />
+									<p:inputText id="txtEsGarantia"
+										value="#{referenciaView.esGarantia}"
+										binding="#{referenciaView.txtEsGarantia}" />
+
+									<h:outputText id="msgGalones" value=" Galones" />
+									<p:inputText id="txtGalones" value="#{referenciaView.galones}"
+										binding="#{referenciaView.txtGalones}" />
+
+									<h:outputText id="msgManejaDecimales" value=" ManejaDecimales" />
+									<p:inputText id="txtManejaDecimales"
+										value="#{referenciaView.manejaDecimales}"
+										binding="#{referenciaView.txtManejaDecimales}" />
+
+									<h:outputText id="msgManejaLote" value=" ManejaLote" />
+									<p:inputText id="txtManejaLote"
+										value="#{referenciaView.manejaLote}"
+										binding="#{referenciaView.txtManejaLote}" />
+
+									<h:outputText id="msgMarca" value=" Marca" />
+									<p:inputText id="txtMarca" value="#{referenciaView.marca}"
+										binding="#{referenciaView.txtMarca}" />
+
+									<h:outputText id="msgMargenMinimoGBodega"
+										value=" MargenMinimoGBodega" />
+									<p:inputText id="txtMargenMinimoGBodega"
+										value="#{referenciaView.margenMinimoGBodega}"
+										binding="#{referenciaView.txtMargenMinimoGBodega}" />
+
+									<h:outputText id="msgMargenMinimoGEne"
+										value=" MargenMinimoGEne" />
+									<p:inputText id="txtMargenMinimoGEne"
+										value="#{referenciaView.margenMinimoGEne}"
+										binding="#{referenciaView.txtMargenMinimoGEne}" />
+
+									<h:outputText id="msgMargenMinimoPBodega"
+										value=" MargenMinimoPBodega" />
+									<p:inputText id="txtMargenMinimoPBodega"
+										value="#{referenciaView.margenMinimoPBodega}"
+										binding="#{referenciaView.txtMargenMinimoPBodega}" />
+
+									<h:outputText id="msgMargenMinimoPEne"
+										value=" MargenMinimoPEne" />
+									<p:inputText id="txtMargenMinimoPEne"
+										value="#{referenciaView.margenMinimoPEne}"
+										binding="#{referenciaView.txtMargenMinimoPEne}" />
+
+									<h:outputText id="msgMargenMinimoRefBodega"
+										value=" MargenMinimoRefBodega" />
+									<p:inputText id="txtMargenMinimoRefBodega"
+										value="#{referenciaView.margenMinimoRefBodega}"
+										binding="#{referenciaView.txtMargenMinimoRefBodega}" />
+
+									<h:outputText id="msgMargenMinimoRefEne"
+										value=" MargenMinimoRefEne" />
+									<p:inputText id="txtMargenMinimoRefEne"
+										value="#{referenciaView.margenMinimoRefEne}"
+										binding="#{referenciaView.txtMargenMinimoRefEne}" />
+
+									<h:outputText id="msgPeso" value=" Peso" />
+									<p:inputText id="txtPeso"
+										value="#{referenciaView.peso}"
+										binding="#{referenciaView.txtPeso}" />
+
+									<h:outputText id="msgPideCantidad" value=" PideCantidad" />
+									<p:inputText id="txtPideCantidad"
+										value="#{referenciaView.pideCantidad}"
+										binding="#{referenciaView.txtPideCantidad}" />
+
+									<h:outputText id="msgPideValor" value=" PideValor" />
+									<p:inputText id="txtPideValor" value="#{referenciaView.pideValor}"
+										binding="#{referenciaView.txtPideValor}" />
+
+									<h:outputText id="msgPorcentajeIva" value=" PorcentajeIva" />
+									<p:inputText id="txtPorcentajeIva"
+										value="#{referenciaView.porcentajeIva}"
+										binding="#{referenciaView.txtPorcentajeIva}" />
+
+									<h:outputText id="msgProductoConsumo" value=" ProductoConsumo" />
+									<p:inputText id="txtProductoConsumo"
+										value="#{referenciaView.productoConsumo}"
+										binding="#{referenciaView.txtProductoConsumo}" />
+
+									<h:outputText id="msgProductoEspecial"
+										value=" ProductoEspecial" />
+									<p:inputText id="txtProductoEspecial"
+										value="#{referenciaView.productoEspecial}"
+										binding="#{referenciaView.txtProductoEspecial}" />
+
+									<h:outputText id="msgUnidadMedida" value=" UnidadMedida" />
+									<p:inputText id="txtUnidadMedida"
+										value="#{referenciaView.unidadMedida}"
+										binding="#{referenciaView.txtUnidadMedida}" />
+
+									<h:outputText id="msgUnidadMedidaProvisional"
+										value=" UnidadMedidaProvisional" />
+									<p:inputText id="txtUnidadMedidaProvisional"
+										value="#{referenciaView.unidadMedidaProvisional}"
+										binding="#{referenciaView.txtUnidadMedidaProvisional}" />
+
+									<h:outputText id="msgVolumen" value=" Volumen" />
+									<p:inputText id="txtVolumen" value="#{referenciaView.volumen}"
+										binding="#{referenciaView.txtVolumen}" />
+
+									<h:outputText id="msgFechaVigentePBodega"
+										value=" FechaVigentePBodega" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{referenciaView.txtFechaVigentePBodega}">
+										<p:ajax event="dateSelect"
+											listener="#{referenciaView.listener_txtFechaVigentePBodega}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgFechaVigentePEne"
+										value=" FechaVigentePEne" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{referenciaView.txtFechaVigentePEne}">
+										<p:ajax event="dateSelect"
+											listener="#{referenciaView.listener_txtFechaVigentePEne}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{referenciaView.estado}"
+										value="#{referenciaView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{referenciaView.action_create}"
+										binding="#{referenciaView.btnSave}"
+										update="banco,msg,panel,panelBotones" />
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

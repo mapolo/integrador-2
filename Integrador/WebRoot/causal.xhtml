@@ -109,8 +109,9 @@
 									</f:facet>
 									
 									<f:facet name="input">
-										<p:selectOneMenu value="#{causalView.idTcau_TipoCausal} " style="width:160px">
-										<f:selectItem itemLabel="Select One" itemValue="" />
+										<p:selectOneMenu value="#{causalView.idTcau_TipoCausal} " style="width:160px"
+										disabled="false">
+										
 											<f:selectItems value="#{causalView.tipoCausales}"  />
 										</p:selectOneMenu>
 									</f:facet>
@@ -154,11 +155,11 @@
 
 						<!--                          Tabla emergente           -->
 
-						<p:dialog id="dialog" header="Clave de Fabricación"
+						<p:dialog id="dialog" header="Causal"
 							widgetVar="carDialog" resizable="false" width="400"
 							showEffect="clip" hideEffect="fold">
 
-
+<p:messages id="messages"  autoUpdate="true"  />
 							<h:panelGrid columns="2" id="panel">
 
 
@@ -196,7 +197,9 @@
 								</p:selectOneMenu>
 
 							</h:panelGrid>
-
+							
+							<p:separator id="separator"/>
+							
 							<h:panelGrid id="panelBotones" columns="1">
 
 								<p:commandButton id="btnGuardar" value="Guardar"

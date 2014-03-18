@@ -30,6 +30,8 @@ public class ZMessManager extends RuntimeException {
 			super("El valor para el campo: \"" + info + "\" no es valido");
 		}
 	}
+	
+	
 
 	public class NullEntityExcepcion extends ZMessManager {
 		private static final long serialVersionUID = 1L;

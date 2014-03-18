@@ -12,10 +12,15 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
@@ -24,10 +29,6 @@ import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ReferenciaView {
@@ -36,13 +37,13 @@ public class ReferenciaView {
 	private InputText txtCodigo;
 	private InputText txtCodigoBarras;
 	private InputText txtCosto;
-	private InputText txtDescripcion;
-	private InputText txtDescripcionCorta;
-	private InputText txtDescripcionTecnica;
+	private InputTextarea txtDescripcion;
+	private InputTextarea txtDescripcionCorta;
+	private InputTextarea txtDescripcionTecnica;
 	private InputText txtEquivalente1;
 	private InputText txtEquivalente2;
 	private InputText txtEsGarantia;
-	private InputText txtEstadoRegistro;
+	private SelectOneMenu estado;
 	private InputText txtGalones;
 	private InputText txtManejaDecimales;
 	private InputText txtManejaLote;
@@ -65,10 +66,50 @@ public class ReferenciaView {
 	private InputText txtUnidadMedidaProvisional;
 	private InputText txtVolumen;
 	private InputText txtIdRefe;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
 	private Calendar txtFechaVigentePBodega;
 	private Calendar txtFechaVigentePEne;
+
+	private String qPorCaja;
+	private String aplicacion;
+	private String codigo;
+	private String codigoBarras;
+	private String costo;
+	private String descripcion;
+	private String descripcionCorta;
+	private String descripcionTecnica;
+	private String equivalente1;
+	private String equivalente2;
+	private String esGarantia;
+	private String estadoRegistro;
+	private String galones;
+	private String manejaDecimales;
+	private String manejaLote;
+	private String marca;
+	private String margenMinimoGBodega;
+	private String margenMinimoGEne;
+	private String margenMinimoPBodega;
+	private String margenMinimoPEne;
+	private String margenMinimoRefBodega;
+	private String margenMinimoRefEne;
+	private String operCreador;
+	private String operModifica;
+	private String peso;
+	private String pideCantidad;
+	private String pideValor;
+	private String porcentajeIva;
+	private String productoConsumo;
+	private String productoEspecial;
+	private String unidadMedida;
+	private String unidadMedidaProvisional;
+	private String volumen;
+	private String idRefe;
+	private String fechaCreacion;
+	private String fechaModificacion;
+	private String fechaVigentePBodega;
+	private String fechaVigentePEne;
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -79,9 +120,142 @@ public class ReferenciaView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+
+	String manufacturers[] = { "A", "R" };
 
 	public ReferenciaView() {
 		super();
+		manufacturerOptions = createFilterOptions(manufacturers);
+	}
+
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getReferencia(((ReferenciaDTO) event
+					.getObject()).getIdRefe());
+
+			aplicacion = ((ReferenciaDTO) event.getObject()).getAplicacion();
+			entity.setAplicacion(aplicacion);
+			codigo = ((ReferenciaDTO) event.getObject()).getCodigo();
+			entity.setCodigo(codigo);
+			codigoBarras = ((ReferenciaDTO) event.getObject())
+					.getCodigoBarras();
+			entity.setCodigoBarras(codigoBarras);
+			descripcion = ((ReferenciaDTO) event.getObject()).getDescripcion();
+			entity.setDescripcion(descripcion);
+			descripcionCorta = ((ReferenciaDTO) event.getObject())
+					.getDescripcionCorta();
+			entity.setDescripcionCorta(descripcionCorta);
+			descripcionTecnica = ((ReferenciaDTO) event.getObject())
+					.getDescripcionTecnica();
+			entity.setDescripcionTecnica(descripcionTecnica);
+			equivalente1 = ((ReferenciaDTO) event.getObject())
+					.getEquivalente1();
+			entity.setEquivalente1(equivalente1);
+			equivalente2 = ((ReferenciaDTO) event.getObject())
+					.getEquivalente2();
+			entity.setEquivalente2(equivalente2);
+			esGarantia = ((ReferenciaDTO) event.getObject()).getEsGarantia();
+			entity.setEsGarantia(esGarantia);
+			marca = ((ReferenciaDTO) event.getObject()).getMarca();
+			entity.setMarca(marca);
+			pideCantidad = ((ReferenciaDTO) event.getObject())
+					.getPideCantidad();
+			entity.setPideCantidad(pideCantidad);
+			pideValor = ((ReferenciaDTO) event.getObject()).getPideValor();
+			entity.setPideValor(pideValor);
+			unidadMedida = ((ReferenciaDTO) event.getObject())
+					.getUnidadMedida();
+			entity.setUnidadMedida(unidadMedida);
+			unidadMedidaProvisional = ((ReferenciaDTO) event.getObject())
+					.getUnidadMedidaProvisional();
+			entity.setUnidadMedidaProvisional(unidadMedidaProvisional);
+
+			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
+			// entity.setFechaVigentePBodega(FacesUtils.checkDate(txtFechaVigentePBodega));
+			// entity.setFechaVigentePEne(FacesUtils.checkDate(txtFechaVigentePEne));
+
+			Double volumen = new Double(txtVolumen.getValue().toString());
+			entity.setVolumen(volumen);
+			Double galones = new Double(txtGalones.getValue().toString());
+			entity.setGalones(galones);
+			Double porcentajeIva = new Double(txtPorcentajeIva.getValue()
+					.toString());
+			entity.setPorcentajeIva(porcentajeIva);
+			Double costo = new Double(txtCosto.getValue().toString());
+			entity.setCosto(costo);
+			Double peso = new Double(txtPeso.getValue().toString());
+			entity.setPeso(peso);
+
+			Long qPorCaja = new Long(txtQPorCaja.getValue().toString());
+			entity.setQPorCaja(qPorCaja);
+			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
+					.getValue().toString());
+			entity.setMargenMinimoGBodega(margenMinimoGBodega);
+			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
+					.toString());
+			entity.setMargenMinimoGEne(margenMinimoGEne);
+			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
+					.getValue().toString());
+			entity.setMargenMinimoPBodega(margenMinimoPBodega);
+			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
+					.toString());
+			entity.setMargenMinimoPEne(margenMinimoPEne);
+			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
+					.getValue().toString());
+			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
+			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
+					.toString());
+			entity.setMargenMinimoRefEne(margenMinimoRefEne);
+			Long productoConsumo = new Long(txtProductoConsumo.getValue()
+					.toString());
+			entity.setProductoConsumo(productoConsumo);
+			Long productoEspecial = new Long(txtProductoEspecial.getValue()
+					.toString());
+			entity.setProductoEspecial(productoEspecial);
+			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
+					.toString());
+			entity.setManejaDecimales(manejaDecimales);
+			Long manejaLote = new Long(txtManejaLote.getValue().toString());
+			entity.setManejaLote(manejaLote);
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+
+			businessDelegatorView.updateReferencia(entity);
+			data = businessDelegatorView.getDataReferencia();
+			RequestContext.getCurrentInstance().reset("form:banco");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Cancelled",
+				((ReferenciaDTO) event.getObject()).getIdRefe() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((ReferenciaDTO) event.getObject()).getIdRefe());
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -119,19 +293,19 @@ public class ReferenciaView {
 			txtCosto.setValue(referenciaDTO.getCosto());
 
 			if (txtDescripcion == null) {
-				txtDescripcion = new InputText();
+				txtDescripcion = new InputTextarea();
 			}
 
 			txtDescripcion.setValue(referenciaDTO.getDescripcion());
 
 			if (txtDescripcionCorta == null) {
-				txtDescripcionCorta = new InputText();
+				txtDescripcionCorta = new InputTextarea();
 			}
 
 			txtDescripcionCorta.setValue(referenciaDTO.getDescripcionCorta());
 
 			if (txtDescripcionTecnica == null) {
-				txtDescripcionTecnica = new InputText();
+				txtDescripcionTecnica = new InputTextarea();
 			}
 
 			txtDescripcionTecnica.setValue(referenciaDTO
@@ -154,12 +328,6 @@ public class ReferenciaView {
 			}
 
 			txtEsGarantia.setValue(referenciaDTO.getEsGarantia());
-
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(referenciaDTO.getEstadoRegistro());
 
 			if (txtGalones == null) {
 				txtGalones = new InputText();
@@ -299,13 +467,13 @@ public class ReferenciaView {
 			txtIdRefe.setValue(referenciaDTO.getIdRefe());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(referenciaDTO.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(referenciaDTO.getFechaModificacion());
@@ -342,196 +510,191 @@ public class ReferenciaView {
 
 		if (txtQPorCaja != null) {
 			txtQPorCaja.setValue(null);
-			txtQPorCaja.setDisabled(true);
+			// txtQPorCaja.setDisabled(true);
 		}
 
 		if (txtAplicacion != null) {
 			txtAplicacion.setValue(null);
-			txtAplicacion.setDisabled(true);
+			// txtAplicacion.setDisabled(true);
 		}
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtCodigoBarras != null) {
 			txtCodigoBarras.setValue(null);
-			txtCodigoBarras.setDisabled(true);
+			// txtCodigoBarras.setDisabled(true);
 		}
 
 		if (txtCosto != null) {
 			txtCosto.setValue(null);
-			txtCosto.setDisabled(true);
+			// txtCosto.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
 		if (txtDescripcionCorta != null) {
 			txtDescripcionCorta.setValue(null);
-			txtDescripcionCorta.setDisabled(true);
+			// txtDescripcionCorta.setDisabled(true);
 		}
 
 		if (txtDescripcionTecnica != null) {
 			txtDescripcionTecnica.setValue(null);
-			txtDescripcionTecnica.setDisabled(true);
+			// txtDescripcionTecnica.setDisabled(true);
 		}
 
 		if (txtEquivalente1 != null) {
 			txtEquivalente1.setValue(null);
-			txtEquivalente1.setDisabled(true);
+			// txtEquivalente1.setDisabled(true);
 		}
 
 		if (txtEquivalente2 != null) {
 			txtEquivalente2.setValue(null);
-			txtEquivalente2.setDisabled(true);
+			// txtEquivalente2.setDisabled(true);
 		}
 
 		if (txtEsGarantia != null) {
 			txtEsGarantia.setValue(null);
-			txtEsGarantia.setDisabled(true);
-		}
-
-		if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
+			// txtEsGarantia.setDisabled(true);
 		}
 
 		if (txtGalones != null) {
 			txtGalones.setValue(null);
-			txtGalones.setDisabled(true);
+			// txtGalones.setDisabled(true);
 		}
 
 		if (txtManejaDecimales != null) {
 			txtManejaDecimales.setValue(null);
-			txtManejaDecimales.setDisabled(true);
+			// txtManejaDecimales.setDisabled(true);
 		}
 
 		if (txtManejaLote != null) {
 			txtManejaLote.setValue(null);
-			txtManejaLote.setDisabled(true);
+			// txtManejaLote.setDisabled(true);
 		}
 
 		if (txtMarca != null) {
 			txtMarca.setValue(null);
-			txtMarca.setDisabled(true);
+			// txtMarca.setDisabled(true);
 		}
 
 		if (txtMargenMinimoGBodega != null) {
 			txtMargenMinimoGBodega.setValue(null);
-			txtMargenMinimoGBodega.setDisabled(true);
+			// txtMargenMinimoGBodega.setDisabled(true);
 		}
 
 		if (txtMargenMinimoGEne != null) {
 			txtMargenMinimoGEne.setValue(null);
-			txtMargenMinimoGEne.setDisabled(true);
+			// txtMargenMinimoGEne.setDisabled(true);
 		}
 
 		if (txtMargenMinimoPBodega != null) {
 			txtMargenMinimoPBodega.setValue(null);
-			txtMargenMinimoPBodega.setDisabled(true);
+			// txtMargenMinimoPBodega.setDisabled(true);
 		}
 
 		if (txtMargenMinimoPEne != null) {
 			txtMargenMinimoPEne.setValue(null);
-			txtMargenMinimoPEne.setDisabled(true);
+			// txtMargenMinimoPEne.setDisabled(true);
 		}
 
 		if (txtMargenMinimoRefBodega != null) {
 			txtMargenMinimoRefBodega.setValue(null);
-			txtMargenMinimoRefBodega.setDisabled(true);
+			// txtMargenMinimoRefBodega.setDisabled(true);
 		}
 
 		if (txtMargenMinimoRefEne != null) {
 			txtMargenMinimoRefEne.setValue(null);
-			txtMargenMinimoRefEne.setDisabled(true);
+			// txtMargenMinimoRefEne.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPeso != null) {
 			txtPeso.setValue(null);
-			txtPeso.setDisabled(true);
+			// txtPeso.setDisabled(true);
 		}
 
 		if (txtPideCantidad != null) {
 			txtPideCantidad.setValue(null);
-			txtPideCantidad.setDisabled(true);
+			// txtPideCantidad.setDisabled(true);
 		}
 
 		if (txtPideValor != null) {
 			txtPideValor.setValue(null);
-			txtPideValor.setDisabled(true);
+			// txtPideValor.setDisabled(true);
 		}
 
 		if (txtPorcentajeIva != null) {
 			txtPorcentajeIva.setValue(null);
-			txtPorcentajeIva.setDisabled(true);
+			// txtPorcentajeIva.setDisabled(true);
 		}
 
 		if (txtProductoConsumo != null) {
 			txtProductoConsumo.setValue(null);
-			txtProductoConsumo.setDisabled(true);
+			// txtProductoConsumo.setDisabled(true);
 		}
 
 		if (txtProductoEspecial != null) {
 			txtProductoEspecial.setValue(null);
-			txtProductoEspecial.setDisabled(true);
+			// txtProductoEspecial.setDisabled(true);
 		}
 
 		if (txtUnidadMedida != null) {
 			txtUnidadMedida.setValue(null);
-			txtUnidadMedida.setDisabled(true);
+			// txtUnidadMedida.setDisabled(true);
 		}
 
 		if (txtUnidadMedidaProvisional != null) {
 			txtUnidadMedidaProvisional.setValue(null);
-			txtUnidadMedidaProvisional.setDisabled(true);
+			// txtUnidadMedidaProvisional.setDisabled(true);
 		}
 
 		if (txtVolumen != null) {
 			txtVolumen.setValue(null);
-			txtVolumen.setDisabled(true);
+			// txtVolumen.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtFechaVigentePBodega != null) {
 			txtFechaVigentePBodega.setValue(null);
-			txtFechaVigentePBodega.setDisabled(true);
+			// txtFechaVigentePBodega.setDisabled(true);
 		}
 
 		if (txtFechaVigentePEne != null) {
 			txtFechaVigentePEne.setValue(null);
-			txtFechaVigentePEne.setDisabled(true);
+			// txtFechaVigentePEne.setDisabled(true);
 		}
 
 		if (txtIdRefe != null) {
 			txtIdRefe.setValue(null);
-			txtIdRefe.setDisabled(false);
+			// txtIdRefe.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -578,7 +741,7 @@ public class ReferenciaView {
 			Long idRefe = new Long(txtIdRefe.getValue().toString());
 			entity = businessDelegatorView.getReferencia(idRefe);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
@@ -593,7 +756,7 @@ public class ReferenciaView {
 			txtEquivalente1.setDisabled(false);
 			txtEquivalente2.setDisabled(false);
 			txtEsGarantia.setDisabled(false);
-			txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setDisabled(false);
 			txtGalones.setDisabled(false);
 			txtManejaDecimales.setDisabled(false);
 			txtManejaLote.setDisabled(false);
@@ -644,8 +807,8 @@ public class ReferenciaView {
 			txtEquivalente2.setDisabled(false);
 			txtEsGarantia.setValue(entity.getEsGarantia());
 			txtEsGarantia.setDisabled(false);
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -730,8 +893,8 @@ public class ReferenciaView {
 		txtEquivalente2.setDisabled(false);
 		txtEsGarantia.setValue(selectedReferencia.getEsGarantia());
 		txtEsGarantia.setDisabled(false);
-		txtEstadoRegistro.setValue(selectedReferencia.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedReferencia.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedReferencia.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion
@@ -817,13 +980,17 @@ public class ReferenciaView {
 		try {
 			entity = new Referencia();
 
-			Long idRefe = new Long(txtIdRefe.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			entity.setQPorCaja(FacesUtils.checkLong(txtQPorCaja));
+			String usuario = (String) session.getAttribute("Usuario");
+			System.out.println("entro creat");
+			
+			
 			entity.setAplicacion(FacesUtils.checkString(txtAplicacion));
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setCodigoBarras(FacesUtils.checkString(txtCodigoBarras));
-			entity.setCosto(FacesUtils.checkDouble(txtCosto));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setDescripcionCorta(FacesUtils
 					.checkString(txtDescripcionCorta));
@@ -832,7 +999,6 @@ public class ReferenciaView {
 			entity.setEquivalente1(FacesUtils.checkString(txtEquivalente1));
 			entity.setEquivalente2(FacesUtils.checkString(txtEquivalente2));
 			entity.setEsGarantia(FacesUtils.checkString(txtEsGarantia));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -840,37 +1006,79 @@ public class ReferenciaView {
 					.checkDate(txtFechaVigentePBodega));
 			entity.setFechaVigentePEne(FacesUtils
 					.checkDate(txtFechaVigentePEne));
-			entity.setGalones(FacesUtils.checkDouble(txtGalones));
-			entity.setIdRefe(idRefe);
-			entity.setManejaDecimales(FacesUtils.checkLong(txtManejaDecimales));
-			entity.setManejaLote(FacesUtils.checkLong(txtManejaLote));
 			entity.setMarca(FacesUtils.checkString(txtMarca));
-			entity.setMargenMinimoGBodega(FacesUtils
-					.checkLong(txtMargenMinimoGBodega));
-			entity.setMargenMinimoGEne(FacesUtils
-					.checkLong(txtMargenMinimoGEne));
-			entity.setMargenMinimoPBodega(FacesUtils
-					.checkLong(txtMargenMinimoPBodega));
-			entity.setMargenMinimoPEne(FacesUtils
-					.checkLong(txtMargenMinimoPEne));
-			entity.setMargenMinimoRefBodega(FacesUtils
-					.checkLong(txtMargenMinimoRefBodega));
-			entity.setMargenMinimoRefEne(FacesUtils
-					.checkLong(txtMargenMinimoRefEne));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setPeso(FacesUtils.checkDouble(txtPeso));
 			entity.setPideCantidad(FacesUtils.checkString(txtPideCantidad));
 			entity.setPideValor(FacesUtils.checkString(txtPideValor));
-			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
-			entity.setProductoConsumo(FacesUtils.checkLong(txtProductoConsumo));
-			entity.setProductoEspecial(FacesUtils
-					.checkLong(txtProductoEspecial));
 			entity.setUnidadMedida(FacesUtils.checkString(txtUnidadMedida));
 			entity.setUnidadMedidaProvisional(FacesUtils
 					.checkString(txtUnidadMedidaProvisional));
-			entity.setVolumen(FacesUtils.checkDouble(txtVolumen));
+			
+			System.out.println("antes del doubl");
+			Double volumen = new Double(txtVolumen.getValue().toString());
+			entity.setVolumen(volumen);
+			System.out.println("vol: " + volumen);
+			
+			Double galones = new Double(txtGalones.getValue().toString());
+			entity.setGalones(galones);
+			System.out.println("galones: " + galones);
+			
+			Double porcentajeIva = new Double(txtPorcentajeIva.getValue()
+					.toString());
+			entity.setPorcentajeIva(porcentajeIva);
+			System.out.println("porcentaje: " + porcentajeIva);
+			
+			Double costo = new Double(txtCosto.getValue().toString());
+			entity.setCosto(costo);
+			System.out.println("costo" + costo);
+			
+			Double peso = new Double(txtPeso.getValue().toString());
+			entity.setPeso(peso);
+			System.out.println("peso " + peso);
+			
+			Long qPorCaja = new Long(txtQPorCaja.getValue().toString());
+			entity.setQPorCaja(qPorCaja);
+			System.out.println("qPorCaja" + qPorCaja);
+			
+			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
+					.getValue().toString());
+			entity.setMargenMinimoGBodega(margenMinimoGBodega);
+			
+			
+			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
+					.toString());
+			entity.setMargenMinimoGEne(margenMinimoGEne);
+			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
+					.getValue().toString());
+			entity.setMargenMinimoPBodega(margenMinimoPBodega);
+			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
+					.toString());
+			entity.setMargenMinimoPEne(margenMinimoPEne);
+			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
+					.getValue().toString());
+			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
+			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
+					.toString());
+			entity.setMargenMinimoRefEne(margenMinimoRefEne);
+			Long productoConsumo = new Long(txtProductoConsumo.getValue()
+					.toString());
+			entity.setProductoConsumo(productoConsumo);
+			Long productoEspecial = new Long(txtProductoEspecial.getValue()
+					.toString());
+			entity.setProductoEspecial(productoEspecial);
+			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
+					.toString());
+			entity.setManejaDecimales(manejaDecimales);
+			Long manejaLote = new Long(txtManejaLote.getValue().toString());
+			entity.setManejaLote(manejaLote);
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.saveReferencia(entity);
+			data = businessDelegatorView.getDataReferencia();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -900,7 +1108,7 @@ public class ReferenciaView {
 			entity.setEquivalente1(FacesUtils.checkString(txtEquivalente1));
 			entity.setEquivalente2(FacesUtils.checkString(txtEquivalente2));
 			entity.setEsGarantia(FacesUtils.checkString(txtEsGarantia));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -1101,27 +1309,27 @@ public class ReferenciaView {
 		this.txtCosto = txtCosto;
 	}
 
-	public InputText getTxtDescripcion() {
+	public InputTextarea getTxtDescripcion() {
 		return txtDescripcion;
 	}
 
-	public void setTxtDescripcion(InputText txtDescripcion) {
+	public void setTxtDescripcion(InputTextarea txtDescripcion) {
 		this.txtDescripcion = txtDescripcion;
 	}
 
-	public InputText getTxtDescripcionCorta() {
+	public InputTextarea getTxtDescripcionCorta() {
 		return txtDescripcionCorta;
 	}
 
-	public void setTxtDescripcionCorta(InputText txtDescripcionCorta) {
+	public void setTxtDescripcionCorta(InputTextarea txtDescripcionCorta) {
 		this.txtDescripcionCorta = txtDescripcionCorta;
 	}
 
-	public InputText getTxtDescripcionTecnica() {
+	public InputTextarea getTxtDescripcionTecnica() {
 		return txtDescripcionTecnica;
 	}
 
-	public void setTxtDescripcionTecnica(InputText txtDescripcionTecnica) {
+	public void setTxtDescripcionTecnica(InputTextarea txtDescripcionTecnica) {
 		this.txtDescripcionTecnica = txtDescripcionTecnica;
 	}
 
@@ -1147,14 +1355,6 @@ public class ReferenciaView {
 
 	public void setTxtEsGarantia(InputText txtEsGarantia) {
 		this.txtEsGarantia = txtEsGarantia;
-	}
-
-	public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
 	}
 
 	public InputText getTxtGalones() {
@@ -1326,19 +1526,19 @@ public class ReferenciaView {
 		this.txtVolumen = txtVolumen;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -1441,5 +1641,325 @@ public class ReferenciaView {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public String getqPorCaja() {
+		return qPorCaja;
+	}
+
+	public void setqPorCaja(String qPorCaja) {
+		this.qPorCaja = qPorCaja;
+	}
+
+	public String getAplicacion() {
+		return aplicacion;
+	}
+
+	public void setAplicacion(String aplicacion) {
+		this.aplicacion = aplicacion;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+
+	public String getCosto() {
+		return costo;
+	}
+
+	public void setCosto(String costo) {
+		this.costo = costo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getDescripcionCorta() {
+		return descripcionCorta;
+	}
+
+	public void setDescripcionCorta(String descripcionCorta) {
+		this.descripcionCorta = descripcionCorta;
+	}
+
+	public String getDescripcionTecnica() {
+		return descripcionTecnica;
+	}
+
+	public void setDescripcionTecnica(String descripcionTecnica) {
+		this.descripcionTecnica = descripcionTecnica;
+	}
+
+	public String getEquivalente1() {
+		return equivalente1;
+	}
+
+	public void setEquivalente1(String equivalente1) {
+		this.equivalente1 = equivalente1;
+	}
+
+	public String getEquivalente2() {
+		return equivalente2;
+	}
+
+	public void setEquivalente2(String equivalente2) {
+		this.equivalente2 = equivalente2;
+	}
+
+	public String getEsGarantia() {
+		return esGarantia;
+	}
+
+	public void setEsGarantia(String esGarantia) {
+		this.esGarantia = esGarantia;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getGalones() {
+		return galones;
+	}
+
+	public void setGalones(String galones) {
+		this.galones = galones;
+	}
+
+	public String getManejaDecimales() {
+		return manejaDecimales;
+	}
+
+	public void setManejaDecimales(String manejaDecimales) {
+		this.manejaDecimales = manejaDecimales;
+	}
+
+	public String getManejaLote() {
+		return manejaLote;
+	}
+
+	public void setManejaLote(String manejaLote) {
+		this.manejaLote = manejaLote;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
+
+	public String getMargenMinimoGBodega() {
+		return margenMinimoGBodega;
+	}
+
+	public void setMargenMinimoGBodega(String margenMinimoGBodega) {
+		this.margenMinimoGBodega = margenMinimoGBodega;
+	}
+
+	public String getMargenMinimoGEne() {
+		return margenMinimoGEne;
+	}
+
+	public void setMargenMinimoGEne(String margenMinimoGEne) {
+		this.margenMinimoGEne = margenMinimoGEne;
+	}
+
+	public String getMargenMinimoPBodega() {
+		return margenMinimoPBodega;
+	}
+
+	public void setMargenMinimoPBodega(String margenMinimoPBodega) {
+		this.margenMinimoPBodega = margenMinimoPBodega;
+	}
+
+	public String getMargenMinimoPEne() {
+		return margenMinimoPEne;
+	}
+
+	public void setMargenMinimoPEne(String margenMinimoPEne) {
+		this.margenMinimoPEne = margenMinimoPEne;
+	}
+
+	public String getMargenMinimoRefBodega() {
+		return margenMinimoRefBodega;
+	}
+
+	public void setMargenMinimoRefBodega(String margenMinimoRefBodega) {
+		this.margenMinimoRefBodega = margenMinimoRefBodega;
+	}
+
+	public String getMargenMinimoRefEne() {
+		return margenMinimoRefEne;
+	}
+
+	public void setMargenMinimoRefEne(String margenMinimoRefEne) {
+		this.margenMinimoRefEne = margenMinimoRefEne;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getPeso() {
+		return peso;
+	}
+
+	public void setPeso(String peso) {
+		this.peso = peso;
+	}
+
+	public String getPideCantidad() {
+		return pideCantidad;
+	}
+
+	public void setPideCantidad(String pideCantidad) {
+		this.pideCantidad = pideCantidad;
+	}
+
+	public String getPideValor() {
+		return pideValor;
+	}
+
+	public void setPideValor(String pideValor) {
+		this.pideValor = pideValor;
+	}
+
+	public String getPorcentajeIva() {
+		return porcentajeIva;
+	}
+
+	public void setPorcentajeIva(String porcentajeIva) {
+		this.porcentajeIva = porcentajeIva;
+	}
+
+	public String getProductoConsumo() {
+		return productoConsumo;
+	}
+
+	public void setProductoConsumo(String productoConsumo) {
+		this.productoConsumo = productoConsumo;
+	}
+
+	public String getProductoEspecial() {
+		return productoEspecial;
+	}
+
+	public void setProductoEspecial(String productoEspecial) {
+		this.productoEspecial = productoEspecial;
+	}
+
+	public String getUnidadMedida() {
+		return unidadMedida;
+	}
+
+	public void setUnidadMedida(String unidadMedida) {
+		this.unidadMedida = unidadMedida;
+	}
+
+	public String getUnidadMedidaProvisional() {
+		return unidadMedidaProvisional;
+	}
+
+	public void setUnidadMedidaProvisional(String unidadMedidaProvisional) {
+		this.unidadMedidaProvisional = unidadMedidaProvisional;
+	}
+
+	public String getVolumen() {
+		return volumen;
+	}
+
+	public void setVolumen(String volumen) {
+		this.volumen = volumen;
+	}
+
+	public String getIdRefe() {
+		return idRefe;
+	}
+
+	public void setIdRefe(String idRefe) {
+		this.idRefe = idRefe;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public String getFechaVigentePBodega() {
+		return fechaVigentePBodega;
+	}
+
+	public void setFechaVigentePBodega(String fechaVigentePBodega) {
+		this.fechaVigentePBodega = fechaVigentePBodega;
+	}
+
+	public String getFechaVigentePEne() {
+		return fechaVigentePEne;
+	}
+
+	public void setFechaVigentePEne(String fechaVigentePEne) {
+		this.fechaVigentePEne = fechaVigentePEne;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
 	}
 }

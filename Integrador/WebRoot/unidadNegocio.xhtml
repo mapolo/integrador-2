@@ -13,14 +13,13 @@
 		<ui:define name="header">
 
 		</ui:define>
-		<br />
-		<br />
+
 
 		<ui:define name="body">
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -50,31 +49,31 @@ body {
 
 					<h:form id="form">
 
-
-						<p:panel id="msgProjectFallasTitle" header="Fallas">
+						<p:panel id="msgProjectUnidadNegocioTitle" header="Unidad Negocio">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<p:dataTable var="car" value="#{fallasView.data}" id="listaFA"
-								editable="true" scrollable="true" scrollHeight="400"
-								filteredValue="#{fallasView.data}">
+							<p:dataTable var="car" value="#{unidadNegocioView.data}"
+								scrollable="true" scrollHeight="300" id="unidad"
+								editable="true" filteredValue="#{unidadNegocioView.data}">
 
-								<p:ajax event="rowEdit" listener="#{fallasView.onEdit}" />
-								<p:ajax event="rowEditCancel" listener="#{fallasView.onCancel}" />
+								<p:ajax event="rowEdit" listener="#{unidadNegocioView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{unidadNegocioView.onCancel}" />
 
 								<p:column headerText="Editar" style="width:6%">
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" filterBy="idCfal" sortBy="idCfal"
-									style="width:5%">
+								<p:column headerText="ID" filterBy="idUnne" sortBy="idUnne"
+									style="width:10%">
 
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.idCfal}" />
+											<h:outputText value="#{car.idUnne}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCfal}" style="width:100%"
+											<p:inputText value="#{car.idUnne}" style="width:100%"
 												disabled="true" />
 										</f:facet>
 									</p:cellEditor>
@@ -94,7 +93,8 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Descripción" style="width:20%">
+
+								<p:column headerText="Descripción">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
@@ -134,9 +134,10 @@ body {
 									</p:cellEditor>
 								</p:column>
 
+
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
-									filterOptions="#{fallasView.manufacturerOptions}"
+									filterOptions="#{unidadNegocioView.manufacturerOptions}"
 									filterMatchMode="exact">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -144,7 +145,7 @@ body {
 										</f:facet>
 
 										<f:facet name="input">
-											<h:selectOneMenu value="#{fallasView.estadoRegistro}">
+											<h:selectOneMenu value="#{unidadNegocioView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -152,10 +153,12 @@ body {
 									</p:cellEditor>
 								</p:column>
 
+
+
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-										icon="ui-icon-documen" update=":form"
-										oncomplete="PF('carDialog').show()" />
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 								<f:facet name="footer">
@@ -166,31 +169,29 @@ body {
 
 							</p:dataTable>
 
-							<!--                   Ventana emergente           -->
+							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Fallas"
+							<p:dialog id="dialog" header="Tipo de Cartera"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
-								<p:messages id="messages"  autoUpdate="true"  />
-								
+<p:messages id="messages"  autoUpdate="true"  />
 								<h:panelGrid columns="2" id="panel">
 
-									
-									<h:outputText id="msgCodigo" value=" *Codigo:" />
-									<p:inputText id="txtCodigo" value="#{fallasView.codigo}"
-										binding="#{fallasView.txtCodigo}" />
 
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" value="#{unidadNegocioView.codigo}"
+										binding="#{unidadNegocioView.txtCodigo}" />
 
-									<h:outputText id="msgDescripcion" value=" Descripcion:" />
+									<h:outputText id="msgDescripcion" value="Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-										value="#{fallasView.descripcion}"
-										binding="#{fallasView.txtDescripcion}" />
+										value="#{unidadNegocioView.descripcion}"
+										binding="#{unidadNegocioView.txtDescripcion}" />
 
 
-
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
-									<p:selectOneMenu binding="#{fallasView.estado}"
-										value="#{fallasView.estadoRegistro}">
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{unidadNegocioView.estado}"
+										value="#{unidadNegocioView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
@@ -202,23 +203,17 @@ body {
 								<h:panelGrid id="panelBotones" columns="1">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
-										action="#{fallasView.action_create}"
-										binding="#{fallasView.btnSave}"
-										update="listaFA,msg,panel,panelBotones" />
+										action="#{unidadNegocioView.action_create()}"
+										binding="#{unidadNegocioView.btnSave}"
+										update="unidad,msg,panel,panelBotones" />
 
 								</h:panelGrid>
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
-
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

@@ -92,6 +92,7 @@ public class TipoCausalView {
 					.getObject()).getIdTcau());
 
 			entity.setEstadoRegistro(estadoRegistro);
+			
 			nombre = ((TipoCausalDTO) event.getObject()).getNombre();
 			entity.setNombre(nombre);
 
