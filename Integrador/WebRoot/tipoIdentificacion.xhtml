@@ -30,183 +30,186 @@
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-				
+
 				<p:megaMenu autoDisplay="false">
 
-				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
-					url="menu.xhtml" />
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
 
 
-				<p:menuitem value="cerrar sesion"
-					url="login.xhtml" icon="ui-icon-close" />
-					
-			</p:megaMenu>
-				
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
 
 				<style type="text/css">
 body {
 	background: black;
 }
 </style>
-<div id="logo" align="center">
-				<h:form id="form">
-					<p:panel id="ti" header="Tipo de Identificación">
+				<div id="logo" align="center">
+					<h:form id="form">
+						<p:panel id="ti" header="Tipo de Identificación">
 
-						<p:messages id="msg" showDetail="true" />
-						<p:growl id="men" />
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
 
-						<p:dataTable var="car" value="#{tipoIdentificacionView.data}"
-							scrollable="true" scrollHeight="300" id="tablaPrincipal"
-							editable="true" filteredValue="#{tipoIdentificacionView.data}">
+							<p:dataTable var="car" value="#{tipoIdentificacionView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{tipoIdentificacionView.data}">
 
-							<p:ajax event="rowEdit"
-								listener="#{tipoIdentificacionView.onEdit}" />
-							<p:ajax event="rowEditCancel"
-								listener="#{tipoIdentificacionView.onCancel}" />
+								<p:ajax event="rowEdit"
+									listener="#{tipoIdentificacionView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{tipoIdentificacionView.onCancel}" />
 
-							<p:column headerText="Editar" style="width:6%">
-								<p:rowEditor />
-							</p:column>
+								<p:column headerText="Editar" style="width:6%">
+									<p:rowEditor />
+								</p:column>
 
-							<p:column headerText="ID" filterBy="idTiid" sortBy="idTiid"
-								style="width:5%">
+								<p:column headerText="ID" filterBy="idTiid" sortBy="idTiid"
+									style="width:5%">
 
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.idTiid}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.idTiid}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTiid}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idTiid}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
 
-							</p:column>
+								</p:column>
 
-							<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-								sortBy="codigo" filterMatchMode="contains">
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains">
 
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.codigo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.codigo}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Descripción" style="width:20%">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputLabel value="#{car.descripcion}" />
-									</f:facet>
+								<p:column headerText="Descripción" style="width:20%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<p:inputTextarea value="#{car.descripcion}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Fecha de Creación" style="width:20%"
-								filterBy="fechaCreacion" sortBy="fechaCreacion">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.fechaCreacion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Operador Creador" style="width:20%"
-								filterBy="operCreador" sortBy="operCreador">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.operCreador}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.operCreador}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Estado del Registro" style="width:20%"
-								filterBy="estadoRegistro"
-								filterOptions="#{tipoIdentificacionView.manufacturerOptions}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.estadoRegistro}" />
-									</f:facet>
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{tipoIdentificacionView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu
-											value="#{tipoIdentificacionView.estadoRegistro}">
-											<f:selectItem itemLabel="A" itemValue="A" />
-											<f:selectItem itemLabel="R" itemValue="R" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{tipoIdentificacionView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<f:facet name="footer">
-								<p:commandButton id="viewButton" value="Crear"
-									icon="ui-icon-documen" update=":form"
-									oncomplete="PF('carDialog').show()" />
-							</f:facet>
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
 
-							<f:facet name="footer">
-								<p:commandButton id="returnButton" value="Menu"
-									icon="ui-icon-documen" update=":form" action="#{menuView.menu}" />
-							</f:facet>
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
 
 
-						</p:dataTable>
+							</p:dataTable>
 
-						<!--                   Ventana emergente           -->
+							<!--                   Ventana emergente           -->
 
-						<p:dialog id="dialog" header="Tipo de Identificación"
-							widgetVar="carDialog" resizable="false" width="400"
-							showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
-							<h:panelGrid columns="2" id="panel">
+							<p:dialog id="dialog" header="Tipo de Identificación"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
 
-								<h:outputText id="msgCodigo" value="*Codigo:" />
-								<p:inputText id="txtCodigo"
-									value="#{tipoIdentificacionView.codigo}"
-									binding="#{tipoIdentificacionView.txtCodigo}" />
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo"
+										value="#{tipoIdentificacionView.codigo}"
+										binding="#{tipoIdentificacionView.txtCodigo}" />
 
-								<h:outputText id="msgDescripcion" value="Descripción" />
-								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-									value="#{tipoIdentificacionView.descripcion}"
-									binding="#{tipoIdentificacionView.txtDescripcion}" />
+									<h:outputText id="msgDescripcion" value="Descripción" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										value="#{tipoIdentificacionView.descripcion}"
+										binding="#{tipoIdentificacionView.txtDescripcion}" />
 
-								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
-								<p:selectOneMenu binding="#{tipoIdentificacionView.estado}"
-									value="#{tipoIdentificacionView.estadoRegistro}">
-									<f:selectItem itemLabel="A" itemValue="A" />
-									<f:selectItem itemLabel="R" itemValue="R" />
-								</p:selectOneMenu>
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{tipoIdentificacionView.estado}"
+										value="#{tipoIdentificacionView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
 
-							</h:panelGrid>
-							
-							<p:separator id="separator"/> 
-							
-							<h:panelGrid id="panelBotones" columns="1">
+								</h:panelGrid>
 
-								<p:commandButton id="btnGuardar" value="Guardar"
-									action="#{tipoIdentificacionView.action_create}"
-									binding="#{tipoIdentificacionView.btnSave}"
-									update="tablaPrincipal,msg,panel,panelBotones" />
+								<p:separator id="separator" />
 
-							</h:panelGrid>
-						</p:dialog>
-					</p:panel>
-				</h:form>
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{tipoIdentificacionView.action_create}"
+										binding="#{tipoIdentificacionView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
 				</div>
 			</f:view>
 		</ui:define>

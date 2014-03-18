@@ -20,7 +20,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -36,7 +36,7 @@
 						url="menu.xhtml" />
 
 
-					<p:menuitem value="cerrar sesion" url="login.xhtml"
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
 				</p:megaMenu>
@@ -56,7 +56,7 @@ body {
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{fallasView.data}" id="listaFA"
-								editable="true" scrollable="true" scrollHeight="400"
+								editable="true" scrollable="true" scrollHeight="300"
 								filteredValue="#{fallasView.data}">
 
 								<p:ajax event="rowEdit" listener="#{fallasView.onEdit}" />
@@ -174,21 +174,17 @@ body {
 								<p:messages id="messages"  autoUpdate="true"  />
 								
 								<h:panelGrid columns="2" id="panel">
-
-									
-									<h:outputText id="msgCodigo" value=" *Codigo:" />
+				
+									<h:outputText id="msgCodigo" value="*Codigo:" />
 									<p:inputText id="txtCodigo" value="#{fallasView.codigo}"
 										binding="#{fallasView.txtCodigo}" />
 
-
-									<h:outputText id="msgDescripcion" value=" Descripcion:" />
+									<h:outputText id="msgDescripcion" value="Descripcion:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{fallasView.descripcion}"
 										binding="#{fallasView.txtDescripcion}" />
 
-
-
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
+									<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{fallasView.estado}"
 										value="#{fallasView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
@@ -209,16 +205,10 @@ body {
 								</h:panelGrid>
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
-
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

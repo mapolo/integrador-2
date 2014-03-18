@@ -29,183 +29,185 @@
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-				
+
 				<p:megaMenu autoDisplay="false">
 
-				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
-					url="menu.xhtml" />
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
 
 
-				<p:menuitem value="cerrar sesion"
-					url="login.xhtml" icon="ui-icon-close" />
-					
-			</p:megaMenu>
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
 
 				<style type="text/css">
 body {
 	background: black;
 }
 </style>
-<div id="logo" align="center">
-				<h:form id="form">
+				<div id="logo" align="center">
+					<h:form id="form">
 
-					<p:panel id="ts" header="Tipo de Sucursal">
-						<p:messages id="msg" showDetail="true" />
-						<p:growl id="men" />
+						<p:panel id="ts" header="Tipo de Sucursal">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
 
-						<p:dataTable var="car" value="#{tipoSucursalView.data}"
-							id="listaTS" editable="true" scrollable="true" scrollHeight="300"
-							filteredValue="#{tipoSucursalView.data}">
+							<p:dataTable var="car" value="#{tipoSucursalView.data}"
+								id="listaTS" editable="true" scrollable="true"
+								scrollHeight="300" filteredValue="#{tipoSucursalView.data}">
 
-							<p:ajax event="rowEdit" listener="#{tipoSucursalView.onEdit}" />
-							<p:ajax event="rowEditCancel"
-								listener="#{tipoSucursalView.onCancel}" />
+								<p:ajax event="rowEdit" listener="#{tipoSucursalView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{tipoSucursalView.onCancel}" />
 
-							<p:column headerText="Editar" style="width:6%">
-								<p:rowEditor />
-							</p:column>
+								<p:column headerText="Editar" style="width:6%">
+									<p:rowEditor />
+								</p:column>
 
-							<p:column headerText="ID" filterBy="idTisu" sortBy="idTisu"
-								style="width:5%">
+								<p:column headerText="ID" filterBy="idTisu" sortBy="idTisu"
+									style="width:5%">
 
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.idTisu}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.idTisu}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTisu}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idTisu}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
 
-							</p:column>
+								</p:column>
 
-							<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-								sortBy="codigo" filterMatchMode="contains">
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains">
 
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.codigo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.codigo}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Descripción" style="width:20%">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputLabel value="#{car.descripcion}" />
-									</f:facet>
+								<p:column headerText="Descripción" style="width:20%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<p:inputTextarea value="#{car.descripcion}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
 
-							</p:column>
+								</p:column>
 
-							<p:column headerText="Fecha de Creación" style="width:20%"
-								filterBy="fechaCreacion" sortBy="fechaCreacion">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.fechaCreacion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Operador Creador" style="width:20%"
-								filterBy="operCreador" sortBy="operCreador">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.operCreador}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.operCreador}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Estado del Registro" style="width:20%"
-								filterBy="estadoRegistro"
-								filterOptions="#{tipoSucursalView.manufacturerOptions}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.estadoRegistro}" />
-									</f:facet>
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{tipoSucursalView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoSucursalView.estadoRegistro}">
-											<f:selectItem itemLabel="A" itemValue="A" />
-											<f:selectItem itemLabel="R" itemValue="R" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoSucursalView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<f:facet name="footer">
-								<p:commandButton id="viewButton" value="Crear"
-									icon="ui-icon-documen" update=":form"
-									oncomplete="PF('carDialog').show()" />
-							</f:facet>
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
 
-							<f:facet name="footer">
-								<p:commandButton id="returnButton" value="Menu"
-									icon="ui-icon-documen" update=":form" action="#{menuView.menu}" />
-							</f:facet>
-
-
-						</p:dataTable>
-
-						<!--                   Ventana emergente           -->
-
-						<p:dialog id="dialog" header="Tipo de Sucursal"
-							widgetVar="carDialog" resizable="false" width="400"
-							showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
-							<h:panelGrid columns="2" id="panel">
-
-								<h:outputText id="msgCodigo" value="*Codigo:" />
-								<p:inputText id="txtCodigo" value="#{tipoSucursalView.codigo}"
-									binding="#{tipoSucursalView.txtCodigo}" />
-
-								<h:outputText id="msgDescripcion" value="Descripción:" />
-								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-									value="#{tipoSucursalView.descripcion}"
-									binding="#{tipoSucursalView.txtDescripcion}" />
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
 
 
-								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
-								<p:selectOneMenu binding="#{tipoSucursalView.estado}"
-									value="#{tipoSucursalView.estadoRegistro}">
-									<f:selectItem itemLabel="A" itemValue="A" />
-									<f:selectItem itemLabel="R" itemValue="R" />
-								</p:selectOneMenu>
+							</p:dataTable>
 
-							</h:panelGrid>
-							
-							<p:separator id="separator"/> 
+							<!--                   Ventana emergente           -->
 
-							<h:panelGrid id="panelBotones" columns="1">
+							<p:dialog id="dialog" header="Tipo de Sucursal"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
 
-								<p:commandButton id="btnGuardar" value="Guardar"
-									action="#{tipoSucursalView.action_create}"
-									binding="#{tipoSucursalView.btnSave}"
-									update="listaTS,msg,panel,panelBotones" />
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" value="#{tipoSucursalView.codigo}"
+										binding="#{tipoSucursalView.txtCodigo}" />
 
-							</h:panelGrid>
-						</p:dialog>
-					</p:panel>
-				</h:form>
-			</div>	
-				
+									<h:outputText id="msgDescripcion" value="Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										value="#{tipoSucursalView.descripcion}"
+										binding="#{tipoSucursalView.txtDescripcion}" />
+
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{tipoSucursalView.estado}"
+										value="#{tipoSucursalView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{tipoSucursalView.action_create}"
+										binding="#{tipoSucursalView.btnSave}"
+										update="listaTS,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
 			</f:view>
 		</ui:define>
 	</ui:composition>

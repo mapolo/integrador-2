@@ -35,7 +35,7 @@
 						url="menu.xhtml" />
 
 
-					<p:menuitem value="cerrar sesion" url="login.xhtml"
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
 				</p:megaMenu>
@@ -49,13 +49,13 @@ body {
 
 					<h:form id="form">
 
-						<p:panel id="msgProjectUnidadNegocioTitle" header="Unidad Negocio">
+						<p:panel id="msgProjectUnidadNegocioTitle" header="Unidad del Negocio">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{unidadNegocioView.data}"
-								scrollable="true" scrollHeight="300" id="unidad"
-								editable="true" filteredValue="#{unidadNegocioView.data}">
+								scrollable="true" scrollHeight="300" id="unidad" editable="true"
+								filteredValue="#{unidadNegocioView.data}">
 
 								<p:ajax event="rowEdit" listener="#{unidadNegocioView.onEdit}" />
 								<p:ajax event="rowEditCancel"
@@ -171,10 +171,10 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Tipo de Cartera"
+							<p:dialog id="dialog" header="Unidad del Negocio"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
+								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
 
@@ -186,7 +186,6 @@ body {
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{unidadNegocioView.descripcion}"
 										binding="#{unidadNegocioView.txtDescripcion}" />
-
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />

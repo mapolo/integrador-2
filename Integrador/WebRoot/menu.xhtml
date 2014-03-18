@@ -13,7 +13,7 @@
 
 		<p:growl id="growl" showDetail="true" />
 
-		<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menu Principal"
+		<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menú Principal"
 			style="text-align: center;">
 			<p:messages id="msg" showDetail="true" />
 
@@ -25,9 +25,8 @@
 					<p:column>
 
 						<p:submenu label="Clave">
-							<p:menuitem value="Clave de Fabricacion"
+							<p:menuitem value="Clave de Fabricación"
 								url="claveFabricacion.xhtml" />
-
 
 						</p:submenu>
 
@@ -35,6 +34,21 @@
 							<p:menuitem value="Concepto del Recibo"
 								url="conceptoRecibo.xhtml" />
 						</p:submenu>
+
+							<p:submenu label="Gestión">
+
+								<p:menuitem value="Banco" url="banco.xhtml" />
+
+								<p:menuitem value="Causal" url="causal.xhtml" />
+
+								<p:menuitem value="Fallas" url="fallas.xhtml" />
+
+								<p:menuitem value="Frecuencia de Visita"
+									url="frecuenciaVisita.xhtml" />
+
+								<p:menuitem value="Unidad de Negocio" url="unidadNegocio.xhtml" />
+
+							</p:submenu>
 
 						<p:submenu label="Tipo">
 							<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
@@ -58,35 +72,10 @@
 
 					</p:column>
 
-					<p:column>
-						<p:submenu label="Gestion">
-
-							<p:menuitem value="Causal" url="causal.xhtml" />
-
-							<p:menuitem value="Referencia*" url="referencia.xhtml" />
-
-
-							<p:menuitem value="Fallas" url="fallas.xhtml" />
-
-							<p:menuitem value="Frecuencia Visitas"
-								url="frecuenciaVisita.xhtml" />
-
-							<p:menuitem value="Semanas-" url="semana.xhtml" />
-
-							<p:menuitem value="banco" url="banco.xhtml" />
-
-							<p:menuitem value="unidad de negocio" url="unidadNegocio.xhtml" />
-
-						</p:submenu>
-
-
-					</p:column>
-
-
 				</p:submenu>
 
-				<p:menuitem value="Enviar Reporte"
-					url="https://www.hotmail.com/?mkt=es" icon="ui-icon-document" />
+				<p:menuitem value="Enviar Reporte" url="https://www.gmail.com/"
+					icon="ui-icon-document" />
 
 				<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 					icon="ui-icon-close" style="text-align: right" />
