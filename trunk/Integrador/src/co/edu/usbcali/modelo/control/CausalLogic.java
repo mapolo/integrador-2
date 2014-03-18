@@ -138,15 +138,7 @@ public class CausalLogic implements ICausalLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCusa() == null) {
-				throw new ZMessManager().new EmptyFieldException("idCusa");
-			}
-
-			if ((entity.getIdCusa() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdCusa(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idCusa");
-			}
+			
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -182,9 +174,7 @@ public class CausalLogic implements ICausalLogic {
 						"idTcau_TipoCausal");
 			}
 
-			if (getCausal(entity.getIdCusa()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			causalDAO.save(entity);
 		} catch (Exception e) {

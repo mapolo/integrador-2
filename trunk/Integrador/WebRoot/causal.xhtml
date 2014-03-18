@@ -25,6 +25,30 @@
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
 				</p:dialog>
+				
+				
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="cerrar sesion" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
 
 				<h:form id="form">
 
@@ -107,12 +131,12 @@
 									<f:facet name="output">
 										<h:outputText value="#{car.idTcau_TipoCausal}" />
 									</f:facet>
-									
+
 									<f:facet name="input">
-										<p:selectOneMenu value="#{causalView.idTcau_TipoCausal} " style="width:160px"
-										disabled="false">
-										
-											<f:selectItems value="#{causalView.tipoCausales}"  />
+
+										<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}" style="width:160px">
+											<f:selectItems value="#{causalView.tipoCausales}" />
+
 										</p:selectOneMenu>
 									</f:facet>
 								</p:cellEditor>
@@ -155,32 +179,27 @@
 
 						<!--                          Tabla emergente           -->
 
-						<p:dialog id="dialog" header="Causal"
-							widgetVar="carDialog" resizable="false" width="400"
-							showEffect="clip" hideEffect="fold">
+						<p:dialog id="dialog" header="Causal" widgetVar="carDialog"
+							resizable="false" width="400" showEffect="clip" hideEffect="fold">
 
-<p:messages id="messages"  autoUpdate="true"  />
+							<p:messages id="messages" autoUpdate="true" />
 							<h:panelGrid columns="2" id="panel">
 
 
-								<h:outputText id="idCusa" value="ID Clave de Fabricación" />
-								<p:inputText id="txtIdCusa" value="#{causalView.idCusa}"
-									disabled="false" binding="#{causalView.txtIdCusa}" />
+								
 
-
-
-								<h:outputText id="msgCodigo" value=" Codigo" />
+								<h:outputText id="msgCodigo" value=" *Codigo: " />
 								<p:inputText id="txtCodigo" value="#{causalView.codigo}"
 									binding="#{causalView.txtCodigo}" />
 
 
-								<h:outputText id="msgDescripcion" value=" Descripcion" />
+								<h:outputText id="msgDescripcion" value=" *Descripcion:" />
 								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 									value="#{causalView.descripcion}"
 									binding="#{causalView.txtDescripcion}" />
 
 
-								<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
+								<h:outputText id="msgEstadoRegistro" value=" Estado del Registro:" />
 								<p:selectOneMenu binding="#{causalView.estado}"
 									value="#{causalView.estadoRegistro}">
 									<f:selectItem itemLabel="A" itemValue="A" />
@@ -190,16 +209,16 @@
 
 
 								<h:outputText id="msgIdTcau_TipoCausal"
-									value=" IdTcau_TipoCausal" />
+									value=" nombre del Tipo Causal:" />
 								<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
 									binding="#{causalView.txtIdTcau_TipoCausal}">
 									<f:selectItems value="#{causalView.tipoCausales}" />
 								</p:selectOneMenu>
 
 							</h:panelGrid>
-							
-							<p:separator id="separator"/>
-							
+
+							<p:separator id="separator" />
+
 							<h:panelGrid id="panelBotones" columns="1">
 
 								<p:commandButton id="btnGuardar" value="Guardar"
@@ -209,9 +228,13 @@
 
 							</h:panelGrid>
 						</p:dialog>
+						
+						
 					</p:panel>
 
 				</h:form>
+				
+				</div>
 			</f:view>
 		</ui:define>
 

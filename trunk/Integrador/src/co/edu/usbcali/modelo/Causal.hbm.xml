@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.Causal" table="CAUSAL" >
         <id name="idCusa" type="java.lang.Long">
             <column name="ID_CUSA" precision="10" scale="0" />
-            <generator class="assigned" />
+           <generator class="sequence" >
+            <param name="sequence">CUSA_ID_CUSA_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="tipoCausal" class="co.edu.usbcali.modelo.TipoCausal" fetch="select">
             <column name="ID_TCAU" precision="10" scale="0" not-null="true" />

@@ -115,7 +115,14 @@ public class CausalView {
 
 			descripcion = ((CausalDTO) event.getObject()).getDescripcion();
 			entity.setDescripcion(descripcion);
-
+			
+			
+			TipoCausal entity2 = businessDelegatorView
+					.getTipoCausal(getIdTcau_TipoCausal());
+			entity.setTipoCausal(entity2);
+			
+			
+			
 			//entity.setCodigo(FacesUtils.checkLong(txtCodigo));
 			//System.out.println( idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
 			
@@ -385,7 +392,7 @@ public class CausalView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			Long idCusa = new Long(txtIdCusa.getValue().toString());
+			//Long idCusa = new Long(txtIdCusa.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkLong(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -394,7 +401,7 @@ public class CausalView {
 
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			entity.setIdCusa(idCusa);
+			//entity.setIdCusa(idCusa);
 
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
