@@ -117,6 +117,8 @@ public class BancoView {
 			Long importaPda = new Long(txtImportaPda.getValue().toString());
 			entity.setImportaPda(importaPda);
 			
+			entity.setFechaModificacion(new Date());
+			
 			cuentaBanco = ((BancoDTO) event.getObject()).getCuentaBanco();
 			entity.setCuentaBanco(cuentaBanco); 
 			cuentaDescuento = ((BancoDTO) event.getObject()).getCuentaDescuento();
