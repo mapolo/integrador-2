@@ -96,16 +96,6 @@ public class UnidadNegocioLogic implements IUnidadNegocioLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdUnne() == null) {
-				throw new ZMessManager().new EmptyFieldException("idUnne");
-			}
-
-			if ((entity.getIdUnne() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdUnne(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idUnne");
-			}
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -128,9 +118,6 @@ public class UnidadNegocioLogic implements IUnidadNegocioLogic {
 						"operModifica");
 			}
 
-			if (getUnidadNegocio(entity.getIdUnne()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
 
 			unidadNegocioDAO.save(entity);
 		} catch (Exception e) {
@@ -211,16 +198,6 @@ public class UnidadNegocioLogic implements IUnidadNegocioLogic {
 			if (entity.getFechaModificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
-			}
-
-			if (entity.getIdUnne() == null) {
-				throw new ZMessManager().new EmptyFieldException("idUnne");
-			}
-
-			if ((entity.getIdUnne() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdUnne(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idUnne");
 			}
 
 			if (entity.getOperCreador() == null) {

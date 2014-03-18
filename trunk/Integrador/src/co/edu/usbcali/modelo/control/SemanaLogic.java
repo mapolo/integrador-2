@@ -87,16 +87,7 @@ public class SemanaLogic implements ISemanaLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
-			if (entity.getIdSema() == null) {
-				throw new ZMessManager().new EmptyFieldException("idSema");
-			}
-
-			if ((entity.getIdSema() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdSema(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idSema");
-			}
+			
 
 			if ((entity.getNumeroSemana() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -127,9 +118,7 @@ public class SemanaLogic implements ISemanaLogic {
 						"operModifica");
 			}
 
-			if (getSemana(entity.getIdSema()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			semanaDAO.save(entity);
 		} catch (Exception e) {

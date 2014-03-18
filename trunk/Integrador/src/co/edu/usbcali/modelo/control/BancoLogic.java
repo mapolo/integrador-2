@@ -127,15 +127,6 @@ public class BancoLogic implements IBancoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdBanc() == null) {
-				throw new ZMessManager().new EmptyFieldException("idBanc");
-			}
-
-			if ((entity.getIdBanc() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdBanc(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idBanc");
-			}
 
 			if ((entity.getImportaPda() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -173,9 +164,6 @@ public class BancoLogic implements IBancoLogic {
 						"operModifica");
 			}
 
-			if (getBanco(entity.getIdBanc()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
 
 			bancoDAO.save(entity);
 		} catch (Exception e) {
@@ -289,15 +277,6 @@ public class BancoLogic implements IBancoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdBanc() == null) {
-				throw new ZMessManager().new EmptyFieldException("idBanc");
-			}
-
-			if ((entity.getIdBanc() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdBanc(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idBanc");
-			}
 
 			if ((entity.getImportaPda() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""

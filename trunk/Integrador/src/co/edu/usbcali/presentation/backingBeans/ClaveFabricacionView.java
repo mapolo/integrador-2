@@ -102,6 +102,11 @@ public class ClaveFabricacionView {
 
 			entity.setEstadoRegistro(estadoRegistro);
 			
+			
+			//System.out.println(fechaInicial + ";" + FacesUtils.checkDate(txtFechaInicial) + ";" + txtFechaInicial);
+			//entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
+			//entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
+			
 			String usuario =(String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
@@ -394,6 +399,7 @@ public class ClaveFabricacionView {
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
+			System.out.println("crear " + FacesUtils.checkDate(txtFechaInicial) );
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			//entity.setIdClfa(idClfa);

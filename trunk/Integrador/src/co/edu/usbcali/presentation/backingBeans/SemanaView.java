@@ -12,15 +12,21 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Semana;
+import co.edu.usbcali.modelo.dto.FrecuenciaVisitaDTO;
 import co.edu.usbcali.modelo.dto.SemanaDTO;
+import co.edu.usbcali.modelo.dto.TipoSucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -31,13 +37,23 @@ import co.edu.usbcali.utilities.FacesUtils;
 @ManagedBean
 @ViewScoped
 public class SemanaView {
-	private InputText txtEstadoRegistro;
+	//private InputText txtEstadoRegistro;
+	private SelectOneMenu estado;
 	private InputText txtNumeroSemana;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtIdSema;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
+	
+	private String estadoRegistro;
+	private Long numeroSemana;
+	private String operCreador;
+	private String operModifica;
+	private String idSema;
+	private String fechaCreacion;
+	private String fechaModificacion;
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -49,19 +65,81 @@ public class SemanaView {
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 
+	private SelectItem[] manufacturerOptions;
+
+	String manufacturers[] = { "A", "R" };
+	
+	
 	public SemanaView() {
 		super();
+		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
+	
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getSemana(((SemanaDTO) event
+					.getObject()).getIdSema());
+
+			//entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
+	
+			//entity.setNumeroSemana(((SemanaDTO) event.getObject()).getIdSema());
+			numeroSemana = ((SemanaDTO) event.getObject()).getNumeroSemana();
+			entity.setNumeroSemana(numeroSemana);
+			
+			System.out.println("nuemero sem:" + ((SemanaDTO) event.getObject()).getIdSema() +
+					"; " + txtNumeroSemana);
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			
+			entity.setFechaModificacion(new Date());
+			
+			businessDelegatorView.updateSemana(entity);
+			data = businessDelegatorView.getDataSemana();
+			RequestContext.getCurrentInstance().reset("form:listaSM");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) { // TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Cancelled",
+				((SemanaDTO) event.getObject()).getIdSema() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((SemanaDTO) event.getObject()).getIdSema());
+	}
+	
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			SemanaDTO semanaDTO = (SemanaDTO) e.getObject();
 
-			if (txtEstadoRegistro == null) {
+			/*if (txtEstadoRegistro == null) {
 				txtEstadoRegistro = new InputText();
 			}
 
-			txtEstadoRegistro.setValue(semanaDTO.getEstadoRegistro());
+			txtEstadoRegistro.setValue(semanaDTO.getEstadoRegistro());*/
 
 			if (txtNumeroSemana == null) {
 				txtNumeroSemana = new InputText();
@@ -88,13 +166,13 @@ public class SemanaView {
 			txtIdSema.setValue(semanaDTO.getIdSema());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(semanaDTO.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(semanaDTO.getFechaModificacion());
@@ -116,43 +194,43 @@ public class SemanaView {
 		entity = null;
 		selectedSemana = null;
 
-		if (txtEstadoRegistro != null) {
+		/*if (txtEstadoRegistro != null) {
 			txtEstadoRegistro.setValue(null);
 			txtEstadoRegistro.setDisabled(true);
-		}
+		}*/
 
 		if (txtNumeroSemana != null) {
 			txtNumeroSemana.setValue(null);
-			txtNumeroSemana.setDisabled(true);
+			//txtNumeroSemana.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			//txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			//txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			//txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			//txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdSema != null) {
 			txtIdSema.setValue(null);
-			txtIdSema.setDisabled(false);
+			//txtIdSema.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -185,7 +263,7 @@ public class SemanaView {
 		}
 
 		if (entity == null) {
-			txtEstadoRegistro.setDisabled(false);
+			//txtEstadoRegistro.setDisabled(false);
 			txtNumeroSemana.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -194,8 +272,8 @@ public class SemanaView {
 			txtIdSema.setDisabled(false);
 			btnSave.setDisabled(false);
 		} else {
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
+			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			//txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -215,8 +293,8 @@ public class SemanaView {
 	public String action_edit(ActionEvent evt) {
 		selectedSemana = (SemanaDTO) (evt.getComponent().getAttributes()
 				.get("selectedSemana"));
-		txtEstadoRegistro.setValue(selectedSemana.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
+		//txtEstadoRegistro.setValue(selectedSemana.getEstadoRegistro());
+		//txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedSemana.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedSemana.getFechaModificacion());
@@ -254,18 +332,27 @@ public class SemanaView {
 	public String action_create() {
 		try {
 			entity = new Semana();
+			
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(false);
+			
+			String usuario =(String) session.getAttribute("Usuario");
 
-			Long idSema = new Long(txtIdSema.getValue().toString());
+			//Long idSema = new Long(txtIdSema.getValue().toString());
 
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdSema(idSema);
+			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			//entity.setIdSema(idSema);
 			entity.setNumeroSemana(FacesUtils.checkLong(txtNumeroSemana));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+			
+			
 			businessDelegatorView.saveSemana(entity);
+			data = businessDelegatorView.getDataSemana();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -282,7 +369,7 @@ public class SemanaView {
 				entity = businessDelegatorView.getSemana(idSema);
 			}
 
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -364,13 +451,13 @@ public class SemanaView {
 		return "";
 	}
 
-	public InputText getTxtEstadoRegistro() {
+	/*public InputText getTxtEstadoRegistro() {
 		return txtEstadoRegistro;
 	}
 
 	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
 		this.txtEstadoRegistro = txtEstadoRegistro;
-	}
+	}*/
 
 	public InputText getTxtNumeroSemana() {
 		return txtNumeroSemana;
@@ -396,19 +483,19 @@ public class SemanaView {
 		this.txtOperModifica = txtOperModifica;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -496,4 +583,78 @@ public class SemanaView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public Long getNumeroSemana() {
+		return numeroSemana;
+	}
+
+	public void setNumeroSemana(Long numeroSemana) {
+		this.numeroSemana = numeroSemana;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getIdSema() {
+		return idSema;
+	}
+
+	public void setIdSema(String idSema) {
+		this.idSema = idSema;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+	
+	
 }

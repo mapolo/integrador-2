@@ -48,65 +48,53 @@ body {
 </style>
 				<div id="logo" align="center">
 
+
 					<h:form id="form">
 
-
-						<p:panel id="msgProjectFallasTitle" header="Fallas">
+						<p:panel id="msgProjectSemanaTitle" header="Semana">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<p:dataTable var="car" value="#{fallasView.data}" id="listaFA"
-								editable="true" scrollable="true" scrollHeight="400"
-								filteredValue="#{fallasView.data}">
+							<p:dataTable var="car" value="#{semanaView.data}" id="listaSM"
+								editable="true" scrollable="true" scrollHeight="300"
+								filteredValue="#{semanaView.data}">
 
-								<p:ajax event="rowEdit" listener="#{fallasView.onEdit}" />
-								<p:ajax event="rowEditCancel" listener="#{fallasView.onCancel}" />
+								<p:ajax event="rowEdit" listener="#{semanaView.onEdit}" />
+								<p:ajax event="rowEditCancel" listener="#{semanaView.onCancel}" />
 
 								<p:column headerText="Editar" style="width:6%">
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" filterBy="idCfal" sortBy="idCfal"
+								<p:column headerText="ID" filterBy="idSema" sortBy="idSema"
 									style="width:5%">
 
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.idCfal}" />
+											<h:outputText value="#{car.idSema}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCfal}" style="width:100%"
+											<p:inputText value="#{car.idSema}" style="width:100%"
 												disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
-								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-									sortBy="codigo" filterMatchMode="contains">
+								<p:column id="numeroSemana" filterBy="numeroSemana"
+									headerText="numeroSemana" sortBy="numeroSemana"
+									filterMatchMode="contains">
 
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.codigo}" />
+											<h:outputText value="#{car.numeroSemana}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" style="width:100%" />
+											<p:inputText value="#{car.numeroSemana}" style="width:100%" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Descripción" style="width:20%">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}"
-												style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-
-								</p:column>
 
 								<p:column headerText="Fecha de Creación" style="width:20%"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
@@ -134,9 +122,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro" style="width:10%"
 									filterBy="estadoRegistro"
-									filterOptions="#{fallasView.manufacturerOptions}"
+									filterOptions="#{semanaView.manufacturerOptions}"
 									filterMatchMode="exact">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -144,7 +132,7 @@ body {
 										</f:facet>
 
 										<f:facet name="input">
-											<h:selectOneMenu value="#{fallasView.estadoRegistro}">
+											<h:selectOneMenu value="#{semanaView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -164,54 +152,49 @@ body {
 										action="#{menuView.menu}" />
 								</f:facet>
 
+
 							</p:dataTable>
 
 							<!--                   Ventana emergente           -->
 
-							<p:dialog id="dialog" header="Fallas"
+							<p:dialog id="dialog" header="Semana"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
-								<p:messages id="messages"  autoUpdate="true"  />
-								
+<p:messages id="messages"  autoUpdate="true"  />
 								<h:panelGrid columns="2" id="panel">
 
-									
-									<h:outputText id="msgCodigo" value=" *Codigo:" />
-									<p:inputText id="txtCodigo" value="#{fallasView.codigo}"
-										binding="#{fallasView.txtCodigo}" />
+									<h:outputText id="msgNumeroSemana"
+										value=" Numero de la Semana:" />
+									<p:inputText id="txtNumeroSemana"
+										value="#{semanaView.numeroSemana}"
+										binding="#{semanaView.txtNumeroSemana}" />
 
 
-									<h:outputText id="msgDescripcion" value=" Descripcion:" />
-									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-										value="#{fallasView.descripcion}"
-										binding="#{fallasView.txtDescripcion}" />
-
-
-
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
-									<p:selectOneMenu binding="#{fallasView.estado}"
-										value="#{fallasView.estadoRegistro}">
+									<h:outputText id="msgEstadoRegistro"
+										value=" Estado de la Semana:" />
+									<p:selectOneMenu binding="#{semanaView.estado}"
+										value="#{semanaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
+
 
 								</h:panelGrid>
 
 								<p:separator id="separator" />
 
 								<h:panelGrid id="panelBotones" columns="1">
-
 									<p:commandButton id="btnGuardar" value="Guardar"
-										action="#{fallasView.action_create}"
-										binding="#{fallasView.btnSave}"
-										update="listaFA,msg,panel,panelBotones" />
+										action="#{semanaView.action_create}"
+										binding="#{semanaView.btnSave}"
+										update="listaSM,msg,panel,panelBotones" />
 
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 
 					</h:form>
-
 				</div>
 			</f:view>
 		</ui:define>

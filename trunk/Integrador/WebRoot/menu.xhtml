@@ -23,16 +23,12 @@
 
 				<p:submenu label="Gestión de Datos" icon="ui-icon-pencil">
 					<p:column>
-					
-					<p:submenu label="Clave">
+
+						<p:submenu label="Clave">
 							<p:menuitem value="Clave de Fabricacion"
 								url="claveFabricacion.xhtml" />
-								
-								<p:menuitem value="Causal"
-								url="causal.xhtml" />
-								
-								<p:menuitem value="Fallas"
-								url="fallas.xhtml" />
+
+
 						</p:submenu>
 
 						<p:submenu label="Concepto">
@@ -42,14 +38,15 @@
 
 						<p:submenu label="Tipo">
 							<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
-						
+
 							<p:menuitem value="Tipo de Causal" url="tipoCausal.xhtml" />
 
 							<p:menuitem value="Tipo de División" url="tipoDivision.xhtml" />
 
 							<p:menuitem value="Tipo de Documento" url="tipoDocumento.xhtml" />
 
-							<p:menuitem value="Tipo de Forma de Pago" url="tipoFormaPago.xhtml" />
+							<p:menuitem value="Tipo de Forma de Pago"
+								url="tipoFormaPago.xhtml" />
 
 							<p:menuitem value="Tipo de Garantía" url="tipoGarantia.xhtml" />
 
@@ -58,8 +55,34 @@
 
 							<p:menuitem value="Tipo de Sucursal" url="tipoSucursal.xhtml" />
 						</p:submenu>
-						
+
 					</p:column>
+
+					<p:column>
+						<p:submenu label="Gestion">
+
+							<p:menuitem value="Causal*" url="causal.xhtml" />
+
+							<p:menuitem value="Referencia*" url="referencia.xhtml" />
+
+
+							<p:menuitem value="Fallas" url="fallas.xhtml" />
+
+							<p:menuitem value="Frecuencia Visitas"
+								url="frecuenciaVisita.xhtml" />
+
+							<p:menuitem value="Semanas-" url="semana.xhtml" />
+
+							<p:menuitem value="banco" url="banco.xhtml" />
+
+							<p:menuitem value="unidad de negocio" url="unidadNegocio.xhtml" />
+
+						</p:submenu>
+
+
+					</p:column>
+
+
 				</p:submenu>
 
 				<p:menuitem value="Enviar Reporte"

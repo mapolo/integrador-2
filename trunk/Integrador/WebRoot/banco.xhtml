@@ -1,0 +1,362 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="cerrar sesion" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+					<h:form id="form">
+
+						<p:panel id="msgProjectBancoTitle" header="Banco">
+							<p:messages id="msg" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{bancoView.data}"
+								id="b" editable="true" scrollable="true"
+								scrollHeight="300" filteredValue="#{bancoView.data}">
+
+								<p:ajax event="rowEdit" listener="#{bancoView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{bancoView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:11%">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" style="width:10%" sortBy="idBanc"
+									filterBy="idBanc">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idBanc}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idBanc}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Codigo" style="width:20%" sortBy="codigo"
+									filterBy="codigo">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%"
+												disabled="false" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Descripción" style="width:20%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Consigna" style="width:20%"
+									filterBy="consigna"
+									filterOptions="#{bancoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.consigna}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{bancoView.consigna}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Confirma Cheque" style="width:20%"
+									filterBy="confirmaCheque"
+									filterOptions="#{bancoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.confirmaCheque}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{bancoView.confirmaCheque}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column headerText="Cuenta Banco" style="width:20%" sortBy="cuentaBanco"
+								filterBy="cuentaBanco">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.cuentaBanco}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.cuentaBanco}" style="width:100%"
+											disabled="false" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+							
+							<p:column headerText="Cuenta Descuento" style="width:20%" sortBy="cuentaDescuento"
+								filterBy="cuentaDescuento">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.cuentaDescuento}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.cuentaDescuento}" style="width:100%"
+											disabled="false" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+								<p:column headerText="Maneja Beneficiario"
+									style="width:20%" filterBy="manejaBeneficiario"
+									filterOptions="#{bancoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.manejaBeneficiario}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{bancoView.manejaBeneficiario}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Importa PDA" style="width:20%"
+									filterBy="importaPda"
+									filterOptions="#{bancoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.importaPda}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{bancoView.importaPda}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{bancoView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{bancoView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+
+							</p:dataTable>
+
+							<!--                   Ventana emergente           -->
+
+							<p:dialog id="dialog" header="Banco"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold" >
+								
+								<p:messages id="messages"  autoUpdate="true"  />
+
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msg2Codigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" disabled="false"
+										value="#{bancoView.codigo}" binding="#{bancoView.txtCodigo}" 
+										/>
+										
+
+									<h:outputText id="msgDescripcion" value="*Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										disabled="false" value="#{bancoView.descripcion}"
+										binding="#{bancoView.txtDescripcion}" />
+
+
+
+									<h:outputText id="msgConfirmaCheque" value="Confirma Cheque:" />
+									<p:selectOneMenu binding="#{bancoView.txtConfirmaCheque}"
+										value="#{bancoView.confirmaCheque}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgConsigna" value="Consigna:" />
+									<p:selectOneMenu binding="#{bancoView.txtConsigna}"
+										value="#{bancoView.consigna}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgCuentaBanco" value="Cuenta Banco:" />
+									<p:inputText id="txtCuentaBanco" disabled="false"
+										value="#{bancoView.cuentaBanco}"
+										binding="#{bancoView.txtCuentaBanco}" />
+
+
+
+									<h:outputText id="msgCuentaDescuento" value="Cuenta Descuento:" />
+									<p:inputText id="txtCuentaDescuento" disabled="false"
+										value="#{bancoView.cuentaDescuento}"
+										binding="#{bancoView.txtCuentaDescuento}" />
+
+
+									<h:outputText id="msgManejaBeneficiario"
+										value="Maneja Beneficiario:" />
+									<p:selectOneMenu binding="#{bancoView.txtManejaBeneficiario}"
+										value="#{bancoView.manejaBeneficiario}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgImportaPda" value="Importa PDA:" />
+									<p:selectOneMenu binding="#{bancoView.txtImportaPda}"
+										value="#{bancoView.importaPda}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{bancoView.txtEstadoRegistro}"
+										value="#{bancoView.estadoRegistro}" disabled="false">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{bancoView.action_create}"
+										binding="#{bancoView.btnSave}"
+										update="b,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
+					</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.Banco" table="BANCO" >
         <id name="idBanc" type="java.lang.Long">
             <column name="ID_BANC" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+            <param name="sequence">BANC_ID_BANC_SEQ</param>
+           </generator>
         </id>
         <property name="codigo" type="java.lang.String">
             <column name="CODIGO" length="2" not-null="true" />

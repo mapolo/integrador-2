@@ -56,7 +56,7 @@ public class CausalView {
 	private String estadoRegistro;
 	private String operCreador;
 	private String oOperModifica;
-	private String idTcau_TipoCausal;
+	private Long idTcau_TipoCausal;
 	private String idCusa;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -104,7 +104,7 @@ public class CausalView {
 					.getObject()).getIdCusa());
 
 			//entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
-			
+			entity.setFechaModificacion(new Date());
 			
 			entity.setCodigo(((CausalDTO) event.getObject()).getCodigo());
 			
@@ -117,11 +117,13 @@ public class CausalView {
 			entity.setDescripcion(descripcion);
 
 			//entity.setCodigo(FacesUtils.checkLong(txtCodigo));
-
-			TipoCausal entity2 = businessDelegatorView
-					.getTipoCausal(Long.parseLong(idTcau_TipoCausal));
-
-			entity.setTipoCausal(entity2);
+			//System.out.println( idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
+			
+			//TipoCausal entity2 = businessDelegatorView.getTipoCausal(getIdTcau_TipoCausal());
+			//TipoCausal entity3 = businessDelegatorView.getTipoCausal(idTcau_TipoCausal);
+			
+			//System.out.println("entyty2:" + entity3);
+			//entity.setTipoCausal(entity3);
 
 			businessDelegatorView.updateCausal(entity);
 			data = businessDelegatorView.getDataCausal();
@@ -398,10 +400,13 @@ public class CausalView {
 			entity.setFechaModificacion(new Date());
 			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			TipoCausal entity2 = businessDelegatorView
-					.getTipoCausal(idForanea());
+			/*TipoCausal entity2 = businessDelegatorView
+					.getTipoCausal(idForanea());*/
 
-			System.out.println();
+			//System.out.println(entity2 + "; " + idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
+			
+			TipoCausal entity2 = businessDelegatorView
+					.getTipoCausal(getIdTcau_TipoCausal());
 			entity.setTipoCausal(entity2);
 
 			businessDelegatorView.saveCausal(entity);
@@ -717,11 +722,11 @@ public class CausalView {
 		this.oOperModifica = oOperModifica;
 	}
 
-	public String getIdTcau_TipoCausal() {
+	public Long getIdTcau_TipoCausal() {
 		return idTcau_TipoCausal;
 	}
 
-	public void setIdTcau_TipoCausal(String idTcau_TipoCausal) {
+	public void setIdTcau_TipoCausal(Long idTcau_TipoCausal) {
 		this.idTcau_TipoCausal = idTcau_TipoCausal;
 	}
 

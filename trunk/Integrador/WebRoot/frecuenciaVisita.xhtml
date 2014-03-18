@@ -51,30 +51,33 @@ body {
 					<h:form id="form">
 
 
-						<p:panel id="msgProjectFallasTitle" header="Fallas">
+						<p:panel id="msgProjectFrecuenciaVisitaTitle"
+							header="FrecuenciaVisita">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<p:dataTable var="car" value="#{fallasView.data}" id="listaFA"
-								editable="true" scrollable="true" scrollHeight="400"
-								filteredValue="#{fallasView.data}">
+							<p:dataTable var="car" value="#{frecuenciaVisitaView.data}"
+								id="listaFV" editable="true" scrollable="true"
+								scrollHeight="300" filteredValue="#{frecuenciaVisitaView.data}">
 
-								<p:ajax event="rowEdit" listener="#{fallasView.onEdit}" />
-								<p:ajax event="rowEditCancel" listener="#{fallasView.onCancel}" />
+								<p:ajax event="rowEdit"
+									listener="#{frecuenciaVisitaView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{frecuenciaVisitaView.onCancel}" />
 
 								<p:column headerText="Editar" style="width:6%">
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" filterBy="idCfal" sortBy="idCfal"
+								<p:column headerText="ID" filterBy="idFrvi" sortBy="idFrvi"
 									style="width:5%">
 
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.idCfal}" />
+											<h:outputText value="#{car.idFrvi}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCfal}" style="width:100%"
+											<p:inputText value="#{car.idFrvi}" style="width:100%"
 												disabled="true" />
 										</f:facet>
 									</p:cellEditor>
@@ -93,6 +96,21 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
+
+								
+								<p:column id="frecuencia" filterBy="frecuencia" headerText="Frecuencia"
+									sortBy="frecuencia" filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.frecuencia}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.frecuencia}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
 
 								<p:column headerText="Descripción" style="width:20%">
 									<p:cellEditor>
@@ -134,9 +152,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro" style="width:10%"
 									filterBy="estadoRegistro"
-									filterOptions="#{fallasView.manufacturerOptions}"
+									filterOptions="#{frecuenciaVisitaView.manufacturerOptions}"
 									filterMatchMode="exact">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -144,7 +162,8 @@ body {
 										</f:facet>
 
 										<f:facet name="input">
-											<h:selectOneMenu value="#{fallasView.estadoRegistro}">
+											<h:selectOneMenu
+												value="#{frecuenciaVisitaView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -164,55 +183,59 @@ body {
 										action="#{menuView.menu}" />
 								</f:facet>
 
+
 							</p:dataTable>
 
 							<!--                   Ventana emergente           -->
 
-							<p:dialog id="dialog" header="Fallas"
+							<p:dialog id="dialog" header="Tipo de Sucursal"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
-								<p:messages id="messages"  autoUpdate="true"  />
-								
+<p:messages id="messages"  autoUpdate="true"  />
+
 								<h:panelGrid columns="2" id="panel">
 
-									
 									<h:outputText id="msgCodigo" value=" *Codigo:" />
-									<p:inputText id="txtCodigo" value="#{fallasView.codigo}"
-										binding="#{fallasView.txtCodigo}" />
+									<p:inputText id="txtCodigo"
+										value="#{frecuenciaVisitaView.codigo}"
+										binding="#{frecuenciaVisitaView.txtCodigo}" />
 
 
 									<h:outputText id="msgDescripcion" value=" Descripcion:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-										value="#{fallasView.descripcion}"
-										binding="#{fallasView.txtDescripcion}" />
+										value="#{frecuenciaVisitaView.descripcion}"
+										binding="#{frecuenciaVisitaView.txtDescripcion}" />
 
 
-
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
-									<p:selectOneMenu binding="#{fallasView.estado}"
-										value="#{fallasView.estadoRegistro}">
+									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro:" />
+									<p:selectOneMenu binding="#{frecuenciaVisitaView.estado}"
+										value="#{frecuenciaVisitaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
 
+
+									<h:outputText id="msgFrecuencia" value=" Frecuencia:" />
+									<p:inputText id="txtFrecuencia"
+										value="#{frecuenciaVisitaView.frecuencia}"
+										binding="#{frecuenciaVisitaView.txtFrecuencia}" />
+
 								</h:panelGrid>
 
 								<p:separator id="separator" />
-
+								
 								<h:panelGrid id="panelBotones" columns="1">
-
 									<p:commandButton id="btnGuardar" value="Guardar"
-										action="#{fallasView.action_create}"
-										binding="#{fallasView.btnSave}"
-										update="listaFA,msg,panel,panelBotones" />
-
+										action="#{frecuenciaVisitaView.action_create}"
+										binding="#{frecuenciaVisitaView.btnSave}"
+										update="listaFV,msg,panel,panelBotones" />
 								</h:panelGrid>
 							</p:dialog>
 						</p:panel>
 
 					</h:form>
-
 				</div>
+
 			</f:view>
 		</ui:define>
 
