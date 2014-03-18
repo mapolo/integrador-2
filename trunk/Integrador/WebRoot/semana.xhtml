@@ -20,7 +20,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -36,7 +36,7 @@
 						url="menu.xhtml" />
 
 
-					<p:menuitem value="cerrar sesion" url="login.xhtml"
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
 				</p:megaMenu>
@@ -82,7 +82,7 @@ body {
 								</p:column>
 
 								<p:column id="numeroSemana" filterBy="numeroSemana"
-									headerText="numeroSemana" sortBy="numeroSemana"
+									headerText="Numero de Semana" sortBy="numeroSemana"
 									filterMatchMode="contains">
 
 									<p:cellEditor>
@@ -94,7 +94,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
 
 								<p:column headerText="Fecha de Creación" style="width:20%"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
@@ -157,27 +156,25 @@ body {
 
 							<!--                   Ventana emergente           -->
 
-							<p:dialog id="dialog" header="Semana"
-								widgetVar="carDialog" resizable="false" width="400"
-								showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
+							<p:dialog id="dialog" header="Semana" widgetVar="carDialog"
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
 									<h:outputText id="msgNumeroSemana"
-										value=" Numero de la Semana:" />
+										value="*Numero de la Semana:" />
 									<p:inputText id="txtNumeroSemana"
 										value="#{semanaView.numeroSemana}"
 										binding="#{semanaView.txtNumeroSemana}" />
 
-
 									<h:outputText id="msgEstadoRegistro"
-										value=" Estado de la Semana:" />
+										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{semanaView.estado}"
 										value="#{semanaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
-
 
 								</h:panelGrid>
 
@@ -190,18 +187,12 @@ body {
 										update="listaSM,msg,panel,panelBotones" />
 
 								</h:panelGrid>
-
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

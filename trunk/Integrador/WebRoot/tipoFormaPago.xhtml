@@ -29,334 +29,336 @@
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-				
-				
+
+
 				<p:megaMenu autoDisplay="false">
 
-				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
-					url="menu.xhtml" />
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
 
 
-				<p:menuitem value="cerrar sesion"
-					url="login.xhtml" icon="ui-icon-close" />
-					
-			</p:megaMenu>
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
 
 				<style type="text/css">
 body {
 	background: black;
 }
 </style>
-<div id="logo" align="center">
-				<h:form id="form">
+				<div id="logo" align="center">
+					<h:form id="form">
 
-					<p:panel id="tfp" header="Tipo de Forma de Pago">
-						<p:messages id="msg" showDetail="true" />
-						<p:growl id="men" />
+						<p:panel id="tfp" header="Tipo de Forma de Pago">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
 
-						<p:dataTable var="car" value="#{tipoFormaPagoView.data}"
-							id="listaTF" editable="true" scrollable="true" scrollHeight="300"
-							filteredValue="#{tipoFormaPagoView.data}">
+							<p:dataTable var="car" value="#{tipoFormaPagoView.data}"
+								id="listaTF" editable="true" scrollable="true"
+								scrollHeight="300" filteredValue="#{tipoFormaPagoView.data}">
 
-							<p:ajax event="rowEdit" listener="#{tipoFormaPagoView.onEdit}" />
-							<p:ajax event="rowEditCancel"
-								listener="#{tipoFormaPagoView.onCancel}" />
+								<p:ajax event="rowEdit" listener="#{tipoFormaPagoView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{tipoFormaPagoView.onCancel}" />
 
-							<p:column headerText="Editar" style="width:11%">
-								<p:rowEditor />
-							</p:column>
+								<p:column headerText="Editar" style="width:11%">
+									<p:rowEditor />
+								</p:column>
 
-							<p:column headerText="ID" style="width:10%" sortBy="idTfpa"
-								filterBy="idTfpa">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.idTfpa}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.idTfpa}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="ID" style="width:10%" sortBy="idTfpa"
+									filterBy="idTfpa">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTfpa}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idTfpa}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Codigo" style="width:20%" sortBy="codigo"
-								filterBy="codigo">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.codigo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.codigo}" style="width:100%"
-											disabled="false" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Codigo" style="width:20%" sortBy="codigo"
+									filterBy="codigo">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%"
+												disabled="false" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Descripción" style="width:20%">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputLabel value="#{car.descripcion}" />
-									</f:facet>
+								<p:column headerText="Descripción" style="width:20%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<p:inputTextarea value="#{car.descripcion}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Maneja Cheque" style="width:20%"
-								filterBy="manejaCheque"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.manejaCheque}" />
-									</f:facet>
+								<p:column headerText="Maneja Cheque" style="width:20%"
+									filterBy="manejaCheque"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.manejaCheque}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.manejaCheque}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.manejaCheque}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Maneja Tarjeta" style="width:20%"
-								filterBy="manejaTarjeta"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.manejaTarjeta}" />
-									</f:facet>
+								<p:column headerText="Maneja Tarjeta" style="width:20%"
+									filterBy="manejaTarjeta"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.manejaTarjeta}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.manejaTarjeta}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.manejaTarjeta}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Exige Numero de Documento"
-								style="width:20%" filterBy="exijeNumeroDocumento"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.exijeNumeroDocumento}" />
-									</f:facet>
+								<p:column headerText="Exige Numero de Documento"
+									style="width:20%" filterBy="exijeNumeroDocumento"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.exijeNumeroDocumento}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu
-											value="#{tipoFormaPagoView.exijeNumeroDocumento}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{tipoFormaPagoView.exijeNumeroDocumento}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Es PosFechado" style="width:20%"
-								filterBy="esPosfechado"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.esPosfechado}" />
-									</f:facet>
+								<p:column headerText="Es PosFechado" style="width:20%"
+									filterBy="esPosfechado"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.esPosfechado}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.esPosfechado}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.esPosfechado}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Importa PDA" style="width:20%"
-								filterBy="importaPda"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.importaPda}" />
-									</f:facet>
+								<p:column headerText="Importa PDA" style="width:20%"
+									filterBy="importaPda"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.importaPda}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.importaPda}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.importaPda}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Descuento Fecha Documento"
-								style="width:20%" filterBy="dsctoFechaDoc"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.dsctoFechaDoc}" />
-									</f:facet>
+								<p:column headerText="Descuento Fecha Documento"
+									style="width:20%" filterBy="dsctoFechaDoc"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.dsctoFechaDoc}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.dsctoFechaDoc}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.dsctoFechaDoc}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Fecha de Creación" style="width:20%"
-								filterBy="fechaCreacion" sortBy="fechaCreacion">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.fechaCreacion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Operador Creador" style="width:20%"
-								filterBy="operCreador" sortBy="operCreador">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.operCreador}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.operCreador}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<p:column headerText="Estado del Registro" style="width:20%"
-								filterBy="estadoRegistro"
-								filterOptions="#{tipoFormaPagoView.manufacturerOptions}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.estadoRegistro}" />
-									</f:facet>
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{tipoFormaPagoView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{tipoFormaPagoView.estadoRegistro}">
-											<f:selectItem itemLabel="A" itemValue="A" />
-											<f:selectItem itemLabel="R" itemValue="R" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{tipoFormaPagoView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
-							<f:facet name="footer">
-								<p:commandButton id="viewButton" value="Crear"
-									icon="ui-icon-documen" update=":form"
-									oncomplete="PF('carDialog').show()" />
-							</f:facet>
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
 
-							<f:facet name="footer">
-								<p:commandButton id="returnButton" value="Menu"
-									icon="ui-icon-documen" update=":form" action="#{menuView.menu}" />
-							</f:facet>
-
-
-						</p:dataTable>
-
-						<!--                   Ventana emergente           -->
-
-						<p:dialog id="dialog" header="Tipo de Forma de Pago"
-							widgetVar="carDialog" resizable="false" width="400"
-							showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
-							<h:panelGrid columns="2" id="panel">
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
 
 
-								<h:outputText id="msgCodigo" value="*Codigo:" />
-								<p:inputText id="txtCodigo" disabled="false"
-									value="#{tipoFormaPagoView.codigo}"
-									binding="#{tipoFormaPagoView.txtCodigo}" />
+							</p:dataTable>
 
-								<h:outputText id="msgDescripcion" value="*Descripción:" />
-								<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-									disabled="false" value="#{tipoFormaPagoView.descripcion}"
-									binding="#{tipoFormaPagoView.txtDescripcion}" />
+							<!--                   Ventana emergente           -->
 
-								<h:outputText id="msgManejaCheque" value="Maneja Cheque:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.manejaCh}"
-									value="#{tipoFormaPagoView.manejaCheque}" disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+							<p:dialog id="dialog" header="Tipo de Forma de Pago"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
 
-								<h:outputText id="msgManejaTarjeta" value="Maneja Tarjeta:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.manejaTc}"
-									value="#{tipoFormaPagoView.manejaTarjeta}" disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" disabled="false"
+										value="#{tipoFormaPagoView.codigo}"
+										binding="#{tipoFormaPagoView.txtCodigo}" />
 
-								<h:outputText id="msgExijeNumeroDocumento"
-									value="Exije Numero de Documento:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.exige}"
-									value="#{tipoFormaPagoView.exijeNumeroDocumento}"
-									disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+									<h:outputText id="msgDescripcion" value="*Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										disabled="false" value="#{tipoFormaPagoView.descripcion}"
+										binding="#{tipoFormaPagoView.txtDescripcion}" />
 
-								<h:outputText id="msgEsPosfechado" value="Es PosFechado:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.es}"
-									value="#{tipoFormaPagoView.esPosfechado}" disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+									<h:outputText id="msgManejaCheque" value="Maneja Cheque:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.manejaCh}"
+										value="#{tipoFormaPagoView.manejaCheque}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-								<h:outputText id="msgImportaPda" value="Importa PDA:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.importa}"
-									value="#{tipoFormaPagoView.importaPda}" disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+									<h:outputText id="msgManejaTarjeta" value="Maneja Tarjeta:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.manejaTc}"
+										value="#{tipoFormaPagoView.manejaTarjeta}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-								<h:outputText id="msgDsctoFechaDoc"
-									value="Descuento Fecha Documento:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.descuento}"
-									value="#{tipoFormaPagoView.dsctoFechaDoc}" disabled="false">
-									<f:selectItem itemLabel="1" itemValue="1" />
-									<f:selectItem itemLabel="0" itemValue="0" />
-								</p:selectOneMenu>
+									<h:outputText id="msgExijeNumeroDocumento"
+										value="Exije Numero de Documento:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.exige}"
+										value="#{tipoFormaPagoView.exijeNumeroDocumento}"
+										disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-								<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
-								<p:selectOneMenu binding="#{tipoFormaPagoView.estado}"
-									value="#{tipoFormaPagoView.estadoRegistro}" disabled="false">
-									<f:selectItem itemLabel="A" itemValue="A" />
-									<f:selectItem itemLabel="R" itemValue="R" />
-								</p:selectOneMenu>
+									<h:outputText id="msgEsPosfechado" value="Es PosFechado:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.es}"
+										value="#{tipoFormaPagoView.esPosfechado}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-							</h:panelGrid>
-							
-							<p:separator id="separator"/> 
+									<h:outputText id="msgImportaPda" value="Importa PDA:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.importa}"
+										value="#{tipoFormaPagoView.importaPda}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-							<h:panelGrid id="panelBotones" columns="1">
+									<h:outputText id="msgDsctoFechaDoc"
+										value="Descuento Fecha Documento:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.descuento}"
+										value="#{tipoFormaPagoView.dsctoFechaDoc}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
 
-								<p:commandButton id="btnGuardar" value="Guardar"
-									action="#{tipoFormaPagoView.action_create}"
-									binding="#{tipoFormaPagoView.btnSave}"
-									update="tfp,msg,panel,panelBotones" />
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{tipoFormaPagoView.estado}"
+										value="#{tipoFormaPagoView.estadoRegistro}" disabled="false">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
 
-							</h:panelGrid>
-						</p:dialog>
-					</p:panel>
-				</h:form>
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{tipoFormaPagoView.action_create}"
+										binding="#{tipoFormaPagoView.btnSave}"
+										update="tfp,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
 				</div>
 			</f:view>
 		</ui:define>

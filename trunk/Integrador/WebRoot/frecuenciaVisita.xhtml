@@ -20,7 +20,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -36,7 +36,7 @@
 						url="menu.xhtml" />
 
 
-					<p:menuitem value="cerrar sesion" url="login.xhtml"
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
 				</p:megaMenu>
@@ -50,9 +50,8 @@ body {
 
 					<h:form id="form">
 
-
 						<p:panel id="msgProjectFrecuenciaVisitaTitle"
-							header="FrecuenciaVisita">
+							header="Frecuencia de Visita">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
@@ -97,21 +96,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								
-								<p:column id="frecuencia" filterBy="frecuencia" headerText="Frecuencia"
-									sortBy="frecuencia" filterMatchMode="contains">
-
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.frecuencia}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.frecuencia}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-
 								<p:column headerText="Descripción" style="width:20%">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -124,6 +108,20 @@ body {
 										</f:facet>
 									</p:cellEditor>
 
+								</p:column>
+
+								<p:column id="frecuencia" filterBy="frecuencia"
+									headerText="Frecuencia" sortBy="frecuencia"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.frecuencia}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.frecuencia}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Fecha de Creación" style="width:20%"
@@ -188,60 +186,53 @@ body {
 
 							<!--                   Ventana emergente           -->
 
-							<p:dialog id="dialog" header="Tipo de Sucursal"
+							<p:dialog id="dialog" header="Frecuencia de Visita"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
-<p:messages id="messages"  autoUpdate="true"  />
+								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
 
-									<h:outputText id="msgCodigo" value=" *Codigo:" />
+									<h:outputText id="msgCodigo" value="*Codigo:" />
 									<p:inputText id="txtCodigo"
 										value="#{frecuenciaVisitaView.codigo}"
 										binding="#{frecuenciaVisitaView.txtCodigo}" />
 
-
-									<h:outputText id="msgDescripcion" value=" Descripcion:" />
+									<h:outputText id="msgDescripcion" value="Descripcion:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{frecuenciaVisitaView.descripcion}"
 										binding="#{frecuenciaVisitaView.txtDescripcion}" />
 
+									<h:outputText id="msgFrecuencia" value="Frecuencia:" />
+									<p:inputText id="txtFrecuencia"
+										value="#{frecuenciaVisitaView.frecuencia}"
+										binding="#{frecuenciaVisitaView.txtFrecuencia}" />
 
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro:" />
+									<h:outputText id="msgEstadoRegistro"
+										value="Estado del Registro:" />
 									<p:selectOneMenu binding="#{frecuenciaVisitaView.estado}"
 										value="#{frecuenciaVisitaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
 
-
-									<h:outputText id="msgFrecuencia" value=" Frecuencia:" />
-									<p:inputText id="txtFrecuencia"
-										value="#{frecuenciaVisitaView.frecuencia}"
-										binding="#{frecuenciaVisitaView.txtFrecuencia}" />
-
 								</h:panelGrid>
 
 								<p:separator id="separator" />
-								
+
 								<h:panelGrid id="panelBotones" columns="1">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{frecuenciaVisitaView.action_create}"
 										binding="#{frecuenciaVisitaView.btnSave}"
 										update="listaFV,msg,panel,panelBotones" />
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
 				</div>
-
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>
