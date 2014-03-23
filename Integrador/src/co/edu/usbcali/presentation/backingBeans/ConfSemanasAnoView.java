@@ -101,7 +101,7 @@ public class ConfSemanasAnoView {
 
 			entity = null;
 			entity = businessDelegatorView.getConfSemanasAno(((ConfSemanasAnoDTO) event
-					.getObject()).getIdSema_Semana());
+					.getObject()).getIdCfsa());
 			
 			entity.setFechaModificacion(new Date());			
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
@@ -109,6 +109,7 @@ public class ConfSemanasAnoView {
 			entity.setEstadoRegistro(estadoRegistr);
 			
 			Semana entity2 = businessDelegatorView.getSemana(getIdSema_Semana());
+			System.out.println("semana " + entity2);
 			entity.setSemana(entity2);
 			
 			
