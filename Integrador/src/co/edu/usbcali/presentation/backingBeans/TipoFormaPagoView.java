@@ -301,10 +301,11 @@ public class TipoFormaPagoView {
 			entity.setImportaPda(importaPda);
 			Long dsctoFechaDoc = new Long(descuento.getValue().toString());
 			entity.setDsctoFechaDoc(dsctoFechaDoc);
-			entity.setEstadoRegistro(estadoRegistro);
 			
+			entity.setEstadoRegistro(estadoRegistro);	
 			String usuario =(String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
+			entity.setFechaModificacion(new Date());
 			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
@@ -591,18 +592,26 @@ public class TipoFormaPagoView {
 			//entity.setIdTfpa(idTfpa);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
+						
 			Long manejaCheque = new Long(manejaCh.getValue().toString());
 			entity.setManejaCheque(manejaCheque);
+			
 			Long manejaTarjeta = new Long(manejaTc.getValue().toString());
 			entity.setManejaTarjeta(manejaTarjeta);
+			
 			Long exijeNumeroDocumento = new Long(exige.getValue().toString());
 			entity.setExijeNumeroDocumento(exijeNumeroDocumento);
+			
 			Long esPosfechado = new Long(es.getValue().toString());
 			entity.setEsPosfechado(esPosfechado);
+			
 			Long importaPda = new Long(importa.getValue().toString());
 			entity.setImportaPda(importaPda);
+			
 			Long dsctoFechaDoc = new Long(descuento.getValue().toString());
 			entity.setDsctoFechaDoc(dsctoFechaDoc);
+			
+			
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
