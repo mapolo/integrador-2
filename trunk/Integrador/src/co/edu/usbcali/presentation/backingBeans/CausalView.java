@@ -413,7 +413,7 @@ public class CausalView {
 			//System.out.println(entity2 + "; " + idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
 			
 			TipoCausal entity2 = businessDelegatorView
-					.getTipoCausal(getIdTcau_TipoCausal());
+					.getTipoCausal(getIdTcau_TipoCausal());		
 			entity.setTipoCausal(entity2);
 
 			businessDelegatorView.saveCausal(entity);
@@ -445,6 +445,7 @@ public class CausalView {
 			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			TipoCausal entity2 = businessDelegatorView
 					.getTipoCausal(idForanea());
+			
 			entity.setTipoCausal(entity2);
 			businessDelegatorView.updateCausal(entity);
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);

@@ -209,15 +209,7 @@ public class PersonaLogic implements IPersonaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException("idPers");
-			}
-
-			if ((entity.getIdPers() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idPers");
-			}
+			
 
 			if (entity.getIdentificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -325,10 +317,7 @@ public class PersonaLogic implements IPersonaLogic {
 						"idTiid_TipoIdentificacion");
 			}
 
-			if (getPersona(entity.getIdPers()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
-
+			
 			personaDAO.save(entity);
 		} catch (Exception e) {
 			throw e;

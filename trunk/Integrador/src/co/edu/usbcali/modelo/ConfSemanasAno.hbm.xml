@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.ConfSemanasAno" table="CONF_SEMANAS_ANO" >
         <id name="idCfsa" type="java.lang.Long">
             <column name="ID_CFSA" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+            <param name="sequence">CFSA_ID_CFSA_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="semana" class="co.edu.usbcali.modelo.Semana" fetch="select">
             <column name="ID_SEMA" precision="10" scale="0" not-null="true" />

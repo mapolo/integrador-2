@@ -85,16 +85,7 @@ public class ConfSemanasAnoLogic implements IConfSemanasAnoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCfsa() == null) {
-				throw new ZMessManager().new EmptyFieldException("idCfsa");
-			}
-
-			if ((entity.getIdCfsa() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdCfsa(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idCfsa");
-			}
-
+			
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -129,9 +120,7 @@ public class ConfSemanasAnoLogic implements IConfSemanasAnoLogic {
 						"idSema_Semana");
 			}
 
-			if (getConfSemanasAno(entity.getIdCfsa()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			confSemanasAnoDAO.save(entity);
 		} catch (Exception e) {

@@ -100,15 +100,7 @@ public class BateriologoLogic implements IBateriologoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdBate() == null) {
-				throw new ZMessManager().new EmptyFieldException("idBate");
-			}
-
-			if ((entity.getIdBate() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdBate(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idBate");
-			}
+			
 
 			if ((entity.getNombreCompleto() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -151,9 +143,7 @@ public class BateriologoLogic implements IBateriologoLogic {
 						"idSucu_Sucursal");
 			}
 
-			if (getBateriologo(entity.getIdBate()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+		
 
 			bateriologoDAO.save(entity);
 		} catch (Exception e) {
