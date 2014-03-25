@@ -1,6 +1,7 @@
 package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -102,11 +103,12 @@ public class ClaveFabricacionView {
 
 			entity.setEstadoRegistro(estadoRegistro);
 			
+			Date fechaInicial = ((ClaveFabricacionDTO) event.getObject()).getFechaInicial();
+			entity.setFechaInicial(fechaInicial);
 			
-			//System.out.println(fechaInicial + ";" + FacesUtils.checkDate(txtFechaInicial) + ";" + txtFechaInicial);
-			//entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
-			//entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			
+			Date fechaFinal = ((ClaveFabricacionDTO) event.getObject()).getFechaFinal();
+			entity.setFechaFinal(fechaFinal);
+
 			String usuario =(String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 

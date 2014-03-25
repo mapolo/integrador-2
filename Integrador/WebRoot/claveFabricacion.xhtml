@@ -99,8 +99,9 @@ body {
 											<h:outputText value="#{car.fechaInicial}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaInicial}" style="width:100%"
-												disabled="true" />
+											<p:calendar value="#{car.fechaInicial}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -111,8 +112,9 @@ body {
 											<h:outputText value="#{car.fechaFinal}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaFinal}" style="width:100%"
-												disabled="true" />
+											<p:calendar value="#{car.fechaFinal}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -226,7 +228,7 @@ body {
 										binding="#{claveFabricacionView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 								</h:panelGrid>
-								
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

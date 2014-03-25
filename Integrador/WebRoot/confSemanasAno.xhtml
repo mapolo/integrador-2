@@ -13,8 +13,6 @@
 		<ui:define name="header">
 
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -54,7 +52,7 @@ body {
 					<h:form id="form">
 
 						<p:panel id="msgProjectConfSemanasAnoTitle"
-							header="ConfSemanasAno">
+							header="Configuración Semanas - Año">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
@@ -85,6 +83,21 @@ body {
 
 								</p:column>
 
+								<p:column headerText="ID Semana" style="width:20%"
+									filterBy="idSema_Semana" sortBy="idSema_Semana">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSema_Semana}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}"
+												style="width:160px">
+												<f:selectItems value="#{confSemanasAnoView.semana}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
 								<p:column headerText="Fecha Inicial" style="width:20%"
 									filterBy="fechaInicial" sortBy="fechaInicial">
 									<p:cellEditor>
@@ -92,8 +105,9 @@ body {
 											<h:outputText value="#{car.fechaInicial}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaInicial}" style="width:100%"
-												disabled="true" />
+											<p:calendar value="#{car.fechaInicial}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -105,32 +119,12 @@ body {
 											<h:outputText value="#{car.fechaFinal}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaFinal}" style="width:100%"
-												disabled="true" />
+											<p:calendar value="#{car.fechaFinal}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
-
-
-								<p:column headerText="ID Semana" style="width:20%"
-									filterBy="idSema_Semana" sortBy="idSema_Semana">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.idSema_Semana}" />
-										</f:facet>
-
-										<f:facet name="input">
-
-											<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}"
-												style="width:160px">
-												<f:selectItems value="#{confSemanasAnoView.semana}" />
-
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
 
 								<p:column headerText="Fecha de Creación" style="width:20%"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
@@ -167,7 +161,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{confSemanasAnoView.estadoRegistr}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -193,27 +186,20 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Causal" widgetVar="carDialog"
-								resizable="false" width="400" showEffect="clip"
-								hideEffect="fold">
+							<p:dialog id="dialog" header="Configuración Semanas - Año"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
 
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
-									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro:" />
-									<p:selectOneMenu binding="#{confSemanasAnoView.estado}"
-										value="#{confSemanasAnoView.estadoRegistr}">
-										<f:selectItem itemLabel="A" itemValue="A" />
-										<f:selectItem itemLabel="R" itemValue="R" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdSema_Semana" value=" IdSema_Semana" />
+									<h:outputText id="msgIdSema_Semana" value="ID Semana:" />
 									<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}"
 										binding="#{confSemanasAnoView.txtIdSema_Semana}">
 										<f:selectItems value="#{confSemanasAnoView.semana}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgFechaInicial" value=" FechaInicial" />
+									<h:outputText id="msgFechaInicial" value="Fecha Inicial:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{confSemanasAnoView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
@@ -222,7 +208,7 @@ body {
 									</p:calendar>
 
 
-									<h:outputText id="msgFechaFinal" value=" FechaFinal" />
+									<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{confSemanasAnoView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
@@ -230,6 +216,13 @@ body {
 											update="men" />
 									</p:calendar>
 
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{confSemanasAnoView.estado}"
+										value="#{confSemanasAnoView.estadoRegistr}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
 
 								</h:panelGrid>
 
@@ -240,19 +233,14 @@ body {
 										action="#{confSemanasAnoView.action_create}"
 										binding="#{confSemanasAnoView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

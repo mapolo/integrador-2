@@ -11,7 +11,7 @@
 	<h:body>
 		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 			<ui:define name="header">
-				<ui:include src="/WEB-INF/facelets/header.jspx" />
+				
 			</ui:define>
         	<br/>
         	<br/> 	
@@ -23,9 +23,7 @@
    						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
 					</p:dialog>
 		  			<h:form id="frm">								  		
-						<div align="center">
-			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
-						 </div>
+						
 						 <br />
 						<p:panel id="panelDataTableDescuentoFinanciero" header="DescuentoFinancieroData">
 							<p:growl id="men"/>				
@@ -224,9 +222,7 @@
 					</p:dialog>
 				</f:view>
 			</ui:define>	  
-			<ui:define name="footer">
-				<ui:include src="/WEB-INF/facelets/footer.jspx" />
-			</ui:define>	
+			
 		</ui:composition>	
 	</h:body>	
 </html>	
