@@ -18,7 +18,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -55,32 +55,32 @@ body {
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{personaView.data}"
-								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{personaView.data}">
+								scrollable="true" scrollHeight="300"
+								id="tablaPrincipal" editable="true"
+								filteredValue="#{personaView.data}">
 
 								<p:ajax event="rowEdit" listener="#{personaView.onEdit}" />
 								<p:ajax event="rowEditCancel" listener="#{personaView.onCancel}" />
 
-								<p:column headerText="Editar" style="width:6%">
+								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
 								<p:column headerText="ID" filterBy="idPers" sortBy="idPers"
-									style="width:10%">
+									style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idPers}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idPers}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.idPers}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="ID Tipo de Identificación"
-									style="width:20%" filterBy="idTiid_TipoIdentificacion"
-									sortBy="idTiid_TipoIdentificacion">
+									filterBy="idTiid_TipoIdentificacion"
+									sortBy="idTiid_TipoIdentificacion" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idTiid_TipoIdentificacion}" />
@@ -90,7 +90,7 @@ body {
 
 											<p:selectOneMenu
 												value="#{personaView.idTiid_TipoIdentificacion}"
-												style="width:160px">
+												style="width: 100px">
 												<f:selectItems value="#{personaView.tipoIdentificacion}" />
 
 											</p:selectOneMenu>
@@ -98,9 +98,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="ID División Politica" style="width:20%"
+								<p:column headerText="ID División Politica"
 									filterBy="idDipo_DivisionPolitica"
-									sortBy="idDipo_DivisionPolitica">
+									sortBy="idDipo_DivisionPolitica" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
@@ -108,9 +108,8 @@ body {
 
 										<f:facet name="input">
 
-											<p:selectOneMenu
-												value="#{personaView.idDipo_DivisionPolitica}"
-												style="width:160px">
+											<p:selectOneMenu style="width: 100px"
+												value="#{personaView.idDipo_DivisionPolitica}">
 
 												<f:selectItems value="#{personaView.divisionPolitica}" />
 
@@ -121,161 +120,158 @@ body {
 
 								<p:column id="identificacion" filterBy="identificacion"
 									headerText="Identificación" sortBy="identificacion"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.identificacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.identificacion}" style="width:100%" />
+											<p:inputText value="#{car.identificacion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="primerNombre" filterBy="primerNombre"
 									headerText="Primer Nombre" sortBy="primerNombre"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.primerNombre}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.primerNombre}" style="width:100%" />
+											<p:inputText value="#{car.primerNombre}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="segundoNombre" filterBy="segundoNombre"
 									headerText="Segundo Nombre" sortBy="segundoNombre"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.segundoNombre}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.segundoNombre}" style="width:100%" />
+											<p:inputText value="#{car.segundoNombre}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="primerApellido" filterBy="primerApellido"
 									headerText="Primer Apellido" sortBy="primerApellido"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.primerApellido}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.primerApellido}" style="width:100%" />
+											<p:inputText value="#{car.primerApellido}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="segundoApellido" filterBy="segundoApellido"
 									headerText="Segundo Apellido" sortBy="segundoApellido"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.segundoApellido}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.segundoApellido}"
-												style="width:100%" />
+											<p:inputText value="#{car.segundoApellido}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Dirección" style="width:20%">
+								<p:column headerText="Dirección" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.direccion}" />
 										</f:facet>
 
 										<f:facet name="input">
-											<p:inputTextarea value="#{car.direccion}" style="width:100%" />
+											<p:inputTextarea value="#{car.direccion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="telefono1" filterBy="telefono1"
 									headerText="Telefono 1" sortBy="telefono1"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.telefono1}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.telefono1}" style="width:100%" />
+											<p:inputText value="#{car.telefono1}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="telefono2" filterBy="telefono2"
 									headerText="Telefono 2" sortBy="telefono2"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.telefono2}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.telefono2}" style="width:100%" />
+											<p:inputText value="#{car.telefono2}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="apartadoAereo" filterBy="apartadoAereo"
 									headerText="Apartado Aereo" sortBy="apartadoAereo"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.apartadoAereo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.apartadoAereo}" style="width:100%" />
+											<p:inputText value="#{car.apartadoAereo}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="email" filterBy="email" headerText="Email"
-									sortBy="email" filterMatchMode="contains" style="width:10%">
+									sortBy="email" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.email}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.email}" style="width:100%" />
+											<p:inputText value="#{car.email}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="digitoVerificacion" filterBy="digitoVerificacion"
 									headerText="Digito Verificación" sortBy="digitoVerificacion"
-									filterMatchMode="contains" style="width:10%">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.digitoVerificacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.digitoVerificacion}"
-												style="width:100%" />
+											<p:inputText value="#{car.digitoVerificacion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado Persona" style="width:20%"
-									filterBy="estadoPersona"
+								<p:column headerText="Estado Persona" filterBy="estadoPersona"
 									filterOptions="#{personaView.manufacturerOptions2}"
-									filterMatchMode="exact">
+									filterMatchMode="exact" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoPersona}" />
@@ -290,36 +286,35 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Fecha de Creación" style="width:20%"
-									filterBy="fechaCreacion" sortBy="fechaCreacion">
+								<p:column headerText="Fecha de Creación"
+									filterBy="fechaCreacion" sortBy="fechaCreacion"
+									style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Operador Creador" style="width:20%"
-									filterBy="operCreador" sortBy="operCreador">
+								<p:column headerText="Operador Creador" filterBy="operCreador"
+									sortBy="operCreador" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro"
 									filterBy="estadoRegistro"
 									filterOptions="#{personaView.manufacturerOptions}"
-									filterMatchMode="exact">
+									filterMatchMode="exact" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />

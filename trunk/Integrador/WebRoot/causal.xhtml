@@ -53,7 +53,7 @@ body {
 					<h:form id="form">
 
 						<p:panel id="msgProjectCausalTitle" header="Causal">
-							<p:messages id="msg"  />
+							<p:messages id="msg" />
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{causalView.data}"
@@ -63,52 +63,50 @@ body {
 								<p:ajax event="rowEdit" listener="#{causalView.onEdit}" />
 								<p:ajax event="rowEditCancel" listener="#{causalView.onCancel}" />
 
-								<p:column headerText="Editar" style="width:6%">
+								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
 								<p:column headerText="ID" filterBy="idCusa" sortBy="idCusa"
-									style="width:10%">
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCusa}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCusa}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.idCusa}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-									sortBy="codigo" filterMatchMode="contains" style="width:10%">
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" style="width:100%" />
+											<p:inputText value="#{car.codigo}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Descripción" style="width:20%">
+								<p:column headerText="Descripción" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
 
 										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}"
-												style="width:100%" />
+											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="ID Tipo Causal" style="width:20%"
+								<p:column headerText="ID Tipo Causal" style="width: 100px"
 									filterBy="idTcau_TipoCausal" sortBy="idTcau_TipoCausal">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -117,8 +115,8 @@ body {
 
 										<f:facet name="input">
 
-											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
-												style="width:160px">
+											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}" style="width: 100px">
+											
 												<f:selectItems value="#{causalView.tipoCausales}" />
 
 											</p:selectOneMenu>
@@ -126,33 +124,31 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Fecha de Creación" style="width:20%"
+								<p:column headerText="Fecha de Creación" style="width: 100px"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Operador Creador" style="width:20%"
+								<p:column headerText="Operador Creador" style="width: 100px"
 									filterBy="operCreador" sortBy="operCreador">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{causalView.manufacturerOptions}"
 									filterMatchMode="exact">
