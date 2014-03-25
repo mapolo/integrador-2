@@ -61,39 +61,38 @@ body {
 								<p:ajax event="rowEditCancel"
 									listener="#{conceptoReciboView.onCancel}" />
 
-								<p:column headerText="Editar" style="width:6%">
+								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
 								<p:column headerText="ID" filterBy="idCpto" sortBy="idCpto"
-									style="width:5%">
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCpto}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCpto}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.idCpto}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-									sortBy="codigo" filterMatchMode="contains">
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" style="width:100%" />
+											<p:inputText value="#{car.codigo}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Aplica Cartera" style="width:10%"
+								<p:column headerText="Aplica Cartera" style="width: 100px"
 									filterBy="aplicaCartera"
 									filterOptions="#{conceptoReciboView.manufacturerOptions2}"
 									filterMatchMode="exact">
@@ -112,48 +111,45 @@ body {
 								</p:column>
 
 
-								<p:column headerText="Descripción">
+								<p:column headerText="Descripción" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
 
 										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}"
-												style="width:100%" />
+											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
-								<p:column headerText="Fecha de Creación" style="width:20%"
+								<p:column headerText="Fecha de Creación" style="width: 100px"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Operador Creador" style="width:20%"
+								<p:column headerText="Operador Creador" style="width: 100px"
 									filterBy="operCreador" sortBy="operCreador">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{conceptoReciboView.manufacturerOptions}"
 									filterMatchMode="exact">

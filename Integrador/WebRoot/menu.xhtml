@@ -8,83 +8,100 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </h:head>
 
+
 <body>
-	<h:form id="form">
+	<div id="logo" align="center">
+		<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+	</div>
 
-		<p:growl id="growl" showDetail="true" />
+	<style type="text/css">
+body {
+	background: black;
+}
+</style>
+	<div align="center">
 
-		<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menú Principal"
-			style="text-align: center;">
-			<p:messages id="msg" showDetail="true" />
+		<h:form id="form" style="width: 620px; ">
 
-			<p:megaMenu autoDisplay="false">
-				<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
-					url="http://www.mac.com.co/" />
+			<p:growl id="growl" showDetail="true" />
 
-				<p:submenu label="Gestión de Datos" icon="ui-icon-pencil">
-					<p:column>
+			<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menú Principal"
+				style="text-align: center;">
+				<p:messages id="msg" showDetail="true" />
 
-						<p:submenu label="Gestión">
+				<p:megaMenu autoDisplay="false">
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="http://www.mac.com.co/" />
 
-							<p:menuitem value="Banco" url="banco.xhtml" />
+					<p:submenu label="Gestión de Datos" icon="ui-icon-pencil">
+						<p:column>
 
-							<p:menuitem value="Bateriologos" url="bateriologo.xhtml" />
+							<p:submenu label="Gestión">
 
-							<p:menuitem value="Causal" url="causal.xhtml" />
+								<p:menuitem value="Banco" url="banco.xhtml" />
 
-							<p:menuitem value="Clave de Fabricación"
-								url="claveFabricacion.xhtml" />
+								<p:menuitem value="Bateriologos" url="bateriologo.xhtml" />
 
-							<p:menuitem value="Concepto del Recibo"
-								url="conceptoRecibo.xhtml" />
+								<p:menuitem value="Causal" url="causal.xhtml" />
 
-							<p:menuitem value="Configuración Semanas - Año"
-								url="confSemanasAno.xhtml" />
+								<p:menuitem value="Clave de Fabricación"
+									url="claveFabricacion.xhtml" />
 
-							<p:menuitem value="Fallas" url="fallas.xhtml" />
+								<p:menuitem value="Concepto del Recibo"
+									url="conceptoRecibo.xhtml" />
 
-							<p:menuitem value="Frecuencia de Visita"
-								url="frecuenciaVisita.xhtml" />
+								<p:menuitem value="Configuración Semanas - Año"
+									url="confSemanasAno.xhtml" />
 
-							<p:menuitem value="Persona" url="persona.xhtml" />
+								<p:menuitem value="Fallas" url="fallas.xhtml" />
 
-							<p:menuitem value="Referencia" url="referencia.xhtml" />
+								<p:menuitem value="Frecuencia de Visita"
+									url="frecuenciaVisita.xhtml" />
 
-							<p:menuitem value="Unidad de Negocio" url="unidadNegocio.xhtml" />
+								<p:menuitem value="Persona" url="persona.xhtml" />
 
-						</p:submenu>
+								<p:menuitem value="Referencia" url="referencia.xhtml" />
 
-						<p:submenu label="Tipo">
-							<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
+								<p:menuitem value="Unidad de Negocio" url="unidadNegocio.xhtml" />
 
-							<p:menuitem value="Tipo de Causal" url="tipoCausal.xhtml" />
+							</p:submenu>
 
-							<p:menuitem value="Tipo de División" url="tipoDivision.xhtml" />
 
-							<p:menuitem value="Tipo de Documento" url="tipoDocumento.xhtml" />
 
-							<p:menuitem value="Tipo de Forma de Pago"
-								url="tipoFormaPago.xhtml" />
+						</p:column>
+						<p:column>
+							<p:submenu label="Tipo">
+								<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
 
-							<p:menuitem value="Tipo de Garantía" url="tipoGarantia.xhtml" />
+								<p:menuitem value="Tipo de Causal" url="tipoCausal.xhtml" />
 
-							<p:menuitem value="Tipo de Identificación"
-								url="tipoIdentificacion.xhtml" />
+								<p:menuitem value="Tipo de División" url="tipoDivision.xhtml" />
 
-							<p:menuitem value="Tipo de Sucursal" url="tipoSucursal.xhtml" />
-						</p:submenu>
+								<p:menuitem value="Tipo de Documento" url="tipoDocumento.xhtml" />
 
-					</p:column>
+								<p:menuitem value="Tipo de Forma de Pago"
+									url="tipoFormaPago.xhtml" />
 
-				</p:submenu>
+								<p:menuitem value="Tipo de Garantía" url="tipoGarantia.xhtml" />
 
-				<p:menuitem value="Enviar Reporte" url="https://www.gmail.com/"
-					icon="ui-icon-document" />
+								<p:menuitem value="Tipo de Identificación"
+									url="tipoIdentificacion.xhtml" />
 
-				<p:menuitem value="Cerrar Sesión" url="login.xhtml"
-					icon="ui-icon-close" style="text-align: right" />
-			</p:megaMenu>
-		</p:panel>
-	</h:form>
+								<p:menuitem value="Tipo de Sucursal" url="tipoSucursal.xhtml" />
+							</p:submenu>
+
+						</p:column>
+
+					</p:submenu>
+
+					<p:menuitem value="Enviar Reporte" url="https://www.gmail.com/"
+						icon="ui-icon-document" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" style="text-align: right" />
+				</p:megaMenu>
+			</p:panel>
+		</h:form>
+	</div>
 </body>
 </html>

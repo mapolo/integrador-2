@@ -59,76 +59,75 @@ body {
 								<p:ajax event="rowEditCancel"
 									listener="#{referenciaView.onCancel}" />
 
-								<p:column headerText="Editar" style="width:6%">
+								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" filterBy="idRefe" sortBy="idRefe">
+								<p:column headerText="ID" filterBy="idRefe" sortBy="idRefe"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idRefe}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idRefe}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.idRefe}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
-									sortBy="codigo" filterMatchMode="contains">
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" style="width:100%" />
+											<p:inputText value="#{car.codigo}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="descripcion" filterBy="descripcion"
 									headerText="Descripción" sortBy="descripcion"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.descripcion}" style="width:100%" />
+											<p:inputText value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="descripcionCorta" filterBy="descripcionCorta"
 									headerText="Descripción Corta" sortBy="descripcionCorta"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcionCorta}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.descripcionCorta}"
-												style="width:100%" />
+											<p:inputText value="#{car.descripcionCorta}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="unidadMedida" filterBy="unidadMedida"
 									headerText="Unidad Medida" sortBy="unidadMedida"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.unidadMedida}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.unidadMedida}" style="width:100%" />
+											<p:inputText value="#{car.unidadMedida}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -136,238 +135,241 @@ body {
 								<p:column id="unidadMedidaProvisional"
 									filterBy="unidadMedidaProvisional"
 									headerText="Unidad Medida Provisional"
-									sortBy="unidadMedidaProvisional" filterMatchMode="contains">
+									sortBy="unidadMedidaProvisional" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.unidadMedidaProvisional}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.unidadMedidaProvisional}"
-												style="width:100%" />
+											<p:inputText value="#{car.unidadMedidaProvisional}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="marca" filterBy="marca" headerText="Marca"
-									sortBy="marca" filterMatchMode="contains">
+									sortBy="marca" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.marca}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.marca}" style="width:100%" />
+											<p:inputText value="#{car.marca}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="equivalente1" filterBy="equivalente1"
 									headerText="Equivalente 1" sortBy="equivalente1"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.equivalente1}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.equivalente1}" style="width:100%" />
+											<p:inputText value="#{car.equivalente1}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="equivalente2" filterBy="equivalente2"
 									headerText="Equivalente 2" sortBy="equivalente2"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.equivalente2}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.equivalente2}" style="width:100%" />
+											<p:inputText value="#{car.equivalente2}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="volumen" filterBy="volumen" headerText="Volumen"
-									sortBy="volumen" filterMatchMode="contains">
+									sortBy="volumen" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.volumen}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.volumen}" style="width:100%" />
+											<p:inputText value="#{car.volumen}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="galones" filterBy="galones" headerText="Galones"
-									sortBy="galones" filterMatchMode="contains">
+									sortBy="galones" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.galones}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.galones}" style="width:100%" />
+											<p:inputText value="#{car.galones}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="porcentajeIva" filterBy="porcentajeIva"
 									headerText="Porcentaje del Iva" sortBy="porcentajeIva"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.porcentajeIva}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.porcentajeIva}" style="width:100%" />
+											<p:inputText value="#{car.porcentajeIva}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="pideCantidad" filterBy="pideCantidad"
 									headerText="Pide Cantidad" sortBy="pideCantidad"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.pideCantidad}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.pideCantidad}" style="width:100%" />
+											<p:inputText value="#{car.pideCantidad}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="pideValor" filterBy="pideValor"
 									headerText="Pide Valor" sortBy="pideValor"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.pideValor}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.pideValor}" style="width:100%" />
+											<p:inputText value="#{car.pideValor}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="aplicacion" filterBy="aplicacion"
 									headerText="Aplicación" sortBy="aplicacion"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.aplicacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.aplicacion}" style="width:100%" />
+											<p:inputText value="#{car.aplicacion}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="descripcionTecnica" filterBy="descripcionTecnica"
 									headerText="Descripción Tecnica" sortBy="descripcionTecnica"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcionTecnica}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.descripcionTecnica}"
-												style="width:100%" />
+											<p:inputText value="#{car.descripcionTecnica}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="esGarantia" filterBy="esGarantia"
 									headerText="Es Garantia" sortBy="esGarantia"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.esGarantia}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.esGarantia}" style="width:100%" />
+											<p:inputText value="#{car.esGarantia}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="peso" filterBy="peso" headerText="Peso"
-									sortBy="peso" filterMatchMode="contains">
+									sortBy="peso" filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.peso}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.peso}" style="width:100%" />
+											<p:inputText value="#{car.peso}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="QPorCaja" filterBy="QPorCaja"
 									headerText="Q Por Caja" sortBy="QPorCaja"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.QPorCaja}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.QPorCaja}" style="width:100%" />
+											<p:inputText value="#{car.QPorCaja}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="fechaVigentePBodega"
-									headerText="Fecha Vigente P Bodega">
+									headerText="Fecha Vigente P Bodega" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaVigentePBodega}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:calendar value="#{car.fechaVigentePBodega}" showOn="button"
-												pattern="yyyy-MM-dd" navigator="true">
+											<p:calendar value="#{car.fechaVigentePBodega}"
+												showOn="button" pattern="yyyy-MM-dd" navigator="true">
 											</p:calendar>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="margenMinimoPBodega"
-									filterBy="margenMinimoPBodega" headerText="Margen Minimo P Bodega"
-									sortBy="margenMinimoPBodega" filterMatchMode="contains">
+									filterBy="margenMinimoPBodega"
+									headerText="Margen Minimo P Bodega"
+									sortBy="margenMinimoPBodega" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoPBodega}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoPBodega}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoPBodega}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="margenMinimoGBodega"
-									filterBy="margenMinimoGBodega" headerText="Margen Minimo G Bodega"
-									sortBy="margenMinimoGBodega" filterMatchMode="contains">
+									filterBy="margenMinimoGBodega"
+									headerText="Margen Minimo G Bodega"
+									sortBy="margenMinimoGBodega" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoGBodega}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoGBodega}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoGBodega}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -375,20 +377,21 @@ body {
 								<p:column id="margenMinimoRefBodega"
 									filterBy="margenMinimoRefBodega"
 									headerText="Margen Minimo Ref Bodega"
-									sortBy="margenMinimoRefBodega" filterMatchMode="contains">
+									sortBy="margenMinimoRefBodega" filterMatchMode="contains"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoRefBodega}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoRefBodega}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoRefBodega}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="fechaVigentePEne" headerText="Fecha Vigente P Ene">
+								<p:column id="fechaVigentePEne" headerText="Fecha Vigente P Ene"
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
@@ -404,144 +407,137 @@ body {
 
 								<p:column id="margenMinimoPEne" filterBy="margenMinimoPEne"
 									headerText="Margen Minimo P Ene" sortBy="margenMinimoPEne"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoPEne}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoPEne}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoPEne}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="margenMinimoRefEne" filterBy="margenMinimoRefEne"
 									headerText="Margen Minimo Ref Ene" sortBy="margenMinimoRefEne"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoRefEne}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoRefEne}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoRefEne}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="margenMinimoGEne" filterBy="margenMinimoGEne"
 									headerText="Margen Minimo G Ene" sortBy="margenMinimoGEne"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoGEne}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.margenMinimoGEne}"
-												style="width:100%" />
+											<p:inputText value="#{car.margenMinimoGEne}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="productoEspecial" filterBy="productoEspecial"
 									headerText="Producto Especial" sortBy="productoEspecial"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.productoEspecial}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.productoEspecial}"
-												style="width:100%" />
+											<p:inputText value="#{car.productoEspecial}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="productoConsumo" filterBy="productoConsumo"
 									headerText="Producto Consumo" sortBy="productoConsumo"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.productoConsumo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.productoConsumo}"
-												style="width:100%" />
+											<p:inputText value="#{car.productoConsumo}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="manejaLote" filterBy="manejaLote"
 									headerText="Maneja Lote" sortBy="manejaLote"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaLote}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.manejaLote}" style="width:100%" />
+											<p:inputText value="#{car.manejaLote}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="manejaDecimales" filterBy="manejaDecimales"
 									headerText="Maneja Decimales" sortBy="manejaDecimales"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaDecimales}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.manejaDecimales}"
-												style="width:100%" />
+											<p:inputText value="#{car.manejaDecimales}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="codigoBarras" filterBy="codigoBarras"
 									headerText="Codigo de Barras" sortBy="codigoBarras"
-									filterMatchMode="contains">
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigoBarras}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigoBarras}" style="width:100%" />
+											<p:inputText value="#{car.codigoBarras}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Fecha de Creación"
-									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									filterBy="fechaCreacion" sortBy="fechaCreacion"
+									style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Operador Creador" filterBy="operCreador"
-									sortBy="operCreador">
+									sortBy="operCreador" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -550,7 +546,7 @@ body {
 								<p:column headerText="Estado del Registro"
 									filterBy="estadoRegistro"
 									filterOptions="#{referenciaView.manufacturerOptions}"
-									filterMatchMode="exact">
+									filterMatchMode="exact" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
@@ -590,17 +586,18 @@ body {
 									<h:outputText id="msgCodigo" value="*Codigo:" />
 									<p:inputText id="txtCodigo" value="#{referenciaView.codigo}"
 										binding="#{referenciaView.txtCodigo}" />
-										
+
 									<h:outputText id="msgDescripcion" value="*Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{referenciaView.descripcion}"
 										binding="#{referenciaView.txtDescripcion}" />
 
-									<h:outputText id="msgDescripcionCorta" value="*Descripción Corta:" />
+									<h:outputText id="msgDescripcionCorta"
+										value="*Descripción Corta:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcionCorta"
 										value="#{referenciaView.descripcionCorta}"
 										binding="#{referenciaView.txtDescripcionCorta}" />
-										
+
 									<h:outputText id="msgUnidadMedida" value="*Unidad Medida:" />
 									<p:inputText id="txtUnidadMedida"
 										value="#{referenciaView.unidadMedida}"
@@ -611,11 +608,11 @@ body {
 									<p:inputText id="txtUnidadMedidaProvisional"
 										value="#{referenciaView.unidadMedidaProvisional}"
 										binding="#{referenciaView.txtUnidadMedidaProvisional}" />
-										
+
 									<h:outputText id="msgMarca" value="*Marca:" />
 									<p:inputText id="txtMarca" value="#{referenciaView.marca}"
 										binding="#{referenciaView.txtMarca}" />
-									
+
 									<h:outputText id="msgEquivalente1" value="*Equivalente 1:" />
 									<p:inputText id="txtEquivalente1"
 										value="#{referenciaView.equivalente1}"
@@ -625,20 +622,21 @@ body {
 									<p:inputText id="txtEquivalente2"
 										value="#{referenciaView.equivalente2}"
 										binding="#{referenciaView.txtEquivalente2}" />
-										
+
 									<h:outputText id="msgVolumen" value="*Volumen:" />
 									<p:inputText id="txtVolumen" value="#{referenciaView.volumen}"
 										binding="#{referenciaView.txtVolumen}" />
-										
+
 									<h:outputText id="msgGalones" value="*Galones:" />
 									<p:inputText id="txtGalones" value="#{referenciaView.galones}"
 										binding="#{referenciaView.txtGalones}" />
-										
-									<h:outputText id="msgPorcentajeIva" value="*Porcentaje del Iva:" />
+
+									<h:outputText id="msgPorcentajeIva"
+										value="*Porcentaje del Iva:" />
 									<p:inputText id="txtPorcentajeIva"
 										value="#{referenciaView.porcentajeIva}"
-										binding="#{referenciaView.txtPorcentajeIva}" />	
-										
+										binding="#{referenciaView.txtPorcentajeIva}" />
+
 									<h:outputText id="msgPideCantidad" value="*Pide Cantidad:" />
 									<p:inputText id="txtPideCantidad"
 										value="#{referenciaView.pideCantidad}"
@@ -648,31 +646,32 @@ body {
 									<p:inputText id="txtPideValor"
 										value="#{referenciaView.pideValor}"
 										binding="#{referenciaView.txtPideValor}" />
-										
+
 									<h:outputText id="msgAplicacion" value="*Aplicación:" />
 									<p:inputText id="txtAplicacion"
 										value="#{referenciaView.aplicacion}"
 										binding="#{referenciaView.txtAplicacion}" />
-										
-									<h:outputText id="msgDescripcionTecnica" value="*Descripción Tecnica:" />
+
+									<h:outputText id="msgDescripcionTecnica"
+										value="*Descripción Tecnica:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcionTecnica"
 										value="#{referenciaView.descripcionTecnica}"
 										binding="#{referenciaView.txtDescripcionTecnica}" />
-										
+
 									<h:outputText id="msgEsGarantia" value="*Es Garantia:" />
 									<p:inputText id="txtEsGarantia"
 										value="#{referenciaView.esGarantia}"
 										binding="#{referenciaView.txtEsGarantia}" />
-										
+
 									<h:outputText id="msgPeso" value="*Peso:" />
 									<p:inputText id="txtPeso" value="#{referenciaView.peso}"
-										binding="#{referenciaView.txtPeso}" />	
+										binding="#{referenciaView.txtPeso}" />
 
 									<h:outputText id="msgQPorCaja" value="*Q Por Caja:" />
 									<p:inputText id="txtQPorCaja"
 										value="#{referenciaView.QPorCaja}"
 										binding="#{referenciaView.txtQPorCaja}" />
-										
+
 									<h:outputText id="msgFechaVigentePBodega"
 										value="*Fecha Vigente P Bodega:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
@@ -681,25 +680,25 @@ body {
 											listener="#{referenciaView.listener_txtFechaVigentePBodega}"
 											update="men" />
 									</p:calendar>
-									
+
 									<h:outputText id="msgMargenMinimoPBodega"
 										value="*Margen Minimo P Bodega:" />
 									<p:inputText id="txtMargenMinimoPBodega"
 										value="#{referenciaView.margenMinimoPBodega}"
 										binding="#{referenciaView.txtMargenMinimoPBodega}" />
-										
+
 									<h:outputText id="msgMargenMinimoGBodega"
 										value="*Margen Minimo G Bodega:" />
 									<p:inputText id="txtMargenMinimoGBodega"
 										value="#{referenciaView.margenMinimoGBodega}"
 										binding="#{referenciaView.txtMargenMinimoGBodega}" />
-										
+
 									<h:outputText id="msgMargenMinimoRefBodega"
 										value="*Margen Minimo Ref Bodega:" />
 									<p:inputText id="txtMargenMinimoRefBodega"
 										value="#{referenciaView.margenMinimoRefBodega}"
 										binding="#{referenciaView.txtMargenMinimoRefBodega}" />
-										
+
 									<h:outputText id="msgFechaVigentePEne"
 										value="*Fecha Vigente P Ene:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
@@ -708,13 +707,13 @@ body {
 											listener="#{referenciaView.listener_txtFechaVigentePEne}"
 											update="men" />
 									</p:calendar>
-									
+
 									<h:outputText id="msgMargenMinimoPEne"
 										value="*Margen Minimo P Ene:" />
 									<p:inputText id="txtMargenMinimoPEne"
 										value="#{referenciaView.margenMinimoPEne}"
 										binding="#{referenciaView.txtMargenMinimoPEne}" />
-										
+
 									<h:outputText id="msgMargenMinimoRefEne"
 										value="*Margen Minimo Ref Ene:" />
 									<p:inputText id="txtMargenMinimoRefEne"
@@ -725,25 +724,27 @@ body {
 										value="*Margen Minimo G Ene:" />
 									<p:inputText id="txtMargenMinimoGEne"
 										value="#{referenciaView.margenMinimoGEne}"
-										binding="#{referenciaView.txtMargenMinimoGEne}" />			
+										binding="#{referenciaView.txtMargenMinimoGEne}" />
 
 									<h:outputText id="msgProductoEspecial"
 										value="*Producto Especial:" />
 									<p:inputText id="txtProductoEspecial"
 										value="#{referenciaView.productoEspecial}"
-										binding="#{referenciaView.txtProductoEspecial}" />					
+										binding="#{referenciaView.txtProductoEspecial}" />
 
-									<h:outputText id="msgProductoConsumo" value="*Producto Consumo:" />
+									<h:outputText id="msgProductoConsumo"
+										value="*Producto Consumo:" />
 									<p:inputText id="txtProductoConsumo"
 										value="#{referenciaView.productoConsumo}"
 										binding="#{referenciaView.txtProductoConsumo}" />
-										
+
 									<h:outputText id="msgManejaLote" value="*Maneja Lote:" />
 									<p:inputText id="txtManejaLote"
 										value="#{referenciaView.manejaLote}"
 										binding="#{referenciaView.txtManejaLote}" />
-									
-									<h:outputText id="msgManejaDecimales" value="*Maneja Decimales:" />
+
+									<h:outputText id="msgManejaDecimales"
+										value="*Maneja Decimales:" />
 									<p:inputText id="txtManejaDecimales"
 										value="#{referenciaView.manejaDecimales}"
 										binding="#{referenciaView.txtManejaDecimales}" />
@@ -752,7 +753,7 @@ body {
 									<p:inputText id="txtCodigoBarras"
 										value="#{referenciaView.codigoBarras}"
 										binding="#{referenciaView.txtCodigoBarras}" />
-																							
+
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{referenciaView.estado}"
@@ -772,7 +773,7 @@ body {
 										binding="#{referenciaView.btnSave}"
 										update="refe,msg,panel,panelBotones" />
 								</h:panelGrid>
-								
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

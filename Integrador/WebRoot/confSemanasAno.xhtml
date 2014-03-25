@@ -18,7 +18,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -64,41 +64,39 @@ body {
 								<p:ajax event="rowEditCancel"
 									listener="#{confSemanasAnoView.onCancel}" />
 
-								<p:column headerText="Editar" style="width:6%">
+								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
 								<p:column headerText="ID" filterBy="idCfsa" sortBy="idCfsa"
-									style="width:10%">
+									style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCfsa}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idCfsa}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.idCfsa}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 
 								</p:column>
 
-								<p:column headerText="ID Semana" style="width:20%"
+								<p:column headerText="ID Semana" style="width: 100px"
 									filterBy="idSema_Semana" sortBy="idSema_Semana">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idSema_Semana}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}"
-												style="width:160px">
+											<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}" style="width: 100px">
 												<f:selectItems value="#{confSemanasAnoView.semana}" />
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Fecha Inicial" style="width:20%"
+								<p:column headerText="Fecha Inicial" style="width: 100px"
 									filterBy="fechaInicial" sortBy="fechaInicial">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -112,7 +110,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Fecha Final" style="width:20%"
+								<p:column headerText="Fecha Final" style="width: 100px"
 									filterBy="fechaFinal" sortBy="fechaFinal">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -126,34 +124,32 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Fecha de Creación" style="width:20%"
+								<p:column headerText="Fecha de Creación" style="width: 100px"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 
-								<p:column headerText="Operador Creador" style="width:20%"
+								<p:column headerText="Operador Creador" style="width: 100px"
 									filterBy="operCreador" sortBy="operCreador">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}" style="width:100%"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width:20%"
+								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{confSemanasAnoView.manufacturerOptions}"
 									filterMatchMode="exact">
