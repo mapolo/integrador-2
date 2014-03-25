@@ -249,16 +249,6 @@ public class ReferenciaLogic implements IReferenciaLogic {
 				throw new ZMessManager().new NotValidFormatException("galones");
 			}
 
-			if (entity.getIdRefe() == null) {
-				throw new ZMessManager().new EmptyFieldException("idRefe");
-			}
-
-			if ((entity.getIdRefe() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdRefe(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idRefe");
-			}
-
 			if ((entity.getManejaDecimales() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getManejaDecimales(), 1, 0) == false)) {
@@ -402,10 +392,6 @@ public class ReferenciaLogic implements IReferenciaLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getVolumen(), 10, 3) == false)) {
 				throw new ZMessManager().new NotValidFormatException("volumen");
-			}
-
-			if (getReferencia(entity.getIdRefe()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
 			}
 
 			referenciaDAO.save(entity);
@@ -641,16 +627,6 @@ public class ReferenciaLogic implements IReferenciaLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getGalones(), 10, 3) == false)) {
 				throw new ZMessManager().new NotValidFormatException("galones");
-			}
-
-			if (entity.getIdRefe() == null) {
-				throw new ZMessManager().new EmptyFieldException("idRefe");
-			}
-
-			if ((entity.getIdRefe() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdRefe(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idRefe");
 			}
 
 			if ((entity.getManejaDecimales() != null)

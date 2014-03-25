@@ -27,6 +27,7 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ConfSemanasAno;
 import co.edu.usbcali.modelo.Semana;
+import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.modelo.dto.ConfSemanasAnoDTO;
 import co.edu.usbcali.modelo.dto.SemanaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
@@ -111,6 +112,12 @@ public class ConfSemanasAnoView {
 			Semana entity2 = businessDelegatorView.getSemana(getIdSema_Semana());
 			System.out.println("semana " + entity2);
 			entity.setSemana(entity2);
+			
+			Date fechaInicial = ((ConfSemanasAnoDTO) event.getObject()).getFechaInicial();
+			entity.setFechaInicial(fechaInicial);
+			
+			Date fechaFinal = ((ConfSemanasAnoDTO) event.getObject()).getFechaFinal();
+			entity.setFechaFinal(fechaFinal);
 			
 			
 			businessDelegatorView.updateConfSemanasAno(entity);

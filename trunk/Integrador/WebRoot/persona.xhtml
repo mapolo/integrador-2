@@ -13,8 +13,6 @@
 		<ui:define name="header">
 
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -50,8 +48,6 @@ body {
 </style>
 				<div id="logo" align="center">
 
-
-
 					<h:form id="form">
 
 						<p:panel id="msgProjectPersonaTitle" header="Persona">
@@ -71,7 +67,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idPers" sortBy="idPers"
 									style="width:10%">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idPers}" />
@@ -81,201 +76,10 @@ body {
 												disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
-
-
-								<p:column id="identificacion" filterBy="identificacion"
-									headerText="Identificacion" sortBy="identificacion"
-									filterMatchMode="contains" style="width:10%">
-
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.identificacion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.identificacion}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-
-
-								<p:column id="primerNombre" filterBy="primerNombre"
-									headerText="Primer nombre" sortBy="primerNombre"
-									filterMatchMode="contains" style="width:10%">
-
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.primerNombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.primerNombre}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-<p:column id="segundoNombre" filterBy="segundoNombre"
-								headerText="Segundo Nombre" sortBy="segundoNombre"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.segundoNombre}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.segundoNombre}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-<p:column id="primerApellido" filterBy="primerApellido"
-								headerText="Primer Apellido" sortBy="primerApellido"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.primerApellido}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.primerApellido}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-
-							<p:column id="segundoApellido" filterBy="segundoApellido"
-								headerText="Segundo Apellido" sortBy="segundoApellido"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.segundoApellido}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.segundoApellido}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-							<p:column headerText="Direccion" style="width:20%">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputLabel value="#{car.direccion}" />
-									</f:facet>
-
-									<f:facet name="input">
-										<p:inputTextarea value="#{car.direccion}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-							<p:column id="telefono1" filterBy="telefono1"
-								headerText="Telefono 1" sortBy="telefono1"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.telefono1}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.telefono1}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-							<p:column id="telefono2" filterBy="telefono2"
-								headerText="Telefono 2" sortBy="telefono2"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.telefono2}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.telefono2}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-							<p:column id="apartadoAereo" filterBy="apartadoAereo"
-								headerText="Apartado Aereo" sortBy="apartadoAereo"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.apartadoAereo}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.apartadoAereo}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-<p:column id="email" filterBy="email" headerText="email"
-								sortBy="email" filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.email}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.email}" style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-							<p:column id="digitoVerificacion" filterBy="digitoVerificacion"
-								headerText="Digito Verificacion" sortBy="digitoVerificacion"
-								filterMatchMode="contains" style="width:10%">
-
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.digitoVerificacion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.digitoVerificacion}"
-											style="width:100%" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-<p:column headerText="Fecha de Creación" style="width:20%"
-								filterBy="fechaCreacion" sortBy="fechaCreacion">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.fechaCreacion}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-							<p:column headerText="Operador Creador" style="width:20%"
-								filterBy="operCreador" sortBy="operCreador">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.operCreador}" />
-									</f:facet>
-									<f:facet name="input">
-										<p:inputText value="#{car.operCreador}" style="width:100%"
-											disabled="true" />
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
-
-
-								<p:column headerText="ID Tipo Identificacion" style="width:20%"
-									filterBy="idTiid_TipoIdentificacion"
+								<p:column headerText="ID Tipo de Identificación"
+									style="width:20%" filterBy="idTiid_TipoIdentificacion"
 									sortBy="idTiid_TipoIdentificacion">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -294,8 +98,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
-								<p:column headerText="ID Division Politica" style="width:20%"
+								<p:column headerText="ID División Politica" style="width:20%"
 									filterBy="idDipo_DivisionPolitica"
 									sortBy="idDipo_DivisionPolitica">
 									<p:cellEditor>
@@ -316,25 +119,202 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-<p:column headerText="Estado Persona" style="width:20%"
-								filterBy="estadoPersona"
-								filterOptions="#{personaView.manufacturerOptions2}"
-								filterMatchMode="exact">
-								<p:cellEditor>
-									<f:facet name="output">
-										<h:outputText value="#{car.estadoPersona}" />
-									</f:facet>
+								<p:column id="identificacion" filterBy="identificacion"
+									headerText="Identificación" sortBy="identificacion"
+									filterMatchMode="contains" style="width:10%">
 
-									<f:facet name="input">
-										<h:selectOneMenu value="#{personaView.estadoPersona}">
-											<f:selectItem itemLabel="1" itemValue="1" />
-											<f:selectItem itemLabel="0" itemValue="0" />
-										</h:selectOneMenu>
-									</f:facet>
-								</p:cellEditor>
-							</p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.identificacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.identificacion}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
+								<p:column id="primerNombre" filterBy="primerNombre"
+									headerText="Primer Nombre" sortBy="primerNombre"
+									filterMatchMode="contains" style="width:10%">
 
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.primerNombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.primerNombre}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="segundoNombre" filterBy="segundoNombre"
+									headerText="Segundo Nombre" sortBy="segundoNombre"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.segundoNombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.segundoNombre}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="primerApellido" filterBy="primerApellido"
+									headerText="Primer Apellido" sortBy="primerApellido"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.primerApellido}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.primerApellido}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="segundoApellido" filterBy="segundoApellido"
+									headerText="Segundo Apellido" sortBy="segundoApellido"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.segundoApellido}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.segundoApellido}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Dirección" style="width:20%">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.direccion}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.direccion}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono1" filterBy="telefono1"
+									headerText="Telefono 1" sortBy="telefono1"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono1}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono1}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono2" filterBy="telefono2"
+									headerText="Telefono 2" sortBy="telefono2"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono2}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono2}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="apartadoAereo" filterBy="apartadoAereo"
+									headerText="Apartado Aereo" sortBy="apartadoAereo"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.apartadoAereo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.apartadoAereo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="email" filterBy="email" headerText="Email"
+									sortBy="email" filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.email}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.email}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="digitoVerificacion" filterBy="digitoVerificacion"
+									headerText="Digito Verificación" sortBy="digitoVerificacion"
+									filterMatchMode="contains" style="width:10%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.digitoVerificacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.digitoVerificacion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado Persona" style="width:20%"
+									filterBy="estadoPersona"
+									filterOptions="#{personaView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoPersona}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{personaView.estadoPersona}">
+												<f:selectItem itemLabel="1" itemValue="1" />
+												<f:selectItem itemLabel="0" itemValue="0" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
@@ -344,7 +324,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{personaView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -353,7 +332,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
@@ -378,109 +356,90 @@ body {
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="4" id="panel">
 
-									<h:outputText id="msgApartadoAereo" value=" Apartado Aereo:" />
-									<p:inputText id="txtApartadoAereo"
-										value="#{personaView.apartadoAereo}"
-										binding="#{personaView.txtApartadoAereo}" />
-
-
-									<h:outputText id="msgDigitoVerificacion"
-										value=" Digito de Verificacion:" />
-									<p:inputText id="txtDigitoVerificacion"
-										value="#{personaView.digitoVerificacion}"
-										binding="#{personaView.txtDigitoVerificacion}" />
-
-
-									<h:outputText id="msgDireccion" value=" Direccion:" />
-									<p:inputTextarea rows="3" cols="15" id="txtDireccion"
-										value="#{personaView.direccion}"
-										binding="#{personaView.txtDireccion}" />
-
-
-									<h:outputText id="msgEmail" value=" Email" />
-									<p:inputText id="txtEmail" value="#{personaView.email}"
-										binding="#{personaView.txtEmail}" />
-
-
-									<h:outputText id="msgEstadoPersona"
-										value=" Estado de la Persona" />
-									<p:selectOneMenu binding="#{personaView.estadoP}"
-										value="#{personaView.estadoPersona}">
-										<f:selectItem itemLabel="1" itemValue="1" />
-										<f:selectItem itemLabel="0" itemValue="0" />
-									</p:selectOneMenu>
-
-
-									<h:outputText id="msgEstadoRegistro"
-										value=" Estado del Registro:" />
-									<p:selectOneMenu binding="#{personaView.estado}"
-										value="#{personaView.estadoRegistro}">
-										<f:selectItem itemLabel="A" itemValue="A" />
-										<f:selectItem itemLabel="R" itemValue="R" />
-									</p:selectOneMenu>
-
-
-									<h:outputText id="msgIdentificacion" value=" *Identificacion:" />
-									<p:inputText id="txtIdentificacion"
-										value="#{personaView.identificacion}"
-										binding="#{personaView.txtIdentificacion}" />
-
-
-									<h:outputText id="msgPrimerApellido" value=" Primer Apellido:" />
-									<p:inputText id="txtPrimerApellido"
-										value="#{personaView.primerApellido}"
-										binding="#{personaView.txtPrimerApellido}" />
-
-
-									<h:outputText id="msgPrimerNombre" value=" *Primer Nombre:" />
-									<p:inputText id="txtPrimerNombre"
-										value="#{personaView.primerNombre}"
-										binding="#{personaView.txtPrimerNombre}" />
-
-
-									<h:outputText id="msgSegundoApellido"
-										value=" Segundo Apellido:" />
-									<p:inputText id="txtSegundoApellido"
-										value="#{personaView.segundoApellido}"
-										binding="#{personaView.txtSegundoApellido}" />
-
-
-									<h:outputText id="msgSegundoNombre" value=" Segundo Nombre:" />
-									<p:inputText id="txtSegundoNombre"
-										value="#{personaView.segundoNombre}"
-										binding="#{personaView.txtSegundoNombre}" />
-
-
-									<h:outputText id="msgTelefono1" value=" Telefono 1:" />
-									<p:inputText id="txtTelefono1" value="#{personaView.telefono1}"
-										binding="#{personaView.txtTelefono1}" />
-
-
-									<h:outputText id="msgTelefono2" value=" Telefono 2:" />
-									<p:inputText id="txtTelefono2" value="#{personaView.telefono2}"
-										binding="#{personaView.txtTelefono2}" />
-
-
-
-
-
-									<h:outputText id="msgIdDipo_DivisionPolitica"
-										value=" Nombre divisionPolitica:" />
-									<p:selectOneMenu value="#{personaView.idDipo_DivisionPolitica}"
-										binding="#{personaView.txtIdDipo_DivisionPolitica}">
-
-										<f:selectItems value="#{personaView.divisionPolitica}" />
-									</p:selectOneMenu>
-
-
 									<h:outputText id="msgIdTiid_TipoIdentificacion"
-										value=" Codigo T.Identigicacion:" />
+										value="*ID Tipo de Identificación:" />
 									<p:selectOneMenu
 										value="#{personaView.idTiid_TipoIdentificacion}"
 										binding="#{personaView.txtIdTiid_TipoIdentificacion}">
 										<f:selectItems value="#{personaView.tipoIdentificacion}" />
 									</p:selectOneMenu>
 
+									<h:outputText id="msgIdDipo_DivisionPolitica"
+										value="ID División Politica:" />
+									<p:selectOneMenu value="#{personaView.idDipo_DivisionPolitica}"
+										binding="#{personaView.txtIdDipo_DivisionPolitica}">
+
+										<f:selectItems value="#{personaView.divisionPolitica}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdentificacion" value="*Identificacón:" />
+									<p:inputText id="txtIdentificacion"
+										value="#{personaView.identificacion}"
+										binding="#{personaView.txtIdentificacion}" />
+
+									<h:outputText id="msgPrimerNombre" value="*Primer Nombre:" />
+									<p:inputText id="txtPrimerNombre"
+										value="#{personaView.primerNombre}"
+										binding="#{personaView.txtPrimerNombre}" />
+
+									<h:outputText id="msgSegundoNombre" value="Segundo Nombre:" />
+									<p:inputText id="txtSegundoNombre"
+										value="#{personaView.segundoNombre}"
+										binding="#{personaView.txtSegundoNombre}" />
+
+									<h:outputText id="msgPrimerApellido" value="Primer Apellido:" />
+									<p:inputText id="txtPrimerApellido"
+										value="#{personaView.primerApellido}"
+										binding="#{personaView.txtPrimerApellido}" />
+
+									<h:outputText id="msgSegundoApellido" value="Segundo Apellido:" />
+									<p:inputText id="txtSegundoApellido"
+										value="#{personaView.segundoApellido}"
+										binding="#{personaView.txtSegundoApellido}" />
+
+									<h:outputText id="msgDireccion" value="Dirección:" />
+									<p:inputTextarea rows="3" cols="15" id="txtDireccion"
+										value="#{personaView.direccion}"
+										binding="#{personaView.txtDireccion}" />
+
+									<h:outputText id="msgTelefono1" value="Telefono 1:" />
+									<p:inputText id="txtTelefono1" value="#{personaView.telefono1}"
+										binding="#{personaView.txtTelefono1}" />
+
+									<h:outputText id="msgTelefono2" value="Telefono 2:" />
+									<p:inputText id="txtTelefono2" value="#{personaView.telefono2}"
+										binding="#{personaView.txtTelefono2}" />
+
+									<h:outputText id="msgApartadoAereo" value="Apartado Aereo:" />
+									<p:inputText id="txtApartadoAereo"
+										value="#{personaView.apartadoAereo}"
+										binding="#{personaView.txtApartadoAereo}" />
+
+									<h:outputText id="msgEmail" value="Email:" />
+									<p:inputText id="txtEmail" value="#{personaView.email}"
+										binding="#{personaView.txtEmail}" />
+
+									<h:outputText id="msgDigitoVerificacion"
+										value="Digito de Verificación:" />
+									<p:inputText id="txtDigitoVerificacion"
+										value="#{personaView.digitoVerificacion}"
+										binding="#{personaView.txtDigitoVerificacion}" />
+
+									<h:outputText id="msgEstadoPersona"
+										value="Estado de la Persona:" />
+									<p:selectOneMenu binding="#{personaView.estadoP}"
+										value="#{personaView.estadoPersona}">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{personaView.estado}"
+										value="#{personaView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
 
 								</h:panelGrid>
 
@@ -492,18 +451,14 @@ body {
 										action="#{personaView.action_create}"
 										binding="#{personaView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

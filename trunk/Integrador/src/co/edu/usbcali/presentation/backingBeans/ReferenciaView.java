@@ -25,6 +25,7 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Referencia;
+import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
@@ -71,7 +72,7 @@ public class ReferenciaView {
 	private Calendar txtFechaVigentePBodega;
 	private Calendar txtFechaVigentePEne;
 
-	private String qPorCaja;
+	private String QPorCaja;
 	private String aplicacion;
 	private String codigo;
 	private String codigoBarras;
@@ -184,63 +185,83 @@ public class ReferenciaView {
 			unidadMedidaProvisional = ((ReferenciaDTO) event.getObject())
 					.getUnidadMedidaProvisional();
 			entity.setUnidadMedidaProvisional(unidadMedidaProvisional);
-
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
-			// entity.setFechaVigentePBodega(FacesUtils.checkDate(txtFechaVigentePBodega));
-			// entity.setFechaVigentePEne(FacesUtils.checkDate(txtFechaVigentePEne));
-
-			Double volumen = new Double(txtVolumen.getValue().toString());
+			
+			Double volumen = new Double(((ReferenciaDTO) event.getObject())
+					.getVolumen());
 			entity.setVolumen(volumen);
-			Double galones = new Double(txtGalones.getValue().toString());
+			
+			Double galones = new Double(((ReferenciaDTO) event.getObject())
+					.getGalones());
 			entity.setGalones(galones);
-			Double porcentajeIva = new Double(txtPorcentajeIva.getValue()
-					.toString());
-			entity.setPorcentajeIva(porcentajeIva);
-			Double costo = new Double(txtCosto.getValue().toString());
-			entity.setCosto(costo);
-			Double peso = new Double(txtPeso.getValue().toString());
-			entity.setPeso(peso);
 
-			Long qPorCaja = new Long(txtQPorCaja.getValue().toString());
-			entity.setQPorCaja(qPorCaja);
-			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
-					.getValue().toString());
+			Double porcentajeIva = new Double(((ReferenciaDTO) event.getObject())
+					.getPorcentajeIva());
+			entity.setPorcentajeIva(porcentajeIva);
+
+			//Double costo = new Double(((ReferenciaDTO) event.getObject()).getCosto());
+			//entity.setCosto(costo);
+			
+			Double peso = new Double(((ReferenciaDTO) event.getObject())
+					.getPeso());
+			entity.setPeso(peso);
+			
+			Long QPorCaja = new Long(((ReferenciaDTO) event.getObject())
+					.getQPorCaja());
+			entity.setQPorCaja(QPorCaja);
+
+			Long margenMinimoGBodega = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoGBodega());
 			entity.setMargenMinimoGBodega(margenMinimoGBodega);
-			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
-					.toString());
+			
+			Long margenMinimoGEne = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoGEne());
 			entity.setMargenMinimoGEne(margenMinimoGEne);
-			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
-					.getValue().toString());
+			
+			Long margenMinimoPBodega = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoPBodega());
 			entity.setMargenMinimoPBodega(margenMinimoPBodega);
-			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
-					.toString());
+			
+			Long margenMinimoPEne = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoPEne());
 			entity.setMargenMinimoPEne(margenMinimoPEne);
-			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
-					.getValue().toString());
+			
+			Long margenMinimoRefBodega = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoRefBodega());
 			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
-			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
-					.toString());
+			
+			Long margenMinimoRefEne = new Long(((ReferenciaDTO) event.getObject())
+					.getMargenMinimoRefEne());
 			entity.setMargenMinimoRefEne(margenMinimoRefEne);
-			Long productoConsumo = new Long(txtProductoConsumo.getValue()
-					.toString());
+			
+			Long productoConsumo = new Long(((ReferenciaDTO) event.getObject())
+					.getProductoConsumo());
 			entity.setProductoConsumo(productoConsumo);
-			Long productoEspecial = new Long(txtProductoEspecial.getValue()
-					.toString());
+			
+			Long productoEspecial = new Long(((ReferenciaDTO) event.getObject())
+					.getProductoEspecial());
 			entity.setProductoEspecial(productoEspecial);
-			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
-					.toString());
+			
+			Long manejaDecimales = new Long(((ReferenciaDTO) event.getObject())
+					.getManejaDecimales());
 			entity.setManejaDecimales(manejaDecimales);
-			Long manejaLote = new Long(txtManejaLote.getValue().toString());
+			
+			Long manejaLote = new Long(((ReferenciaDTO) event.getObject())
+					.getManejaLote());
 			entity.setManejaLote(manejaLote);
 
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
+			
+			Date fechaVigentePBodega = ((ReferenciaDTO) event.getObject()).getFechaVigentePBodega();
+			entity.setFechaVigentePBodega(fechaVigentePBodega);
+			
+			Date fechaVigentePEne = ((ReferenciaDTO) event.getObject()).getFechaVigentePEne();
+			entity.setFechaVigentePEne(fechaVigentePEne);
 
 			businessDelegatorView.updateReferencia(entity);
 			data = businessDelegatorView.getDataReferencia();
-			RequestContext.getCurrentInstance().reset("form:banco");
+			RequestContext.getCurrentInstance().reset("form:refe");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
 		} catch (Exception e) {
@@ -984,9 +1005,7 @@ public class ReferenciaView {
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
-			String usuario = (String) session.getAttribute("Usuario");
-			System.out.println("entro creat");
-			
+			String usuario = (String) session.getAttribute("Usuario");			
 			
 			entity.setAplicacion(FacesUtils.checkString(txtAplicacion));
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
@@ -1013,61 +1032,66 @@ public class ReferenciaView {
 			entity.setUnidadMedidaProvisional(FacesUtils
 					.checkString(txtUnidadMedidaProvisional));
 			
-			System.out.println("antes del doubl");
-			Double volumen = new Double(txtVolumen.getValue().toString());
-			entity.setVolumen(volumen);
-			System.out.println("vol: " + volumen);
+			entity.setVolumen(FacesUtils.checkDouble(txtVolumen));
+			//Double volumen = new Double(txtVolumen.getValue().toString());
+			//entity.setVolumen(volumen);
+		
+			entity.setGalones(FacesUtils.checkDouble(txtGalones));
+			//Double galones = new Double(txtGalones.getValue().toString());
+			//entity.setGalones(galones);
 			
-			Double galones = new Double(txtGalones.getValue().toString());
-			entity.setGalones(galones);
-			System.out.println("galones: " + galones);
+			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
+			//Double porcentajeIva = new Double(txtPorcentajeIva.getValue().toString());
+			//entity.setPorcentajeIva(porcentajeIva);
 			
-			Double porcentajeIva = new Double(txtPorcentajeIva.getValue()
-					.toString());
-			entity.setPorcentajeIva(porcentajeIva);
-			System.out.println("porcentaje: " + porcentajeIva);
+			entity.setCosto(FacesUtils.checkDouble(txtCosto));
+			System.out.println("costo: "+costo + "; " + entity.getCosto());
+			//Double costo = new Double(txtCosto.getValue().toString());
+			//entity.setCosto(costo);
 			
-			Double costo = new Double(txtCosto.getValue().toString());
-			entity.setCosto(costo);
-			System.out.println("costo" + costo);
+			entity.setPeso(FacesUtils.checkDouble(txtPeso));
+			//Double peso = new Double(txtPeso.getValue().toString());
+			//entity.setPeso(peso);
 			
-			Double peso = new Double(txtPeso.getValue().toString());
-			entity.setPeso(peso);
-			System.out.println("peso " + peso);
-			
-			Long qPorCaja = new Long(txtQPorCaja.getValue().toString());
-			entity.setQPorCaja(qPorCaja);
-			System.out.println("qPorCaja" + qPorCaja);
+			Long QPorCaja = new Long(txtQPorCaja.getValue().toString());
+			entity.setQPorCaja(QPorCaja);
 			
 			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
 					.getValue().toString());
 			entity.setMargenMinimoGBodega(margenMinimoGBodega);
-			
-			
+				
 			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
 					.toString());
 			entity.setMargenMinimoGEne(margenMinimoGEne);
+			
 			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
 					.getValue().toString());
 			entity.setMargenMinimoPBodega(margenMinimoPBodega);
+			
 			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
 					.toString());
 			entity.setMargenMinimoPEne(margenMinimoPEne);
+			
 			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
 					.getValue().toString());
 			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
+			
 			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
 					.toString());
 			entity.setMargenMinimoRefEne(margenMinimoRefEne);
+			
 			Long productoConsumo = new Long(txtProductoConsumo.getValue()
 					.toString());
 			entity.setProductoConsumo(productoConsumo);
+			
 			Long productoEspecial = new Long(txtProductoEspecial.getValue()
 					.toString());
 			entity.setProductoEspecial(productoEspecial);
+			
 			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
 					.toString());
 			entity.setManejaDecimales(manejaDecimales);
+			
 			Long manejaLote = new Long(txtManejaLote.getValue().toString());
 			entity.setManejaLote(manejaLote);
 
@@ -1651,13 +1675,7 @@ public class ReferenciaView {
 		this.estado = estado;
 	}
 
-	public String getqPorCaja() {
-		return qPorCaja;
-	}
 
-	public void setqPorCaja(String qPorCaja) {
-		this.qPorCaja = qPorCaja;
-	}
 
 	public String getAplicacion() {
 		return aplicacion;
@@ -1961,5 +1979,13 @@ public class ReferenciaView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public String getQPorCaja() {
+		return QPorCaja;
+	}
+
+	public void setQPorCaja(String qPorCaja) {
+		QPorCaja = qPorCaja;
 	}
 }
