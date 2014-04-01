@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.DescuentoFinanciero" table="DESCUENTO_FINANCIERO" >
         <id name="idDefi" type="java.lang.Long">
             <column name="ID_DEFI" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+            <param name="sequence">DEFI_ID_DEFI_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="grupo" class="co.edu.usbcali.modelo.Grupo" fetch="select">
             <column name="ID_GRPO" precision="10" scale="0" not-null="true" />

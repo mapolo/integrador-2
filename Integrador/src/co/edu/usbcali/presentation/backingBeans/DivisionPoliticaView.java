@@ -2,8 +2,11 @@ package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -12,15 +15,26 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.ClaveFabricacion;
 import co.edu.usbcali.modelo.DivisionPolitica;
+import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.TipoDivision;
+import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
+import co.edu.usbcali.modelo.dto.ClavesParaRotarDTO;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
+import co.edu.usbcali.modelo.dto.SucursalDTO;
+import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -32,15 +46,31 @@ import co.edu.usbcali.utilities.FacesUtils;
 @ViewScoped
 public class DivisionPoliticaView {
 	private InputText txtCodigoDian;
-	private InputText txtEstadoRegistro;
+	// private InputText txtEstadoRegistro;
+	private SelectOneMenu estado;
 	private InputText txtNombre;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
-	private InputText txtIdDipo_DivisionPolitica;
-	private InputText txtIdTidi_TipoDivision;
+	private SelectOneMenu txtIdDipo_DivisionPolitica;
+	private SelectOneMenu txtIdTidi_TipoDivision;
 	private InputText txtIdDipo;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
+
+	private String codigoDian;
+	private String estadoRegistro;
+	private String nombre;
+	private String operCreador;
+	private String operModifica;
+	private Long idDipo_DivisionPolitica;
+	private Long idTidi_TipoDivision;
+	private String idDipo;
+	private String fechaCreacion;
+	private String fechaModificacion;
+
+	private Map<String, String> divisionPolitica = new HashMap<String, String>();
+	private Map<String, String> tipoDivision = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -51,9 +81,103 @@ public class DivisionPoliticaView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+
+	String manufacturers[] = { "A", "R" };
 
 	public DivisionPoliticaView() {
 		super();
+
+		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+
+			entity = null;
+			entity = businessDelegatorView
+					.getDivisionPolitica(((DivisionPoliticaDTO) event
+							.getObject()).getIdDipo());
+
+			
+			entity.setNombre(((DivisionPoliticaDTO) event.getObject()).getNombre());
+			entity.setCodigoDian(((DivisionPoliticaDTO) event.getObject()).getCodigoDian());
+			
+			
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setFechaModificacion(new Date());
+			
+			
+			
+			DivisionPolitica entity2 = businessDelegatorView
+					.getDivisionPolitica(getIdDipo_DivisionPolitica());
+			entity.setDivisionPolitica(entity2);
+
+			TipoDivision entity3 = businessDelegatorView
+					.getTipoDivision(getIdTidi_TipoDivision());
+			entity.setTipoDivision(entity3);
+			
+			
+	
+
+			businessDelegatorView.updateDivisionPolitica(entity);
+			try {
+				divisionPolitica = new HashMap<String, String>();
+				List<DivisionPoliticaDTO> data2 = businessDelegatorView
+						.getDataDivisionPolitica();
+
+				for (int i = 0; i < data2.size(); i++) {
+					divisionPolitica.put(data2.get(i).getNombre(), data2.get(i)
+							.getIdDipo() + "");
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			data = businessDelegatorView.getDataDivisionPolitica();
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
+				((DivisionPoliticaDTO) event.getObject()).getIdDipo() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((DivisionPoliticaDTO) event.getObject()).getIdDipo());
+		
+		RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+		
+		reload();
+		
+	}
+	
+	public String reload(){
+		System.out.println("Entro a reload");
+		
+		return "divisionPolitica.xhtml?faces-redirect=true";
+		
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -67,11 +191,13 @@ public class DivisionPoliticaView {
 
 			txtCodigoDian.setValue(divisionPoliticaDTO.getCodigoDian());
 
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(divisionPoliticaDTO.getEstadoRegistro());
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(divisionPoliticaDTO.getEstadoRegistro()
+			 * );
+			 */
 
 			if (txtNombre == null) {
 				txtNombre = new InputText();
@@ -92,14 +218,14 @@ public class DivisionPoliticaView {
 			txtOperModifica.setValue(divisionPoliticaDTO.getOperModifica());
 
 			if (txtIdDipo_DivisionPolitica == null) {
-				txtIdDipo_DivisionPolitica = new InputText();
+				txtIdDipo_DivisionPolitica = new SelectOneMenu();
 			}
 
 			txtIdDipo_DivisionPolitica.setValue(divisionPoliticaDTO
 					.getIdDipo_DivisionPolitica());
 
 			if (txtIdTidi_TipoDivision == null) {
-				txtIdTidi_TipoDivision = new InputText();
+				txtIdTidi_TipoDivision = new SelectOneMenu();
 			}
 
 			txtIdTidi_TipoDivision.setValue(divisionPoliticaDTO
@@ -112,13 +238,13 @@ public class DivisionPoliticaView {
 			txtIdDipo.setValue(divisionPoliticaDTO.getIdDipo());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(divisionPoliticaDTO.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(divisionPoliticaDTO
@@ -143,56 +269,56 @@ public class DivisionPoliticaView {
 
 		if (txtCodigoDian != null) {
 			txtCodigoDian.setValue(null);
-			txtCodigoDian.setDisabled(true);
+			// txtCodigoDian.setDisabled(true);
 		}
 
-		if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtNombre != null) {
 			txtNombre.setValue(null);
-			txtNombre.setDisabled(true);
+			// txtNombre.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtIdDipo_DivisionPolitica != null) {
 			txtIdDipo_DivisionPolitica.setValue(null);
-			txtIdDipo_DivisionPolitica.setDisabled(true);
+			// txtIdDipo_DivisionPolitica.setDisabled(true);
 		}
 
 		if (txtIdTidi_TipoDivision != null) {
 			txtIdTidi_TipoDivision.setValue(null);
-			txtIdTidi_TipoDivision.setDisabled(true);
+			// txtIdTidi_TipoDivision.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdDipo != null) {
 			txtIdDipo.setValue(null);
-			txtIdDipo.setDisabled(false);
+			// txtIdDipo.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -226,7 +352,7 @@ public class DivisionPoliticaView {
 
 		if (entity == null) {
 			txtCodigoDian.setDisabled(false);
-			txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setDisabled(false);
 			txtNombre.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -239,8 +365,8 @@ public class DivisionPoliticaView {
 		} else {
 			txtCodigoDian.setValue(entity.getCodigoDian());
 			txtCodigoDian.setDisabled(false);
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -268,9 +394,11 @@ public class DivisionPoliticaView {
 				.getAttributes().get("selectedDivisionPolitica"));
 		txtCodigoDian.setValue(selectedDivisionPolitica.getCodigoDian());
 		txtCodigoDian.setDisabled(false);
-		txtEstadoRegistro
-				.setValue(selectedDivisionPolitica.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
+		/*
+		 * txtEstadoRegistro
+		 * .setValue(selectedDivisionPolitica.getEstadoRegistro());
+		 */
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedDivisionPolitica.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedDivisionPolitica
@@ -315,25 +443,39 @@ public class DivisionPoliticaView {
 	public String action_create() {
 		try {
 			entity = new DivisionPolitica();
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			Long idDipo = new Long(txtIdDipo.getValue().toString());
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idDipo = new Long(txtIdDipo.getValue().toString());
 
 			entity.setCodigoDian(FacesUtils.checkString(txtCodigoDian));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdDipo(idDipo);
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setDivisionPolitica(businessDelegatorView
-					.getDivisionPolitica(FacesUtils
-							.checkLong(txtIdDipo_DivisionPolitica)));
-			entity.setTipoDivision(businessDelegatorView
-					.getTipoDivision(FacesUtils
-							.checkLong(txtIdTidi_TipoDivision)));
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+
+			// entity.setDivisionPolitica(businessDelegatorView
+			// .getDivisionPolitica(FacesUtils
+			// .checkLong(txtIdDipo_DivisionPolitica)));
+			// entity.setTipoDivision(businessDelegatorView
+			// .getTipoDivision(FacesUtils
+			// .checkLong(txtIdTidi_TipoDivision)));
+
+			DivisionPolitica entity2 = businessDelegatorView
+					.getDivisionPolitica(getIdDipo_DivisionPolitica());
+			entity.setDivisionPolitica(entity2);
+
+			TipoDivision entity3 = businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision());
+			entity.setTipoDivision(entity3);
+
 			businessDelegatorView.saveDivisionPolitica(entity);
+			data = businessDelegatorView.getDataDivisionPolitica();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -351,7 +493,7 @@ public class DivisionPoliticaView {
 			}
 
 			entity.setCodigoDian(FacesUtils.checkString(txtCodigoDian));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -451,13 +593,12 @@ public class DivisionPoliticaView {
 		this.txtCodigoDian = txtCodigoDian;
 	}
 
-	public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtNombre() {
 		return txtNombre;
@@ -483,36 +624,36 @@ public class DivisionPoliticaView {
 		this.txtOperModifica = txtOperModifica;
 	}
 
-	public InputText getTxtIdDipo_DivisionPolitica() {
+	public SelectOneMenu getTxtIdDipo_DivisionPolitica() {
 		return txtIdDipo_DivisionPolitica;
 	}
 
 	public void setTxtIdDipo_DivisionPolitica(
-			InputText txtIdDipo_DivisionPolitica) {
+			SelectOneMenu txtIdDipo_DivisionPolitica) {
 		this.txtIdDipo_DivisionPolitica = txtIdDipo_DivisionPolitica;
 	}
 
-	public InputText getTxtIdTidi_TipoDivision() {
+	public SelectOneMenu getTxtIdTidi_TipoDivision() {
 		return txtIdTidi_TipoDivision;
 	}
 
-	public void setTxtIdTidi_TipoDivision(InputText txtIdTidi_TipoDivision) {
+	public void setTxtIdTidi_TipoDivision(SelectOneMenu txtIdTidi_TipoDivision) {
 		this.txtIdTidi_TipoDivision = txtIdTidi_TipoDivision;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -600,4 +741,143 @@ public class DivisionPoliticaView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getCodigoDian() {
+		return codigoDian;
+	}
+
+	public void setCodigoDian(String codigoDian) {
+		this.codigoDian = codigoDian;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public Long getIdDipo_DivisionPolitica() {
+		return idDipo_DivisionPolitica;
+	}
+
+	public void setIdDipo_DivisionPolitica(Long idDipo_DivisionPolitica) {
+		this.idDipo_DivisionPolitica = idDipo_DivisionPolitica;
+	}
+
+	public Long getIdTidi_TipoDivision() {
+		return idTidi_TipoDivision;
+	}
+
+	public void setIdTidi_TipoDivision(Long idTidi_TipoDivision) {
+		this.idTidi_TipoDivision = idTidi_TipoDivision;
+	}
+
+	public String getIdDipo() {
+		return idDipo;
+	}
+
+	public void setIdDipo(String idDipo) {
+		this.idDipo = idDipo;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public Map<String, String> getDivisionPolitica() {
+		try {
+			List<DivisionPoliticaDTO> data2 = businessDelegatorView
+					.getDataDivisionPolitica();
+
+			for (int i = 0; i < data2.size(); i++) {
+				divisionPolitica.put(data2.get(i).getNombre(), data2.get(i)
+						.getIdDipo() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return divisionPolitica;
+	}
+
+	public void setDivisionPolitica(Map<String, String> divisionPolitica) {
+		this.divisionPolitica = divisionPolitica;
+	}
+
+	public Map<String, String> getTipoDivision() {
+		try {
+			List<TipoDivisionDTO> data3 = businessDelegatorView
+					.getDataTipoDivision();
+
+			for (int i = 0; i < data3.size(); i++) {
+				tipoDivision.put(data3.get(i).getNombre(), data3.get(i)
+						.getIdTidi() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return tipoDivision;
+	}
+
+	public void setTipoDivision(Map<String, String> tipoDivision) {
+		this.tipoDivision = tipoDivision;
+	}
+
 }

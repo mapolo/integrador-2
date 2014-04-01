@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+
+
+					<h:form id="form">
+
+
+						<p:panel id="msgProjectClavesParaRotarTitle"
+							header="ClavesParaRotar">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{clavesParaRotarView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{clavesParaRotarView.data}">
+
+								<p:ajax event="rowEdit" listener="#{clavesParaRotarView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{clavesParaRotarView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idClpr" sortBy="idClpr"
+									style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idClpr}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idClpr}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+
+
+								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
+									filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.ano}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.ano}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column id="mes" filterBy="mes" headerText="Mes"
+									sortBy="mes" filterMatchMode="contains"
+									style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.mes}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.mes}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+		<p:column headerText="ID Clave de fabricacion" style="width:20%"
+									filterBy="idClfa_ClaveFabricacion"
+									sortBy="idClfa_ClaveFabricacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idClfa_ClaveFabricacion}" />
+										</f:facet>
+
+										<f:facet name="input">
+
+											<p:selectOneMenu
+												value="#{clavesParaRotarView.idClfa_ClaveFabricacion}"
+												style="width:160px">
+
+												<f:selectItems
+													value="#{clavesParaRotarView.claveFabricacion}" />
+
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Sucursal" style="width:20%"
+									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_Sucursal}" />
+										</f:facet>
+
+										<f:facet name="input">
+
+											<p:selectOneMenu
+												value="#{clavesParaRotarView.idSucu_Sucursal}"
+												style="width:160px">
+
+												<f:selectItems value="#{clavesParaRotarView.sucursal}" />
+
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{clavesParaRotarView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{clavesParaRotarView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Persona" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+
+								<h:panelGrid columns="2" id="panel">
+
+
+									<h:outputText id="msgAno" value=" Año:" />
+									<p:inputText id="txtAno" value="#{clavesParaRotarView.ano}"
+										binding="#{clavesParaRotarView.txtAno}" />
+
+									<h:outputText id="msgMes" value=" Mes:" />
+									<p:inputText id="txtMes" value="#{clavesParaRotarView.mes}"
+										binding="#{clavesParaRotarView.txtMes}" />
+
+
+									<h:outputText id="msgIdClfa_ClaveFabricacion"
+										value=" Id Clave de fabricacion" />
+									<p:selectOneMenu
+										value="#{clavesParaRotarView.idClfa_ClaveFabricacion}"
+										binding="#{clavesParaRotarView.txtIdClfa_ClaveFabricacion}">
+										<f:selectItems value="#{clavesParaRotarView.claveFabricacion}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgIdSucu_Sucursal" value=" Nombre Sucursal:" />
+
+
+									<p:selectOneMenu value="#{clavesParaRotarView.idSucu_Sucursal}"
+										binding="#{clavesParaRotarView.txtIdSucu_Sucursal}">
+										<f:selectItem itemLabel="No tiene" itemValue="0" />
+										<f:selectItems value="#{clavesParaRotarView.sucursal}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgEstadoRegistro"
+										value=" Estado del Registro:" />
+									<p:selectOneMenu binding="#{clavesParaRotarView.estado}"
+										value="#{clavesParaRotarView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{clavesParaRotarView.action_create}"
+										binding="#{clavesParaRotarView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+
+						</p:panel>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.DivisionPolitica" table="DIVISION_POLITICA" >
         <id name="idDipo" type="java.lang.Long">
             <column name="ID_DIPO" precision="10" scale="0" />
-            <generator class="assigned" />
+             <generator class="sequence" >
+            <param name="sequence">DIPO_ID_DIPO_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="tipoDivision" class="co.edu.usbcali.modelo.TipoDivision" fetch="select">
             <column name="ID_TIDI" precision="10" scale="0" not-null="true" />
