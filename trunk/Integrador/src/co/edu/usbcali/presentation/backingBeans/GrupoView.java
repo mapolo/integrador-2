@@ -3,7 +3,9 @@ package co.edu.usbcali.presentation.backingBeans;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -12,20 +14,29 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.Familia;
 import co.edu.usbcali.modelo.Grupo;
+import co.edu.usbcali.modelo.TipoCausal;
+import co.edu.usbcali.modelo.dto.CausalDTO;
+import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
+import co.edu.usbcali.modelo.dto.FamiliaDTO;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
 /**
- * @author Zathura Code Generator http://code.google.com/p/zathura
+ * @author JOAN VARGAS & MARCO POLO
  * 
  */
 @ManagedBean
@@ -33,24 +44,49 @@ import co.edu.usbcali.utilities.FacesUtils;
 public class GrupoView {
 	private InputText txtAsociado;
 	private InputText txtDivision;
-	private InputText txtEspecial;
-	private InputText txtEstadoRegistro;
+	private SelectOneMenu txtEspecial;
+	private SelectOneMenu estado;
 	private InputText txtGrupo_1;
-	private InputText txtManejaOrdenCompra;
+	private SelectOneMenu txtManejaOrdenCompra;
 	private InputText txtMargenMinimoBodega;
 	private InputText txtMargenMinimoEnergiteca;
-	private InputText txtModificaReferencia;
+	private SelectOneMenu txtModificaReferencia;
 	private InputText txtNombre;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
-	private InputText txtPideGalones;
-	private InputText txtSugeridoPedido;
+	private SelectOneMenu txtPideGalones;
+	private SelectOneMenu txtSugeridoPedido;
 	private InputText txtTipoNivel;
-	private InputText txtIdFlia_Familia;
-	private InputText txtIdGrpo_Grupo;
+	private SelectOneMenu txtIdFlia_Familia;
+	private SelectOneMenu txtIdGrpo_Grupo;
 	private InputText txtIdGrpo;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
+
+	private String asociado;
+	private String division;
+	private String especial;
+	private String estadoRegistro;
+	private String grupo_1;
+	private String manejaOrdenCompra;
+	private String margenMinimoBodega;
+	private String margenMinimoEnergiteca;
+	private String modificaReferencia;
+	private String nombre;
+	private String operCreador;
+	private String operModifica;
+	private String pideGalones;
+	private String sugeridoPedido;
+	private String tipoNivel;
+	private Long idFlia_Familia;
+	private Long idGrpo_Grupo;
+	private String idGrpo;
+	private String fechaCreacion;
+	private String fechaModificacion;
+
+	private Map<String, String> familias = new HashMap<String, String>();
+	private Map<String, String> grupos = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -62,11 +98,84 @@ public class GrupoView {
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 
+	private SelectItem[] manufacturerOptions;
+	private SelectItem[] manufacturerOptions2;
+
+	String manufacturers[] = { "A", "R" };
+	String manufacturers2[] = { "S", "N" };
+
 	public GrupoView() {
 		super();
+		setManufacturerOptions(createFilterOptions(manufacturers));
+		setManufacturerOptions2(createFilterOptions(manufacturers2));
+	}
+
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getGrupo(((GrupoDTO) event
+					.getObject()).getIdGrpo());
+
+			entity.setAsociado(((GrupoDTO) event.getObject()).getAsociado());
+			entity.setDivision(((GrupoDTO) event.getObject()).getDivision());
+			entity.setGrupo_1(((GrupoDTO) event.getObject()).getGrupo_1());
+			entity.setMargenMinimoBodega(((GrupoDTO) event.getObject())
+					.getMargenMinimoBodega());
+			entity.setMargenMinimoEnergiteca(((GrupoDTO) event.getObject())
+					.getMargenMinimoEnergiteca());
+			entity.setNombre(((GrupoDTO) event.getObject()).getNombre());
+			entity.setTipoNivel(((GrupoDTO) event.getObject()).getTipoNivel());
+
+			entity.setEspecial(especial);
+			entity.setModificaReferencia(modificaReferencia);
+			entity.setPideGalones(pideGalones);
+			entity.setManejaOrdenCompra(manejaOrdenCompra);
+			entity.setSugeridoPedido(sugeridoPedido);
+			entity.setFechaModificacion(new Date());
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+
+			Familia entity2 = businessDelegatorView
+					.getFamilia(getIdFlia_Familia());
+			entity.setFamilia(entity2);
+
+			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
+			entity.setGrupo(entity3);
+
+			businessDelegatorView.updateGrupo(entity);
+			data = businessDelegatorView.getDataGrupo();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Cancelled",
+				((GrupoDTO) event.getObject()).getIdGrpo() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((GrupoDTO) event.getObject()).getIdGrpo());
 	}
 
 	public void rowEventListener(RowEditEvent e) {
+		// TODO: aqui modifique los calendar y el select one menu
 		try {
 			GrupoDTO grupoDTO = (GrupoDTO) e.getObject();
 
@@ -83,16 +192,10 @@ public class GrupoView {
 			txtDivision.setValue(grupoDTO.getDivision());
 
 			if (txtEspecial == null) {
-				txtEspecial = new InputText();
+				txtEspecial = new SelectOneMenu();
 			}
 
 			txtEspecial.setValue(grupoDTO.getEspecial());
-
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(grupoDTO.getEstadoRegistro());
 
 			if (txtGrupo_1 == null) {
 				txtGrupo_1 = new InputText();
@@ -101,7 +204,7 @@ public class GrupoView {
 			txtGrupo_1.setValue(grupoDTO.getGrupo_1());
 
 			if (txtManejaOrdenCompra == null) {
-				txtManejaOrdenCompra = new InputText();
+				txtManejaOrdenCompra = new SelectOneMenu();
 			}
 
 			txtManejaOrdenCompra.setValue(grupoDTO.getManejaOrdenCompra());
@@ -120,7 +223,7 @@ public class GrupoView {
 					.getMargenMinimoEnergiteca());
 
 			if (txtModificaReferencia == null) {
-				txtModificaReferencia = new InputText();
+				txtModificaReferencia = new SelectOneMenu();
 			}
 
 			txtModificaReferencia.setValue(grupoDTO.getModificaReferencia());
@@ -144,13 +247,13 @@ public class GrupoView {
 			txtOperModifica.setValue(grupoDTO.getOperModifica());
 
 			if (txtPideGalones == null) {
-				txtPideGalones = new InputText();
+				txtPideGalones = new SelectOneMenu();
 			}
 
 			txtPideGalones.setValue(grupoDTO.getPideGalones());
 
 			if (txtSugeridoPedido == null) {
-				txtSugeridoPedido = new InputText();
+				txtSugeridoPedido = new SelectOneMenu();
 			}
 
 			txtSugeridoPedido.setValue(grupoDTO.getSugeridoPedido());
@@ -162,13 +265,13 @@ public class GrupoView {
 			txtTipoNivel.setValue(grupoDTO.getTipoNivel());
 
 			if (txtIdFlia_Familia == null) {
-				txtIdFlia_Familia = new InputText();
+				txtIdFlia_Familia = new SelectOneMenu();
 			}
 
 			txtIdFlia_Familia.setValue(grupoDTO.getIdFlia_Familia());
 
 			if (txtIdGrpo_Grupo == null) {
-				txtIdGrpo_Grupo = new InputText();
+				txtIdGrpo_Grupo = new SelectOneMenu();
 			}
 
 			txtIdGrpo_Grupo.setValue(grupoDTO.getIdGrpo_Grupo());
@@ -180,13 +283,13 @@ public class GrupoView {
 			txtIdGrpo.setValue(grupoDTO.getIdGrpo());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(grupoDTO.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(grupoDTO.getFechaModificacion());
@@ -210,106 +313,101 @@ public class GrupoView {
 
 		if (txtAsociado != null) {
 			txtAsociado.setValue(null);
-			txtAsociado.setDisabled(true);
+			// txtAsociado.setDisabled(true);
 		}
 
 		if (txtDivision != null) {
 			txtDivision.setValue(null);
-			txtDivision.setDisabled(true);
+			// txtDivision.setDisabled(true);
 		}
 
 		if (txtEspecial != null) {
 			txtEspecial.setValue(null);
-			txtEspecial.setDisabled(true);
-		}
-
-		if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
+			// txtEspecial.setDisabled(true);
 		}
 
 		if (txtGrupo_1 != null) {
 			txtGrupo_1.setValue(null);
-			txtGrupo_1.setDisabled(true);
+			// txtGrupo_1.setDisabled(true);
 		}
 
 		if (txtManejaOrdenCompra != null) {
 			txtManejaOrdenCompra.setValue(null);
-			txtManejaOrdenCompra.setDisabled(true);
+			// txtManejaOrdenCompra.setDisabled(true);
 		}
 
 		if (txtMargenMinimoBodega != null) {
 			txtMargenMinimoBodega.setValue(null);
-			txtMargenMinimoBodega.setDisabled(true);
+			// txtMargenMinimoBodega.setDisabled(true);
 		}
 
 		if (txtMargenMinimoEnergiteca != null) {
 			txtMargenMinimoEnergiteca.setValue(null);
-			txtMargenMinimoEnergiteca.setDisabled(true);
+			// txtMargenMinimoEnergiteca.setDisabled(true);
 		}
 
 		if (txtModificaReferencia != null) {
 			txtModificaReferencia.setValue(null);
-			txtModificaReferencia.setDisabled(true);
+			// txtModificaReferencia.setDisabled(true);
 		}
 
 		if (txtNombre != null) {
 			txtNombre.setValue(null);
-			txtNombre.setDisabled(true);
+			// txtNombre.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPideGalones != null) {
 			txtPideGalones.setValue(null);
-			txtPideGalones.setDisabled(true);
+			// txtPideGalones.setDisabled(true);
 		}
 
 		if (txtSugeridoPedido != null) {
 			txtSugeridoPedido.setValue(null);
-			txtSugeridoPedido.setDisabled(true);
+			// txtSugeridoPedido.setDisabled(true);
 		}
 
 		if (txtTipoNivel != null) {
 			txtTipoNivel.setValue(null);
-			txtTipoNivel.setDisabled(true);
+			// txtTipoNivel.setDisabled(true);
 		}
 
 		if (txtIdFlia_Familia != null) {
 			txtIdFlia_Familia.setValue(null);
-			txtIdFlia_Familia.setDisabled(true);
+			// txtIdFlia_Familia.setDisabled(true);
 		}
 
 		if (txtIdGrpo_Grupo != null) {
 			txtIdGrpo_Grupo.setValue(null);
-			txtIdGrpo_Grupo.setDisabled(true);
+			// txtIdGrpo_Grupo.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdGrpo != null) {
 			txtIdGrpo.setValue(null);
-			txtIdGrpo.setDisabled(false);
+			// txtIdGrpo.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -338,14 +436,13 @@ public class GrupoView {
 			Long idGrpo = new Long(txtIdGrpo.getValue().toString());
 			entity = businessDelegatorView.getGrupo(idGrpo);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtAsociado.setDisabled(false);
 			txtDivision.setDisabled(false);
 			txtEspecial.setDisabled(false);
-			txtEstadoRegistro.setDisabled(false);
 			txtGrupo_1.setDisabled(false);
 			txtManejaOrdenCompra.setDisabled(false);
 			txtMargenMinimoBodega.setDisabled(false);
@@ -370,8 +467,6 @@ public class GrupoView {
 			txtDivision.setDisabled(false);
 			txtEspecial.setValue(entity.getEspecial());
 			txtEspecial.setDisabled(false);
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -418,8 +513,6 @@ public class GrupoView {
 		txtDivision.setDisabled(false);
 		txtEspecial.setValue(selectedGrupo.getEspecial());
 		txtEspecial.setDisabled(false);
-		txtEstadoRegistro.setValue(selectedGrupo.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedGrupo.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedGrupo.getFechaModificacion());
@@ -479,36 +572,42 @@ public class GrupoView {
 		try {
 			entity = new Grupo();
 
-			Long idGrpo = new Long(txtIdGrpo.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setAsociado(FacesUtils.checkString(txtAsociado));
 			entity.setDivision(FacesUtils.checkString(txtDivision));
-			entity.setEspecial(FacesUtils.checkString(txtEspecial));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
 			entity.setGrupo_1(FacesUtils.checkString(txtGrupo_1));
-			entity.setIdGrpo(idGrpo);
-			entity.setManejaOrdenCompra(FacesUtils
-					.checkString(txtManejaOrdenCompra));
 			entity.setMargenMinimoBodega(FacesUtils
 					.checkDouble(txtMargenMinimoBodega));
 			entity.setMargenMinimoEnergiteca(FacesUtils
 					.checkDouble(txtMargenMinimoEnergiteca));
-			entity.setModificaReferencia(FacesUtils
-					.checkString(txtModificaReferencia));
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setPideGalones(FacesUtils.checkString(txtPideGalones));
-			entity.setSugeridoPedido(FacesUtils.checkString(txtSugeridoPedido));
 			entity.setTipoNivel(FacesUtils.checkString(txtTipoNivel));
-			entity.setFamilia(businessDelegatorView.getFamilia(FacesUtils
-					.checkLong(txtIdFlia_Familia)));
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
+
+			entity.setEspecial(especial);
+			entity.setModificaReferencia(modificaReferencia);
+			entity.setPideGalones(pideGalones);
+			entity.setManejaOrdenCompra(manejaOrdenCompra);
+			entity.setSugeridoPedido(sugeridoPedido);
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+
+			Familia entity2 = businessDelegatorView
+					.getFamilia(getIdFlia_Familia());
+			entity.setFamilia(entity2);
+
+			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
+			entity.setGrupo(entity3);
+
 			businessDelegatorView.saveGrupo(entity);
+			data = businessDelegatorView.getDataGrupo();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -528,7 +627,6 @@ public class GrupoView {
 			entity.setAsociado(FacesUtils.checkString(txtAsociado));
 			entity.setDivision(FacesUtils.checkString(txtDivision));
 			entity.setEspecial(FacesUtils.checkString(txtEspecial));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -661,20 +759,12 @@ public class GrupoView {
 		this.txtDivision = txtDivision;
 	}
 
-	public InputText getTxtEspecial() {
+	public SelectOneMenu getTxtEspecial() {
 		return txtEspecial;
 	}
 
-	public void setTxtEspecial(InputText txtEspecial) {
+	public void setTxtEspecial(SelectOneMenu txtEspecial) {
 		this.txtEspecial = txtEspecial;
-	}
-
-	public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
 	}
 
 	public InputText getTxtGrupo_1() {
@@ -685,11 +775,11 @@ public class GrupoView {
 		this.txtGrupo_1 = txtGrupo_1;
 	}
 
-	public InputText getTxtManejaOrdenCompra() {
+	public SelectOneMenu getTxtManejaOrdenCompra() {
 		return txtManejaOrdenCompra;
 	}
 
-	public void setTxtManejaOrdenCompra(InputText txtManejaOrdenCompra) {
+	public void setTxtManejaOrdenCompra(SelectOneMenu txtManejaOrdenCompra) {
 		this.txtManejaOrdenCompra = txtManejaOrdenCompra;
 	}
 
@@ -709,11 +799,11 @@ public class GrupoView {
 		this.txtMargenMinimoEnergiteca = txtMargenMinimoEnergiteca;
 	}
 
-	public InputText getTxtModificaReferencia() {
+	public SelectOneMenu getTxtModificaReferencia() {
 		return txtModificaReferencia;
 	}
 
-	public void setTxtModificaReferencia(InputText txtModificaReferencia) {
+	public void setTxtModificaReferencia(SelectOneMenu txtModificaReferencia) {
 		this.txtModificaReferencia = txtModificaReferencia;
 	}
 
@@ -741,19 +831,19 @@ public class GrupoView {
 		this.txtOperModifica = txtOperModifica;
 	}
 
-	public InputText getTxtPideGalones() {
+	public SelectOneMenu getTxtPideGalones() {
 		return txtPideGalones;
 	}
 
-	public void setTxtPideGalones(InputText txtPideGalones) {
+	public void setTxtPideGalones(SelectOneMenu txtPideGalones) {
 		this.txtPideGalones = txtPideGalones;
 	}
 
-	public InputText getTxtSugeridoPedido() {
+	public SelectOneMenu getTxtSugeridoPedido() {
 		return txtSugeridoPedido;
 	}
 
-	public void setTxtSugeridoPedido(InputText txtSugeridoPedido) {
+	public void setTxtSugeridoPedido(SelectOneMenu txtSugeridoPedido) {
 		this.txtSugeridoPedido = txtSugeridoPedido;
 	}
 
@@ -765,35 +855,35 @@ public class GrupoView {
 		this.txtTipoNivel = txtTipoNivel;
 	}
 
-	public InputText getTxtIdFlia_Familia() {
+	public SelectOneMenu getTxtIdFlia_Familia() {
 		return txtIdFlia_Familia;
 	}
 
-	public void setTxtIdFlia_Familia(InputText txtIdFlia_Familia) {
+	public void setTxtIdFlia_Familia(SelectOneMenu txtIdFlia_Familia) {
 		this.txtIdFlia_Familia = txtIdFlia_Familia;
 	}
 
-	public InputText getTxtIdGrpo_Grupo() {
+	public SelectOneMenu getTxtIdGrpo_Grupo() {
 		return txtIdGrpo_Grupo;
 	}
 
-	public void setTxtIdGrpo_Grupo(InputText txtIdGrpo_Grupo) {
+	public void setTxtIdGrpo_Grupo(SelectOneMenu txtIdGrpo_Grupo) {
 		this.txtIdGrpo_Grupo = txtIdGrpo_Grupo;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -880,5 +970,247 @@ public class GrupoView {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public SelectItem[] getManufacturerOptions2() {
+		return manufacturerOptions2;
+	}
+
+	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
+		this.manufacturerOptions2 = manufacturerOptions2;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public String getAsociado() {
+		return asociado;
+	}
+
+	public void setAsociado(String asociado) {
+		this.asociado = asociado;
+	}
+
+	public String getDivision() {
+		return division;
+	}
+
+	public void setDivision(String division) {
+		this.division = division;
+	}
+
+	public String getEspecial() {
+		return especial;
+	}
+
+	public void setEspecial(String especial) {
+		this.especial = especial;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getGrupo_1() {
+		return grupo_1;
+	}
+
+	public void setGrupo_1(String grupo_1) {
+		this.grupo_1 = grupo_1;
+	}
+
+	public String getManejaOrdenCompra() {
+		return manejaOrdenCompra;
+	}
+
+	public void setManejaOrdenCompra(String manejaOrdenCompra) {
+		this.manejaOrdenCompra = manejaOrdenCompra;
+	}
+
+	public String getMargenMinimoBodega() {
+		return margenMinimoBodega;
+	}
+
+	public void setMargenMinimoBodega(String margenMinimoBodega) {
+		this.margenMinimoBodega = margenMinimoBodega;
+	}
+
+	public String getMargenMinimoEnergiteca() {
+		return margenMinimoEnergiteca;
+	}
+
+	public void setMargenMinimoEnergiteca(String margenMinimoEnergiteca) {
+		this.margenMinimoEnergiteca = margenMinimoEnergiteca;
+	}
+
+	public String getModificaReferencia() {
+		return modificaReferencia;
+	}
+
+	public void setModificaReferencia(String modificaReferencia) {
+		this.modificaReferencia = modificaReferencia;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getPideGalones() {
+		return pideGalones;
+	}
+
+	public void setPideGalones(String pideGalones) {
+		this.pideGalones = pideGalones;
+	}
+
+	public String getSugeridoPedido() {
+		return sugeridoPedido;
+	}
+
+	public void setSugeridoPedido(String sugeridoPedido) {
+		this.sugeridoPedido = sugeridoPedido;
+	}
+
+	public String getTipoNivel() {
+		return tipoNivel;
+	}
+
+	public void setTipoNivel(String tipoNivel) {
+		this.tipoNivel = tipoNivel;
+	}
+
+	public Long getIdFlia_Familia() {
+		return idFlia_Familia;
+	}
+
+	public void setIdFlia_Familia(Long idFlia_Familia) {
+		this.idFlia_Familia = idFlia_Familia;
+	}
+
+	public Long getIdGrpo_Grupo() {
+		return idGrpo_Grupo;
+	}
+
+	public void setIdGrpo_Grupo(Long idGrpo_Grupo) {
+		this.idGrpo_Grupo = idGrpo_Grupo;
+	}
+
+	public String getIdGrpo() {
+		return idGrpo;
+	}
+
+	public void setIdGrpo(String idGrpo) {
+		this.idGrpo = idGrpo;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public Map<String, String> getFamilias() {
+		try {
+			List<FamiliaDTO> data2 = businessDelegatorView
+					.getDataFamilia();
+
+			for (int i = 0; i < data2.size(); i++) {
+				familias.put(data2.get(i).getDescripcion(), data2.get(i)
+						.getIdFlia() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return familias;
+	}
+
+	public void setFamilias(Map<String, String> familias) {
+		this.familias = familias;
+	}
+
+	public Map<String, String> getGrupos() {
+		try {
+			List<GrupoDTO> data2 = businessDelegatorView
+					.getDataGrupo();
+
+			for (int i = 0; i < data2.size(); i++) {
+				grupos.put(data2.get(i).getNombre(), data2.get(i)
+						.getIdGrpo() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return grupos;
+	}
+
+	public void setGrupos(Map<String, String> grupos) {
+		this.grupos = grupos;
+	}
+
+	public String[] getManufacturers() {
+		return manufacturers;
+	}
+
+	public void setManufacturers(String[] manufacturers) {
+		this.manufacturers = manufacturers;
+	}
+
+	public String[] getManufacturers2() {
+		return manufacturers2;
+	}
+
+	public void setManufacturers2(String[] manufacturers2) {
+		this.manufacturers2 = manufacturers2;
 	}
 }

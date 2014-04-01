@@ -1,0 +1,411 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectDescuentoFinancieroTitle"
+							header="DescuentoFinanciero">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{descuentoFinancieroView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{descuentoFinancieroView.data}">
+
+								<p:ajax event="rowEdit"
+									listener="#{descuentoFinancieroView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{descuentoFinancieroView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idDefi" sortBy="idDefi"
+									style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idDefi}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idDefi}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+
+
+								<p:column id="ano" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+									sortBy="nombre" filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.nombre}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								
+								<p:column id="fechaInicio" filterBy="fechaInicio" headerText="Fecha de inicio"
+									sortBy="fechaInicio" filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaInicio}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:calendar value="#{car.fechaInicio}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								
+								<p:column id="fechaFinal" filterBy="fechaFinal" headerText="Fecha Final"
+									sortBy="fechaFinal" filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaFinal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:calendar value="#{car.fechaFinal}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								
+
+								<p:column id="porcentajeDescuento"
+									filterBy="porcentajeDescuento"
+									headerText="Porcentaje Descuento" sortBy="porcentajeDescuento"
+									filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcentajeDescuento}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.porcentajeDescuento}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="diaDesde" filterBy="diaDesde"
+									headerText="Dia Desde" sortBy="diaDesde"
+									filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.diaDesde}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.diaDesde}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column id="diaHasta" filterBy="diaHasta"
+									headerText="Dia Hasta" sortBy="diaHasta"
+									filterMatchMode="contains" style="width:100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.diaHasta}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.diaHasta}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="ID Grupo" style="width:100px"
+									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idGrpo_Grupo}" />
+										</f:facet>
+
+										<f:facet name="input">
+
+											<p:selectOneMenu
+												value="#{descuentoFinancieroView.idGrpo_Grupo}"
+												style="width:100px">
+
+												<f:selectItems value="#{descuentoFinancieroView.grupo}" />
+
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Tipo forma de pago" style="width:100px"
+									filterBy="idTfpa_TipoFormaPago" sortBy="idTfpa_TipoFormaPago">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTfpa_TipoFormaPago}" />
+										</f:facet>
+
+										<f:facet name="input">
+
+											<p:selectOneMenu
+												value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
+												style="width:160px">
+
+												<f:selectItems
+													value="#{descuentoFinancieroView.tipoFormaPago}" />
+
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Fecha de Creación" style="width:100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{descuentoFinancieroView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{descuentoFinancieroView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Persona" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+
+
+									<h:outputText id="msgCodigo" value=" *Codigo:" />
+									<p:inputText id="txtCodigo"
+										value="#{descuentoFinancieroView.codigo}"
+										binding="#{descuentoFinancieroView.txtCodigo}" />
+
+
+									<h:outputText id="msgDiaDesde" value=" Dia Desde:" />
+									<p:inputText id="txtDiaDesde"
+										value="#{descuentoFinancieroView.diaDesde}"
+										binding="#{descuentoFinancieroView.txtDiaDesde}" />
+
+
+									<h:outputText id="msgDiaHasta" value=" Dia Hasta:" />
+									<p:inputText id="txtDiaHasta"
+										value="#{descuentoFinancieroView.diaHasta}"
+										binding="#{descuentoFinancieroView.txtDiaHasta}" />
+
+
+									<h:outputText id="msgEstadoRegistro"
+										value=" Estado del Registro:" />
+									<p:selectOneMenu binding="#{descuentoFinancieroView.estado}"
+										value="#{descuentoFinancieroView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgNombre" value=" Nombre:" />
+									<p:inputText id="txtNombre"
+										value="#{descuentoFinancieroView.nombre}"
+										binding="#{descuentoFinancieroView.txtNombre}" />
+
+
+									<h:outputText id="msgPorcentajeDescuento"
+										value=" *Porcentaje de Descuento:" />
+									<p:inputText id="txtPorcentajeDescuento"
+										value="#{descuentoFinancieroView.porcentajeDescuento}"
+										binding="#{descuentoFinancieroView.txtPorcentajeDescuento}" />
+
+
+									<h:outputText id="msgIdGrpo_Grupo" value=" Nombre del grupo:" />
+
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idGrpo_Grupo}"
+										binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{descuentoFinancieroView.grupo}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgIdTfpa_TipoFormaPago"
+										value=" Codigo Forma de pago:" />
+
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
+										binding="#{descuentoFinancieroView.txtIdTfpa_TipoFormaPago}">
+										<f:selectItems value="#{descuentoFinancieroView.tipoFormaPago}" />
+									</p:selectOneMenu>
+
+
+
+
+									<h:outputText id="msgFechaInicio" value=" Fecha de Inicio:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoFinancieroView.txtFechaInicio}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoFinancieroView.listener_txtFechaInicio}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgFechaFinal" value=" Fecha Final:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoFinancieroView.txtFechaFinal}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoFinancieroView.listener_txtFechaFinal}"
+											update="men" />
+									</p:calendar>
+
+
+
+								</h:panelGrid>
+								<p:separator id="separator" />
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{descuentoFinancieroView.action_create}"
+										binding="#{descuentoFinancieroView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

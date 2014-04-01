@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.ClavesParaRotar" table="CLAVES_PARA_ROTAR" >
         <id name="idClpr" type="java.lang.Long">
             <column name="ID_CLPR" precision="10" scale="0" />
-            <generator class="assigned" />
+             <generator class="sequence" >
+            <param name="sequence">CLPR_ID_CLPR_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="claveFabricacion" class="co.edu.usbcali.modelo.ClaveFabricacion" fetch="select">
             <column name="ID_CLFA" precision="10" scale="0" not-null="true" />

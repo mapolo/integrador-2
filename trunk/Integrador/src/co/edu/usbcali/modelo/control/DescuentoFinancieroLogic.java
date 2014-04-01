@@ -124,15 +124,7 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdDefi() == null) {
-				throw new ZMessManager().new EmptyFieldException("idDefi");
-			}
-
-			if ((entity.getIdDefi() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdDefi(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idDefi");
-			}
+			
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -197,9 +189,7 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 						"idTfpa_TipoFormaPago");
 			}
 
-			if (getDescuentoFinanciero(entity.getIdDefi()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+		
 
 			descuentoFinancieroDAO.save(entity);
 		} catch (Exception e) {

@@ -170,16 +170,6 @@ public class GrupoLogic implements IGrupoLogic {
 				throw new ZMessManager().new NotValidFormatException("grupo_1");
 			}
 
-			if (entity.getIdGrpo() == null) {
-				throw new ZMessManager().new EmptyFieldException("idGrpo");
-			}
-
-			if ((entity.getIdGrpo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdGrpo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idGrpo");
-			}
-
 			if ((entity.getManejaOrdenCompra() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
 							entity.getManejaOrdenCompra(), 1) == false)) {
@@ -278,10 +268,6 @@ public class GrupoLogic implements IGrupoLogic {
 							+ entity.getGrupo().getIdGrpo(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idGrpo_Grupo");
-			}
-
-			if (getGrupo(entity.getIdGrpo()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
 			}
 
 			grupoDAO.save(entity);
@@ -425,16 +411,6 @@ public class GrupoLogic implements IGrupoLogic {
 					&& (Utilities.checkWordAndCheckWithlength(
 							entity.getGrupo_1(), 10) == false)) {
 				throw new ZMessManager().new NotValidFormatException("grupo_1");
-			}
-
-			if (entity.getIdGrpo() == null) {
-				throw new ZMessManager().new EmptyFieldException("idGrpo");
-			}
-
-			if ((entity.getIdGrpo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdGrpo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idGrpo");
 			}
 
 			if ((entity.getManejaOrdenCompra() != null)

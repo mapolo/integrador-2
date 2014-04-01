@@ -132,15 +132,7 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdDipo() == null) {
-				throw new ZMessManager().new EmptyFieldException("idDipo");
-			}
-
-			if ((entity.getIdDipo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdDipo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idDipo");
-			}
+			
 
 			if (entity.getNombre() == null) {
 				throw new ZMessManager().new EmptyFieldException("nombre");
@@ -198,9 +190,7 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"idTidi_TipoDivision");
 			}
 
-			if (getDivisionPolitica(entity.getIdDipo()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			divisionPoliticaDAO.save(entity);
 		} catch (Exception e) {

@@ -99,15 +99,7 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdClpr() == null) {
-				throw new ZMessManager().new EmptyFieldException("idClpr");
-			}
-
-			if ((entity.getIdClpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdClpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idClpr");
-			}
+			
 
 			if ((entity.getMes() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -161,9 +153,7 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"idSucu_Sucursal");
 			}
 
-			if (getClavesParaRotar(entity.getIdClpr()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			
 
 			clavesParaRotarDAO.save(entity);
 		} catch (Exception e) {
