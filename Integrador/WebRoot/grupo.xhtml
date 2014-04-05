@@ -11,7 +11,6 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -28,12 +27,10 @@
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
 
-
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -64,8 +61,8 @@ body {
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" filterBy="idGrpo"
-									sortBy="idGrpo" style="width:100px">
+								<p:column headerText="ID" filterBy="idGrpo" sortBy="idGrpo"
+									style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idGrpo}" />
@@ -76,7 +73,7 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 								<p:column headerText="Grupo" filterBy="grupo_1" sortBy="grupo_1"
 									style="width:100px">
 									<p:cellEditor>
@@ -89,7 +86,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
 
 								<p:column headerText="ID Grupo Padre" style="width: 100px"
 									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
@@ -106,7 +102,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="nombre" filterBy="nombre" sortBy="nombre"
+								<p:column headerText="Nombre" filterBy="nombre" sortBy="nombre"
 									style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -119,7 +115,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="margenMinimoBodega"
+								<p:column headerText="Margen Minimo Bodega"
 									filterBy="margenMinimoBodega" sortBy="margenMinimoBodega"
 									style="width:100px">
 									<p:cellEditor>
@@ -133,7 +129,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="margenMinimoEnergiteca"
+								<p:column headerText="Margen Minimo Energiteca"
 									filterBy="margenMinimoEnergiteca"
 									sortBy="margenMinimoEnergiteca" style="width:100px">
 									<p:cellEditor>
@@ -147,7 +143,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="division" filterBy="division"
+								<p:column headerText="División" filterBy="division"
 									sortBy="division" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -160,7 +156,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="tipoNivel" filterBy="tipoNivel"
+								<p:column headerText="Tipo de Nivel" filterBy="tipoNivel"
 									sortBy="tipoNivel" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -173,7 +169,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="especial" style="width: 100px"
+								<p:column headerText="Especial" style="width: 100px"
 									filterBy="especial"
 									filterOptions="#{grupoView.manufacturerOptions2}"
 									filterMatchMode="exact">
@@ -190,7 +186,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="modificaReferencia" style="width: 100px"
+								<p:column headerText="Modifica Referencia" style="width: 100px"
 									filterBy="modificaReferencia"
 									filterOptions="#{grupoView.manufacturerOptions2}"
 									filterMatchMode="exact">
@@ -207,7 +203,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="pideGalones" style="width: 100px"
+								<p:column headerText="Pide Galones" style="width: 100px"
 									filterBy="pideGalones"
 									filterOptions="#{grupoView.manufacturerOptions2}"
 									filterMatchMode="exact">
@@ -224,8 +220,8 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="manejaOrdenCompra" style="width: 100px"
-									filterBy="manejaOrdenCompra"
+								<p:column headerText="Maneja Orden de Compra"
+									style="width: 100px" filterBy="manejaOrdenCompra"
 									filterOptions="#{grupoView.manufacturerOptions2}"
 									filterMatchMode="exact">
 									<p:cellEditor>
@@ -241,7 +237,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="sugeridoPedido" style="width: 100px"
+								<p:column headerText="Sugerido Pedido" style="width: 100px"
 									filterBy="sugeridoPedido"
 									filterOptions="#{grupoView.manufacturerOptions2}"
 									filterMatchMode="exact">
@@ -258,7 +254,7 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="asociado" filterBy="asociado"
+								<p:column headerText="Asociado" filterBy="asociado"
 									sortBy="asociado" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -353,41 +349,41 @@ body {
 
 								<h:panelGrid columns="2" id="panel">
 
-									<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo" />
+									<h:outputText id="msgGrupo_1" value="*Grupo:" />
+									<p:inputText id="txtGrupo_1" value="#{grupoView.grupo_1}"
+										binding="#{grupoView.txtGrupo_1}" />
+
+									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo Padre:" />
 									<p:selectOneMenu value="#{grupoView.idGrpo_Grupo}"
 										binding="#{grupoView.txtIdGrpo_Grupo}">
 										<f:selectItems value="#{grupoView.grupos}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgGrupo_1" value=" Grupo padre" />
-									<p:inputText id="txtGrupo_1" value="#{grupoView.grupo_1}"
-										binding="#{grupoView.txtGrupo_1}" />
-
-									<h:outputText id="msgNombre" value=" Nombre" />
+									<h:outputText id="msgNombre" value="Nombre:" />
 									<p:inputText id="txtNombre" value="#{grupoView.nombre}"
 										binding="#{grupoView.txtNombre}" />
 
 									<h:outputText id="msgMargenMinimoBodega"
-										value=" MargenMinimoBodega" />
+										value="Margen Minimo Bodega:" />
 									<p:inputText id="txtMargenMinimoBodega"
 										value="#{grupoView.margenMinimoBodega}"
 										binding="#{grupoView.txtMargenMinimoBodega}" />
 
 									<h:outputText id="msgMargenMinimoEnergiteca"
-										value=" MargenMinimoEnergiteca" />
+										value="Margen Minimo Energiteca:" />
 									<p:inputText id="txtMargenMinimoEnergiteca"
 										value="#{grupoView.margenMinimoEnergiteca}"
 										binding="#{grupoView.txtMargenMinimoEnergiteca}" />
 
-									<h:outputText id="msgDivision" value=" Division" />
+									<h:outputText id="msgDivision" value="División:" />
 									<p:inputText id="txtDivision" value="#{grupoView.division}"
 										binding="#{grupoView.txtDivision}" />
 
-									<h:outputText id="msgTipoNivel" value=" TipoNivel" />
+									<h:outputText id="msgTipoNivel" value="Tipo de Nivel:" />
 									<p:inputText id="txtTipoNivel" value="#{grupoView.tipoNivel}"
 										binding="#{grupoView.txtTipoNivel}" />
 
-									<h:outputText id="msgEspecial" value=" Especial" />
+									<h:outputText id="msgEspecial" value="Especial:" />
 									<p:selectOneMenu binding="#{grupoView.txtEspecial}"
 										value="#{grupoView.especial}">
 										<f:selectItem itemLabel="S" itemValue="S" />
@@ -395,14 +391,14 @@ body {
 									</p:selectOneMenu>
 
 									<h:outputText id="msgModificaReferencia"
-										value=" ModificaReferencia" />
+										value="Modifica Referencia:" />
 									<p:selectOneMenu binding="#{grupoView.txtModificaReferencia}"
 										value="#{grupoView.modificaReferencia}">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgPideGalones" value=" PideGalones" />
+									<h:outputText id="msgPideGalones" value="Pide Galones:" />
 									<p:selectOneMenu binding="#{grupoView.txtPideGalones}"
 										value="#{grupoView.pideGalones}">
 										<f:selectItem itemLabel="S" itemValue="S" />
@@ -410,32 +406,32 @@ body {
 									</p:selectOneMenu>
 
 									<h:outputText id="msgManejaOrdenCompra"
-										value=" ManejaOrdenCompra" />
+										value="Maneja Orden de Compra:" />
 									<p:selectOneMenu binding="#{grupoView.txtManejaOrdenCompra}"
 										value="#{grupoView.manejaOrdenCompra}">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgSugeridoPedido" value=" SugeridoPedido" />
+									<h:outputText id="msgSugeridoPedido" value="Sugerido Pedido:" />
 									<p:selectOneMenu binding="#{grupoView.txtSugeridoPedido}"
 										value="#{grupoView.sugeridoPedido}">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgAsociado" value=" Asociado" />
+									<h:outputText id="msgAsociado" value="Asociado:" />
 									<p:inputText id="txtAsociado" value="#{grupoView.asociado}"
 										binding="#{grupoView.txtAsociado}" />
 
-									<h:outputText id="msgIdFlia_Familia" value=" IdFlia_Familia" />
+									<h:outputText id="msgIdFlia_Familia" value="*ID Familia:" />
 									<p:selectOneMenu value="#{grupoView.idFlia_Familia}"
 										binding="#{grupoView.txtIdFlia_Familia}">
 										<f:selectItems value="#{grupoView.familias}" />
 									</p:selectOneMenu>
 
 									<h:outputText id="msgEstadoRegistro"
-										value="Estado del Registro" />
+										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{grupoView.estado}"
 										value="#{grupoView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />

@@ -156,8 +156,23 @@ public class GrupoView {
 			entity.setGrupo(entity3);
 
 			businessDelegatorView.updateGrupo(entity);
+			
+			try {
+				grupos = new HashMap<String, String>();
+				List<GrupoDTO> data2 = businessDelegatorView
+						.getDataGrupo();
+
+				for (int i = 0; i < data2.size(); i++) {
+					grupos.put(data2.get(i).getNombre(), data2.get(i)
+							.getIdGrpo() + "");
+
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			data = businessDelegatorView.getDataGrupo();
-			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
 		} catch (Exception e) {
