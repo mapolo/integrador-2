@@ -250,8 +250,10 @@ body {
 											<h:outputText value="#{car.email}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.email}" />
-										</f:facet>
+											<p:inputText value="#{car.email}" validatorMessage="Email Incorrecto">
+											<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+											</p:inputText>
+										</f:facet> 
 									</p:cellEditor>
 								</p:column>
 

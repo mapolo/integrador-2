@@ -11,16 +11,13 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -30,12 +27,10 @@
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
 
-
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -52,7 +47,7 @@ body {
 					<h:form id="form">
 
 						<p:panel id="msgProjectDescuentoFinancieroTitle"
-							header="DescuentoFinanciero">
+							header="Descuento Financiero">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
@@ -80,14 +75,10 @@ body {
 												disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
-
-
-								<p:column id="ano" filterBy="codigo" headerText="Codigo"
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width:100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -98,11 +89,8 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
-
 								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
 									sortBy="nombre" filterMatchMode="contains" style="width:100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.nombre}" />
@@ -112,11 +100,10 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
-								
-								<p:column id="fechaInicio" filterBy="fechaInicio" headerText="Fecha de inicio"
-									sortBy="fechaInicio" filterMatchMode="contains" style="width:100px">
 
+								<p:column id="fechaInicio" filterBy="fechaInicio"
+									headerText="Fecha de Inicio" sortBy="fechaInicio"
+									filterMatchMode="contains" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaInicio}" />
@@ -128,11 +115,10 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
-								
-								<p:column id="fechaFinal" filterBy="fechaFinal" headerText="Fecha Final"
-									sortBy="fechaFinal" filterMatchMode="contains" style="width:100px">
 
+								<p:column id="fechaFinal" filterBy="fechaFinal"
+									headerText="Fecha Final" sortBy="fechaFinal"
+									filterMatchMode="contains" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaFinal}" />
@@ -144,20 +130,19 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
-								
 
 								<p:column id="porcentajeDescuento"
 									filterBy="porcentajeDescuento"
-									headerText="Porcentaje Descuento" sortBy="porcentajeDescuento"
-									filterMatchMode="contains" style="width:100px">
-
+									headerText="Porcentaje del Descuento"
+									sortBy="porcentajeDescuento" filterMatchMode="contains"
+									style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.porcentajeDescuento}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.porcentajeDescuento}" style="width:100%" />
+											<p:inputText value="#{car.porcentajeDescuento}"
+												style="width:100%" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -165,7 +150,6 @@ body {
 								<p:column id="diaDesde" filterBy="diaDesde"
 									headerText="Dia Desde" sortBy="diaDesde"
 									filterMatchMode="contains" style="width:100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.diaDesde}" />
@@ -176,11 +160,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column id="diaHasta" filterBy="diaHasta"
 									headerText="Dia Hasta" sortBy="diaHasta"
 									filterMatchMode="contains" style="width:100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.diaHasta}" />
@@ -191,49 +173,21 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="ID Grupo" style="width:100px"
 									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idGrpo_Grupo}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu
 												value="#{descuentoFinancieroView.idGrpo_Grupo}"
 												style="width:100px">
-
 												<f:selectItems value="#{descuentoFinancieroView.grupo}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
-								<p:column headerText="ID Tipo forma de pago" style="width:100px"
-									filterBy="idTfpa_TipoFormaPago" sortBy="idTfpa_TipoFormaPago">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.idTfpa_TipoFormaPago}" />
-										</f:facet>
-
-										<f:facet name="input">
-
-											<p:selectOneMenu
-												value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
-												style="width:160px">
-
-												<f:selectItems
-													value="#{descuentoFinancieroView.tipoFormaPago}" />
-
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-
 
 								<p:column headerText="Fecha de Creación" style="width:100px"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
@@ -261,7 +215,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Estado del Registro" style="width:100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{descuentoFinancieroView.manufacturerOptions}"
@@ -270,7 +223,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{descuentoFinancieroView.estadoRegistro}">
@@ -281,6 +233,22 @@ body {
 									</p:cellEditor>
 								</p:column>
 
+								<p:column headerText="ID Tipo Forma de Pago" style="width:100px"
+									filterBy="idTfpa_TipoFormaPago" sortBy="idTfpa_TipoFormaPago">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTfpa_TipoFormaPago}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
+												style="width:160px">
+												<f:selectItems
+													value="#{descuentoFinancieroView.tipoFormaPago}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
@@ -298,7 +266,7 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Persona" widgetVar="carDialog"
+							<p:dialog id="dialog" header="Descuento Financiero" widgetVar="carDialog"
 								resizable="false" width="800" showEffect="clip"
 								hideEffect="fold">
 
@@ -306,69 +274,17 @@ body {
 
 								<h:panelGrid columns="2" id="panel">
 
-
-									<h:outputText id="msgCodigo" value=" *Codigo:" />
+									<h:outputText id="msgCodigo" value="*Codigo:" />
 									<p:inputText id="txtCodigo"
 										value="#{descuentoFinancieroView.codigo}"
 										binding="#{descuentoFinancieroView.txtCodigo}" />
 
-
-									<h:outputText id="msgDiaDesde" value=" Dia Desde:" />
-									<p:inputText id="txtDiaDesde"
-										value="#{descuentoFinancieroView.diaDesde}"
-										binding="#{descuentoFinancieroView.txtDiaDesde}" />
-
-
-									<h:outputText id="msgDiaHasta" value=" Dia Hasta:" />
-									<p:inputText id="txtDiaHasta"
-										value="#{descuentoFinancieroView.diaHasta}"
-										binding="#{descuentoFinancieroView.txtDiaHasta}" />
-
-
-									<h:outputText id="msgEstadoRegistro"
-										value=" Estado del Registro:" />
-									<p:selectOneMenu binding="#{descuentoFinancieroView.estado}"
-										value="#{descuentoFinancieroView.estadoRegistro}">
-										<f:selectItem itemLabel="A" itemValue="A" />
-										<f:selectItem itemLabel="R" itemValue="R" />
-									</p:selectOneMenu>
-
-
-									<h:outputText id="msgNombre" value=" Nombre:" />
+									<h:outputText id="msgNombre" value="Nombre:" />
 									<p:inputText id="txtNombre"
 										value="#{descuentoFinancieroView.nombre}"
 										binding="#{descuentoFinancieroView.txtNombre}" />
 
-
-									<h:outputText id="msgPorcentajeDescuento"
-										value=" *Porcentaje de Descuento:" />
-									<p:inputText id="txtPorcentajeDescuento"
-										value="#{descuentoFinancieroView.porcentajeDescuento}"
-										binding="#{descuentoFinancieroView.txtPorcentajeDescuento}" />
-
-
-									<h:outputText id="msgIdGrpo_Grupo" value=" Nombre del grupo:" />
-
-									<p:selectOneMenu
-										value="#{descuentoFinancieroView.idGrpo_Grupo}"
-										binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{descuentoFinancieroView.grupo}" />
-									</p:selectOneMenu>
-
-
-									<h:outputText id="msgIdTfpa_TipoFormaPago"
-										value=" Codigo Forma de pago:" />
-
-									<p:selectOneMenu
-										value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
-										binding="#{descuentoFinancieroView.txtIdTfpa_TipoFormaPago}">
-										<f:selectItems value="#{descuentoFinancieroView.tipoFormaPago}" />
-									</p:selectOneMenu>
-
-
-
-
-									<h:outputText id="msgFechaInicio" value=" Fecha de Inicio:" />
+									<h:outputText id="msgFechaInicio" value="Fecha de Inicio:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{descuentoFinancieroView.txtFechaInicio}">
 										<p:ajax event="dateSelect"
@@ -376,7 +292,7 @@ body {
 											update="men" />
 									</p:calendar>
 
-									<h:outputText id="msgFechaFinal" value=" Fecha Final:" />
+									<h:outputText id="msgFechaFinal" value="Fecha Final:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{descuentoFinancieroView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
@@ -384,28 +300,62 @@ body {
 											update="men" />
 									</p:calendar>
 
+									<h:outputText id="msgPorcentajeDescuento"
+										value="*Porcentaje del Descuento:" />
+									<p:inputText id="txtPorcentajeDescuento"
+										value="#{descuentoFinancieroView.porcentajeDescuento}"
+										binding="#{descuentoFinancieroView.txtPorcentajeDescuento}" />
 
+									<h:outputText id="msgDiaDesde" value="Dia Desde:" />
+									<p:inputText id="txtDiaDesde"
+										value="#{descuentoFinancieroView.diaDesde}"
+										binding="#{descuentoFinancieroView.txtDiaDesde}" />
+
+									<h:outputText id="msgDiaHasta" value="Dia Hasta:" />
+									<p:inputText id="txtDiaHasta"
+										value="#{descuentoFinancieroView.diaHasta}"
+										binding="#{descuentoFinancieroView.txtDiaHasta}" />
+
+									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo:" />
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idGrpo_Grupo}"
+										binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{descuentoFinancieroView.grupo}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{descuentoFinancieroView.estado}"
+										value="#{descuentoFinancieroView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdTfpa_TipoFormaPago"
+										value="*ID Forma de Pago:" />
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
+										binding="#{descuentoFinancieroView.txtIdTfpa_TipoFormaPago}">
+										<f:selectItems
+											value="#{descuentoFinancieroView.tipoFormaPago}" />
+									</p:selectOneMenu>
 
 								</h:panelGrid>
+
 								<p:separator id="separator" />
+
 								<h:panelGrid id="panelBotones" columns="1">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{descuentoFinancieroView.action_create}"
 										binding="#{descuentoFinancieroView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
 							</p:dialog>
 						</p:panel>
-
 					</h:form>
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>
