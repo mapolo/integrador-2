@@ -1,0 +1,260 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectRutaDistribucionTitle"
+							header="RutaDistribucion">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{rutaDistribucionView.data}"
+								id="tablaPrincipal" editable="true" scrollable="true"
+								scrollHeight="300" filteredValue="#{rutaDistribucionView.data}">
+
+								<p:ajax event="rowEdit"
+									listener="#{rutaDistribucionView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{rutaDistribucionView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" sortBy="idRudi" filterBy="idRudi"
+									style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idRudi}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idRudi}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Codigo" style="width: 100px"
+									sortBy="codigo" filterBy="codigo">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" disabled="false" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Descripción" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Tiempo Entrega" style="width: 100px"
+									sortBy="tiempoEntrega" filterBy="tiempoEntrega">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.tiempoEntrega}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.tiempoEntrega}" disabled="false" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Tiempo Transporte" style="width: 100px"
+									sortBy="tiempoTransporte" filterBy="tiempoTransporte">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.tiempoTransporte}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.tiempoTransporte}" disabled="false" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+
+								<p:column headerText="Fecha de Creación" style="width: 100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width: 100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{rutaDistribucionView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{rutaDistribucionView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+
+							</p:dataTable>
+
+							<!--                   Ventana emergente           -->
+
+							<p:dialog id="dialog" header="Ruta de distribuccion"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgCodigo" value=" *Codigo:" />
+									<p:inputText id="txtCodigo"
+										value="#{rutaDistribucionView.codigo}"
+										binding="#{rutaDistribucionView.txtCodigo}" />
+
+
+									<h:outputText id="msgDescripcion" value=" Descripcion:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										disabled="false" value="#{rutaDistribucionView.descripcion}"
+										binding="#{rutaDistribucionView.txtDescripcion}" />
+
+
+									<h:outputText id="msgEstadoRegistro"
+										value=" Estado del Registro:" />
+									<p:selectOneMenu binding="#{rutaDistribucionView.estado}"
+										value="#{rutaDistribucionView.estadoRegistro}"
+										disabled="false">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgTiempoEntrega" value=" Tiempo de Entrega:" />
+									<p:inputText id="txtTiempoEntrega"
+										value="#{rutaDistribucionView.tiempoEntrega}"
+										binding="#{rutaDistribucionView.txtTiempoEntrega}" />
+
+
+									<h:outputText id="msgTiempoTransporte"
+										value=" Tiempo de Transporte:" />
+									<p:inputText id="txtTiempoTransporte"
+										value="#{rutaDistribucionView.tiempoTransporte}"
+										binding="#{rutaDistribucionView.txtTiempoTransporte}" />
+
+
+								</h:panelGrid>
+								<p:separator id="separator" />
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{rutaDistribucionView.action_create}"
+										binding="#{rutaDistribucionView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

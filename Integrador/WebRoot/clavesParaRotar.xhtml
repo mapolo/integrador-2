@@ -128,6 +128,7 @@ body {
 											<p:selectOneMenu
 												value="#{clavesParaRotarView.idSucu_Sucursal}"
 												style="width:160px">
+												<f:selectItem itemLabel="------" itemValue="" />
 												<f:selectItems value="#{clavesParaRotarView.sucursal}" />
 											</p:selectOneMenu>
 										</f:facet>
@@ -221,7 +222,7 @@ body {
 									<h:outputText id="msgIdSucu_Sucursal" value="*ID Sucursal:" />
 									<p:selectOneMenu value="#{clavesParaRotarView.idSucu_Sucursal}"
 										binding="#{clavesParaRotarView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="No tiene" itemValue="0" />
+										<f:selectItem itemLabel="------" itemValue="" />
 										<f:selectItems value="#{clavesParaRotarView.sucursal}" />
 									</p:selectOneMenu>
 

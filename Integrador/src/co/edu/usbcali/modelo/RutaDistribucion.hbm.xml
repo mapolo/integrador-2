@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.RutaDistribucion" table="RUTA_DISTRIBUCION" >
         <id name="idRudi" type="java.lang.Long">
             <column name="ID_RUDI" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="sequence" >
+            <param name="sequence">RUDI_ID_RUDI_SEQ</param>
+           </generator>
         </id>
         <property name="codigo" type="java.lang.String">
             <column name="CODIGO" length="10" not-null="true" />

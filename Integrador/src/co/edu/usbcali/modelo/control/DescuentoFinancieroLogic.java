@@ -76,10 +76,6 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 				throw new ZMessManager().new ForeignException("grupo");
 			}
 
-			if (entity.getTipoFormaPago() == null) {
-				throw new ZMessManager().new ForeignException("tipoFormaPago");
-			}
-
 			if (entity.getCodigo() == null) {
 				throw new ZMessManager().new EmptyFieldException("codigo");
 			}
@@ -123,8 +119,6 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
-			
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -177,19 +171,12 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 						"idGrpo_Grupo");
 			}
 
-			if (entity.getTipoFormaPago().getIdTfpa() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idTfpa_TipoFormaPago");
-			}
-
-			if ((entity.getTipoFormaPago().getIdTfpa() != null)
+			if ((entity.getTipoFormaPago() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTipoFormaPago().getIdTfpa(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTfpa_TipoFormaPago");
 			}
-
-		
 
 			descuentoFinancieroDAO.save(entity);
 		} catch (Exception e) {
@@ -238,10 +225,6 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 
 			if (entity.getGrupo() == null) {
 				throw new ZMessManager().new ForeignException("grupo");
-			}
-
-			if (entity.getTipoFormaPago() == null) {
-				throw new ZMessManager().new ForeignException("tipoFormaPago");
 			}
 
 			if (entity.getCodigo() == null) {
@@ -348,13 +331,11 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"idGrpo_Grupo");
 			}
+			
+			
+			
 
-			if (entity.getTipoFormaPago().getIdTfpa() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idTfpa_TipoFormaPago");
-			}
-
-			if ((entity.getTipoFormaPago().getIdTfpa() != null)
+			if ((entity.getTipoFormaPago() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTipoFormaPago().getIdTfpa(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -421,10 +402,20 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 						.setIdGrpo_Grupo((descuentoFinancieroTmp.getGrupo()
 								.getIdGrpo() != null) ? descuentoFinancieroTmp
 								.getGrupo().getIdGrpo() : null);
-				descuentoFinancieroDTO2
-						.setIdTfpa_TipoFormaPago((descuentoFinancieroTmp
-								.getTipoFormaPago().getIdTfpa() != null) ? descuentoFinancieroTmp
-								.getTipoFormaPago().getIdTfpa() : null);
+				
+				
+				
+
+				if (descuentoFinancieroTmp.getTipoFormaPago() != null) {
+					descuentoFinancieroDTO2
+							.setIdTfpa_TipoFormaPago((descuentoFinancieroTmp
+									.getTipoFormaPago().getIdTfpa() != null) ? descuentoFinancieroTmp
+									.getTipoFormaPago().getIdTfpa() : null);
+				}
+				
+				
+				
+
 				descuentoFinancieroDTO.add(descuentoFinancieroDTO2);
 			}
 

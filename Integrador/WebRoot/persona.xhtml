@@ -110,7 +110,7 @@ body {
 
 											<p:selectOneMenu style="width: 100px"
 												value="#{personaView.idDipo_DivisionPolitica}">
-
+												<f:selectItem itemLabel="------" itemValue="" />
 												<f:selectItems value="#{personaView.divisionPolitica}" />
 
 											</p:selectOneMenu>
@@ -365,7 +365,7 @@ body {
 										value="ID División Politica:" />
 									<p:selectOneMenu value="#{personaView.idDipo_DivisionPolitica}"
 										binding="#{personaView.txtIdDipo_DivisionPolitica}">
-
+										<f:selectItem itemLabel="------" itemValue="" />
 										<f:selectItems value="#{personaView.divisionPolitica}" />
 									</p:selectOneMenu>
 

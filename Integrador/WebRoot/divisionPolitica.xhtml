@@ -100,6 +100,7 @@ body {
 											<p:selectOneMenu
 												value="#{divisionPoliticaView.idDipo_DivisionPolitica}"
 												style="width:160px">
+												<f:selectItem itemLabel="------" itemValue="" />
 												<f:selectItems
 													value="#{divisionPoliticaView.divisionPolitica}" />
 											</p:selectOneMenu>
@@ -214,6 +215,7 @@ body {
 									<p:selectOneMenu
 										value="#{divisionPoliticaView.idDipo_DivisionPolitica}"
 										binding="#{divisionPoliticaView.txtIdDipo_DivisionPolitica}">
+										<f:selectItem itemLabel="------" itemValue="" />
 										<f:selectItems
 											value="#{divisionPoliticaView.divisionPolitica}" />
 									</p:selectOneMenu>

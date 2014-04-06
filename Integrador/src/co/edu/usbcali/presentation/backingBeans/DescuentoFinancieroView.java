@@ -73,7 +73,7 @@ public class DescuentoFinancieroView {
 	private String operModifica;
 	private String porcentajeDescuento;
 	private Long idGrpo_Grupo;
-	private Long idTfpa_TipoFormaPago;
+	private String idTfpa_TipoFormaPago;
 	private String idDefi;
 	private String fechaCreacion;
 	private String fechaFinal;
@@ -141,14 +141,20 @@ public class DescuentoFinancieroView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 			
-			Grupo entity2 = businessDelegatorView
-					.getGrupo(getIdGrpo_Grupo());		
-			entity.setGrupo(entity2);
+
+			entity.setGrupo( businessDelegatorView
+					.getGrupo(getIdGrpo_Grupo()));
 			
-			TipoFormaPago entity3 = businessDelegatorView
-					.getTipoFormaPago(getIdTfpa_TipoFormaPago());		
-			entity.setTipoFormaPago(entity3);;
-			
+			if(txtIdTfpa_TipoFormaPago.getValue()==""){
+				System.out.println("entro if");
+				entity.setTipoFormaPago(null);
+			}else{
+				System.out.println("Entro else");
+				
+				entity.setTipoFormaPago(businessDelegatorView
+						.getTipoFormaPago(FacesUtils
+							.checkLong(txtIdTfpa_TipoFormaPago)));
+			}
 			
 						
 			businessDelegatorView.updateDescuentoFinanciero(entity);
@@ -533,6 +539,8 @@ public class DescuentoFinancieroView {
 
 	public String action_create() {
 		try {
+			System.out.println("Entro create");
+			
 			entity = new DescuentoFinanciero();
 
 			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
@@ -557,20 +565,25 @@ public class DescuentoFinancieroView {
 			
 		entity.setPorcentajeDescuento(FacesUtils
 					.checkDouble(txtPorcentajeDescuento));
-//			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-//					.checkLong(txtIdGrpo_Grupo)));
-//			entity.setTipoFormaPago(businessDelegatorView
-//					.getTipoFormaPago(FacesUtils
-//							.checkLong(txtIdTfpa_TipoFormaPago)));
+		
+		
+			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+					.checkLong(txtIdGrpo_Grupo)));
+
+	
 			
-			Grupo entity2 = businessDelegatorView
-					.getGrupo(getIdGrpo_Grupo());		
-			entity.setGrupo(entity2);
+		if(txtIdTfpa_TipoFormaPago.getValue()==""){
 			
-			TipoFormaPago entity3 = businessDelegatorView
-					.getTipoFormaPago(getIdTfpa_TipoFormaPago());		
-			entity.setTipoFormaPago(entity3);;
+		
 			
+		}else{
+
+			
+			entity.setTipoFormaPago(businessDelegatorView
+					.getTipoFormaPago(FacesUtils
+						.checkLong(txtIdTfpa_TipoFormaPago)));
+		}
+
 			
 			businessDelegatorView.saveDescuentoFinanciero(entity);
 			data = businessDelegatorView.getDataDescuentoFinanciero();
@@ -965,11 +978,11 @@ public class DescuentoFinancieroView {
 		this.idGrpo_Grupo = idGrpo_Grupo;
 	}
 
-	public Long getIdTfpa_TipoFormaPago() {
+	public String getIdTfpa_TipoFormaPago() {
 		return idTfpa_TipoFormaPago;
 	}
 
-	public void setIdTfpa_TipoFormaPago(Long idTfpa_TipoFormaPago) {
+	public void setIdTfpa_TipoFormaPago(String idTfpa_TipoFormaPago) {
 		this.idTfpa_TipoFormaPago = idTfpa_TipoFormaPago;
 	}
 

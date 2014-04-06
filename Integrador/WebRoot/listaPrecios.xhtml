@@ -57,8 +57,7 @@ body {
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{listaPreciosView.data}">
 
-								<p:ajax event="rowEdit"
-									listener="#{listaPreciosView.onEdit}" />
+								<p:ajax event="rowEdit" listener="#{listaPreciosView.onEdit}" />
 								<p:ajax event="rowEditCancel"
 									listener="#{listaPreciosView.onCancel}" />
 
@@ -92,7 +91,7 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 								<p:column id="margen" filterBy="margen" headerText="Margen"
 									sortBy="margen" filterMatchMode="contains" style="width: 100px">
 
@@ -105,9 +104,10 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
-								<p:column id="espacios" filterBy="espacios" headerText="Espacios"
-									sortBy="espacios" filterMatchMode="contains" style="width: 100px">
+
+								<p:column id="espacios" filterBy="espacios"
+									headerText="Espacios" sortBy="espacios"
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
@@ -118,70 +118,65 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 								<p:column headerText="ID Tipo Lista" style="width:100px"
 									filterBy="idTili_TipoLista" sortBy="idTili_TipoLista">
-									<p:cellEditor >
+									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idTili_TipoLista}" />
 										</f:facet>
 
-										<f:facet name="input" >
+										<f:facet name="input">
 
-											<p:selectOneMenu										
-												value="#{listaPreciosView.idTili_TipoLista}"
+											<p:selectOneMenu value="#{listaPreciosView.idTili_TipoLista}"
 												style="width:160px">
-												<f:selectItem itemLabel="-----" itemValue=""/>
-												<f:selectItems
-													value="#{listaPreciosView.tipoLista}" />
+												<f:selectItem itemLabel="-----" itemValue="" />
+												<f:selectItems value="#{listaPreciosView.tipoLista}" />
 
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 								<p:column headerText="ID Referencia" style="width:100px"
 									filterBy="idRefe_Referencia" sortBy="idRefe_Referencia">
-									<p:cellEditor >
+									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idRefe_Referencia}" />
 										</f:facet>
 
-										<f:facet name="input" >
+										<f:facet name="input">
 
-											<p:selectOneMenu										
+											<p:selectOneMenu
 												value="#{listaPreciosView.idRefe_Referencia}"
 												style="width:160px">
-												<f:selectItem itemLabel="-----" itemValue=""/>
-												<f:selectItems
-													value="#{listaPreciosView.referencia}" />
+												<f:selectItem itemLabel="-----" itemValue="" />
+												<f:selectItems value="#{listaPreciosView.referencia}" />
 
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 								<p:column headerText="ID Sucursal" style="width:100px"
 									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									<p:cellEditor >
+									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idSucu_Sucursal}" />
 										</f:facet>
 
-										<f:facet name="input" >
+										<f:facet name="input">
 
-											<p:selectOneMenu										
-												value="#{listaPreciosView.idSucu_Sucursal}"
+											<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
 												style="width:160px">
-												<f:selectItem itemLabel="-----" itemValue=""/>
-												<f:selectItems
-													value="#{listaPreciosView.sucursal}" />
+												<f:selectItem itemLabel="-----" itemValue="" />
+												<f:selectItems value="#{listaPreciosView.sucursal}" />
 
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-								
+
 
 								<p:column id="fechaInicial" headerText="Fecha Inicial"
 									style="width: 100px">
@@ -246,8 +241,7 @@ body {
 										</f:facet>
 
 										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{listaPreciosView.estadoRegistro}">
+											<h:selectOneMenu value="#{listaPreciosView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -271,88 +265,100 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Clave de Fabricación"
+							<p:dialog id="dialog" header="Lista De Precios"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
 
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
-								
+
 									<h:outputText id="msgEspacios" value=" Espacios" />
-									<p:inputText id="txtEspacios" value="#{listaPreciosView.espacios}"
+									<p:inputText id="txtEspacios"
+										value="#{listaPreciosView.espacios}"
 										binding="#{listaPreciosView.txtEspacios}" />
-										
-										
+
+
 									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro:" />
 									<p:selectOneMenu binding="#{listaPreciosView.estado}"
 										value="#{listaPreciosView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
-										
-										
+
+
 									<h:outputText id="msgMargen" value=" Margen:" />
 									<p:inputText id="txtMargen" value="#{listaPreciosView.margen}"
 										binding="#{listaPreciosView.txtMargen}" />
-										
-										
-								
-										
-									<h:outputText id="msgValor" value=" Valor:" />
-									<p:inputText id="txtValor" disabled="true"
-										binding="#{listaPreciosView.txtValor}" />
-										
-										
-									<h:outputText id="msgIdRefe_Referencia"
-										value=" IdRefe_Referencia" />
-									<p:inputText id="txtIdRefe_Referencia" disabled="true"
-										binding="#{listaPreciosView.txtIdRefe_Referencia}" />
-										
-										
-									<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal" />
-									<p:inputText id="txtIdSucu_Sucursal" disabled="true"
-										binding="#{listaPreciosView.txtIdSucu_Sucursal}" />
-										
-										
-									<h:outputText id="msgIdTili_TipoLista"
-										value=" IdTili_TipoLista" />
-									<p:inputText id="txtIdTili_TipoLista" disabled="true"
-										binding="#{listaPreciosView.txtIdTili_TipoLista}" />
-										
 
-									
-									<h:outputText id="msgFechaFinal" value=" FechaFinal" />
-									<p:calendar showOn="button" navigator="true" locale="en"
-										binding="#{listaPreciosView.txtFechaFinal}">
-										<p:ajax event="dateSelect"
-											listener="#{listaPreciosView.listener_txtFechaFinal}"
-											update="men" />
-									</p:calendar>
-									
-									
-									<h:outputText id="msgFechaInicial" value=" FechaInicial" />
+
+
+
+									<h:outputText id="msgValor" value=" Valor:" />
+									<p:inputText id="txtValor" value="#{listaPreciosView.valor}"
+										binding="#{listaPreciosView.txtValor}" />
+
+
+									<h:outputText id="msgIdRefe_Referencia"
+										value=" Codigo referencia:" />
+									<p:selectOneMenu value="#{listaPreciosView.idRefe_Referencia}"
+										binding="#{listaPreciosView.txtIdRefe_Referencia}">
+										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItems value="#{listaPreciosView.referencia}" />
+									</p:selectOneMenu>
+
+
+
+									<h:outputText id="msgIdSucu_Sucursal" value=" Nombre sucursal:" />
+									<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
+										binding="#{listaPreciosView.txtIdSucu_Sucursal}">
+										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItems value="#{listaPreciosView.sucursal}" />
+									</p:selectOneMenu>
+
+
+
+									<h:outputText id="msgIdTili_TipoLista"
+										value=" codigo Topo Lista:" />
+									<p:selectOneMenu value="#{listaPreciosView.idTili_TipoLista}"
+										binding="#{listaPreciosView.txtIdTili_TipoLista}">
+										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItems value="#{listaPreciosView.tipoLista}" />
+									</p:selectOneMenu>
+
+
+
+									<h:outputText id="msgFechaInicial" value=" *Fecha Inicial:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{listaPreciosView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{listaPreciosView.listener_txtFechaInicial}"
 											update="men" />
 									</p:calendar>
-										
+
+
+									<h:outputText id="msgFechaFinal" value=" *Fecha Final:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{listaPreciosView.txtFechaFinal}">
+										<p:ajax event="dateSelect"
+											listener="#{listaPreciosView.listener_txtFechaFinal}"
+											update="men" />
+									</p:calendar>
+
 
 								</h:panelGrid>
 
 								<p:separator id="separator" />
 
 								<h:panelGrid id="panelBotones" columns="1">
-								
+
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{listaPreciosView.action_create}"
 										binding="#{listaPreciosView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 
 								</h:panelGrid>
-								</p:dialog>
+							</p:dialog>
 						</p:panel>
 
 					</h:form>

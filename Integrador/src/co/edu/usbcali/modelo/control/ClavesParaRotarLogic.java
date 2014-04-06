@@ -67,9 +67,9 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"claveFabricacion");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if ((entity.getAno() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -141,12 +141,12 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"idClfa_ClaveFabricacion");
 			}
 
-			if (entity.getSucursal().getIdSucu() == null) {
+			/*if (entity.getSucursal().getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idSucu_Sucursal");
-			}
+			}*/
 
-			if ((entity.getSucursal().getIdSucu() != null)
+			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -193,9 +193,9 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"claveFabricacion");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if ((entity.getAno() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -275,12 +275,12 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"idClfa_ClaveFabricacion");
 			}
 
-			if (entity.getSucursal().getIdSucu() == null) {
+			/*if (entity.getSucursal().getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idSucu_Sucursal");
-			}
+			}*/
 
-			if ((entity.getSucursal().getIdSucu() != null)
+			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -330,6 +330,8 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 								.getClaveFabricacion().getIdClfa() != null) ? clavesParaRotarTmp
 								.getClaveFabricacion().getIdClfa() : null);
 
+				
+				
 				if (clavesParaRotarTmp.getSucursal() != null) {
 					clavesParaRotarDTO2.setIdSucu_Sucursal(clavesParaRotarTmp
 							.getSucursal().getIdSucu());
@@ -337,6 +339,9 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 					clavesParaRotarDTO2.setIdSucu_Sucursal(null);
 				}
 
+				
+				
+				
 				clavesParaRotarDTO.add(clavesParaRotarDTO2);
 			}
 

@@ -81,7 +81,7 @@ public class PeriodoGarantiaLogic implements IPeriodoGarantiaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdPega() == null) {
+			/*if (entity.getIdPega() == null) {
 				throw new ZMessManager().new EmptyFieldException("idPega");
 			}
 
@@ -89,7 +89,7 @@ public class PeriodoGarantiaLogic implements IPeriodoGarantiaLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdPega(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idPega");
-			}
+			}*/
 
 			if ((entity.getMesesParticular() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -138,9 +138,9 @@ public class PeriodoGarantiaLogic implements IPeriodoGarantiaLogic {
 						"idGrpo_Grupo");
 			}
 
-			if (getPeriodoGarantia(entity.getIdPega()) != null) {
+			/*if (getPeriodoGarantia(entity.getIdPega()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			periodoGarantiaDAO.save(entity);
 		} catch (Exception e) {

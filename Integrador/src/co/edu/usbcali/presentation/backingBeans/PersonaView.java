@@ -49,8 +49,8 @@ public class PersonaView {
 	private InputText txtDigitoVerificacion;
 	private InputTextarea txtDireccion;
 	private InputText txtEmail;
-	//private InputText txtEstadoPersona;
-	//private InputText txtEstadoRegistro;
+	// private InputText txtEstadoPersona;
+	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private SelectOneMenu estadoP;
 	private InputText txtIdentificacion;
@@ -67,7 +67,7 @@ public class PersonaView {
 	private InputText txtIdPers;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String apartadoAereo;
 	private String digitoVerificacion;
 	private String direccion;
@@ -83,15 +83,15 @@ public class PersonaView {
 	private String segundoNombre;
 	private String telefono1;
 	private String telefono2;
-	private Long idDipo_DivisionPolitica;
+	private String idDipo_DivisionPolitica;
 	private Long idTiid_TipoIdentificacion;
 	private String idPers;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
-	private Map<String,String> divisionPolitica = new HashMap<String, String>();
-	private Map<String,String> tipoIdentificacion = new HashMap<String, String>();
-	
+
+	private Map<String, String> divisionPolitica = new HashMap<String, String>();
+	private Map<String, String> tipoIdentificacion = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -110,11 +110,11 @@ public class PersonaView {
 
 	public PersonaView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -125,49 +125,60 @@ public class PersonaView {
 
 		return options;
 	}
-	
+
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
 
 		try {
 
 			entity = null;
-			entity = businessDelegatorView
-					.getPersona(((PersonaDTO) event.getObject())
-							.getIdPers());
+			entity = businessDelegatorView.getPersona(((PersonaDTO) event
+					.getObject()).getIdPers());
 
-			entity.setIdentificacion(((PersonaDTO) event.getObject()).getIdentificacion());
-			entity.setPrimerNombre(((PersonaDTO) event.getObject()).getPrimerNombre());
-			entity.setSegundoNombre(((PersonaDTO) event.getObject()).getSegundoNombre());
-			entity.setPrimerApellido(((PersonaDTO) event.getObject()).getPrimerApellido());
-			entity.setSegundoApellido(((PersonaDTO) event.getObject()).getSegundoApellido());
-			
+			entity.setIdentificacion(((PersonaDTO) event.getObject())
+					.getIdentificacion());
+			entity.setPrimerNombre(((PersonaDTO) event.getObject())
+					.getPrimerNombre());
+			entity.setSegundoNombre(((PersonaDTO) event.getObject())
+					.getSegundoNombre());
+			entity.setPrimerApellido(((PersonaDTO) event.getObject())
+					.getPrimerApellido());
+			entity.setSegundoApellido(((PersonaDTO) event.getObject())
+					.getSegundoApellido());
+
 			entity.setDireccion(((PersonaDTO) event.getObject()).getDireccion());
 			entity.setTelefono1(((PersonaDTO) event.getObject()).getTelefono1());
 			entity.setTelefono2(((PersonaDTO) event.getObject()).getTelefono2());
-			entity.setApartadoAereo(((PersonaDTO) event.getObject()).getApartadoAereo());
-			
+			entity.setApartadoAereo(((PersonaDTO) event.getObject())
+					.getApartadoAereo());
+
 			entity.setEmail(((PersonaDTO) event.getObject()).getEmail());
-			entity.setDigitoVerificacion(((PersonaDTO) event.getObject()).getDigitoVerificacion());
-			
+			entity.setDigitoVerificacion(((PersonaDTO) event.getObject())
+					.getDigitoVerificacion());
+
 			Long estadoPersona = new Long(estadoP.getValue().toString());
-		
+
 			entity.setEstadoPersona(estadoPersona);
-				
-			entity.setEstadoRegistro(estadoRegistro);	
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
-			
-			
-			DivisionPolitica entity2 = businessDelegatorView
-					.getDivisionPolitica(getIdDipo_DivisionPolitica());		
-			entity.setDivisionPolitica(entity2);
-			
+
 			TipoIdentificacion entity3 = businessDelegatorView
-					.getTipoIdentificacion(getIdTiid_TipoIdentificacion());		
+					.getTipoIdentificacion(getIdTiid_TipoIdentificacion());
 			entity.setTipoIdentificacion(entity3);
 			
 			
+
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+				System.out.println("Entro if");
+				entity.setDivisionPolitica(null);
+			} else {
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
+
 			businessDelegatorView.updatePersona(entity);
 			data = businessDelegatorView.getDataPersona();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -187,9 +198,6 @@ public class PersonaView {
 		System.out.println("Cancelado"
 				+ ((PersonaDTO) event.getObject()).getIdPers());
 	}
-	
-	
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -219,17 +227,19 @@ public class PersonaView {
 
 			txtEmail.setValue(personaDTO.getEmail());
 
-			/*if (txtEstadoPersona == null) {
-				txtEstadoPersona = new InputText();
-			}
+			/*
+			 * if (txtEstadoPersona == null) { txtEstadoPersona = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoPersona.setValue(personaDTO.getEstadoPersona());
+			 */
 
-			txtEstadoPersona.setValue(personaDTO.getEstadoPersona());*/
-
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(personaDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(personaDTO.getEstadoRegistro());
+			 */
 
 			if (txtIdentificacion == null) {
 				txtIdentificacion = new InputText();
@@ -336,102 +346,101 @@ public class PersonaView {
 
 		if (txtApartadoAereo != null) {
 			txtApartadoAereo.setValue(null);
-			//txtApartadoAereo.setDisabled(true);
+			// txtApartadoAereo.setDisabled(true);
 		}
 
 		if (txtDigitoVerificacion != null) {
 			txtDigitoVerificacion.setValue(null);
-			//txtDigitoVerificacion.setDisabled(true);
+			// txtDigitoVerificacion.setDisabled(true);
 		}
 
 		if (txtDireccion != null) {
 			txtDireccion.setValue(null);
-			//txtDireccion.setDisabled(true);
+			// txtDireccion.setDisabled(true);
 		}
 
 		if (txtEmail != null) {
 			txtEmail.setValue(null);
-			//txtEmail.setDisabled(true);
+			// txtEmail.setDisabled(true);
 		}
 
-		/*if (txtEstadoPersona != null) {
-			txtEstadoPersona.setValue(null);
-			//txtEstadoPersona.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoPersona != null) { txtEstadoPersona.setValue(null);
+		 * //txtEstadoPersona.setDisabled(true); }
+		 */
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}
-*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 		if (txtIdentificacion != null) {
 			txtIdentificacion.setValue(null);
-			//txtIdentificacion.setDisabled(true);
+			// txtIdentificacion.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPrimerApellido != null) {
 			txtPrimerApellido.setValue(null);
-			//txtPrimerApellido.setDisabled(true);
+			// txtPrimerApellido.setDisabled(true);
 		}
 
 		if (txtPrimerNombre != null) {
 			txtPrimerNombre.setValue(null);
-			//txtPrimerNombre.setDisabled(true);
+			// txtPrimerNombre.setDisabled(true);
 		}
 
 		if (txtSegundoApellido != null) {
 			txtSegundoApellido.setValue(null);
-			//txtSegundoApellido.setDisabled(true);
+			// txtSegundoApellido.setDisabled(true);
 		}
 
 		if (txtSegundoNombre != null) {
 			txtSegundoNombre.setValue(null);
-			//txtSegundoNombre.setDisabled(true);
+			// txtSegundoNombre.setDisabled(true);
 		}
 
 		if (txtTelefono1 != null) {
 			txtTelefono1.setValue(null);
-			//txtTelefono1.setDisabled(true);
+			// txtTelefono1.setDisabled(true);
 		}
 
 		if (txtTelefono2 != null) {
 			txtTelefono2.setValue(null);
-			//txtTelefono2.setDisabled(true);
+			// txtTelefono2.setDisabled(true);
 		}
 
 		if (txtIdDipo_DivisionPolitica != null) {
 			txtIdDipo_DivisionPolitica.setValue(null);
-			//txtIdDipo_DivisionPolitica.setDisabled(true);
+			// txtIdDipo_DivisionPolitica.setDisabled(true);
 		}
 
 		if (txtIdTiid_TipoIdentificacion != null) {
 			txtIdTiid_TipoIdentificacion.setValue(null);
-			//txtIdTiid_TipoIdentificacion.setDisabled(true);
+			// txtIdTiid_TipoIdentificacion.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdPers != null) {
 			txtIdPers.setValue(null);
-			//txtIdPers.setDisabled(false);
+			// txtIdPers.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -472,8 +481,8 @@ public class PersonaView {
 			txtDigitoVerificacion.setDisabled(false);
 			txtDireccion.setDisabled(false);
 			txtEmail.setDisabled(false);
-			//txtEstadoPersona.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoPersona.setDisabled(false);
+			// txtEstadoRegistro.setDisabled(false);
 			txtIdentificacion.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -498,10 +507,10 @@ public class PersonaView {
 			txtDireccion.setDisabled(false);
 			txtEmail.setValue(entity.getEmail());
 			txtEmail.setDisabled(false);
-			//txtEstadoPersona.setValue(entity.getEstadoPersona());
-			//txtEstadoPersona.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoPersona.setValue(entity.getEstadoPersona());
+			// txtEstadoPersona.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -547,10 +556,10 @@ public class PersonaView {
 		txtDireccion.setDisabled(false);
 		txtEmail.setValue(selectedPersona.getEmail());
 		txtEmail.setDisabled(false);
-		//txtEstadoPersona.setValue(selectedPersona.getEstadoPersona());
-		//txtEstadoPersona.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedPersona.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoPersona.setValue(selectedPersona.getEstadoPersona());
+		// txtEstadoPersona.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedPersona.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedPersona.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedPersona.getFechaModificacion());
@@ -606,13 +615,14 @@ public class PersonaView {
 	public String action_create() {
 		try {
 			entity = new Persona();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idPers = new Long(txtIdPers.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idPers = new Long(txtIdPers.getValue().toString());
 
 			entity.setApartadoAereo(FacesUtils.checkString(txtApartadoAereo));
 			entity.setDigitoVerificacion(FacesUtils
@@ -620,23 +630,22 @@ public class PersonaView {
 			entity.setDireccion(FacesUtils.checkString(txtDireccion));
 			entity.setEmail(FacesUtils.checkString(txtEmail));
 			entity.setIdentificacion(FacesUtils.checkLong(txtIdentificacion));
-			
+
 			Long estadoPersona = new Long(estadoP.getValue().toString());
 			entity.setEstadoPersona(estadoPersona);
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			
-			//entity.setIdPers(idPers);
-			//entity.setEstadoPersona(FacesUtils.checkLong(txtEstadoPersona));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			
+
+			// entity.setIdPers(idPers);
+			// entity.setEstadoPersona(FacesUtils.checkLong(txtEstadoPersona));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
 			entity.setPrimerApellido(FacesUtils.checkString(txtPrimerApellido));
 			entity.setPrimerNombre(FacesUtils.checkString(txtPrimerNombre));
 			entity.setSegundoApellido(FacesUtils
@@ -644,22 +653,32 @@ public class PersonaView {
 			entity.setSegundoNombre(FacesUtils.checkString(txtSegundoNombre));
 			entity.setTelefono1(FacesUtils.checkString(txtTelefono1));
 			entity.setTelefono2(FacesUtils.checkString(txtTelefono2));
+
 			
-			
-			/*entity.setDivisionPolitica(businessDelegatorView
-					.getDivisionPolitica(FacesUtils
-							.checkLong(txtIdDipo_DivisionPolitica)));*/
-			/*entity.setTipoIdentificacion(businessDelegatorView
+			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
-							.checkLong(txtIdTiid_TipoIdentificacion)));*/
-			DivisionPolitica entity2 = businessDelegatorView
-					.getDivisionPolitica(getIdDipo_DivisionPolitica());		
-			entity.setDivisionPolitica(entity2);
-			
-			TipoIdentificacion entity3 = businessDelegatorView
-					.getTipoIdentificacion(getIdTiid_TipoIdentificacion());		
-			entity.setTipoIdentificacion(entity3);
-			
+							.checkLong(txtIdTiid_TipoIdentificacion)));
+
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+					System.out.println("Entro if create");
+			} else {
+				System.out.println("Else create");
+				
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
+
+			/*
+			 * DivisionPolitica entity2 = businessDelegatorView
+			 * .getDivisionPolitica(getIdDipo_DivisionPolitica());
+			 * entity.setDivisionPolitica(entity2);
+			 * 
+			 * TipoIdentificacion entity3 = businessDelegatorView
+			 * .getTipoIdentificacion(getIdTiid_TipoIdentificacion());
+			 * entity.setTipoIdentificacion(entity3);
+			 */
+
 			businessDelegatorView.savePersona(entity);
 			data = businessDelegatorView.getDataPersona();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -670,10 +689,6 @@ public class PersonaView {
 
 		return "";
 	}
-	
-	
-	
-	
 
 	public String action_modify() {
 		try {
@@ -687,8 +702,8 @@ public class PersonaView {
 					.checkString(txtDigitoVerificacion));
 			entity.setDireccion(FacesUtils.checkString(txtDireccion));
 			entity.setEmail(FacesUtils.checkString(txtEmail));
-			//entity.setEstadoPersona(FacesUtils.checkLong(txtEstadoPersona));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoPersona(FacesUtils.checkLong(txtEstadoPersona));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -831,21 +846,19 @@ public class PersonaView {
 		this.txtEmail = txtEmail;
 	}
 
-	/*public InputText getTxtEstadoPersona() {
-		return txtEstadoPersona;
-	}
+	/*
+	 * public InputText getTxtEstadoPersona() { return txtEstadoPersona; }
+	 * 
+	 * public void setTxtEstadoPersona(InputText txtEstadoPersona) {
+	 * this.txtEstadoPersona = txtEstadoPersona; }
+	 */
 
-	public void setTxtEstadoPersona(InputText txtEstadoPersona) {
-		this.txtEstadoPersona = txtEstadoPersona;
-	}*/
-
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtIdentificacion() {
 		return txtIdentificacion;
@@ -1158,11 +1171,11 @@ public class PersonaView {
 		this.telefono2 = telefono2;
 	}
 
-	public Long getIdDipo_DivisionPolitica() {
+	public String getIdDipo_DivisionPolitica() {
 		return idDipo_DivisionPolitica;
 	}
 
-	public void setIdDipo_DivisionPolitica(Long idDipo_DivisionPolitica) {
+	public void setIdDipo_DivisionPolitica(String idDipo_DivisionPolitica) {
 		this.idDipo_DivisionPolitica = idDipo_DivisionPolitica;
 	}
 
@@ -1229,48 +1242,46 @@ public class PersonaView {
 	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
 		this.manufacturerOptions2 = manufacturerOptions2;
 	}
-	
 
-	public Map<String,String> getDivisionPolitica() {
+	public Map<String, String> getDivisionPolitica() {
 		try {
 			List<DivisionPoliticaDTO> data2 = businessDelegatorView
 					.getDataDivisionPolitica();
 			for (int i = 0; i < data2.size(); i++) {
-				
-				divisionPolitica.put(data2.get(i).getNombre(), data2.get(i).getIdDipo() + "");
+
+				divisionPolitica.put(data2.get(i).getNombre(), data2.get(i)
+						.getIdDipo() + "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return divisionPolitica;
 	}
 
-	public void setDivisionPolitica(Map<String,String> divisionPolitica) {
+	public void setDivisionPolitica(Map<String, String> divisionPolitica) {
 		this.divisionPolitica = divisionPolitica;
 	}
-	
 
-	public Map<String,String> getTipoIdentificacion() {
-		
+	public Map<String, String> getTipoIdentificacion() {
+
 		try {
 			List<TipoIdentificacionDTO> data3 = businessDelegatorView
 					.getDataTipoIdentificacion();
 			for (int i = 0; i < data3.size(); i++) {
-				
-				tipoIdentificacion.put(data3.get(i).getCodigo(), data3.get(i).getIdTiid() + "");
+
+				tipoIdentificacion.put(data3.get(i).getCodigo(), data3.get(i)
+						.getIdTiid() + "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return tipoIdentificacion;
 	}
 
-	public void setTipoIdentificacion(Map<String,String> tipoIdentificacion) {
+	public void setTipoIdentificacion(Map<String, String> tipoIdentificacion) {
 		this.tipoIdentificacion = tipoIdentificacion;
 	}
-	
-	
+
 }
