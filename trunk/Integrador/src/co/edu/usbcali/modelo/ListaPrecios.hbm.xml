@@ -6,7 +6,9 @@
     <class name="co.edu.usbcali.modelo.ListaPrecios" table="LISTA_PRECIOS" >
         <id name="idLipr" type="java.lang.Long">
             <column name="ID_LIPR" precision="10" scale="0" />
-            <generator class="assigned" />
+           <generator class="sequence" >
+            <param name="sequence">LIPR_ID_LIPR_SEQ</param>
+           </generator>
         </id>
         <many-to-one name="referencia" class="co.edu.usbcali.modelo.Referencia" fetch="select">
             <column name="ID_REFE" precision="10" scale="0" not-null="true" />

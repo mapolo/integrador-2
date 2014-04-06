@@ -62,7 +62,7 @@ public class DivisionPoliticaView {
 	private String nombre;
 	private String operCreador;
 	private String operModifica;
-	private Long idDipo_DivisionPolitica;
+	private String idDipo_DivisionPolitica;
 	private Long idTidi_TipoDivision;
 	private String idDipo;
 	private String fechaCreacion;
@@ -123,13 +123,27 @@ public class DivisionPoliticaView {
 			
 			
 			
-			DivisionPolitica entity2 = businessDelegatorView
+			/*DivisionPolitica entity2 = businessDelegatorView
 					.getDivisionPolitica(getIdDipo_DivisionPolitica());
 			entity.setDivisionPolitica(entity2);
-
+			
 			TipoDivision entity3 = businessDelegatorView
 					.getTipoDivision(getIdTidi_TipoDivision());
-			entity.setTipoDivision(entity3);
+			entity.setTipoDivision(entity3);*/
+			
+			entity.setTipoDivision(businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision()));
+			
+			 if(txtIdDipo_DivisionPolitica.getValue()==""){
+				 System.out.println("Entro ig");
+					entity.setDivisionPolitica(null);
+				}else{
+					System.out.println("entro else");
+					entity.setDivisionPolitica(businessDelegatorView
+							 .getDivisionPolitica(FacesUtils
+							 .checkLong(txtIdDipo_DivisionPolitica)));
+				}
+
+			
 			
 			
 	
@@ -460,19 +474,28 @@ public class DivisionPoliticaView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			// entity.setDivisionPolitica(businessDelegatorView
-			// .getDivisionPolitica(FacesUtils
-			// .checkLong(txtIdDipo_DivisionPolitica)));
-			// entity.setTipoDivision(businessDelegatorView
-			// .getTipoDivision(FacesUtils
-			// .checkLong(txtIdTidi_TipoDivision)));
 
-			DivisionPolitica entity2 = businessDelegatorView
+			entity.setTipoDivision(businessDelegatorView
+					 .getTipoDivision(FacesUtils
+					 .checkLong(txtIdTidi_TipoDivision)));
+			
+					 
+			 
+			 if(txtIdDipo_DivisionPolitica.getValue()==""){
+					
+				}else{
+					
+					entity.setDivisionPolitica(businessDelegatorView
+							 .getDivisionPolitica(FacesUtils
+							 .checkLong(txtIdDipo_DivisionPolitica)));
+				}
+
+			/*DivisionPolitica entity2 = businessDelegatorView
 					.getDivisionPolitica(getIdDipo_DivisionPolitica());
 			entity.setDivisionPolitica(entity2);
 
 			TipoDivision entity3 = businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision());
-			entity.setTipoDivision(entity3);
+			entity.setTipoDivision(entity3);*/
 
 			businessDelegatorView.saveDivisionPolitica(entity);
 			data = businessDelegatorView.getDataDivisionPolitica();
@@ -782,11 +805,11 @@ public class DivisionPoliticaView {
 		this.operModifica = operModifica;
 	}
 
-	public Long getIdDipo_DivisionPolitica() {
+	public String getIdDipo_DivisionPolitica() {
 		return idDipo_DivisionPolitica;
 	}
 
-	public void setIdDipo_DivisionPolitica(Long idDipo_DivisionPolitica) {
+	public void setIdDipo_DivisionPolitica(String idDipo_DivisionPolitica) {
 		this.idDipo_DivisionPolitica = idDipo_DivisionPolitica;
 	}
 

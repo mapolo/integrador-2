@@ -96,7 +96,7 @@ public class RutaDistribucionLogic implements IRutaDistribucionLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdRudi() == null) {
+			/*if (entity.getIdRudi() == null) {
 				throw new ZMessManager().new EmptyFieldException("idRudi");
 			}
 
@@ -104,7 +104,7 @@ public class RutaDistribucionLogic implements IRutaDistribucionLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdRudi(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idRudi");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -128,23 +128,23 @@ public class RutaDistribucionLogic implements IRutaDistribucionLogic {
 						"operModifica");
 			}
 
-			if ((entity.getTiempoEntrega() != null)
+			/*if ((entity.getTiempoEntrega() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTiempoEntrega(), 5, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"tiempoEntrega");
-			}
+			}*/
 
-			if ((entity.getTiempoTransporte() != null)
+			/*if ((entity.getTiempoTransporte() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTiempoTransporte(), 5, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"tiempoTransporte");
-			}
+			}*/
 
-			if (getRutaDistribucion(entity.getIdRudi()) != null) {
+			/*if (getRutaDistribucion(entity.getIdRudi()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			rutaDistribucionDAO.save(entity);
 		} catch (Exception e) {
@@ -262,19 +262,19 @@ public class RutaDistribucionLogic implements IRutaDistribucionLogic {
 						"operModifica");
 			}
 
-			if ((entity.getTiempoEntrega() != null)
+			/*if ((entity.getTiempoEntrega() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTiempoEntrega(), 5, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"tiempoEntrega");
-			}
+			}*/
 
-			if ((entity.getTiempoTransporte() != null)
+			/*if ((entity.getTiempoTransporte() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTiempoTransporte(), 5, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"tiempoTransporte");
-			}
+			}*/
 
 			rutaDistribucionDAO.update(entity);
 		} catch (Exception e) {

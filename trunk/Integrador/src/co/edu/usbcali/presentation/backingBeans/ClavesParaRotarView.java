@@ -66,7 +66,7 @@ public class ClavesParaRotarView {
 	private String operCreador;
 	private String operModifica;
 	private Long idClfa_ClaveFabricacion;
-	private Long idSucu_Sucursal;
+	private String idSucu_Sucursal;
 	private String idClpr;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -124,13 +124,28 @@ public class ClavesParaRotarView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 			
-			ClaveFabricacion entity2 = businessDelegatorView
+			/*ClaveFabricacion entity2 = businessDelegatorView
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion());		
-			entity.setClaveFabricacion(entity2);
+			entity.setClaveFabricacion(entity2);*/
 			
-			Sucursal entity3 = businessDelegatorView
+			
+			entity.setClaveFabricacion(businessDelegatorView
+					.getClaveFabricacion(getIdClfa_ClaveFabricacion()));
+			
+			if(txtIdSucu_Sucursal.getValue()==""){
+				System.out.println("entro if");
+				entity.setSucursal(null);
+			}else{
+				System.out.println("entro else");
+				
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(FacesUtils
+							.checkLong(txtIdSucu_Sucursal)));
+			}
+			
+			/*Sucursal entity3 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());		
-			entity.setSucursal(entity3);
+			entity.setSucursal(entity3);*/
 						
 			businessDelegatorView.updateClavesParaRotar(entity);
 			data = businessDelegatorView.getDataClavesParaRotar();
@@ -433,9 +448,21 @@ public class ClavesParaRotarView {
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion());		
 			entity.setClaveFabricacion(entity2);
 			
-			Sucursal entity3 = businessDelegatorView
+			/*Sucursal entity3 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());		
-			entity.setSucursal(entity3);
+			entity.setSucursal(entity3);*/
+			
+			if(txtIdSucu_Sucursal.getValue()==""){
+			
+			}else{
+
+				
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(FacesUtils
+							.checkLong(txtIdSucu_Sucursal)));
+			}
+			
+			
 			
 			businessDelegatorView.saveClavesParaRotar(entity);
 			data = businessDelegatorView.getDataClavesParaRotar();
@@ -751,11 +778,11 @@ public class ClavesParaRotarView {
 		this.idClfa_ClaveFabricacion = idClfa_ClaveFabricacion;
 	}
 
-	public Long getIdSucu_Sucursal() {
+	public String getIdSucu_Sucursal() {
 		return idSucu_Sucursal;
 	}
 
-	public void setIdSucu_Sucursal(Long idSucu_Sucursal) {
+	public void setIdSucu_Sucursal(String idSucu_Sucursal) {
 		this.idSucu_Sucursal = idSucu_Sucursal;
 	}
 

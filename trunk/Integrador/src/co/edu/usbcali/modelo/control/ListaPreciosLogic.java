@@ -73,9 +73,9 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 				throw new ZMessManager().new ForeignException("referencia");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if (entity.getTipoLista() == null) {
 				throw new ZMessManager().new ForeignException("tipoLista");
@@ -109,7 +109,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdLipr() == null) {
+			/*if (entity.getIdLipr() == null) {
 				throw new ZMessManager().new EmptyFieldException("idLipr");
 			}
 
@@ -117,7 +117,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdLipr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idLipr");
-			}
+			}*/
 
 			if ((entity.getMargen() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -165,12 +165,12 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"idRefe_Referencia");
 			}
 
-			if (entity.getSucursal().getIdSucu() == null) {
+			/*if (entity.getSucursal().getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idSucu_Sucursal");
-			}
+			}*/
 
-			if ((entity.getSucursal().getIdSucu() != null)
+			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -189,9 +189,9 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"idTili_TipoLista");
 			}
 
-			if (getListaPrecios(entity.getIdLipr()) != null) {
+		/*	if (getListaPrecios(entity.getIdLipr()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			listaPreciosDAO.save(entity);
 		} catch (Exception e) {
@@ -229,9 +229,9 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 				throw new ZMessManager().new ForeignException("referencia");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if (entity.getTipoLista() == null) {
 				throw new ZMessManager().new ForeignException("tipoLista");
@@ -321,12 +321,12 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"idRefe_Referencia");
 			}
 
-			if (entity.getSucursal().getIdSucu() == null) {
+			/*if (entity.getSucursal().getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idSucu_Sucursal");
-			}
+			}*/
 
-			if ((entity.getSucursal().getIdSucu() != null)
+			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
