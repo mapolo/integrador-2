@@ -203,16 +203,6 @@ public class EmpresaLogic implements IEmpresaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException("idEmpr");
-			}
-
-			if ((entity.getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idEmpr");
-			}
-
 			if (entity.getIdentificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"identificacion");
@@ -307,10 +297,6 @@ public class EmpresaLogic implements IEmpresaLogic {
 											.getIdTiid(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTiid_TipoIdentificacion");
-			}
-
-			if (getEmpresa(entity.getIdEmpr()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
 			}
 
 			empresaDAO.save(entity);
@@ -474,16 +460,6 @@ public class EmpresaLogic implements IEmpresaLogic {
 			if (entity.getFechaModificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
-			}
-
-			if (entity.getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException("idEmpr");
-			}
-
-			if ((entity.getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idEmpr");
 			}
 
 			if (entity.getIdentificacion() == null) {

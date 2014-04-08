@@ -46,80 +46,76 @@ body {
 
 					<h:form id="form">
 
-						<p:panel id="msgProjectRutaDistribucionTitle"
-							header="Ruta de Distribución">
+						<p:panel id="msgProjectSaldoInicialInventarioTitle"
+							header="Saldo Inicial del Inventario">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<p:dataTable var="car" value="#{rutaDistribucionView.data}"
-								id="tablaPrincipal" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{rutaDistribucionView.data}">
+							<p:dataTable var="car" value="#saldoInicialInventarioView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true"
+								filteredValue="#{saldoInicialInventarioView.data}">
 
 								<p:ajax event="rowEdit"
-									listener="#{rutaDistribucionView.onEdit}" />
+									listener="#{saldoInicialInventarioView.onEdit}" />
 								<p:ajax event="rowEditCancel"
-									listener="#{rutaDistribucionView.onCancel}" />
+									listener="#{saldoInicialInventarioView.onCancel}" />
 
 								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
 
-								<p:column headerText="ID" sortBy="idRudi" filterBy="idRudi"
+								<p:column headerText="ID" filterBy="idSini" sortBy="idSini"
 									style="width: 100px">
+
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.idRudi}" />
+											<h:outputText value="#{car.idSini}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idRudi}" disabled="true" />
+											<p:inputText value="#{car.idSini}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.ano}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.ano}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">
+								<p:column id="saldoInicial" filterBy="saldoInicial"
+									headerText="Saldo Inicial" sortBy="saldoInicial"
+									filterMatchMode="contains" style="width: 100px">
+
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputText value="#{car.codigo}" />
+											<h:outputText value="#{car.saldoInicial}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" disabled="false" />
+											<p:inputText value="#{car.saldoInicial}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
-								<p:column headerText="Descripción" style="width: 100px">
+								<p:column id="costoInicial" filterBy="costoInicial"
+									headerText="Costo Inicial" sortBy="costoInicial"
+									filterMatchMode="contains" style="width: 100px">
+
 									<p:cellEditor>
 										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Tiempo de Entrega" style="width: 100px"
-									sortBy="tiempoEntrega" filterBy="tiempoEntrega">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.tiempoEntrega}" />
+											<h:outputText value="#{car.costoInicial}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.tiempoEntrega}" disabled="false" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Tiempo de Transporte" style="width: 100px"
-									sortBy="tiempoTransporte" filterBy="tiempoTransporte">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.tiempoTransporte}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.tiempoTransporte}" disabled="false" />
+											<p:inputText value="#{car.costoInicial}" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -150,7 +146,7 @@ body {
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
-									filterOptions="#{rutaDistribucionView.manufacturerOptions}"
+									filterOptions="#{saldoInicialInventarioView.manufacturerOptions}"
 									filterMatchMode="exact">
 									<p:cellEditor>
 										<f:facet name="output">
@@ -159,7 +155,7 @@ body {
 
 										<f:facet name="input">
 											<h:selectOneMenu
-												value="#{rutaDistribucionView.estadoRegistro}">
+												value="#{saldoInicialInventarioView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -167,10 +163,30 @@ body {
 									</p:cellEditor>
 								</p:column>
 
+								<p:column headerText="ID Referencia Sucursal"
+									style="width:100px" filterBy="idResu_ReferenciaSucursal"
+									sortBy="idResu_ReferenciaSucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idResu_ReferenciaSucursal}" />
+										</f:facet>
+
+										<f:facet name="input">
+
+											<p:selectOneMenu
+												value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
+												style="width:160px">
+												<f:selectItems
+													value="#{saldoInicialInventarioView.referencia}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-										icon="ui-icon-documen" update=":form"
-										oncomplete="PF('carDialog').show()" />
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 								<f:facet name="footer">
@@ -179,12 +195,11 @@ body {
 										action="#{menuView.menu}" />
 								</f:facet>
 
-
 							</p:dataTable>
 
-							<!--                   Ventana emergente           -->
+							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Ruta de Distribución"
+							<p:dialog id="dialog" header="Saldo Inicial del Inventario"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
 
@@ -192,47 +207,46 @@ body {
 
 								<h:panelGrid columns="2" id="panel">
 
-									<h:outputText id="msgCodigo" value="*Codigo:" />
-									<p:inputText id="txtCodigo"
-										value="#{rutaDistribucionView.codigo}"
-										binding="#{rutaDistribucionView.txtCodigo}" />
+									<h:outputText id="msgAno" value="*Año:" />
+									<p:inputText id="txtAno"
+										value="#{saldoInicialInventarioView.ano}"
+										binding="#{saldoInicialInventarioView.txtAno}" />
 
-									<h:outputText id="msgDescripcion" value="Descripción:" />
-									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-										disabled="false" value="#{rutaDistribucionView.descripcion}"
-										binding="#{rutaDistribucionView.txtDescripcion}" />
+									<h:outputText id="msgSaldoInicial" value="*Saldo Inicial:" />
+									<p:inputText id="txtSaldoInicial"
+										value="#{saldoInicialInventarioView.saldoInicial}"
+										binding="#{saldoInicialInventarioView.txtSaldoInicial}" />
 
-									<h:outputText id="msgTiempoEntrega" value="Tiempo de Entrega:" />
-									<p:inputText id="txtTiempoEntrega"
-										value="#{rutaDistribucionView.tiempoEntrega}"
-										binding="#{rutaDistribucionView.txtTiempoEntrega}" />
-
-									<h:outputText id="msgTiempoTransporte"
-										value="Tiempo de Transporte:" />
-									<p:inputText id="txtTiempoTransporte"
-										value="#{rutaDistribucionView.tiempoTransporte}"
-										binding="#{rutaDistribucionView.txtTiempoTransporte}" />
+									<h:outputText id="msgCostoInicial" value="*Costo Inicial:" />
+									<p:inputText id="txtCostoInicial"
+										value="#{saldoInicialInventarioView.costoInicial}"
+										binding="#{saldoInicialInventarioView.txtCostoInicial}" />
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
-									<p:selectOneMenu binding="#{rutaDistribucionView.estado}"
-										value="#{rutaDistribucionView.estadoRegistro}"
-										disabled="false">
+									<p:selectOneMenu binding="#{saldoInicialInventarioView.estado}"
+										value="#{saldoInicialInventarioView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
 
-								</h:panelGrid>
-								
-								<p:separator id="separator" />
-								
-								<h:panelGrid id="panelBotones" columns="1">
+									<h:outputText id="msgIdGrpo_Grupo" value="*Referencia Sucursal:" />
+									<p:selectOneMenu value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
+										binding="#{saldoInicialInventarioView.txtIdResu_ReferenciaSucursal}">
+										<f:selectItems value="#{saldoInicialInventarioView.referencia}" />
+									</p:selectOneMenu>
 
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
 									<p:commandButton id="btnGuardar" value="Guardar"
-										action="#{rutaDistribucionView.action_create}"
-										binding="#{rutaDistribucionView.btnSave}"
+										action="#{saldoInicialInventarioView.action_create}"
+										binding="#{saldoInicialInventarioView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

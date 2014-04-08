@@ -11,16 +11,13 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -50,7 +47,7 @@ body {
 					<h:form id="form">
 
 						<p:panel id="msgProjectPeriodoGarantiaTitle"
-							header="PeriodoGarantia">
+							header="Periodo de Garantía">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
@@ -80,9 +77,9 @@ body {
 
 								</p:column>
 
-
-								<p:column id="mesesParticular" filterBy="mesesParticular" headerText="Meses Particulares"
-									sortBy="mesesParticular" filterMatchMode="contains" style="width: 100px">
+								<p:column id="mesesParticular" filterBy="mesesParticular"
+									headerText="Meses Particulares" sortBy="mesesParticular"
+									filterMatchMode="contains" style="width: 100px">
 
 									<p:cellEditor>
 										<f:facet name="output">
@@ -107,7 +104,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-							
 
 								<p:column headerText="ID Grupo" style="width:100px"
 									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
@@ -126,8 +122,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
-								
 
 								<p:column headerText="Fecha de Creación" style="width: 100px"
 									filterBy="fechaCreacion" sortBy="fechaCreacion">
@@ -153,7 +147,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{periodoGarantiaView.manufacturerOptions}"
@@ -164,7 +157,8 @@ body {
 										</f:facet>
 
 										<f:facet name="input">
-											<h:selectOneMenu value="#{periodoGarantiaView.estadoRegistro}">
+											<h:selectOneMenu
+												value="#{periodoGarantiaView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
 												<f:selectItem itemLabel="R" itemValue="R" />
 											</h:selectOneMenu>
@@ -188,41 +182,42 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Periodo de garantia"
+							<p:dialog id="dialog" header="Periodo de Garantía"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
 
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
-									<h:outputText id="msgEstadoRegistro" value=" Estado del Registro:" />
+
+									<h:outputText id="msgMesesParticular"
+										value="Meses Particulares:" />
+									<p:inputText id="txtMesesParticular"
+										value="#{periodoGarantiaView.mesesParticular}"
+										binding="#{periodoGarantiaView.txtMesesParticular}" />
+
+									<h:outputText id="msgMesesPublico" value="Meses Publicos:" />
+									<p:inputText id="txtMesesPublico"
+										value="#{periodoGarantiaView.mesesPublico}"
+										binding="#{periodoGarantiaView.txtMesesPublico}" />
+
+									<h:outputText id="msgIdGrpo_Grupo" value="*Nombre del Grupo:" />
+									<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
+										binding="#{periodoGarantiaView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{periodoGarantiaView.grupo}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{periodoGarantiaView.estado}"
 										value="#{periodoGarantiaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
 
-
-									<h:outputText id="msgMesesParticular" value=" Meses Particulares:" />
-									<p:inputText id="txtMesesParticular" value="#{periodoGarantiaView.mesesParticular}"
-										binding="#{periodoGarantiaView.txtMesesParticular}" />
-
-
-									<h:outputText id="msgMesesPublico" value=" Meses Publicos:" />
-									<p:inputText id="txtMesesPublico" value="#{periodoGarantiaView.mesesPublico}"
-										binding="#{periodoGarantiaView.txtMesesPublico}" />
-
-
-									<h:outputText id="msgIdGrpo_Grupo" value=" Nombre del Grupo:" />
-									<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
-										binding="#{periodoGarantiaView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{periodoGarantiaView.grupo}" />
-									</p:selectOneMenu>
-
-
-
 								</h:panelGrid>
 								<p:separator id="separator" />
+
 								<h:panelGrid id="panelBotones" columns="1">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{periodoGarantiaView.action_create}"
@@ -230,17 +225,12 @@ body {
 										update="tablaPrincipal,msg,panel,panelBotones" />
 
 								</h:panelGrid>
-								</p:dialog>
+							</p:dialog>
 						</p:panel>
-
 					</h:form>
 				</div>
 			</f:view>
 		</ui:define>
-
-
 	</ui:composition>
-
 </h:body>
-
 </html>

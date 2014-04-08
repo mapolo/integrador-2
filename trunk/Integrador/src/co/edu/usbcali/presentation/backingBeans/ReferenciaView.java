@@ -198,8 +198,8 @@ public class ReferenciaView {
 					.getPorcentajeIva());
 			entity.setPorcentajeIva(porcentajeIva);
 
-			//Double costo = new Double(((ReferenciaDTO) event.getObject()).getCosto());
-			//entity.setCosto(costo);
+			Double costo = new Double(((ReferenciaDTO) event.getObject()).getCosto());
+			entity.setCosto(costo);
 			
 			Double peso = new Double(((ReferenciaDTO) event.getObject())
 					.getPeso());
