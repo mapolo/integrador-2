@@ -1,0 +1,383 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectEmpresaTitle" header="Empresa">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{empresaView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{empresaView.data}">
+
+								<p:ajax event="rowEdit" listener="#{empresaView.onEdit}" />
+								<p:ajax event="rowEditCancel" listener="#{empresaView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idEmpr" sortBy="idEmpr"
+									style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idEmpr}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idEmpr}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+									sortBy="nombre" filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.nombre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Tipo Identificación"
+									style="width:100px" filterBy="idTiid_TipoIdentificacion"
+									sortBy="idTiid_TipoIdentificacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTiid_TipoIdentificacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{empresaView.idTiid_TipoIdentificacion}"
+												style="width:160px">
+												<f:selectItems value="#{empresaView.tipoIdentificacion}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="identificacion" filterBy="identificacion"
+									headerText="Identificación" sortBy="identificacion"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.identificacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.identificacion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID División Politica" style="width:100px"
+									filterBy="idDipo_DivisionPolitica"
+									sortBy="idDipo_DivisionPolitica">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{empresaView.idDipo_DivisionPolitica}"
+												style="width:160px">
+												<f:selectItems value="#{empresaView.division}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono1" filterBy="telefono1"
+									headerText="Telefono 1" sortBy="telefono1"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono1}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono1}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono2" filterBy="telefono2"
+									headerText="Telefono 2" sortBy="telefono2"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono2}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono2}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="direccion" filterBy="direccion"
+									headerText="Dirección" sortBy="direccion"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.direccion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.direccion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="apartadoAereo" filterBy="apartadoAereo"
+									headerText="Apartado Aereo" sortBy="apartadoAereo"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.apartadoAereo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.apartadoAereo}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="email" filterBy="email" headerText="Email"
+									sortBy="email" filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.email}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.email}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="fax" filterBy="fax" headerText="Fax" sortBy="fax"
+									filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fax}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fax}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Representate Legal" style="width:100px"
+									filterBy="idPers_Persona" sortBy="idPers_Persona">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idPers_Persona}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{empresaView.idPers_Persona}"
+												style="width:160px">
+												<f:selectItems value="#{empresaView.persona}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación" style="width: 100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width: 100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{empresaView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{empresaView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Empresa" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgNombre" value="*Nombre:" />
+									<p:inputText id="txtNombre" value="#{empresaView.nombre}"
+										binding="#{empresaView.txtNombre}" />
+
+									<h:outputText id="msgIdTiid_TipoIdentificacion"
+										value="*Nombre Tipo Identificación:" />
+									<p:selectOneMenu
+										value="#{empresaView.idTiid_TipoIdentificacion}"
+										binding="#{empresaView.txtIdTiid_TipoIdentificacion}">
+										<f:selectItems value="#{empresaView.tipoIdentificacion}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdentificacion" value="*Identificación:" />
+									<p:inputText id="txtIdentificacion"
+										value="#{empresaView.identificacion}"
+										binding="#{empresaView.txtIdentificacion}" />
+
+									<h:outputText id="msgIdDipo_DivisionPolitica"
+										value="Nombre División Politica:" />
+									<p:selectOneMenu value="#{empresaView.idDipo_DivisionPolitica}"
+										binding="#{empresaView.txtIdDipo_DivisionPolitica}">
+										<f:selectItems value="#{empresaView.division}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgTelefono1" value="Telefono 1:" />
+									<p:inputText id="txtTelefono1" value="#{empresaView.telefono1}"
+										binding="#{empresaView.txtTelefono1}" />
+
+									<h:outputText id="msgTelefono2" value="Telefono 2:" />
+									<p:inputText id="txtTelefono2" value="#{empresaView.telefono2}"
+										binding="#{empresaView.txtTelefono2}" />
+
+									<h:outputText id="msgDireccion" value="Dirección:" />
+									<p:inputText id="txtDireccion" value="#{empresaView.direccion}"
+										binding="#{empresaView.txtDireccion}" />
+
+									<h:outputText id="msgApartadoAereo" value="Apartado Aereo:" />
+									<p:inputText id="txtApartadoAereo"
+										value="#{empresaView.apartadoAereo}"
+										binding="#{empresaView.txtApartadoAereo}" />
+
+									<h:outputText id="msgEmail" value="Email:" />
+									<p:inputText id="txtEmail" value="#{empresaView.email}"
+										binding="#{empresaView.txtEmail}" />
+
+									<h:outputText id="msgFax" value="Fax:" />
+									<p:inputText id="txtFax" value="#{empresaView.fax}"
+										binding="#{empresaView.txtFax}" />
+
+									<h:outputText id="msgIdPers_Persona" value="Reprentante Legal:" />
+									<p:selectOneMenu value="#{empresaView.idPers_Persona}"
+										binding="#{empresaView.txtIdPers_Persona}">
+										<f:selectItems value="#{empresaView.persona}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{empresaView.estado}"
+										value="#{empresaView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{empresaView.action_create}"
+										binding="#{empresaView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

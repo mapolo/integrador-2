@@ -259,6 +259,19 @@ body {
 									</p:cellEditor>
 								</p:column>
 
+								<p:column id="costo" filterBy="costo" headerText="Costo"
+									sortBy="costo" filterMatchMode="contains" style="width: 100px">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.costo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.costo}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
 								<p:column id="aplicacion" filterBy="aplicacion"
 									headerText="Aplicación" sortBy="aplicacion"
 									filterMatchMode="contains" style="width: 100px">
@@ -646,6 +659,11 @@ body {
 									<p:inputText id="txtPideValor"
 										value="#{referenciaView.pideValor}"
 										binding="#{referenciaView.txtPideValor}" />
+
+									<h:outputText id="msgCosto" value="*Costo:" />
+									<p:inputText id="txtCosto"
+										value="#{referenciaView.costo}"
+										binding="#{referenciaView.txtCosto}" />
 
 									<h:outputText id="msgAplicacion" value="*Aplicación:" />
 									<p:inputText id="txtAplicacion"

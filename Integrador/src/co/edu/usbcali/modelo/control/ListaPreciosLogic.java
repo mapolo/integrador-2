@@ -119,11 +119,11 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 				throw new ZMessManager().new NotValidFormatException("idLipr");
 			}*/
 
-			if ((entity.getMargen() != null)
+			/*if ((entity.getMargen() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getMargen(), 6, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("margen");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -147,11 +147,11 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"operModifica");
 			}
 
-			if ((entity.getValor() != null)
+			/*if ((entity.getValor() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getValor(), 14, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("valor");
-			}
+			}*/
 
 			if (entity.getReferencia().getIdRefe() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -275,11 +275,11 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 				throw new ZMessManager().new NotValidFormatException("idLipr");
 			}
 
-			if ((entity.getMargen() != null)
+			/*if ((entity.getMargen() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getMargen(), 6, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("margen");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -303,11 +303,11 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"operModifica");
 			}
 
-			if ((entity.getValor() != null)
+			/*if ((entity.getValor() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getValor(), 14, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("valor");
-			}
+			}*/
 
 			if (entity.getReferencia().getIdRefe() == null) {
 				throw new ZMessManager().new EmptyFieldException(

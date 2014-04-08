@@ -3,7 +3,9 @@ package co.edu.usbcali.presentation.backingBeans;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -12,14 +14,18 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.SaldoInicialInventario;
+import co.edu.usbcali.modelo.dto.ReferenciaSucursalDTO;
 import co.edu.usbcali.modelo.dto.SaldoInicialInventarioDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
@@ -33,14 +39,28 @@ import co.edu.usbcali.utilities.FacesUtils;
 public class SaldoInicialInventarioView {
 	private InputText txtAno;
 	private InputText txtCostoInicial;
-	private InputText txtEstadoRegistro;
+	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtSaldoInicial;
-	private InputText txtIdResu_ReferenciaSucursal;
+	private SelectOneMenu txtIdResu_ReferenciaSucursal;
 	private InputText txtIdSini;
-	private Calendar txtFechaCreacion;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaCreacion;
+	private InputText txtFechaModificacion;
+	
+	private String ano;
+	private String costoInicial;
+	private String estadoRegistro;
+	private String operCreador;
+	private String operModifica;
+	private String saldoInicial;
+	private Long idResu_ReferenciaSucursal;
+	private String idSini;
+	private String fechaCreacion;
+	private String fechaModificacion;
+	
+	private Map<String, String> referencia = new HashMap<String, String>();
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -51,9 +71,63 @@ public class SaldoInicialInventarioView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	
+	private SelectItem[] manufacturerOptions;
+	
+	String manufacturers[] = { "A", "R" };
 
 	public SaldoInicialInventarioView() {
 		super();
+		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+	
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getSaldoInicialInventario(((SaldoInicialInventarioDTO) event
+					.getObject()).getIdSini());
+
+			entity.setFechaModificacion(new Date());
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			entity.setAno(((SaldoInicialInventarioDTO) event.getObject()).getAno());
+			entity.setCostoInicial(((SaldoInicialInventarioDTO) event.getObject()).getCostoInicial());
+			entity.setSaldoInicial(((SaldoInicialInventarioDTO) event.getObject()).getSaldoInicial());
+			
+			entity.setReferenciaSucursal(businessDelegatorView
+					.getReferenciaSucursal(getIdResu_ReferenciaSucursal()));
+
+			businessDelegatorView.updateSaldoInicialInventario(entity);
+			data = businessDelegatorView.getDataSaldoInicialInventario();
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Cancelled",
+				((SaldoInicialInventarioDTO) event.getObject()).getIdSini() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((SaldoInicialInventarioDTO) event.getObject()).getIdSini());
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -73,13 +147,6 @@ public class SaldoInicialInventarioView {
 
 			txtCostoInicial.setValue(saldoInicialInventarioDTO
 					.getCostoInicial());
-
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(saldoInicialInventarioDTO
-					.getEstadoRegistro());
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -102,7 +169,7 @@ public class SaldoInicialInventarioView {
 					.getSaldoInicial());
 
 			if (txtIdResu_ReferenciaSucursal == null) {
-				txtIdResu_ReferenciaSucursal = new InputText();
+				txtIdResu_ReferenciaSucursal = new SelectOneMenu();
 			}
 
 			txtIdResu_ReferenciaSucursal.setValue(saldoInicialInventarioDTO
@@ -115,14 +182,14 @@ public class SaldoInicialInventarioView {
 			txtIdSini.setValue(saldoInicialInventarioDTO.getIdSini());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(saldoInicialInventarioDTO
 					.getFechaCreacion());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(saldoInicialInventarioDTO
@@ -147,56 +214,51 @@ public class SaldoInicialInventarioView {
 
 		if (txtAno != null) {
 			txtAno.setValue(null);
-			txtAno.setDisabled(true);
+			//txtAno.setDisabled(true);
 		}
 
 		if (txtCostoInicial != null) {
 			txtCostoInicial.setValue(null);
-			txtCostoInicial.setDisabled(true);
-		}
-
-		if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
+			//txtCostoInicial.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			//txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			//txtOperModifica.setDisabled(true);
 		}
 
 		if (txtSaldoInicial != null) {
 			txtSaldoInicial.setValue(null);
-			txtSaldoInicial.setDisabled(true);
+			//txtSaldoInicial.setDisabled(true);
 		}
 
 		if (txtIdResu_ReferenciaSucursal != null) {
 			txtIdResu_ReferenciaSucursal.setValue(null);
-			txtIdResu_ReferenciaSucursal.setDisabled(true);
+			//txtIdResu_ReferenciaSucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			//	txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			//txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdSini != null) {
 			txtIdSini.setValue(null);
-			txtIdSini.setDisabled(false);
+			//txtIdSini.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -225,13 +287,12 @@ public class SaldoInicialInventarioView {
 			Long idSini = new Long(txtIdSini.getValue().toString());
 			entity = businessDelegatorView.getSaldoInicialInventario(idSini);
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
 
 		if (entity == null) {
 			txtAno.setDisabled(false);
 			txtCostoInicial.setDisabled(false);
-			txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtSaldoInicial.setDisabled(false);
@@ -245,8 +306,6 @@ public class SaldoInicialInventarioView {
 			txtAno.setDisabled(false);
 			txtCostoInicial.setValue(entity.getCostoInicial());
 			txtCostoInicial.setDisabled(false);
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -275,9 +334,6 @@ public class SaldoInicialInventarioView {
 		txtCostoInicial.setValue(selectedSaldoInicialInventario
 				.getCostoInicial());
 		txtCostoInicial.setDisabled(false);
-		txtEstadoRegistro.setValue(selectedSaldoInicialInventario
-				.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedSaldoInicialInventario
 				.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
@@ -323,23 +379,29 @@ public class SaldoInicialInventarioView {
 	public String action_create() {
 		try {
 			entity = new SaldoInicialInventario();
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			Long idSini = new Long(txtIdSini.getValue().toString());
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setAno(FacesUtils.checkLong(txtAno));
 			entity.setCostoInicial(FacesUtils.checkDouble(txtCostoInicial));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdSini(idSini);
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setSaldoInicial(FacesUtils.checkDouble(txtSaldoInicial));
+			
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+			
 			entity.setReferenciaSucursal(businessDelegatorView
 					.getReferenciaSucursal(FacesUtils
 							.checkLong(txtIdResu_ReferenciaSucursal)));
+			
 			businessDelegatorView.saveSaldoInicialInventario(entity);
+			data = businessDelegatorView.getDataSaldoInicialInventario();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -360,7 +422,6 @@ public class SaldoInicialInventarioView {
 
 			entity.setAno(FacesUtils.checkLong(txtAno));
 			entity.setCostoInicial(FacesUtils.checkDouble(txtCostoInicial));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -466,14 +527,6 @@ public class SaldoInicialInventarioView {
 		this.txtCostoInicial = txtCostoInicial;
 	}
 
-	public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}
-
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
 	}
@@ -498,28 +551,28 @@ public class SaldoInicialInventarioView {
 		this.txtSaldoInicial = txtSaldoInicial;
 	}
 
-	public InputText getTxtIdResu_ReferenciaSucursal() {
+	public SelectOneMenu getTxtIdResu_ReferenciaSucursal() {
 		return txtIdResu_ReferenciaSucursal;
 	}
 
 	public void setTxtIdResu_ReferenciaSucursal(
-			InputText txtIdResu_ReferenciaSucursal) {
+			SelectOneMenu txtIdResu_ReferenciaSucursal) {
 		this.txtIdResu_ReferenciaSucursal = txtIdResu_ReferenciaSucursal;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -608,5 +661,121 @@ public class SaldoInicialInventarioView {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public String getAno() {
+		return ano;
+	}
+
+	public void setAno(String ano) {
+		this.ano = ano;
+	}
+
+	public String getCostoInicial() {
+		return costoInicial;
+	}
+
+	public void setCostoInicial(String costoInicial) {
+		this.costoInicial = costoInicial;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getSaldoInicial() {
+		return saldoInicial;
+	}
+
+	public void setSaldoInicial(String saldoInicial) {
+		this.saldoInicial = saldoInicial;
+	}
+
+	public Long getIdResu_ReferenciaSucursal() {
+		return idResu_ReferenciaSucursal;
+	}
+
+	public void setIdResu_ReferenciaSucursal(Long idResu_ReferenciaSucursal) {
+		this.idResu_ReferenciaSucursal = idResu_ReferenciaSucursal;
+	}
+
+	public String getIdSini() {
+		return idSini;
+	}
+
+	public void setIdSini(String idSini) {
+		this.idSini = idSini;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public Map<String, String> getReferencia() {
+		try {
+			List<ReferenciaSucursalDTO> data2 = businessDelegatorView
+					.getDataReferenciaSucursal();
+
+			for (int i = 0; i < data2.size(); i++) {
+				referencia.put(data2.get(i).getIdResu() + "", data2.get(i)
+						.getIdResu() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return referencia;
+	}
+
+	public void setReferencia(Map<String, String> referencia) {
+		this.referencia = referencia;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
 	}
 }

@@ -142,7 +142,7 @@ public class ListaPreciosView {
 					.getReferencia(getIdRefe_Referencia()));
 
 			if (txtIdSucu_Sucursal.getValue() == "") {
-
+				entity.setSucursal(null);
 			} else {
 				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
 						.checkLong(txtIdSucu_Sucursal)));

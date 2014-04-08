@@ -126,7 +126,7 @@ public class PeriodoGarantiaView {
 	}
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
+		FacesMessage msg = new FacesMessage("Cancelled",
 				((PeriodoGarantiaDTO) event.getObject()).getIdPega() + "");
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -288,7 +288,7 @@ public class PeriodoGarantiaView {
 			Long idPega = new Long(txtIdPega.getValue().toString());
 			entity = businessDelegatorView.getPeriodoGarantia(idPega);
 		} catch (Exception e) {
-			// TODO: handle exception
+			// 
 		}
 
 		if (entity == null) {
@@ -379,10 +379,6 @@ public class PeriodoGarantiaView {
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
-
-			//Long idPega = new Long(txtIdPega.getValue().toString());
-
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 					
 			entity.setMesesParticular(FacesUtils.checkLong(txtMesesParticular));
 			entity.setMesesPublico(FacesUtils.checkLong(txtMesesPublico));
@@ -395,7 +391,6 @@ public class PeriodoGarantiaView {
 			
 			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
 					.checkLong(txtIdGrpo_Grupo)));
-			
 			
 			businessDelegatorView.savePeriodoGarantia(entity);
 			data = businessDelegatorView.getDataPeriodoGarantia();
@@ -743,7 +738,6 @@ public class PeriodoGarantiaView {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		
 		return grupo;
 	}

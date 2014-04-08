@@ -82,7 +82,7 @@ public class SaldoInicialInventarioLogic implements
 				throw new ZMessManager().new NotValidFormatException("ano");
 			}
 
-			if (entity.getCostoInicial() == null) {
+			/*if (entity.getCostoInicial() == null) {
 				throw new ZMessManager().new EmptyFieldException("costoInicial");
 			}
 
@@ -91,7 +91,7 @@ public class SaldoInicialInventarioLogic implements
 							+ entity.getCostoInicial(), 14, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"costoInicial");
-			}
+			}*/
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -113,16 +113,6 @@ public class SaldoInicialInventarioLogic implements
 			if (entity.getFechaModificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
-			}
-
-			if (entity.getIdSini() == null) {
-				throw new ZMessManager().new EmptyFieldException("idSini");
-			}
-
-			if ((entity.getIdSini() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdSini(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idSini");
 			}
 
 			if (entity.getOperCreador() == null) {
@@ -147,7 +137,7 @@ public class SaldoInicialInventarioLogic implements
 						"operModifica");
 			}
 
-			if (entity.getSaldoInicial() == null) {
+			/*if (entity.getSaldoInicial() == null) {
 				throw new ZMessManager().new EmptyFieldException("saldoInicial");
 			}
 
@@ -156,7 +146,7 @@ public class SaldoInicialInventarioLogic implements
 							+ entity.getSaldoInicial(), 12, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"saldoInicial");
-			}
+			}*/
 
 			if (entity.getReferenciaSucursal().getIdResu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -170,10 +160,6 @@ public class SaldoInicialInventarioLogic implements
 											.getIdResu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idResu_ReferenciaSucursal");
-			}
-
-			if (getSaldoInicialInventario(entity.getIdSini()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
 			}
 
 			saldoInicialInventarioDAO.save(entity);
@@ -237,7 +223,7 @@ public class SaldoInicialInventarioLogic implements
 				throw new ZMessManager().new NotValidFormatException("ano");
 			}
 
-			if (entity.getCostoInicial() == null) {
+			/*if (entity.getCostoInicial() == null) {
 				throw new ZMessManager().new EmptyFieldException("costoInicial");
 			}
 
@@ -246,7 +232,7 @@ public class SaldoInicialInventarioLogic implements
 							+ entity.getCostoInicial(), 14, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"costoInicial");
-			}
+			}*/
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -268,16 +254,6 @@ public class SaldoInicialInventarioLogic implements
 			if (entity.getFechaModificacion() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
-			}
-
-			if (entity.getIdSini() == null) {
-				throw new ZMessManager().new EmptyFieldException("idSini");
-			}
-
-			if ((entity.getIdSini() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdSini(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idSini");
 			}
 
 			if (entity.getOperCreador() == null) {
@@ -302,7 +278,7 @@ public class SaldoInicialInventarioLogic implements
 						"operModifica");
 			}
 
-			if (entity.getSaldoInicial() == null) {
+			/*if (entity.getSaldoInicial() == null) {
 				throw new ZMessManager().new EmptyFieldException("saldoInicial");
 			}
 
@@ -311,7 +287,7 @@ public class SaldoInicialInventarioLogic implements
 							+ entity.getSaldoInicial(), 12, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"saldoInicial");
-			}
+			}*/
 
 			if (entity.getReferenciaSucursal().getIdResu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
