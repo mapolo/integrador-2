@@ -29,16 +29,11 @@ import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * 
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoIdentificacionView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -112,8 +107,8 @@ public class TipoIdentificacionView {
 			descripcion = ((TipoIdentificacionDTO) event.getObject())
 					.getDescripcion();
 			entity.setDescripcion(descripcion);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
 			// entity.setCodigo(FacesUtils.checkString(txtCodigo));
@@ -125,7 +120,7 @@ public class TipoIdentificacionView {
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -318,13 +313,12 @@ public class TipoIdentificacionView {
 			Long idTiid = new Long(txtIdTiid.getValue().toString());
 			entity = businessDelegatorView.getTipoIdentificacion(idTiid);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -399,14 +393,14 @@ public class TipoIdentificacionView {
 	public String action_create() {
 		try {
 			entity = new TipoIdentificacion();
-			
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			//Long idTiid = new Long(txtIdTiid.getValue().toString());
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTiid = new Long(txtIdTiid.getValue().toString());
 
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
@@ -416,14 +410,14 @@ public class TipoIdentificacionView {
 
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTiid(idTiid);
-			
+			// entity.setIdTiid(idTiid);
+
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			businessDelegatorView.saveTipoIdentificacion(entity);
 			data = businessDelegatorView.getDataTipoIdentificacion();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);

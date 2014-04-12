@@ -17,7 +17,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -26,22 +25,14 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
-import co.edu.usbcali.modelo.DivisionPolitica;
 import co.edu.usbcali.modelo.Persona;
-import co.edu.usbcali.modelo.Sucursal;
 import co.edu.usbcali.modelo.TipoIdentificacion;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
 import co.edu.usbcali.modelo.dto.PersonaDTO;
-import co.edu.usbcali.modelo.dto.TipoCausalDTO;
-import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class PersonaView {
@@ -49,8 +40,6 @@ public class PersonaView {
 	private InputText txtDigitoVerificacion;
 	private InputTextarea txtDireccion;
 	private InputText txtEmail;
-	// private InputText txtEstadoPersona;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private SelectOneMenu estadoP;
 	private InputText txtIdentificacion;
@@ -167,8 +156,6 @@ public class PersonaView {
 			TipoIdentificacion entity3 = businessDelegatorView
 					.getTipoIdentificacion(getIdTiid_TipoIdentificacion());
 			entity.setTipoIdentificacion(entity3);
-			
-			
 
 			if (txtIdDipo_DivisionPolitica.getValue() == "") {
 				System.out.println("Entro if");
@@ -473,7 +460,7 @@ public class PersonaView {
 			Long idPers = new Long(txtIdPers.getValue().toString());
 			entity = businessDelegatorView.getPersona(idPers);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
@@ -481,8 +468,6 @@ public class PersonaView {
 			txtDigitoVerificacion.setDisabled(false);
 			txtDireccion.setDisabled(false);
 			txtEmail.setDisabled(false);
-			// txtEstadoPersona.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtIdentificacion.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -654,16 +639,15 @@ public class PersonaView {
 			entity.setTelefono1(FacesUtils.checkString(txtTelefono1));
 			entity.setTelefono2(FacesUtils.checkString(txtTelefono2));
 
-			
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
 
 			if (txtIdDipo_DivisionPolitica.getValue() == "") {
-					System.out.println("Entro if create");
+				System.out.println("Entro if create");
 			} else {
 				System.out.println("Else create");
-				
+
 				entity.setDivisionPolitica(businessDelegatorView
 						.getDivisionPolitica(FacesUtils
 								.checkLong(txtIdDipo_DivisionPolitica)));

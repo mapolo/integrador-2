@@ -29,16 +29,11 @@ import co.edu.usbcali.modelo.dto.TipoSucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * 
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoSucursalView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -165,9 +160,9 @@ public class TipoSucursalView {
 					.getDescripcion();
 			entity.setDescripcion(descripcion);
 
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
@@ -177,32 +172,9 @@ public class TipoSucursalView {
 			RequestContext.getCurrentInstance().reset("form:listaTS");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		/*
-		 * try {
-		 * 
-		 * 
-		 * System.out.println("entro modificar");
-		 * entity.setEstadoRegistro(estadoRegistro);
-		 * //entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-		 * //entity
-		 * .setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
-		 * //entity.setFechaModificacion(new Date());
-		 * //entity.setNombre(FacesUtils.checkString(txtNombre));
-		 * //entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-		 * //entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-		 * 
-		 * businessDelegatorView.updateTipoDivision(entity); data =
-		 * businessDelegatorView.getDataTipoDivision();
-		 * RequestContext.getCurrentInstance().reset("form:listaTD");
-		 * FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED); }
-		 * catch (Exception e) { data = null;
-		 * FacesUtils.addErrorMessage(e.getMessage()); }
-		 */
-
 	}
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
@@ -331,13 +303,12 @@ public class TipoSucursalView {
 			Long idTisu = new Long(txtIdTisu.getValue().toString());
 			entity = businessDelegatorView.getTipoSucursal(idTisu);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -411,12 +382,13 @@ public class TipoSucursalView {
 		try {
 			entity = new TipoSucursal();
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
-			//Long idTisu = new Long(txtIdTisu.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTisu = new Long(txtIdTisu.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setEstadoRegistro(estadoRegistro);
@@ -425,18 +397,18 @@ public class TipoSucursalView {
 			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTisu(idTisu);
+			// entity.setIdTisu(idTisu);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			businessDelegatorView.saveTipoSucursal(entity);
 			data = businessDelegatorView.getDataTipoSucursal();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			//actualizar();
+			// actualizar();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}

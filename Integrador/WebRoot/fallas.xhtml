@@ -11,10 +11,7 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -35,7 +32,6 @@
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
 
-
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
@@ -49,7 +45,6 @@ body {
 				<div id="logo" align="center">
 
 					<h:form id="form">
-
 
 						<p:panel id="msgProjectFallasTitle" header="Fallas">
 							<p:messages id="msg" showDetail="true" />
@@ -68,7 +63,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idCfal" sortBy="idCfal"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCfal}" />
@@ -77,12 +71,10 @@ body {
 											<p:inputText value="#{car.idCfal}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -98,12 +90,10 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column headerText="Fecha de Creación" style="width: 100px"
@@ -138,7 +128,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{fallasView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -198,8 +187,8 @@ body {
 										action="#{fallasView.action_create}"
 										binding="#{fallasView.btnSave}"
 										update="listaFA,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+								
 							</p:dialog>
 						</p:panel>
 					</h:form>

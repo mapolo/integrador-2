@@ -77,25 +77,56 @@ body {
 								</p:column>
 
 								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
+									filterOptions="#{clavesParaRotarView.manufacturerOptions3}"
 									filterMatchMode="contains" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.ano}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.ano}" style="width:100%" />
+											<h:selectOneMenu value="#{clavesParaRotarView.ano}">
+												<f:selectItem itemLabel="2.000" itemValue="2000" />
+												<f:selectItem itemLabel="2.001" itemValue="2001" />
+												<f:selectItem itemLabel="2.002" itemValue="2002" />
+												<f:selectItem itemLabel="2.003" itemValue="2003" />
+												<f:selectItem itemLabel="2.004" itemValue="2004" />
+												<f:selectItem itemLabel="2.005" itemValue="2005" />
+												<f:selectItem itemLabel="2.006" itemValue="2006" />
+												<f:selectItem itemLabel="2.007" itemValue="2007" />
+												<f:selectItem itemLabel="2.008" itemValue="2008" />
+												<f:selectItem itemLabel="2.009" itemValue="2009" />
+												<f:selectItem itemLabel="2.010" itemValue="2010" />
+												<f:selectItem itemLabel="2.011" itemValue="2011" />
+												<f:selectItem itemLabel="2.012" itemValue="2012" />
+												<f:selectItem itemLabel="2.013" itemValue="2013" />
+												<f:selectItem itemLabel="2.014" itemValue="2014" />
+											</h:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="mes" filterBy="mes" headerText="Mes" sortBy="mes"
+									filterOptions="#{clavesParaRotarView.manufacturerOptions2}"
 									filterMatchMode="contains" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.mes}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.mes}" style="width:100%" />
+											<h:selectOneMenu value="#{clavesParaRotarView.mes}">
+												<f:selectItem itemLabel="Enero" itemValue="1" />
+												<f:selectItem itemLabel="Febrero" itemValue="2" />
+												<f:selectItem itemLabel="Marzo" itemValue="3" />
+												<f:selectItem itemLabel="Abril" itemValue="4" />
+												<f:selectItem itemLabel="Mayo" itemValue="5" />
+												<f:selectItem itemLabel="Junio" itemValue="6" />
+												<f:selectItem itemLabel="Julio" itemValue="7" />
+												<f:selectItem itemLabel="Agosto" itemValue="8" />
+												<f:selectItem itemLabel="Septiembre" itemValue="9" />
+												<f:selectItem itemLabel="Octubre" itemValue="10" />
+												<f:selectItem itemLabel="Noviembre" itemValue="11" />
+												<f:selectItem itemLabel="Diciembre" itemValue="12" />
+											</h:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -128,7 +159,7 @@ body {
 											<p:selectOneMenu
 												value="#{clavesParaRotarView.idSucu_Sucursal}"
 												style="width:160px">
-												<f:selectItem itemLabel="------" itemValue="" />
+												<f:selectItem itemLabel="Vacio" itemValue="" />
 												<f:selectItems value="#{clavesParaRotarView.sucursal}" />
 											</p:selectOneMenu>
 										</f:facet>
@@ -195,34 +226,63 @@ body {
 
 							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Clave para Rotar" widgetVar="carDialog"
-								resizable="false" width="800" showEffect="clip"
-								hideEffect="fold">
+							<p:dialog id="dialog" header="Claves para Rotar"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
 
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
 
 									<h:outputText id="msgAno" value="Año:" />
-									<p:inputText id="txtAno" value="#{clavesParaRotarView.ano}"
-										binding="#{clavesParaRotarView.txtAno}" />
+									<p:selectOneMenu binding="#{clavesParaRotarView.txtAno}"
+										value="#{clavesParaRotarView.ano}">
+										<f:selectItem itemLabel="2.000" itemValue="2000" />
+										<f:selectItem itemLabel="2.001" itemValue="2001" />
+										<f:selectItem itemLabel="2.002" itemValue="2002" />
+										<f:selectItem itemLabel="2.003" itemValue="2003" />
+										<f:selectItem itemLabel="2.004" itemValue="2004" />
+										<f:selectItem itemLabel="2.005" itemValue="2005" />
+										<f:selectItem itemLabel="2.006" itemValue="2006" />
+										<f:selectItem itemLabel="2.007" itemValue="2007" />
+										<f:selectItem itemLabel="2.008" itemValue="2008" />
+										<f:selectItem itemLabel="2.009" itemValue="2009" />
+										<f:selectItem itemLabel="2.010" itemValue="2010" />
+										<f:selectItem itemLabel="2.011" itemValue="2011" />
+										<f:selectItem itemLabel="2.012" itemValue="2012" />
+										<f:selectItem itemLabel="2.013" itemValue="2013" />
+										<f:selectItem itemLabel="2.014" itemValue="2014" />
+									</p:selectOneMenu>
 
 									<h:outputText id="msgMes" value="Mes:" />
-									<p:inputText id="txtMes" value="#{clavesParaRotarView.mes}"
-										binding="#{clavesParaRotarView.txtMes}" />
+									<p:selectOneMenu binding="#{clavesParaRotarView.txtMes}"
+										value="#{clavesParaRotarView.mes}">
+										<f:selectItem itemLabel="Enero" itemValue="1" />
+										<f:selectItem itemLabel="Febrero" itemValue="2" />
+										<f:selectItem itemLabel="Marzo" itemValue="3" />
+										<f:selectItem itemLabel="Abril" itemValue="4" />
+										<f:selectItem itemLabel="Mayo" itemValue="5" />
+										<f:selectItem itemLabel="Junio" itemValue="6" />
+										<f:selectItem itemLabel="Julio" itemValue="7" />
+										<f:selectItem itemLabel="Agosto" itemValue="8" />
+										<f:selectItem itemLabel="Septiembre" itemValue="9" />
+										<f:selectItem itemLabel="Octubre" itemValue="10" />
+										<f:selectItem itemLabel="Noviembre" itemValue="11" />
+										<f:selectItem itemLabel="Diciembre" itemValue="12" />
+									</p:selectOneMenu>
 
 									<h:outputText id="msgIdClfa_ClaveFabricacion"
-										value="*ID Clave de fabricacion" />
+										value="*ID Clave de Fabricación:" />
 									<p:selectOneMenu
 										value="#{clavesParaRotarView.idClfa_ClaveFabricacion}"
 										binding="#{clavesParaRotarView.txtIdClfa_ClaveFabricacion}">
 										<f:selectItems value="#{clavesParaRotarView.claveFabricacion}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdSucu_Sucursal" value="*ID Sucursal:" />
+									<h:outputText id="msgIdSucu_Sucursal" value="ID Sucursal:" />
 									<p:selectOneMenu value="#{clavesParaRotarView.idSucu_Sucursal}"
 										binding="#{clavesParaRotarView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItem itemLabel="Vacio" itemValue="" />
 										<f:selectItems value="#{clavesParaRotarView.sucursal}" />
 									</p:selectOneMenu>
 
@@ -244,6 +304,7 @@ body {
 										binding="#{clavesParaRotarView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

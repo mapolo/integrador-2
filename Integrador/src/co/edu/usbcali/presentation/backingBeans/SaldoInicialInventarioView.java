@@ -30,14 +30,10 @@ import co.edu.usbcali.modelo.dto.SaldoInicialInventarioDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class SaldoInicialInventarioView {
-	private InputText txtAno;
+	private SelectOneMenu txtAno;
 	private InputText txtCostoInicial;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
@@ -47,7 +43,7 @@ public class SaldoInicialInventarioView {
 	private InputText txtIdSini;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String ano;
 	private String costoInicial;
 	private String estadoRegistro;
@@ -58,9 +54,9 @@ public class SaldoInicialInventarioView {
 	private String idSini;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private Map<String, String> referencia = new HashMap<String, String>();
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -71,16 +67,21 @@ public class SaldoInicialInventarioView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
-	
+
 	private SelectItem[] manufacturerOptions;
-	
+	private SelectItem[] manufacturerOptions2;
+
 	String manufacturers[] = { "A", "R" };
+	String manufacturers2[] = { "2000", "2001", "2002", "2003", "2004", "2005",
+			"2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013",
+			"2014" };
 
 	public SaldoInicialInventarioView() {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
+		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -96,18 +97,23 @@ public class SaldoInicialInventarioView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getSaldoInicialInventario(((SaldoInicialInventarioDTO) event
-					.getObject()).getIdSini());
+			entity = businessDelegatorView
+					.getSaldoInicialInventario(((SaldoInicialInventarioDTO) event
+							.getObject()).getIdSini());
 
 			entity.setFechaModificacion(new Date());
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			entity.setAno(((SaldoInicialInventarioDTO) event.getObject()).getAno());
-			entity.setCostoInicial(((SaldoInicialInventarioDTO) event.getObject()).getCostoInicial());
-			entity.setSaldoInicial(((SaldoInicialInventarioDTO) event.getObject()).getSaldoInicial());
-			
+
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
+			entity.setCostoInicial(((SaldoInicialInventarioDTO) event
+					.getObject()).getCostoInicial());
+			entity.setSaldoInicial(((SaldoInicialInventarioDTO) event
+					.getObject()).getSaldoInicial());
+
 			entity.setReferenciaSucursal(businessDelegatorView
 					.getReferenciaSucursal(getIdResu_ReferenciaSucursal()));
 
@@ -123,7 +129,8 @@ public class SaldoInicialInventarioView {
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Cancelled",
-				((SaldoInicialInventarioDTO) event.getObject()).getIdSini() + "");
+				((SaldoInicialInventarioDTO) event.getObject()).getIdSini()
+						+ "");
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
@@ -136,7 +143,7 @@ public class SaldoInicialInventarioView {
 					.getObject();
 
 			if (txtAno == null) {
-				txtAno = new InputText();
+				txtAno = new SelectOneMenu();
 			}
 
 			txtAno.setValue(saldoInicialInventarioDTO.getAno());
@@ -214,47 +221,47 @@ public class SaldoInicialInventarioView {
 
 		if (txtAno != null) {
 			txtAno.setValue(null);
-			//txtAno.setDisabled(true);
+			// txtAno.setDisabled(true);
 		}
 
 		if (txtCostoInicial != null) {
 			txtCostoInicial.setValue(null);
-			//txtCostoInicial.setDisabled(true);
+			// txtCostoInicial.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtSaldoInicial != null) {
 			txtSaldoInicial.setValue(null);
-			//txtSaldoInicial.setDisabled(true);
+			// txtSaldoInicial.setDisabled(true);
 		}
 
 		if (txtIdResu_ReferenciaSucursal != null) {
 			txtIdResu_ReferenciaSucursal.setValue(null);
-			//txtIdResu_ReferenciaSucursal.setDisabled(true);
+			// txtIdResu_ReferenciaSucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//	txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdSini != null) {
 			txtIdSini.setValue(null);
-			//txtIdSini.setDisabled(false);
+			// txtIdSini.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -287,7 +294,7 @@ public class SaldoInicialInventarioView {
 			Long idSini = new Long(txtIdSini.getValue().toString());
 			entity = businessDelegatorView.getSaldoInicialInventario(idSini);
 		} catch (Exception e) {
-			
+
 		}
 
 		if (entity == null) {
@@ -379,27 +386,29 @@ public class SaldoInicialInventarioView {
 	public String action_create() {
 		try {
 			entity = new SaldoInicialInventario();
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			entity.setAno(FacesUtils.checkLong(txtAno));
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
 			entity.setCostoInicial(FacesUtils.checkDouble(txtCostoInicial));
 			entity.setSaldoInicial(FacesUtils.checkDouble(txtSaldoInicial));
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
+
 			entity.setReferenciaSucursal(businessDelegatorView
 					.getReferenciaSucursal(FacesUtils
 							.checkLong(txtIdResu_ReferenciaSucursal)));
-			
+
 			businessDelegatorView.saveSaldoInicialInventario(entity);
 			data = businessDelegatorView.getDataSaldoInicialInventario();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -511,11 +520,11 @@ public class SaldoInicialInventarioView {
 		return "";
 	}
 
-	public InputText getTxtAno() {
+	public SelectOneMenu getTxtAno() {
 		return txtAno;
 	}
 
-	public void setTxtAno(InputText txtAno) {
+	public void setTxtAno(SelectOneMenu txtAno) {
 		this.txtAno = txtAno;
 	}
 
@@ -777,5 +786,13 @@ public class SaldoInicialInventarioView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public SelectItem[] getManufacturerOptions2() {
+		return manufacturerOptions2;
+	}
+
+	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
+		this.manufacturerOptions2 = manufacturerOptions2;
 	}
 }

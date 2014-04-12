@@ -12,7 +12,6 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -67,22 +66,18 @@ body {
 
 								<p:column headerText="ID" filterBy="idClfa" sortBy="idClfa"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idClfa}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.idClfa}"
-												disabled="true" />
+											<p:inputText value="#{car.idClfa}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -93,7 +88,8 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="fechaInicial" headerText="Fecha Inicial" style="width: 100px">
+								<p:column id="fechaInicial" headerText="Fecha Inicial"
+									style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaInicial}" />
@@ -106,7 +102,8 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="fechaFinal" headerText="Fecha Final" style="width: 100px">
+								<p:column id="fechaFinal" headerText="Fecha Final"
+									style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaFinal}" />
@@ -126,8 +123,7 @@ body {
 											<h:outputText value="#{car.fechaCreacion}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.fechaCreacion}"
-												disabled="true" />
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -139,12 +135,10 @@ body {
 											<h:outputText value="#{car.operCreador}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.operCreador}"
-												disabled="true" />
+											<p:inputText value="#{car.operCreador}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
@@ -154,7 +148,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{claveFabricacionView.estadoRegistro}">

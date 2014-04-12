@@ -15,7 +15,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -26,27 +25,21 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Fallas;
 import co.edu.usbcali.modelo.dto.FallasDTO;
-import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class FallasView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtIdCfal;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String descripcion;
 	private String estadoRegistro;
@@ -55,7 +48,7 @@ public class FallasView {
 	private String idCfal;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -67,18 +60,16 @@ public class FallasView {
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 
-	
 	private SelectItem[] manufacturerOptions;
 
 	String manufacturers[] = { "A", "R" };
-	
+
 	public FallasView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -91,29 +82,29 @@ public class FallasView {
 	}
 
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
-		
 
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getFallas(((FallasDTO) event.getObject()).getIdCfal());
+			entity = businessDelegatorView.getFallas(((FallasDTO) event
+					.getObject()).getIdCfal());
 
-			//nombre = ((TipoDivisionDTO) event.getObject()).getNombre();
-			//entity.setNombre(nombre);
+			// nombre = ((TipoDivisionDTO) event.getObject()).getNombre();
+			// entity.setNombre(nombre);
 
 			// operCreador =((TipoDivisionDTO)
 			// event.getObject()).getOperCreador();
 			// entity.setOperCreador(operCreador);
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			codigo = ((FallasDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
-			
+
 			descripcion = ((FallasDTO) event.getObject()).getDescripcion();
 			entity.setDescripcion(descripcion);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
 			businessDelegatorView.updateFallas(entity);
@@ -121,23 +112,20 @@ public class FallasView {
 			RequestContext.getCurrentInstance().reset("form:listaFA");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 
 	}
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
-				((FallasDTO) event.getObject()).getIdCfal()+ "");
+				((FallasDTO) event.getObject()).getIdCfal() + "");
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((FallasDTO) event.getObject()).getIdCfal());
 	}
-
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -154,12 +142,12 @@ public class FallasView {
 			}
 
 			txtDescripcion.setValue(fallasDTO.getDescripcion());
-/*
-			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(fallasDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(fallasDTO.getEstadoRegistro());
+			 */
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -210,42 +198,42 @@ public class FallasView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			//txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
-	/*	if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			//txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * //txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdCfal != null) {
 			txtIdCfal.setValue(null);
-			//txtIdCfal.setDisabled(false);
+			// txtIdCfal.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -278,13 +266,12 @@ public class FallasView {
 			Long idCfal = new Long(txtIdCfal.getValue().toString());
 			entity = businessDelegatorView.getFallas(idCfal);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -296,8 +283,8 @@ public class FallasView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -319,8 +306,8 @@ public class FallasView {
 		txtCodigo.setDisabled(false);
 		txtDescripcion.setValue(selectedFallas.getDescripcion());
 		txtDescripcion.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedFallas.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedFallas.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedFallas.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedFallas.getFechaModificacion());
@@ -356,30 +343,30 @@ public class FallasView {
 	public String action_create() {
 		try {
 			entity = new Fallas();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
-			//Long idCfal = new Long(txtIdCfal.getValue().toString());
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idCfal = new Long(txtIdCfal.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			
-			//entity.setIdCfal(idCfal);
-			
+
+			// entity.setIdCfal(idCfal);
+
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			
-			
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
 			businessDelegatorView.saveFallas(entity);
 			data = businessDelegatorView.getDataFallas();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -400,7 +387,7 @@ public class FallasView {
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -498,13 +485,12 @@ public class FallasView {
 		this.txtDescripcion = txtDescripcion;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -687,26 +673,20 @@ public class FallasView {
 		this.fechaModificacion = fechaModificacion;
 	}
 
-
 	public SelectItem[] getManufacturerOptions() {
 		return manufacturerOptions;
 	}
-
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
 	}
 
-
 	public SelectOneMenu getEstado() {
 		return estado;
 	}
 
-
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
 	}
-	
-	
-	
+
 }

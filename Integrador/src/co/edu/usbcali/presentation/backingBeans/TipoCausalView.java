@@ -27,14 +27,9 @@ import co.edu.usbcali.modelo.dto.TipoCausalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoCausalView {
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtNombre;
 	private InputText txtOperCreador;
@@ -92,20 +87,19 @@ public class TipoCausalView {
 					.getObject()).getIdTcau());
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			nombre = ((TipoCausalDTO) event.getObject()).getNombre();
 			entity.setNombre(nombre);
 
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
-			
 			businessDelegatorView.updateTipoCausal(entity);
 			data = businessDelegatorView.getDataTipoCausal();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -248,11 +242,10 @@ public class TipoCausalView {
 			Long idTcau = new Long(txtIdTcau.getValue().toString());
 			entity = businessDelegatorView.getTipoCausal(idTcau);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
-			// txtEstadoRegistro.setDisabled(false);
 			txtNombre.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -261,8 +254,6 @@ public class TipoCausalView {
 			txtIdTcau.setDisabled(false);
 			btnSave.setDisabled(false);
 		} else {
-			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -322,27 +313,28 @@ public class TipoCausalView {
 	public String action_create() {
 		try {
 			entity = new TipoCausal();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idTcau = new Long(txtIdTcau.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTcau = new Long(txtIdTcau.getValue().toString());
 
 			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTcau(idTcau);
+			// entity.setIdTcau(idTcau);
 			entity.setNombre(FacesUtils.checkString(txtNombre));
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoCausal(entity);
 			data = businessDelegatorView.getDataTipoCausal();

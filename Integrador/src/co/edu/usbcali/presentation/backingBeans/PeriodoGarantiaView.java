@@ -17,7 +17,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -27,20 +26,13 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.PeriodoGarantia;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
-import co.edu.usbcali.modelo.dto.ListaPreciosDTO;
 import co.edu.usbcali.modelo.dto.PeriodoGarantiaDTO;
-import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class PeriodoGarantiaView {
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtMesesParticular;
 	private InputText txtMesesPublico;
@@ -50,7 +42,7 @@ public class PeriodoGarantiaView {
 	private InputText txtIdPega;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String estadoRegistro;
 	private String mesesParticular;
 	private String mesesPublico;
@@ -60,9 +52,9 @@ public class PeriodoGarantiaView {
 	private String idPega;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private Map<String, String> grupo = new HashMap<String, String>();
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -79,10 +71,10 @@ public class PeriodoGarantiaView {
 
 	public PeriodoGarantiaView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -108,12 +100,13 @@ public class PeriodoGarantiaView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 
-			entity.setMesesParticular(((PeriodoGarantiaDTO) event.getObject()).getMesesParticular());
-			entity.setMesesPublico(((PeriodoGarantiaDTO) event.getObject()).getMesesPublico());			
-			
-			entity.setGrupo(businessDelegatorView
-					.getGrupo(getIdGrpo_Grupo()));
-			
+			entity.setMesesParticular(((PeriodoGarantiaDTO) event.getObject())
+					.getMesesParticular());
+			entity.setMesesPublico(((PeriodoGarantiaDTO) event.getObject())
+					.getMesesPublico());
+
+			entity.setGrupo(businessDelegatorView.getGrupo(getIdGrpo_Grupo()));
+
 			businessDelegatorView.updatePeriodoGarantia(entity);
 			data = businessDelegatorView.getDataPeriodoGarantia();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -133,18 +126,19 @@ public class PeriodoGarantiaView {
 		System.out.println("Cancelado"
 				+ ((PeriodoGarantiaDTO) event.getObject()).getIdPega());
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			PeriodoGarantiaDTO periodoGarantiaDTO = (PeriodoGarantiaDTO) e
 					.getObject();
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(periodoGarantiaDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(periodoGarantiaDTO.getEstadoRegistro())
+			 * ;
+			 */
 
 			if (txtMesesParticular == null) {
 				txtMesesParticular = new InputText();
@@ -213,49 +207,49 @@ public class PeriodoGarantiaView {
 		entity = null;
 		selectedPeriodoGarantia = null;
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			//txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * //txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtMesesParticular != null) {
 			txtMesesParticular.setValue(null);
-			//txtMesesParticular.setDisabled(true);
+			// txtMesesParticular.setDisabled(true);
 		}
 
 		if (txtMesesPublico != null) {
 			txtMesesPublico.setValue(null);
-			//txtMesesPublico.setDisabled(true);
+			// txtMesesPublico.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtIdGrpo_Grupo != null) {
 			txtIdGrpo_Grupo.setValue(null);
-			//txtIdGrpo_Grupo.setDisabled(true);
+			// txtIdGrpo_Grupo.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdPega != null) {
 			txtIdPega.setValue(null);
-			//txtIdPega.setDisabled(false);
+			// txtIdPega.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -288,11 +282,11 @@ public class PeriodoGarantiaView {
 			Long idPega = new Long(txtIdPega.getValue().toString());
 			entity = businessDelegatorView.getPeriodoGarantia(idPega);
 		} catch (Exception e) {
-			// 
+			//
 		}
 
 		if (entity == null) {
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setDisabled(false);
 			txtMesesParticular.setDisabled(false);
 			txtMesesPublico.setDisabled(false);
 			txtOperCreador.setDisabled(false);
@@ -303,8 +297,8 @@ public class PeriodoGarantiaView {
 			txtIdPega.setDisabled(false);
 			btnSave.setDisabled(false);
 		} else {
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -328,8 +322,8 @@ public class PeriodoGarantiaView {
 	public String action_edit(ActionEvent evt) {
 		selectedPeriodoGarantia = (PeriodoGarantiaDTO) (evt.getComponent()
 				.getAttributes().get("selectedPeriodoGarantia"));
-		//txtEstadoRegistro.setValue(selectedPeriodoGarantia.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedPeriodoGarantia.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedPeriodoGarantia.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedPeriodoGarantia
@@ -373,25 +367,25 @@ public class PeriodoGarantiaView {
 	public String action_create() {
 		try {
 			entity = new PeriodoGarantia();
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
-					
+
 			entity.setMesesParticular(FacesUtils.checkLong(txtMesesParticular));
 			entity.setMesesPublico(FacesUtils.checkLong(txtMesesPublico));
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
+
 			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
 					.checkLong(txtIdGrpo_Grupo)));
-			
+
 			businessDelegatorView.savePeriodoGarantia(entity);
 			data = businessDelegatorView.getDataPeriodoGarantia();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -410,7 +404,7 @@ public class PeriodoGarantiaView {
 				entity = businessDelegatorView.getPeriodoGarantia(idPega);
 			}
 
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -496,13 +490,12 @@ public class PeriodoGarantiaView {
 		return "";
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtMesesParticular() {
 		return txtMesesParticular;
@@ -727,18 +720,17 @@ public class PeriodoGarantiaView {
 
 	public Map<String, String> getGrupo() {
 		try {
-			List<GrupoDTO> data2 = businessDelegatorView
-					.getDataGrupo();
+			List<GrupoDTO> data2 = businessDelegatorView.getDataGrupo();
 
 			for (int i = 0; i < data2.size(); i++) {
-				grupo.put(data2.get(i).getNombre(), data2.get(i)
-						.getIdGrpo() + "");
+				grupo.put(data2.get(i).getNombre(), data2.get(i).getIdGrpo()
+						+ "");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return grupo;
 	}
 
@@ -753,6 +745,5 @@ public class PeriodoGarantiaView {
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
 	}
-	
-	
+
 }

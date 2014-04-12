@@ -65,7 +65,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idPega" sortBy="idPega"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idPega}" />
@@ -74,13 +73,11 @@ body {
 											<p:inputText value="#{car.idPega}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="mesesParticular" filterBy="mesesParticular"
 									headerText="Meses Particulares" sortBy="mesesParticular"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.mesesParticular}" />
@@ -94,7 +91,6 @@ body {
 								<p:column id="mesesPublico" filterBy="mesesPublico"
 									headerText="Meses Publicos" sortBy="mesesPublico"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.mesesPublico}" />
@@ -111,13 +107,10 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idGrpo_Grupo}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
 												style="width:160px">
 												<f:selectItems value="#{periodoGarantiaView.grupo}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -155,7 +148,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{periodoGarantiaView.estadoRegistro}">
@@ -201,7 +193,7 @@ body {
 										value="#{periodoGarantiaView.mesesPublico}"
 										binding="#{periodoGarantiaView.txtMesesPublico}" />
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*Nombre del Grupo:" />
+									<h:outputText id="msgIdGrpo_Grupo" value="*ID del Grupo:" />
 									<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
 										binding="#{periodoGarantiaView.txtIdGrpo_Grupo}">
 										<f:selectItems value="#{periodoGarantiaView.grupo}" />
@@ -223,8 +215,8 @@ body {
 										action="#{periodoGarantiaView.action_create}"
 										binding="#{periodoGarantiaView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

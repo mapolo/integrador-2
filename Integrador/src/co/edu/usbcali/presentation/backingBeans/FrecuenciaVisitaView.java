@@ -15,7 +15,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -25,21 +24,15 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.FrecuenciaVisita;
-import co.edu.usbcali.modelo.dto.CausalDTO;
 import co.edu.usbcali.modelo.dto.FrecuenciaVisitaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class FrecuenciaVisitaView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtFrecuencia;
 	private InputText txtOperCreador;
@@ -47,7 +40,7 @@ public class FrecuenciaVisitaView {
 	private InputText txtIdFrvi;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String descripcion;
 	private String estadoRegistro;
@@ -57,7 +50,7 @@ public class FrecuenciaVisitaView {
 	private String idFrvi;
 	private String fechaCreacion;
 	private String gechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -73,14 +66,12 @@ public class FrecuenciaVisitaView {
 
 	String manufacturers[] = { "A", "R" };
 
-	
 	public FrecuenciaVisitaView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -97,33 +88,34 @@ public class FrecuenciaVisitaView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getFrecuenciaVisita(((FrecuenciaVisitaDTO) event
-					.getObject()).getIdFrvi());
+			entity = businessDelegatorView
+					.getFrecuenciaVisita(((FrecuenciaVisitaDTO) event
+							.getObject()).getIdFrvi());
 
-			//entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
-			
-			
-			entity.setCodigo(((FrecuenciaVisitaDTO) event.getObject()).getCodigo());
-			entity.setFrecuencia(((FrecuenciaVisitaDTO) event.getObject()).getFrecuencia());
-			
+			// entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
+
+			entity.setCodigo(((FrecuenciaVisitaDTO) event.getObject())
+					.getCodigo());
+			entity.setFrecuencia(((FrecuenciaVisitaDTO) event.getObject())
+					.getFrecuencia());
+
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			entity.setFechaModificacion(new Date());
-			
+
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
-			descripcion = ((FrecuenciaVisitaDTO) event.getObject()).getDescripcion();
+			descripcion = ((FrecuenciaVisitaDTO) event.getObject())
+					.getDescripcion();
 			entity.setDescripcion(descripcion);
-
-			
 
 			businessDelegatorView.updateFrecuenciaVisita(entity);
 			data = businessDelegatorView.getDataFrecuenciaVisita();
 			RequestContext.getCurrentInstance().reset("form:listaFV");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -137,8 +129,6 @@ public class FrecuenciaVisitaView {
 		System.out.println("Cancelado"
 				+ ((FrecuenciaVisitaDTO) event.getObject()).getIdFrvi());
 	}
-	
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -157,11 +147,13 @@ public class FrecuenciaVisitaView {
 
 			txtDescripcion.setValue(frecuenciaVisitaDTO.getDescripcion());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(frecuenciaVisitaDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(frecuenciaVisitaDTO.getEstadoRegistro()
+			 * );
+			 */
 
 			if (txtFrecuencia == null) {
 				txtFrecuencia = new InputText();
@@ -219,47 +211,47 @@ public class FrecuenciaVisitaView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			//txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtFrecuencia != null) {
 			txtFrecuencia.setValue(null);
-			//txtFrecuencia.setDisabled(true);
+			// txtFrecuencia.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdFrvi != null) {
 			txtIdFrvi.setValue(null);
-			//txtIdFrvi.setDisabled(false);
+			// txtIdFrvi.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -292,13 +284,12 @@ public class FrecuenciaVisitaView {
 			Long idFrvi = new Long(txtIdFrvi.getValue().toString());
 			entity = businessDelegatorView.getFrecuenciaVisita(idFrvi);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtFrecuencia.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -311,8 +302,8 @@ public class FrecuenciaVisitaView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -336,9 +327,11 @@ public class FrecuenciaVisitaView {
 		txtCodigo.setDisabled(false);
 		txtDescripcion.setValue(selectedFrecuenciaVisita.getDescripcion());
 		txtDescripcion.setDisabled(false);
-		/*txtEstadoRegistro
-				.setValue(selectedFrecuenciaVisita.getEstadoRegistro());*/
-		//txtEstadoRegistro.setDisabled(false);
+		/*
+		 * txtEstadoRegistro
+		 * .setValue(selectedFrecuenciaVisita.getEstadoRegistro());
+		 */
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedFrecuenciaVisita.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedFrecuenciaVisita
@@ -377,30 +370,31 @@ public class FrecuenciaVisitaView {
 	public String action_create() {
 		try {
 			entity = new FrecuenciaVisita();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idFrvi = new Long(txtIdFrvi.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idFrvi = new Long(txtIdFrvi.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			
+
 			entity.setFrecuencia(FacesUtils.checkLong(txtFrecuencia));
-			//entity.setIdFrvi(idFrvi);
-			
+			// entity.setIdFrvi(idFrvi);
+
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
 			businessDelegatorView.saveFrecuenciaVisita(entity);
 			data = businessDelegatorView.getDataFrecuenciaVisita();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -421,7 +415,7 @@ public class FrecuenciaVisitaView {
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -523,13 +517,12 @@ public class FrecuenciaVisitaView {
 		this.txtDescripcion = txtDescripcion;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtFrecuencia() {
 		return txtFrecuencia;
@@ -736,15 +729,12 @@ public class FrecuenciaVisitaView {
 		this.gechaModificacion = gechaModificacion;
 	}
 
-
 	public SelectItem[] getManufacturerOptions() {
 		return manufacturerOptions;
 	}
 
-
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
 	}
-	
-	
+
 }

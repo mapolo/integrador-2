@@ -29,10 +29,6 @@ import co.edu.usbcali.modelo.dto.TipoDocumentoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * 
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoDocumentoView {
@@ -40,7 +36,6 @@ public class TipoDocumentoView {
 	private InputText txtAfectaInventario;
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private SelectOneMenu zignoCartera;
 	private SelectOneMenu aafectaCartea;
@@ -217,7 +212,7 @@ public class TipoDocumentoView {
 
 			codigo = ((TipoDocumentoDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
-			
+
 			entity.setAfectaInventario(afectaInventario);
 			entity.setSignoInventario(signoInventario);
 
@@ -225,17 +220,16 @@ public class TipoDocumentoView {
 			entity.setSignoCartera(signoCartera);
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
-			entity.setOperModifica(usuario);
 
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
 
 			businessDelegatorView.updateTipoDocumento(entity);
 			data = businessDelegatorView.getDataTipoDocumento();
 			RequestContext.getCurrentInstance().reset("form:listaTDo");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -418,7 +412,7 @@ public class TipoDocumentoView {
 			Long idTido = new Long(txtIdTido.getValue().toString());
 			entity = businessDelegatorView.getTipoDocumento(idTido);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
@@ -426,7 +420,6 @@ public class TipoDocumentoView {
 			txtAfectaInventario.setDisabled(false);
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtSignoCartera.setDisabled(false);
@@ -566,13 +559,14 @@ public class TipoDocumentoView {
 	public String action_create() {
 		try {
 			entity = new TipoDocumento();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idTido = new Long(txtIdTido.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTido = new Long(txtIdTido.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -583,20 +577,20 @@ public class TipoDocumentoView {
 			entity.setSignoInventario(signoInventario);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTido(idTido);
+			// entity.setIdTido(idTido);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoDocumento(entity);
 			data = businessDelegatorView.getDataTipoDocumento();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			//actualizar();
+			// actualizar();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			FacesUtils.addErrorMessage(e.getMessage());

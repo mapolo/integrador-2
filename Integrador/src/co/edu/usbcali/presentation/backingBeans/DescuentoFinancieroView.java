@@ -25,32 +25,19 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
-import co.edu.usbcali.modelo.ClaveFabricacion;
 import co.edu.usbcali.modelo.DescuentoFinanciero;
-import co.edu.usbcali.modelo.Grupo;
-import co.edu.usbcali.modelo.Sucursal;
-import co.edu.usbcali.modelo.TipoFormaPago;
-import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
-import co.edu.usbcali.modelo.dto.ClavesParaRotarDTO;
-import co.edu.usbcali.modelo.dto.ConfSemanasAnoDTO;
 import co.edu.usbcali.modelo.dto.DescuentoFinancieroDTO;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
-import co.edu.usbcali.modelo.dto.SucursalDTO;
 import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class DescuentoFinancieroView {
 	private InputText txtCodigo;
 	private InputText txtDiaDesde;
 	private InputText txtDiaHasta;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtNombre;
 	private InputText txtOperCreador;
@@ -63,7 +50,7 @@ public class DescuentoFinancieroView {
 	private Calendar txtFechaFinal;
 	private Calendar txtFechaInicio;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String diaDesde;
 	private String diaHasta;
@@ -79,10 +66,10 @@ public class DescuentoFinancieroView {
 	private String fechaFinal;
 	private String fechaInicio;
 	private String fechaModificacion;
-	
-	private Map<String,String> grupo = new HashMap<String, String>();
-	private Map<String,String> tipoFormaPago = new HashMap<String, String>();
-	
+
+	private Map<String, String> grupo = new HashMap<String, String>();
+	private Map<String, String> tipoFormaPago = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -96,10 +83,10 @@ public class DescuentoFinancieroView {
 	private SelectItem[] manufacturerOptions;
 
 	String manufacturers[] = { "A", "R" };
-	
+
 	public DescuentoFinancieroView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
 
@@ -113,50 +100,53 @@ public class DescuentoFinancieroView {
 
 		return options;
 	}
-	
+
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
 
 		try {
 
 			entity = null;
 			entity = businessDelegatorView
-					.getDescuentoFinanciero(((DescuentoFinancieroDTO) event.getObject())
-							.getIdDefi());
+					.getDescuentoFinanciero(((DescuentoFinancieroDTO) event
+							.getObject()).getIdDefi());
 
-			entity.setCodigo(((DescuentoFinancieroDTO) event.getObject()).getCodigo());
-			entity.setNombre(((DescuentoFinancieroDTO) event.getObject()).getNombre());
-			entity.setPorcentajeDescuento(((DescuentoFinancieroDTO) event.getObject()).getPorcentajeDescuento());
-			entity.setDiaDesde(((DescuentoFinancieroDTO) event.getObject()).getDiaDesde());
-			entity.setDiaHasta(((DescuentoFinancieroDTO) event.getObject()).getDiaHasta());
-			
-			Date fechaInicial = ((DescuentoFinancieroDTO) event.getObject()).getFechaInicio();
+			entity.setCodigo(((DescuentoFinancieroDTO) event.getObject())
+					.getCodigo());
+			entity.setNombre(((DescuentoFinancieroDTO) event.getObject())
+					.getNombre());
+			entity.setPorcentajeDescuento(((DescuentoFinancieroDTO) event
+					.getObject()).getPorcentajeDescuento());
+			entity.setDiaDesde(((DescuentoFinancieroDTO) event.getObject())
+					.getDiaDesde());
+			entity.setDiaHasta(((DescuentoFinancieroDTO) event.getObject())
+					.getDiaHasta());
+
+			Date fechaInicial = ((DescuentoFinancieroDTO) event.getObject())
+					.getFechaInicio();
 			entity.setFechaInicio(fechaInicial);
-			
-			Date fechaFinal = ((DescuentoFinancieroDTO) event.getObject()).getFechaFinal();
+
+			Date fechaFinal = ((DescuentoFinancieroDTO) event.getObject())
+					.getFechaFinal();
 			entity.setFechaFinal(fechaFinal);
-			
-			
-			entity.setEstadoRegistro(estadoRegistro);	
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
-			
 
-			entity.setGrupo( businessDelegatorView
-					.getGrupo(getIdGrpo_Grupo()));
-			
-			if(txtIdTfpa_TipoFormaPago.getValue()==""){
+			entity.setGrupo(businessDelegatorView.getGrupo(getIdGrpo_Grupo()));
+
+			if (txtIdTfpa_TipoFormaPago.getValue() == "") {
 				System.out.println("entro if");
 				entity.setTipoFormaPago(null);
-			}else{
+			} else {
 				System.out.println("Entro else");
-				
+
 				entity.setTipoFormaPago(businessDelegatorView
 						.getTipoFormaPago(FacesUtils
-							.checkLong(txtIdTfpa_TipoFormaPago)));
+								.checkLong(txtIdTfpa_TipoFormaPago)));
 			}
-			
-						
+
 			businessDelegatorView.updateDescuentoFinanciero(entity);
 			data = businessDelegatorView.getDataDescuentoFinanciero();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -176,10 +166,7 @@ public class DescuentoFinancieroView {
 		System.out.println("Cancelado"
 				+ ((DescuentoFinancieroDTO) event.getObject()).getIdDefi());
 	}
-	
-	
-	
-	
+
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			DescuentoFinancieroDTO descuentoFinancieroDTO = (DescuentoFinancieroDTO) e
@@ -203,12 +190,13 @@ public class DescuentoFinancieroView {
 
 			txtDiaHasta.setValue(descuentoFinancieroDTO.getDiaHasta());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(descuentoFinancieroDTO
-					.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(descuentoFinancieroDTO
+			 * .getEstadoRegistro());
+			 */
 
 			if (txtNombre == null) {
 				txtNombre = new InputText();
@@ -299,77 +287,77 @@ public class DescuentoFinancieroView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDiaDesde != null) {
 			txtDiaDesde.setValue(null);
-			//txtDiaDesde.setDisabled(true);
+			// txtDiaDesde.setDisabled(true);
 		}
 
 		if (txtDiaHasta != null) {
 			txtDiaHasta.setValue(null);
-			//txtDiaHasta.setDisabled(true);
+			// txtDiaHasta.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtNombre != null) {
 			txtNombre.setValue(null);
-			//txtNombre.setDisabled(true);
+			// txtNombre.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPorcentajeDescuento != null) {
 			txtPorcentajeDescuento.setValue(null);
-			//txtPorcentajeDescuento.setDisabled(true);
+			// txtPorcentajeDescuento.setDisabled(true);
 		}
 
 		if (txtIdGrpo_Grupo != null) {
 			txtIdGrpo_Grupo.setValue(null);
-			//txtIdGrpo_Grupo.setDisabled(true);
+			// txtIdGrpo_Grupo.setDisabled(true);
 		}
 
 		if (txtIdTfpa_TipoFormaPago != null) {
 			txtIdTfpa_TipoFormaPago.setValue(null);
-			//txtIdTfpa_TipoFormaPago.setDisabled(true);
+			// txtIdTfpa_TipoFormaPago.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaFinal != null) {
 			txtFechaFinal.setValue(null);
-			//txtFechaFinal.setDisabled(true);
+			// txtFechaFinal.setDisabled(true);
 		}
 
 		if (txtFechaInicio != null) {
 			txtFechaInicio.setValue(null);
-			//txtFechaInicio.setDisabled(true);
+			// txtFechaInicio.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdDefi != null) {
 			txtIdDefi.setValue(null);
-			//txtIdDefi.setDisabled(false);
+			// txtIdDefi.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -420,14 +408,13 @@ public class DescuentoFinancieroView {
 			Long idDefi = new Long(txtIdDefi.getValue().toString());
 			entity = businessDelegatorView.getDescuentoFinanciero(idDefi);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDiaDesde.setDisabled(false);
 			txtDiaHasta.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtNombre.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -447,8 +434,8 @@ public class DescuentoFinancieroView {
 			txtDiaDesde.setDisabled(false);
 			txtDiaHasta.setValue(entity.getDiaHasta());
 			txtDiaHasta.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaFinal.setValue(entity.getFechaFinal());
@@ -486,9 +473,10 @@ public class DescuentoFinancieroView {
 		txtDiaDesde.setDisabled(false);
 		txtDiaHasta.setValue(selectedDescuentoFinanciero.getDiaHasta());
 		txtDiaHasta.setDisabled(false);
-		/*txtEstadoRegistro.setValue(selectedDescuentoFinanciero
-				.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);*/
+		/*
+		 * txtEstadoRegistro.setValue(selectedDescuentoFinanciero
+		 * .getEstadoRegistro()); txtEstadoRegistro.setDisabled(false);
+		 */
 		txtFechaCreacion.setValue(selectedDescuentoFinanciero
 				.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
@@ -540,51 +528,45 @@ public class DescuentoFinancieroView {
 	public String action_create() {
 		try {
 			System.out.println("Entro create");
-			
+
 			entity = new DescuentoFinanciero();
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
-			//Long idDefi = new Long(txtIdDefi.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idDefi = new Long(txtIdDefi.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkLong(txtCodigo));
 			entity.setDiaDesde(FacesUtils.checkLong(txtDiaDesde));
 			entity.setDiaHasta(FacesUtils.checkLong(txtDiaHasta));
-			entity.setEstadoRegistro(estadoRegistro);			
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
-			entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));			
+			entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			
+
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-		entity.setPorcentajeDescuento(FacesUtils
+
+			entity.setPorcentajeDescuento(FacesUtils
 					.checkDouble(txtPorcentajeDescuento));
-		
-		
+
 			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
 					.checkLong(txtIdGrpo_Grupo)));
 
-	
-			
-		if(txtIdTfpa_TipoFormaPago.getValue()==""){
-			
-		
-			
-		}else{
+			if (txtIdTfpa_TipoFormaPago.getValue() == "") {
 
-			
-			entity.setTipoFormaPago(businessDelegatorView
-					.getTipoFormaPago(FacesUtils
-						.checkLong(txtIdTfpa_TipoFormaPago)));
-		}
+			} else {
 
-			
+				entity.setTipoFormaPago(businessDelegatorView
+						.getTipoFormaPago(FacesUtils
+								.checkLong(txtIdTfpa_TipoFormaPago)));
+			}
+
 			businessDelegatorView.saveDescuentoFinanciero(entity);
 			data = businessDelegatorView.getDataDescuentoFinanciero();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -606,7 +588,7 @@ public class DescuentoFinancieroView {
 			entity.setCodigo(FacesUtils.checkLong(txtCodigo));
 			entity.setDiaDesde(FacesUtils.checkLong(txtDiaDesde));
 			entity.setDiaHasta(FacesUtils.checkLong(txtDiaHasta));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));
@@ -732,13 +714,12 @@ public class DescuentoFinancieroView {
 		this.txtDiaHasta = txtDiaHasta;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtNombre() {
 		return txtNombre;
@@ -1042,47 +1023,45 @@ public class DescuentoFinancieroView {
 		this.manufacturerOptions = manufacturerOptions;
 	}
 
-	public Map<String,String> getGrupo() {
+	public Map<String, String> getGrupo() {
 		try {
-			List<GrupoDTO> data2 = businessDelegatorView
-					.getDataGrupo();
-			
+			List<GrupoDTO> data2 = businessDelegatorView.getDataGrupo();
+
 			for (int i = 0; i < data2.size(); i++) {
-				grupo.put(data2.get(i).getNombre(), data2.get(i).getIdGrpo()+"");
-				
+				grupo.put(data2.get(i).getNombre(), data2.get(i).getIdGrpo()
+						+ "");
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return grupo;
 	}
 
-	public void setGrupo(Map<String,String> grupo) {
+	public void setGrupo(Map<String, String> grupo) {
 		this.grupo = grupo;
 	}
-	
-	
 
-	public Map<String,String> getTipoFormaPago() {
+	public Map<String, String> getTipoFormaPago() {
 		try {
 			List<TipoFormaPagoDTO> data3 = businessDelegatorView
 					.getDataTipoFormaPago();
-			
+
 			for (int i = 0; i < data3.size(); i++) {
-				tipoFormaPago.put(data3.get(i).getCodigo(), data3.get(i).getIdTfpa()+"");
-				
+				tipoFormaPago.put(data3.get(i).getCodigo(), data3.get(i)
+						.getIdTfpa() + "");
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return tipoFormaPago;
 	}
 
-	public void setTipoFormaPago(Map<String,String> tipoFormaPago) {
+	public void setTipoFormaPago(Map<String, String> tipoFormaPago) {
 		this.tipoFormaPago = tipoFormaPago;
 	}
-	
-	
+
 }

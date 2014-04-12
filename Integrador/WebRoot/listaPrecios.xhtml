@@ -65,7 +65,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idLipr" sortBy="idLipr"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idLipr}" />
@@ -74,12 +73,10 @@ body {
 											<p:inputText value="#{car.idLipr}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="valor" filterBy="valor" headerText="Valor"
 									sortBy="valor" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.valor}" />
@@ -92,7 +89,6 @@ body {
 
 								<p:column id="margen" filterBy="margen" headerText="Margen"
 									sortBy="margen" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margen}" />
@@ -134,7 +130,6 @@ body {
 								<p:column id="espacios" filterBy="espacios"
 									headerText="Espacios" sortBy="espacios"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.espacios}" />
@@ -151,14 +146,10 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idTili_TipoLista}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu value="#{listaPreciosView.idTili_TipoLista}"
 												style="width:160px">
-
 												<f:selectItems value="#{listaPreciosView.tipoLista}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -196,7 +187,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{listaPreciosView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -212,15 +202,11 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idRefe_Referencia}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu
 												value="#{listaPreciosView.idRefe_Referencia}"
 												style="width:160px">
-
 												<f:selectItems value="#{listaPreciosView.referencia}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -232,14 +218,11 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idSucu_Sucursal}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
 												style="width:160px">
-												<f:selectItem itemLabel="-----" itemValue="" />
+												<f:selectItem itemLabel="Vacio" itemValue="" />
 												<f:selectItems value="#{listaPreciosView.sucursal}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -297,15 +280,14 @@ body {
 										value="#{listaPreciosView.espacios}"
 										binding="#{listaPreciosView.txtEspacios}" />
 
-									<h:outputText id="msgIdTili_TipoLista"
-										value="*Codigo Tipo Lista:" />
+									<h:outputText id="msgIdTili_TipoLista" value="*ID Tipo Lista:" />
 									<p:selectOneMenu value="#{listaPreciosView.idTili_TipoLista}"
 										binding="#{listaPreciosView.txtIdTili_TipoLista}">
-
 										<f:selectItems value="#{listaPreciosView.tipoLista}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgEstadoRegistro" value="*Estado del Registro:" />
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{listaPreciosView.estado}"
 										value="#{listaPreciosView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />
@@ -313,17 +295,16 @@ body {
 									</p:selectOneMenu>
 
 									<h:outputText id="msgIdRefe_Referencia"
-										value="*Codigo de Referencia:" />
+										value="*ID de Referencia:" />
 									<p:selectOneMenu value="#{listaPreciosView.idRefe_Referencia}"
 										binding="#{listaPreciosView.txtIdRefe_Referencia}">
-
 										<f:selectItems value="#{listaPreciosView.referencia}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdSucu_Sucursal" value="Nombre de la Sucursal:" />
+									<h:outputText id="msgIdSucu_Sucursal" value="ID Sucursal:" />
 									<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
 										binding="#{listaPreciosView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItem itemLabel="Vacio" itemValue="" />
 										<f:selectItems value="#{listaPreciosView.sucursal}" />
 									</p:selectOneMenu>
 
@@ -337,8 +318,8 @@ body {
 										action="#{listaPreciosView.action_create}"
 										binding="#{listaPreciosView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

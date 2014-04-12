@@ -29,10 +29,6 @@ import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * 
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoFormaPagoView {
@@ -47,7 +43,6 @@ public class TipoFormaPagoView {
 	private SelectOneMenu descuento;
 	private InputText txtDsctoFechaDoc;
 	private InputText txtEsPosfechado;
-	// private InputText txtEstadoRegistro;
 	private InputText txtExijeNumeroDocumento;
 	private InputText txtImportaPda;
 	private InputText txtManejaCheque;
@@ -281,11 +276,11 @@ public class TipoFormaPagoView {
 			// operCreador =((TipoDivisionDTO)
 			// event.getObject()).getOperCreador();
 			// entity.setOperCreador(operCreador);
-			
-			
-			descripcion = ((TipoFormaPagoDTO) event.getObject()).getDescripcion();
+
+			descripcion = ((TipoFormaPagoDTO) event.getObject())
+					.getDescripcion();
 			entity.setDescripcion(descripcion);
-			
+
 			codigo = ((TipoFormaPagoDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
 
@@ -301,9 +296,9 @@ public class TipoFormaPagoView {
 			entity.setImportaPda(importaPda);
 			Long dsctoFechaDoc = new Long(descuento.getValue().toString());
 			entity.setDsctoFechaDoc(dsctoFechaDoc);
-			
-			entity.setEstadoRegistro(estadoRegistro);	
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
@@ -579,55 +574,53 @@ public class TipoFormaPagoView {
 	public String action_create() {
 		try {
 			entity = new TipoFormaPago();
-			
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			//Long idTfpa = new Long(txtIdTfpa.getValue().toString());
-			
-			
-			//entity.setIdTfpa(idTfpa);
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTfpa = new Long(txtIdTfpa.getValue().toString());
+
+			// entity.setIdTfpa(idTfpa);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-						
+
 			Long manejaCheque = new Long(manejaCh.getValue().toString());
 			entity.setManejaCheque(manejaCheque);
-			
+
 			Long manejaTarjeta = new Long(manejaTc.getValue().toString());
 			entity.setManejaTarjeta(manejaTarjeta);
-			
+
 			Long exijeNumeroDocumento = new Long(exige.getValue().toString());
 			entity.setExijeNumeroDocumento(exijeNumeroDocumento);
-			
+
 			Long esPosfechado = new Long(es.getValue().toString());
 			entity.setEsPosfechado(esPosfechado);
-			
+
 			Long importaPda = new Long(importa.getValue().toString());
 			entity.setImportaPda(importaPda);
-			
+
 			Long dsctoFechaDoc = new Long(descuento.getValue().toString());
 			entity.setDsctoFechaDoc(dsctoFechaDoc);
-			
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoFormaPago(entity);
 			data = businessDelegatorView.getDataTipoFormaPago();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			//actualizar();
+			// actualizar();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}

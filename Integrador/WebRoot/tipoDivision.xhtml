@@ -11,9 +11,7 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-
 
 		<ui:define name="body">
 			<f:view>
@@ -33,7 +31,6 @@
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -64,7 +61,6 @@ body {
 								<p:column headerText="Editar" style="width: 30px">
 									<p:rowEditor />
 								</p:column>
-
 
 								<p:column headerText="ID" style="width: 100px" sortBy="idTidi"
 									filterBy="idTidi">
@@ -102,7 +98,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Operador Creador" style="width: 100px"
 									filterBy="operCreador" sortBy="operCreador">
 									<p:cellEditor>
@@ -123,7 +118,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoDivisionView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -132,7 +126,6 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
@@ -151,11 +144,10 @@ body {
 							<!--									Ventana emergente          -->
 
 							<p:dialog id="dialog" header="Tipo de División"
-								widgetVar="carDialog" resizable="false" width="350"
+								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold">
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
-
 
 									<h:outputText id="msgNombre" value="*Nombre:" />
 									<p:inputText id="txtNombre" value="#{tipoDivisionView.nombre}"
@@ -166,7 +158,6 @@ body {
 									<p:selectOneMenu
 										binding="#{tipoDivisionView.txtEstadoRegistro}"
 										value="#{tipoDivisionView.estadoRegistro}">
-
 										<f:selectItem itemLabel="A" itemValue="A" />
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
@@ -181,8 +172,8 @@ body {
 										disabled="false" action="#{tipoDivisionView.action_create}"
 										binding="#{tipoDivisionView.btnSave}"
 										update="listaTD,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+								
 							</p:dialog>
 						</p:panel>
 					</h:form>

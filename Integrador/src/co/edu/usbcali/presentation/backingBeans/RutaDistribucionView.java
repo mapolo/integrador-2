@@ -15,7 +15,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -25,21 +24,15 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.RutaDistribucion;
-import co.edu.usbcali.modelo.dto.ListaPreciosDTO;
 import co.edu.usbcali.modelo.dto.RutaDistribucionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class RutaDistribucionView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -48,7 +41,7 @@ public class RutaDistribucionView {
 	private InputText txtIdRudi;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String descripcion;
 	private String estadoRegistro;
@@ -59,7 +52,7 @@ public class RutaDistribucionView {
 	private String idRudi;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -76,10 +69,10 @@ public class RutaDistribucionView {
 
 	public RutaDistribucionView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -97,22 +90,26 @@ public class RutaDistribucionView {
 
 			entity = null;
 			entity = businessDelegatorView
-					.getRutaDistribucion(((RutaDistribucionDTO) event.getObject())
-							.getIdRudi());
+					.getRutaDistribucion(((RutaDistribucionDTO) event
+							.getObject()).getIdRudi());
 
 			entity.setEstadoRegistro(estadoRegistro);
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 
-			entity.setCodigo(((RutaDistribucionDTO) event.getObject()).getCodigo());
-			entity.setDescripcion(((RutaDistribucionDTO) event.getObject()).getDescripcion());
-			entity.setTiempoEntrega(((RutaDistribucionDTO) event.getObject()).getTiempoEntrega());
-			System.out.println("Entrega modi: " + ((RutaDistribucionDTO) event.getObject()).getTiempoEntrega() );
-			
-			entity.setTiempoTransporte(((RutaDistribucionDTO) event.getObject()).getTiempoTransporte());
-			
-		
+			entity.setCodigo(((RutaDistribucionDTO) event.getObject())
+					.getCodigo());
+			entity.setDescripcion(((RutaDistribucionDTO) event.getObject())
+					.getDescripcion());
+			entity.setTiempoEntrega(((RutaDistribucionDTO) event.getObject())
+					.getTiempoEntrega());
+			System.out.println("Entrega modi: "
+					+ ((RutaDistribucionDTO) event.getObject())
+							.getTiempoEntrega());
+
+			entity.setTiempoTransporte(((RutaDistribucionDTO) event.getObject())
+					.getTiempoTransporte());
 
 			businessDelegatorView.updateRutaDistribucion(entity);
 			data = businessDelegatorView.getDataRutaDistribucion();
@@ -151,11 +148,13 @@ public class RutaDistribucionView {
 
 			txtDescripcion.setValue(rutaDistribucionDTO.getDescripcion());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(rutaDistribucionDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(rutaDistribucionDTO.getEstadoRegistro()
+			 * );
+			 */
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -220,52 +219,52 @@ public class RutaDistribucionView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			//txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtTiempoEntrega != null) {
 			txtTiempoEntrega.setValue(null);
-			//txtTiempoEntrega.setDisabled(true);
+			// txtTiempoEntrega.setDisabled(true);
 		}
 
 		if (txtTiempoTransporte != null) {
 			txtTiempoTransporte.setValue(null);
-			//txtTiempoTransporte.setDisabled(true);
+			// txtTiempoTransporte.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdRudi != null) {
 			txtIdRudi.setValue(null);
-			//txtIdRudi.setDisabled(false);
+			// txtIdRudi.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -298,13 +297,12 @@ public class RutaDistribucionView {
 			Long idRudi = new Long(txtIdRudi.getValue().toString());
 			entity = businessDelegatorView.getRutaDistribucion(idRudi);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtTiempoEntrega.setDisabled(false);
@@ -318,8 +316,8 @@ public class RutaDistribucionView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -345,9 +343,11 @@ public class RutaDistribucionView {
 		txtCodigo.setDisabled(false);
 		txtDescripcion.setValue(selectedRutaDistribucion.getDescripcion());
 		txtDescripcion.setDisabled(false);
-		/*txtEstadoRegistro
-				.setValue(selectedRutaDistribucion.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);*/
+		/*
+		 * txtEstadoRegistro
+		 * .setValue(selectedRutaDistribucion.getEstadoRegistro());
+		 * txtEstadoRegistro.setDisabled(false);
+		 */
 		txtFechaCreacion.setValue(selectedRutaDistribucion.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedRutaDistribucion
@@ -396,21 +396,22 @@ public class RutaDistribucionView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idRudi = new Long(txtIdRudi.getValue().toString());
+			// Long idRudi = new Long(txtIdRudi.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setTiempoEntrega(FacesUtils.checkDouble(txtTiempoEntrega));
-			System.out.println("Tiempo entrega create " + FacesUtils.checkDouble(txtTiempoEntrega));
+			System.out.println("Tiempo entrega create "
+					+ FacesUtils.checkDouble(txtTiempoEntrega));
 			entity.setTiempoTransporte(FacesUtils
-					.checkDouble(txtTiempoTransporte));	
-			
+					.checkDouble(txtTiempoTransporte));
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.saveRutaDistribucion(entity);
 			data = businessDelegatorView.getDataRutaDistribucion();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -431,7 +432,7 @@ public class RutaDistribucionView {
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -536,13 +537,12 @@ public class RutaDistribucionView {
 		this.txtDescripcion = txtDescripcion;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -772,6 +772,5 @@ public class RutaDistribucionView {
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
 	}
-	
-	
+
 }

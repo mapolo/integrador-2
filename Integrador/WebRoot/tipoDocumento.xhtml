@@ -12,7 +12,6 @@
 
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -33,7 +32,6 @@
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -93,7 +91,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
@@ -108,7 +105,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.afectaInventario}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{tipoDocumentoView.afectaInventario}">
@@ -127,7 +123,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.signoInventario}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoDocumentoView.signoInventario}">
 												<f:selectItem itemLabel="+" itemValue="+" />
@@ -145,7 +140,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.afectaCartea}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoDocumentoView.afectaCartea}">
 												<f:selectItem itemLabel="S" itemValue="S" />
@@ -163,7 +157,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.signoCartera}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoDocumentoView.signoCartera}">
 												<f:selectItem itemLabel="+" itemValue="+" />
@@ -205,7 +198,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoDocumentoView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -229,8 +221,6 @@ body {
 
 							</p:dataTable>
 
-
-
 							<!--		Ventana emergente          -->
 
 							<p:dialog id="dialog" header="Tipo de Documento"
@@ -238,7 +228,6 @@ body {
 								showEffect="clip" hideEffect="fold">
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
-
 
 									<h:outputText id="msgCodigo" value="Codigo:" />
 									<p:inputText id="txtCodigo" value="#{tipoDocumentoView.codigo}"
@@ -280,7 +269,6 @@ body {
 										<f:selectItem itemLabel="-" itemValue="-" />
 									</p:selectOneMenu>
 
-
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{tipoDocumentoView.estado}"
@@ -299,8 +287,8 @@ body {
 										action="#{tipoDocumentoView.action_create}"
 										binding="#{tipoDocumentoView.btnSave}"
 										update="listaTDo,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

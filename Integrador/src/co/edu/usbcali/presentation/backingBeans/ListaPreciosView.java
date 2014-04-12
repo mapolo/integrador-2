@@ -26,26 +26,17 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ListaPrecios;
-import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
-import co.edu.usbcali.modelo.dto.DescuentoFinancieroDTO;
-import co.edu.usbcali.modelo.dto.GrupoDTO;
 import co.edu.usbcali.modelo.dto.ListaPreciosDTO;
 import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
-import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.modelo.dto.TipoListaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ListaPreciosView {
 	private InputText txtEspacios;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtMargen;
 	private InputText txtOperCreador;
@@ -126,15 +117,16 @@ public class ListaPreciosView {
 
 			entity.setValor(((ListaPreciosDTO) event.getObject()).getValor());
 			entity.setMargen(((ListaPreciosDTO) event.getObject()).getMargen());
-			entity.setEspacios(((ListaPreciosDTO) event.getObject()).getEspacios());
-			
-			
-			Date fechaInicial = ((ListaPreciosDTO) event.getObject()).getFechaInicial();
-			entity.setFechaInicial(fechaInicial);		
-			Date fechaFinal = ((ListaPreciosDTO) event.getObject()).getFechaFinal();
+			entity.setEspacios(((ListaPreciosDTO) event.getObject())
+					.getEspacios());
+
+			Date fechaInicial = ((ListaPreciosDTO) event.getObject())
+					.getFechaInicial();
+			entity.setFechaInicial(fechaInicial);
+			Date fechaFinal = ((ListaPreciosDTO) event.getObject())
+					.getFechaFinal();
 			entity.setFechaFinal(fechaFinal);
-			
-			
+
 			entity.setTipoLista(businessDelegatorView
 					.getTipoLista(getIdTili_TipoLista()));
 
@@ -394,12 +386,11 @@ public class ListaPreciosView {
 			Long idLipr = new Long(txtIdLipr.getValue().toString());
 			entity = businessDelegatorView.getListaPrecios(idLipr);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtEspacios.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtMargen.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -1013,8 +1004,6 @@ public class ListaPreciosView {
 	public void setTipoLista(Map<String, String> tipoLista) {
 		this.tipoLista = tipoLista;
 	}
-	
-	
 
 	public Map<String, String> getSucursal() {
 		try {

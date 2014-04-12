@@ -28,20 +28,18 @@ import co.edu.usbcali.modelo.dto.UnidadNegocioDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-
 @ManagedBean
 @ViewScoped
 public class UnidadNegocioView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtIdUnne;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String descripcion;
 	private String estadoRegistro;
@@ -50,7 +48,7 @@ public class UnidadNegocioView {
 	private String idUnne;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -69,7 +67,7 @@ public class UnidadNegocioView {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -82,32 +80,35 @@ public class UnidadNegocioView {
 	}
 
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
-		
+
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getUnidadNegocio(((UnidadNegocioDTO) event.getObject()).getIdUnne());
+			entity = businessDelegatorView
+					.getUnidadNegocio(((UnidadNegocioDTO) event.getObject())
+							.getIdUnne());
 
-			descripcion = ((UnidadNegocioDTO) event.getObject()).getDescripcion();
+			descripcion = ((UnidadNegocioDTO) event.getObject())
+					.getDescripcion();
 			entity.setDescripcion(descripcion);
 			codigo = ((UnidadNegocioDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.updateUnidadNegocio(entity);
 			data = businessDelegatorView.getDataUnidadNegocio();
 			RequestContext.getCurrentInstance().reset("form:unidad");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // 
+		} catch (Exception e) { //
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Cancelled",
 				((UnidadNegocioDTO) event.getObject()).getIdUnne() + "");
@@ -133,8 +134,6 @@ public class UnidadNegocioView {
 			}
 
 			txtDescripcion.setValue(unidadNegocioDTO.getDescripcion());
-
-			
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -186,39 +185,37 @@ public class UnidadNegocioView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-		//	txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-		//	txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
-
-		
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-		//	txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-		//	txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-		//	txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-		//	txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdUnne != null) {
 			txtIdUnne.setValue(null);
-		//	txtIdUnne.setDisabled(false);
+			// txtIdUnne.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -251,13 +248,13 @@ public class UnidadNegocioView {
 			Long idUnne = new Long(txtIdUnne.getValue().toString());
 			entity = businessDelegatorView.getUnidadNegocio(idUnne);
 		} catch (Exception e) {
-		
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-		//	txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -269,8 +266,8 @@ public class UnidadNegocioView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-		//	txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-		//	txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -292,8 +289,8 @@ public class UnidadNegocioView {
 		txtCodigo.setDisabled(false);
 		txtDescripcion.setValue(selectedUnidadNegocio.getDescripcion());
 		txtDescripcion.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedUnidadNegocio.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedUnidadNegocio.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedUnidadNegocio.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedUnidadNegocio
@@ -331,10 +328,11 @@ public class UnidadNegocioView {
 		try {
 			entity = new UnidadNegocio();
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -343,11 +341,11 @@ public class UnidadNegocioView {
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.saveUnidadNegocio(entity);
 			data = businessDelegatorView.getDataUnidadNegocio();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
-			
+
 			action_clear();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -365,7 +363,7 @@ public class UnidadNegocioView {
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-		//	entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -659,6 +657,5 @@ public class UnidadNegocioView {
 	public void setIdUnne(String idUnne) {
 		this.idUnne = idUnne;
 	}
-	
-	
+
 }

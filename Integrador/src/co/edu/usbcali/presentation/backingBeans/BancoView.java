@@ -25,7 +25,6 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Banco;
 import co.edu.usbcali.modelo.dto.BancoDTO;
-import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -46,7 +45,7 @@ public class BancoView {
 	private InputText txtIdBanc;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String confirmaCheque;
 	private String consigna;
@@ -61,7 +60,7 @@ public class BancoView {
 	private String idBanc;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -83,7 +82,7 @@ public class BancoView {
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -100,33 +99,37 @@ public class BancoView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getBanco(((BancoDTO) event.getObject()).getIdBanc());
-						
+			entity = businessDelegatorView.getBanco(((BancoDTO) event
+					.getObject()).getIdBanc());
+
 			codigo = ((BancoDTO) event.getObject()).getCodigo();
-			entity.setCodigo(codigo); 	
+			entity.setCodigo(codigo);
 			descripcion = ((BancoDTO) event.getObject()).getDescripcion();
 			entity.setDescripcion(descripcion);
 			Long consigna = new Long(txtConsigna.getValue().toString());
 			entity.setConsigna(consigna);
 			System.out.println("consigana:_" + consigna);
-			
-			Long confirmaCheque = new Long(txtConfirmaCheque.getValue().toString());
+
+			Long confirmaCheque = new Long(txtConfirmaCheque.getValue()
+					.toString());
 			entity.setConfirmaCheque(confirmaCheque);
-			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue().toString());
+			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue()
+					.toString());
 			entity.setManejaBeneficiario(manejaBeneficiario);
 			Long importaPda = new Long(txtImportaPda.getValue().toString());
 			entity.setImportaPda(importaPda);
-			
+
 			entity.setFechaModificacion(new Date());
-			
+
 			cuentaBanco = ((BancoDTO) event.getObject()).getCuentaBanco();
-			entity.setCuentaBanco(cuentaBanco); 
-			cuentaDescuento = ((BancoDTO) event.getObject()).getCuentaDescuento();
-			entity.setCuentaDescuento(cuentaDescuento); 
+			entity.setCuentaBanco(cuentaBanco);
+			cuentaDescuento = ((BancoDTO) event.getObject())
+					.getCuentaDescuento();
+			entity.setCuentaDescuento(cuentaDescuento);
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
 			businessDelegatorView.updateBanco(entity);
@@ -148,7 +151,6 @@ public class BancoView {
 		System.out.println("Cancelado"
 				+ ((BancoDTO) event.getObject()).getIdBanc());
 	}
-
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -227,72 +229,72 @@ public class BancoView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtConfirmaCheque != null) {
 			txtConfirmaCheque.setValue(null);
-			//txtConfirmaCheque.setDisabled(true);
+			// txtConfirmaCheque.setDisabled(true);
 		}
 
 		if (txtConsigna != null) {
 			txtConsigna.setValue(null);
-			//txtConsigna.setDisabled(true);
+			// txtConsigna.setDisabled(true);
 		}
 
 		if (txtCuentaBanco != null) {
 			txtCuentaBanco.setValue(null);
-			//txtCuentaBanco.setDisabled(true);
+			// txtCuentaBanco.setDisabled(true);
 		}
 
 		if (txtCuentaDescuento != null) {
 			txtCuentaDescuento.setValue(null);
-		//	txtCuentaDescuento.setDisabled(true);
+			// txtCuentaDescuento.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-		//	txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
 		if (txtEstadoRegistro != null) {
 			txtEstadoRegistro.setValue(null);
-		//	txtEstadoRegistro.setDisabled(true);
+			// txtEstadoRegistro.setDisabled(true);
 		}
 
 		if (txtImportaPda != null) {
 			txtImportaPda.setValue(null);
-		//	txtImportaPda.setDisabled(true);
+			// txtImportaPda.setDisabled(true);
 		}
 
 		if (txtManejaBeneficiario != null) {
 			txtManejaBeneficiario.setValue(null);
-		//	txtManejaBeneficiario.setDisabled(true);
+			// txtManejaBeneficiario.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-		//	txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-		//	txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-		//	txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-		//	txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdBanc != null) {
 			txtIdBanc.setValue(null);
-		//	txtIdBanc.setDisabled(false);
+			// txtIdBanc.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -434,31 +436,35 @@ public class BancoView {
 		try {
 			entity = new Banco();
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setCuentaBanco(FacesUtils.checkString(txtCuentaBanco));
-			entity.setCuentaDescuento(FacesUtils.checkString(txtCuentaDescuento));
-			
+			entity.setCuentaDescuento(FacesUtils
+					.checkString(txtCuentaDescuento));
+
 			Long consigna = new Long(txtConsigna.getValue().toString());
 			entity.setConsigna(consigna);
-			Long confirmaCheque = new Long(txtConfirmaCheque.getValue().toString());
+			Long confirmaCheque = new Long(txtConfirmaCheque.getValue()
+					.toString());
 			entity.setConfirmaCheque(confirmaCheque);
-			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue().toString());
+			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue()
+					.toString());
 			entity.setManejaBeneficiario(manejaBeneficiario);
 			Long importaPda = new Long(txtImportaPda.getValue().toString());
-			entity.setImportaPda(importaPda);		
-			
+			entity.setImportaPda(importaPda);
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.saveBanco(entity);
 			data = businessDelegatorView.getDataBanco();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -893,5 +899,5 @@ public class BancoView {
 
 	public void setTxtManejaBeneficiario(SelectOneMenu txtManejaBeneficiario) {
 		this.txtManejaBeneficiario = txtManejaBeneficiario;
-	}	
+	}
 }

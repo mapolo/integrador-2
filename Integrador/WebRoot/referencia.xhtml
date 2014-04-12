@@ -11,7 +11,6 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -32,7 +31,6 @@
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -65,7 +63,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idRefe" sortBy="idRefe"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idRefe}" />
@@ -74,12 +71,10 @@ body {
 											<p:inputText value="#{car.idRefe}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -93,7 +88,6 @@ body {
 								<p:column id="descripcion" filterBy="descripcion"
 									headerText="Descripción" sortBy="descripcion"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcion}" />
@@ -107,7 +101,6 @@ body {
 								<p:column id="descripcionCorta" filterBy="descripcionCorta"
 									headerText="Descripción Corta" sortBy="descripcionCorta"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcionCorta}" />
@@ -119,9 +112,8 @@ body {
 								</p:column>
 
 								<p:column id="unidadMedida" filterBy="unidadMedida"
-									headerText="Unidad Medida" sortBy="unidadMedida"
+									headerText="Unidad de Medida" sortBy="unidadMedida"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.unidadMedida}" />
@@ -134,10 +126,9 @@ body {
 
 								<p:column id="unidadMedidaProvisional"
 									filterBy="unidadMedidaProvisional"
-									headerText="Unidad Medida Provisional"
+									headerText="Unidad de Medida Provisional"
 									sortBy="unidadMedidaProvisional" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.unidadMedidaProvisional}" />
@@ -150,7 +141,6 @@ body {
 
 								<p:column id="marca" filterBy="marca" headerText="Marca"
 									sortBy="marca" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.marca}" />
@@ -164,7 +154,6 @@ body {
 								<p:column id="equivalente1" filterBy="equivalente1"
 									headerText="Equivalente 1" sortBy="equivalente1"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.equivalente1}" />
@@ -178,7 +167,6 @@ body {
 								<p:column id="equivalente2" filterBy="equivalente2"
 									headerText="Equivalente 2" sortBy="equivalente2"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.equivalente2}" />
@@ -192,7 +180,6 @@ body {
 								<p:column id="volumen" filterBy="volumen" headerText="Volumen"
 									sortBy="volumen" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.volumen}" />
@@ -206,7 +193,6 @@ body {
 								<p:column id="galones" filterBy="galones" headerText="Galones"
 									sortBy="galones" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.galones}" />
@@ -220,7 +206,6 @@ body {
 								<p:column id="porcentajeIva" filterBy="porcentajeIva"
 									headerText="Porcentaje del Iva" sortBy="porcentajeIva"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.porcentajeIva}" />
@@ -234,7 +219,6 @@ body {
 								<p:column id="pideCantidad" filterBy="pideCantidad"
 									headerText="Pide Cantidad" sortBy="pideCantidad"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.pideCantidad}" />
@@ -248,7 +232,6 @@ body {
 								<p:column id="pideValor" filterBy="pideValor"
 									headerText="Pide Valor" sortBy="pideValor"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.pideValor}" />
@@ -261,7 +244,6 @@ body {
 
 								<p:column id="costo" filterBy="costo" headerText="Costo"
 									sortBy="costo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.costo}" />
@@ -275,7 +257,6 @@ body {
 								<p:column id="aplicacion" filterBy="aplicacion"
 									headerText="Aplicación" sortBy="aplicacion"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.aplicacion}" />
@@ -289,7 +270,6 @@ body {
 								<p:column id="descripcionTecnica" filterBy="descripcionTecnica"
 									headerText="Descripción Tecnica" sortBy="descripcionTecnica"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.descripcionTecnica}" />
@@ -303,7 +283,6 @@ body {
 								<p:column id="esGarantia" filterBy="esGarantia"
 									headerText="Es Garantia" sortBy="esGarantia"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.esGarantia}" />
@@ -316,7 +295,6 @@ body {
 
 								<p:column id="peso" filterBy="peso" headerText="Peso"
 									sortBy="peso" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.peso}" />
@@ -330,7 +308,6 @@ body {
 								<p:column id="QPorCaja" filterBy="QPorCaja"
 									headerText="Q Por Caja" sortBy="QPorCaja"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.QPorCaja}" />
@@ -360,7 +337,6 @@ body {
 									headerText="Margen Minimo P Bodega"
 									sortBy="margenMinimoPBodega" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoPBodega}" />
@@ -376,7 +352,6 @@ body {
 									headerText="Margen Minimo G Bodega"
 									sortBy="margenMinimoGBodega" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoGBodega}" />
@@ -392,7 +367,6 @@ body {
 									headerText="Margen Minimo Ref Bodega"
 									sortBy="margenMinimoRefBodega" filterMatchMode="contains"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoRefBodega}" />
@@ -405,7 +379,6 @@ body {
 
 								<p:column id="fechaVigentePEne" headerText="Fecha Vigente P Ene"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.fechaVigentePEne}" />
@@ -421,7 +394,6 @@ body {
 								<p:column id="margenMinimoPEne" filterBy="margenMinimoPEne"
 									headerText="Margen Minimo P Ene" sortBy="margenMinimoPEne"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoPEne}" />
@@ -435,7 +407,6 @@ body {
 								<p:column id="margenMinimoRefEne" filterBy="margenMinimoRefEne"
 									headerText="Margen Minimo Ref Ene" sortBy="margenMinimoRefEne"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoRefEne}" />
@@ -449,7 +420,6 @@ body {
 								<p:column id="margenMinimoGEne" filterBy="margenMinimoGEne"
 									headerText="Margen Minimo G Ene" sortBy="margenMinimoGEne"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.margenMinimoGEne}" />
@@ -463,7 +433,6 @@ body {
 								<p:column id="productoEspecial" filterBy="productoEspecial"
 									headerText="Producto Especial" sortBy="productoEspecial"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.productoEspecial}" />
@@ -477,7 +446,6 @@ body {
 								<p:column id="productoConsumo" filterBy="productoConsumo"
 									headerText="Producto Consumo" sortBy="productoConsumo"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.productoConsumo}" />
@@ -491,7 +459,6 @@ body {
 								<p:column id="manejaLote" filterBy="manejaLote"
 									headerText="Maneja Lote" sortBy="manejaLote"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaLote}" />
@@ -505,7 +472,6 @@ body {
 								<p:column id="manejaDecimales" filterBy="manejaDecimales"
 									headerText="Maneja Decimales" sortBy="manejaDecimales"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaDecimales}" />
@@ -519,7 +485,6 @@ body {
 								<p:column id="codigoBarras" filterBy="codigoBarras"
 									headerText="Codigo de Barras" sortBy="codigoBarras"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigoBarras}" />
@@ -555,7 +520,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Estado del Registro"
 									filterBy="estadoRegistro"
 									filterOptions="#{referenciaView.manufacturerOptions}"
@@ -564,7 +528,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{referenciaView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -591,7 +554,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Referencia" widgetVar="carDialog"
-								resizable="false" width="800" showEffect="clip"
+								resizable="false" width="1250" showEffect="clip"
 								hideEffect="fold">
 
 								<h:panelGrid columns="8" id="panel">
@@ -600,98 +563,96 @@ body {
 									<p:inputText id="txtCodigo" value="#{referenciaView.codigo}"
 										binding="#{referenciaView.txtCodigo}" />
 
-									<h:outputText id="msgDescripcion" value="*Descripción:" />
+									<h:outputText id="msgDescripcion" value="Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{referenciaView.descripcion}"
 										binding="#{referenciaView.txtDescripcion}" />
 
 									<h:outputText id="msgDescripcionCorta"
-										value="*Descripción Corta:" />
+										value="Descripción Corta:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcionCorta"
 										value="#{referenciaView.descripcionCorta}"
 										binding="#{referenciaView.txtDescripcionCorta}" />
 
-									<h:outputText id="msgUnidadMedida" value="*Unidad Medida:" />
+									<h:outputText id="msgUnidadMedida" value="Unidad de Medida:" />
 									<p:inputText id="txtUnidadMedida"
 										value="#{referenciaView.unidadMedida}"
 										binding="#{referenciaView.txtUnidadMedida}" />
 
 									<h:outputText id="msgUnidadMedidaProvisional"
-										value="*Unidad Medida Provisional:" />
+										value="Unidad Medida Provisional:" />
 									<p:inputText id="txtUnidadMedidaProvisional"
 										value="#{referenciaView.unidadMedidaProvisional}"
 										binding="#{referenciaView.txtUnidadMedidaProvisional}" />
 
-									<h:outputText id="msgMarca" value="*Marca:" />
+									<h:outputText id="msgMarca" value="Marca:" />
 									<p:inputText id="txtMarca" value="#{referenciaView.marca}"
 										binding="#{referenciaView.txtMarca}" />
 
-									<h:outputText id="msgEquivalente1" value="*Equivalente 1:" />
+									<h:outputText id="msgEquivalente1" value="Equivalente 1:" />
 									<p:inputText id="txtEquivalente1"
 										value="#{referenciaView.equivalente1}"
 										binding="#{referenciaView.txtEquivalente1}" />
 
-									<h:outputText id="msgEquivalente2" value="*Equivalente 2:" />
+									<h:outputText id="msgEquivalente2" value="Equivalente 2:" />
 									<p:inputText id="txtEquivalente2"
 										value="#{referenciaView.equivalente2}"
 										binding="#{referenciaView.txtEquivalente2}" />
 
-									<h:outputText id="msgVolumen" value="*Volumen:" />
+									<h:outputText id="msgVolumen" value="Volumen:" />
 									<p:inputText id="txtVolumen" value="#{referenciaView.volumen}"
 										binding="#{referenciaView.txtVolumen}" />
 
-									<h:outputText id="msgGalones" value="*Galones:" />
+									<h:outputText id="msgGalones" value="Galones:" />
 									<p:inputText id="txtGalones" value="#{referenciaView.galones}"
 										binding="#{referenciaView.txtGalones}" />
 
-									<h:outputText id="msgPorcentajeIva"
-										value="*Porcentaje del Iva:" />
+									<h:outputText id="msgPorcentajeIva" value="Porcentaje del Iva:" />
 									<p:inputText id="txtPorcentajeIva"
 										value="#{referenciaView.porcentajeIva}"
 										binding="#{referenciaView.txtPorcentajeIva}" />
 
-									<h:outputText id="msgPideCantidad" value="*Pide Cantidad:" />
+									<h:outputText id="msgPideCantidad" value="Pide Cantidad:" />
 									<p:inputText id="txtPideCantidad"
 										value="#{referenciaView.pideCantidad}"
 										binding="#{referenciaView.txtPideCantidad}" />
 
-									<h:outputText id="msgPideValor" value="*Pide Valor:" />
+									<h:outputText id="msgPideValor" value="Pide Valor:" />
 									<p:inputText id="txtPideValor"
 										value="#{referenciaView.pideValor}"
 										binding="#{referenciaView.txtPideValor}" />
 
-									<h:outputText id="msgCosto" value="*Costo:" />
-									<p:inputText id="txtCosto"
-										value="#{referenciaView.costo}"
+									<h:outputText id="msgCosto" value="Costo:" />
+									<p:inputText id="txtCosto" value="#{referenciaView.costo}"
 										binding="#{referenciaView.txtCosto}" />
 
-									<h:outputText id="msgAplicacion" value="*Aplicación:" />
+									<h:outputText id="msgAplicacion" value="Aplicación:" />
 									<p:inputText id="txtAplicacion"
 										value="#{referenciaView.aplicacion}"
 										binding="#{referenciaView.txtAplicacion}" />
 
 									<h:outputText id="msgDescripcionTecnica"
-										value="*Descripción Tecnica:" />
+										value="Descripción Tecnica:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcionTecnica"
 										value="#{referenciaView.descripcionTecnica}"
 										binding="#{referenciaView.txtDescripcionTecnica}" />
 
-									<h:outputText id="msgEsGarantia" value="*Es Garantia:" />
+									<h:outputText id="msgEsGarantia" value="Es Garantia:" />
 									<p:inputText id="txtEsGarantia"
 										value="#{referenciaView.esGarantia}"
 										binding="#{referenciaView.txtEsGarantia}" />
 
-									<h:outputText id="msgPeso" value="*Peso:" />
+									<h:outputText id="msgPeso" value="Peso:" />
 									<p:inputText id="txtPeso" value="#{referenciaView.peso}"
 										binding="#{referenciaView.txtPeso}" />
 
-									<h:outputText id="msgQPorCaja" value="*Q Por Caja:" />
+									<h:outputText id="msgQPorCaja" value="Q Por Caja:" />
 									<p:inputText id="txtQPorCaja"
 										value="#{referenciaView.QPorCaja}"
 										binding="#{referenciaView.txtQPorCaja}" />
 
 									<h:outputText id="msgFechaVigentePBodega"
-										value="*Fecha Vigente P Bodega:" />
+										value="Fecha Vigente P Bodega:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{referenciaView.txtFechaVigentePBodega}">
 										<p:ajax event="dateSelect"
@@ -700,25 +661,25 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgMargenMinimoPBodega"
-										value="*Margen Minimo P Bodega:" />
+										value="Margen Minimo P Bodega:" />
 									<p:inputText id="txtMargenMinimoPBodega"
 										value="#{referenciaView.margenMinimoPBodega}"
 										binding="#{referenciaView.txtMargenMinimoPBodega}" />
 
 									<h:outputText id="msgMargenMinimoGBodega"
-										value="*Margen Minimo G Bodega:" />
+										value="Margen Minimo G Bodega:" />
 									<p:inputText id="txtMargenMinimoGBodega"
 										value="#{referenciaView.margenMinimoGBodega}"
 										binding="#{referenciaView.txtMargenMinimoGBodega}" />
 
 									<h:outputText id="msgMargenMinimoRefBodega"
-										value="*Margen Minimo Ref Bodega:" />
+										value="Margen Minimo Ref Bodega:" />
 									<p:inputText id="txtMargenMinimoRefBodega"
 										value="#{referenciaView.margenMinimoRefBodega}"
 										binding="#{referenciaView.txtMargenMinimoRefBodega}" />
 
 									<h:outputText id="msgFechaVigentePEne"
-										value="*Fecha Vigente P Ene:" />
+										value="Fecha Vigente P Ene:" />
 									<p:calendar showOn="button" navigator="true" locale="en"
 										binding="#{referenciaView.txtFechaVigentePEne}">
 										<p:ajax event="dateSelect"
@@ -727,47 +688,45 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgMargenMinimoPEne"
-										value="*Margen Minimo P Ene:" />
+										value="Margen Minimo P Ene:" />
 									<p:inputText id="txtMargenMinimoPEne"
 										value="#{referenciaView.margenMinimoPEne}"
 										binding="#{referenciaView.txtMargenMinimoPEne}" />
 
 									<h:outputText id="msgMargenMinimoRefEne"
-										value="*Margen Minimo Ref Ene:" />
+										value="Margen Minimo Ref Ene:" />
 									<p:inputText id="txtMargenMinimoRefEne"
 										value="#{referenciaView.margenMinimoRefEne}"
 										binding="#{referenciaView.txtMargenMinimoRefEne}" />
 
 									<h:outputText id="msgMargenMinimoGEne"
-										value="*Margen Minimo G Ene:" />
+										value="Margen Minimo G Ene:" />
 									<p:inputText id="txtMargenMinimoGEne"
 										value="#{referenciaView.margenMinimoGEne}"
 										binding="#{referenciaView.txtMargenMinimoGEne}" />
 
 									<h:outputText id="msgProductoEspecial"
-										value="*Producto Especial:" />
+										value="Producto Especial:" />
 									<p:inputText id="txtProductoEspecial"
 										value="#{referenciaView.productoEspecial}"
 										binding="#{referenciaView.txtProductoEspecial}" />
 
-									<h:outputText id="msgProductoConsumo"
-										value="*Producto Consumo:" />
+									<h:outputText id="msgProductoConsumo" value="Producto Consumo:" />
 									<p:inputText id="txtProductoConsumo"
 										value="#{referenciaView.productoConsumo}"
 										binding="#{referenciaView.txtProductoConsumo}" />
 
-									<h:outputText id="msgManejaLote" value="*Maneja Lote:" />
+									<h:outputText id="msgManejaLote" value="Maneja Lote:" />
 									<p:inputText id="txtManejaLote"
 										value="#{referenciaView.manejaLote}"
 										binding="#{referenciaView.txtManejaLote}" />
 
-									<h:outputText id="msgManejaDecimales"
-										value="*Maneja Decimales:" />
+									<h:outputText id="msgManejaDecimales" value="Maneja Decimales:" />
 									<p:inputText id="txtManejaDecimales"
 										value="#{referenciaView.manejaDecimales}"
 										binding="#{referenciaView.txtManejaDecimales}" />
 
-									<h:outputText id="msgCodigoBarras" value="*Codigo de Barras:" />
+									<h:outputText id="msgCodigoBarras" value="Codigo de Barras:" />
 									<p:inputText id="txtCodigoBarras"
 										value="#{referenciaView.codigoBarras}"
 										binding="#{referenciaView.txtCodigoBarras}" />
