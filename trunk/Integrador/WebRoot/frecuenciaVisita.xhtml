@@ -11,10 +11,7 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -34,7 +31,6 @@
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -70,7 +66,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idFrvi" sortBy="idFrvi"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idFrvi}" />
@@ -79,12 +74,10 @@ body {
 											<p:inputText value="#{car.idFrvi}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -100,7 +93,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
@@ -111,7 +103,6 @@ body {
 								<p:column id="frecuencia" filterBy="frecuencia"
 									headerText="Frecuencia" sortBy="frecuencia"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.frecuencia}" />
@@ -154,7 +145,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{frecuenciaVisitaView.estadoRegistro}">
@@ -177,7 +167,6 @@ body {
 										action="#{menuView.menu}" />
 								</f:facet>
 
-
 							</p:dataTable>
 
 							<!--                   Ventana emergente           -->
@@ -194,7 +183,7 @@ body {
 										value="#{frecuenciaVisitaView.codigo}"
 										binding="#{frecuenciaVisitaView.txtCodigo}" />
 
-									<h:outputText id="msgDescripcion" value="Descripcion:" />
+									<h:outputText id="msgDescripcion" value="Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{frecuenciaVisitaView.descripcion}"
 										binding="#{frecuenciaVisitaView.txtDescripcion}" />
@@ -205,7 +194,7 @@ body {
 										binding="#{frecuenciaVisitaView.txtFrecuencia}" />
 
 									<h:outputText id="msgEstadoRegistro"
-										value="Estado del Registro:" />
+										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{frecuenciaVisitaView.estado}"
 										value="#{frecuenciaVisitaView.estadoRegistro}">
 										<f:selectItem itemLabel="A" itemValue="A" />

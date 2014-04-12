@@ -14,7 +14,6 @@
 		<ui:define name="header">
 		</ui:define>
 
-
 		<ui:define name="body">
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
@@ -83,7 +82,7 @@ body {
 											<h:outputText value="#{car.codigo}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" disabled="false" />
+											<p:inputText value="#{car.codigo}"/>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -93,9 +92,8 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
+											<p:inputTextarea value="#{car.descripcion}"/>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -108,7 +106,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.consigna}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bancoView.consigna}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -126,7 +123,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.confirmaCheque}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bancoView.confirmaCheque}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -168,7 +164,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaBeneficiario}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bancoView.manejaBeneficiario}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -186,7 +181,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.importaPda}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bancoView.importaPda}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -228,7 +222,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bancoView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -250,7 +243,6 @@ body {
 										action="#{menuView.menu}" />
 								</f:facet>
 
-
 							</p:dataTable>
 
 							<!--                   Ventana emergente           -->
@@ -267,13 +259,10 @@ body {
 									<p:inputText id="txtCodigo" disabled="false"
 										value="#{bancoView.codigo}" binding="#{bancoView.txtCodigo}" />
 
-
 									<h:outputText id="msgDescripcion" value="*Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										disabled="false" value="#{bancoView.descripcion}"
 										binding="#{bancoView.txtDescripcion}" />
-
-
 
 									<h:outputText id="msgConfirmaCheque" value="Confirma Cheque:" />
 									<p:selectOneMenu binding="#{bancoView.txtConfirmaCheque}"
@@ -282,7 +271,6 @@ body {
 										<f:selectItem itemLabel="0" itemValue="0" />
 									</p:selectOneMenu>
 
-
 									<h:outputText id="msgConsigna" value="Consigna:" />
 									<p:selectOneMenu binding="#{bancoView.txtConsigna}"
 										value="#{bancoView.consigna}" disabled="false">
@@ -290,19 +278,15 @@ body {
 										<f:selectItem itemLabel="0" itemValue="0" />
 									</p:selectOneMenu>
 
-
 									<h:outputText id="msgCuentaBanco" value="Cuenta Banco:" />
 									<p:inputText id="txtCuentaBanco" disabled="false"
 										value="#{bancoView.cuentaBanco}"
 										binding="#{bancoView.txtCuentaBanco}" />
 
-
-
 									<h:outputText id="msgCuentaDescuento" value="Cuenta Descuento:" />
 									<p:inputText id="txtCuentaDescuento" disabled="false"
 										value="#{bancoView.cuentaDescuento}"
 										binding="#{bancoView.txtCuentaDescuento}" />
-
 
 									<h:outputText id="msgManejaBeneficiario"
 										value="Maneja Beneficiario:" />
@@ -312,14 +296,12 @@ body {
 										<f:selectItem itemLabel="0" itemValue="0" />
 									</p:selectOneMenu>
 
-
 									<h:outputText id="msgImportaPda" value="Importa PDA:" />
 									<p:selectOneMenu binding="#{bancoView.txtImportaPda}"
 										value="#{bancoView.importaPda}" disabled="false">
 										<f:selectItem itemLabel="1" itemValue="1" />
 										<f:selectItem itemLabel="0" itemValue="0" />
 									</p:selectOneMenu>
-
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -339,8 +321,8 @@ body {
 										action="#{bancoView.action_create}"
 										binding="#{bancoView.btnSave}"
 										update="b,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

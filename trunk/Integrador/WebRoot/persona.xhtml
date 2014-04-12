@@ -11,7 +11,6 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -24,17 +23,14 @@
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
 				</p:dialog>
 
-
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-
 
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -55,9 +51,8 @@ body {
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{personaView.data}"
-								scrollable="true" scrollHeight="300"
-								id="tablaPrincipal" editable="true"
-								filteredValue="#{personaView.data}">
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{personaView.data}">
 
 								<p:ajax event="rowEdit" listener="#{personaView.onEdit}" />
 								<p:ajax event="rowEditCancel" listener="#{personaView.onCancel}" />
@@ -85,14 +80,11 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idTiid_TipoIdentificacion}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu
 												value="#{personaView.idTiid_TipoIdentificacion}"
 												style="width: 100px">
 												<f:selectItems value="#{personaView.tipoIdentificacion}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -105,14 +97,11 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu style="width: 100px"
 												value="#{personaView.idDipo_DivisionPolitica}">
-												<f:selectItem itemLabel="------" itemValue="" />
+												<f:selectItem itemLabel="Vacio" itemValue="" />
 												<f:selectItems value="#{personaView.divisionPolitica}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -121,7 +110,6 @@ body {
 								<p:column id="identificacion" filterBy="identificacion"
 									headerText="Identificación" sortBy="identificacion"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.identificacion}" />
@@ -135,7 +123,6 @@ body {
 								<p:column id="primerNombre" filterBy="primerNombre"
 									headerText="Primer Nombre" sortBy="primerNombre"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.primerNombre}" />
@@ -149,7 +136,6 @@ body {
 								<p:column id="segundoNombre" filterBy="segundoNombre"
 									headerText="Segundo Nombre" sortBy="segundoNombre"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.segundoNombre}" />
@@ -163,7 +149,6 @@ body {
 								<p:column id="primerApellido" filterBy="primerApellido"
 									headerText="Primer Apellido" sortBy="primerApellido"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.primerApellido}" />
@@ -177,7 +162,6 @@ body {
 								<p:column id="segundoApellido" filterBy="segundoApellido"
 									headerText="Segundo Apellido" sortBy="segundoApellido"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.segundoApellido}" />
@@ -193,7 +177,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.direccion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.direccion}" />
 										</f:facet>
@@ -203,7 +186,6 @@ body {
 								<p:column id="telefono1" filterBy="telefono1"
 									headerText="Telefono 1" sortBy="telefono1"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.telefono1}" />
@@ -217,7 +199,6 @@ body {
 								<p:column id="telefono2" filterBy="telefono2"
 									headerText="Telefono 2" sortBy="telefono2"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.telefono2}" />
@@ -231,7 +212,6 @@ body {
 								<p:column id="apartadoAereo" filterBy="apartadoAereo"
 									headerText="Apartado Aereo" sortBy="apartadoAereo"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.apartadoAereo}" />
@@ -244,23 +224,23 @@ body {
 
 								<p:column id="email" filterBy="email" headerText="Email"
 									sortBy="email" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.email}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.email}" validatorMessage="Email Incorrecto">
-											<f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+											<p:inputText value="#{car.email}"
+												validatorMessage="Email Incorrecto">
+												<f:validateRegex
+													pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
 											</p:inputText>
-										</f:facet> 
+										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
 								<p:column id="digitoVerificacion" filterBy="digitoVerificacion"
-									headerText="Digito Verificación" sortBy="digitoVerificacion"
+									headerText="Digito de Verificación" sortBy="digitoVerificacion"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.digitoVerificacion}" />
@@ -278,7 +258,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoPersona}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{personaView.estadoPersona}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -365,11 +344,11 @@ body {
 										value="ID División Politica:" />
 									<p:selectOneMenu value="#{personaView.idDipo_DivisionPolitica}"
 										binding="#{personaView.txtIdDipo_DivisionPolitica}">
-										<f:selectItem itemLabel="------" itemValue="" />
+										<f:selectItem itemLabel="Vacio" itemValue="" />
 										<f:selectItems value="#{personaView.divisionPolitica}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdentificacion" value="*Identificacón:" />
+									<h:outputText id="msgIdentificacion" value="*Identificación:" />
 									<p:inputText id="txtIdentificacion"
 										value="#{personaView.identificacion}"
 										binding="#{personaView.txtIdentificacion}" />

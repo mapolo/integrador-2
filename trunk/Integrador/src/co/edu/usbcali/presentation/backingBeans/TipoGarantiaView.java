@@ -28,17 +28,12 @@ import co.edu.usbcali.modelo.dto.TipoGarantiaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoGarantiaView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
 	private SelectOneMenu estado;
-	// private InputText txtEstadoRegistro;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtIdTiga;
@@ -102,17 +97,15 @@ public class TipoGarantiaView {
 			entity.setCodigo(codigo);
 			entity.setEstadoRegistro(estadoRegistro);
 
-
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-
 
 			businessDelegatorView.updateTipoGarantia(entity);
 			data = businessDelegatorView.getDataTipoGarantia();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -268,13 +261,11 @@ public class TipoGarantiaView {
 			Long idTiga = new Long(txtIdTiga.getValue().toString());
 			entity = businessDelegatorView.getTipoGarantia(idTiga);
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -286,8 +277,6 @@ public class TipoGarantiaView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -348,12 +337,13 @@ public class TipoGarantiaView {
 		try {
 			entity = new TipoGarantia();
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
-			//Long idTiga = new Long(txtIdTiga.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTiga = new Long(txtIdTiga.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -361,14 +351,14 @@ public class TipoGarantiaView {
 			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTiga(idTiga);
+			// entity.setIdTiga(idTiga);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoGarantia(entity);
 			data = businessDelegatorView.getDataTipoGarantia();

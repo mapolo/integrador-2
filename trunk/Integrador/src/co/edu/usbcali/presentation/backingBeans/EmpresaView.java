@@ -32,10 +32,6 @@ import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class EmpresaView {

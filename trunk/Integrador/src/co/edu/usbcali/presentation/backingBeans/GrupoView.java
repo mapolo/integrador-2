@@ -17,7 +17,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -27,18 +26,11 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Familia;
 import co.edu.usbcali.modelo.Grupo;
-import co.edu.usbcali.modelo.TipoCausal;
-import co.edu.usbcali.modelo.dto.CausalDTO;
-import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
 import co.edu.usbcali.modelo.dto.FamiliaDTO;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author JOAN VARGAS & MARCO POLO
- * 
- */
 @ManagedBean
 @ViewScoped
 public class GrupoView {
@@ -156,11 +148,10 @@ public class GrupoView {
 			entity.setGrupo(entity3);
 
 			businessDelegatorView.updateGrupo(entity);
-			
+
 			try {
 				grupos = new HashMap<String, String>();
-				List<GrupoDTO> data2 = businessDelegatorView
-						.getDataGrupo();
+				List<GrupoDTO> data2 = businessDelegatorView.getDataGrupo();
 
 				for (int i = 0; i < data2.size(); i++) {
 					grupos.put(data2.get(i).getNombre(), data2.get(i)
@@ -170,7 +161,7 @@ public class GrupoView {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			data = businessDelegatorView.getDataGrupo();
 			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
@@ -190,7 +181,7 @@ public class GrupoView {
 	}
 
 	public void rowEventListener(RowEditEvent e) {
-		// TODO: aqui modifique los calendar y el select one menu
+
 		try {
 			GrupoDTO grupoDTO = (GrupoDTO) e.getObject();
 
@@ -1173,8 +1164,7 @@ public class GrupoView {
 
 	public Map<String, String> getFamilias() {
 		try {
-			List<FamiliaDTO> data2 = businessDelegatorView
-					.getDataFamilia();
+			List<FamiliaDTO> data2 = businessDelegatorView.getDataFamilia();
 
 			for (int i = 0; i < data2.size(); i++) {
 				familias.put(data2.get(i).getDescripcion(), data2.get(i)
@@ -1194,12 +1184,11 @@ public class GrupoView {
 
 	public Map<String, String> getGrupos() {
 		try {
-			List<GrupoDTO> data2 = businessDelegatorView
-					.getDataGrupo();
+			List<GrupoDTO> data2 = businessDelegatorView.getDataGrupo();
 
 			for (int i = 0; i < data2.size(); i++) {
-				grupos.put(data2.get(i).getNombre(), data2.get(i)
-						.getIdGrpo() + "");
+				grupos.put(data2.get(i).getNombre(), data2.get(i).getIdGrpo()
+						+ "");
 
 			}
 		} catch (Exception e) {

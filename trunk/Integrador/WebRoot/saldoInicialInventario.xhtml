@@ -67,7 +67,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idSini" sortBy="idSini"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idSini}" />
@@ -76,18 +75,33 @@ body {
 											<p:inputText value="#{car.idSini}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
-									filterMatchMode="contains" style="width: 100px">
-
+									filterOptions="#{saldoInicialInventarioView.manufacturerOptions2}"
+									filterMatchMode="contains" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.ano}" />
 										</f:facet>
 										<f:facet name="input">
-											<p:inputText value="#{car.ano}" />
+											<h:selectOneMenu value="#{saldoInicialInventarioView.ano}">
+												<f:selectItem itemLabel="2.000" itemValue="2000" />
+												<f:selectItem itemLabel="2.001" itemValue="2001" />
+												<f:selectItem itemLabel="2.002" itemValue="2002" />
+												<f:selectItem itemLabel="2.003" itemValue="2003" />
+												<f:selectItem itemLabel="2.004" itemValue="2004" />
+												<f:selectItem itemLabel="2.005" itemValue="2005" />
+												<f:selectItem itemLabel="2.006" itemValue="2006" />
+												<f:selectItem itemLabel="2.007" itemValue="2007" />
+												<f:selectItem itemLabel="2.008" itemValue="2008" />
+												<f:selectItem itemLabel="2.009" itemValue="2009" />
+												<f:selectItem itemLabel="2.010" itemValue="2010" />
+												<f:selectItem itemLabel="2.011" itemValue="2011" />
+												<f:selectItem itemLabel="2.012" itemValue="2012" />
+												<f:selectItem itemLabel="2.013" itemValue="2013" />
+												<f:selectItem itemLabel="2.014" itemValue="2014" />
+											</h:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
@@ -95,7 +109,6 @@ body {
 								<p:column id="saldoInicial" filterBy="saldoInicial"
 									headerText="Saldo Inicial" sortBy="saldoInicial"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.saldoInicial}" />
@@ -109,7 +122,6 @@ body {
 								<p:column id="costoInicial" filterBy="costoInicial"
 									headerText="Costo Inicial" sortBy="costoInicial"
 									filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.costoInicial}" />
@@ -152,7 +164,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{saldoInicialInventarioView.estadoRegistro}">
@@ -170,9 +181,7 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idResu_ReferenciaSucursal}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu
 												value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
 												style="width:160px">
@@ -208,9 +217,24 @@ body {
 								<h:panelGrid columns="2" id="panel">
 
 									<h:outputText id="msgAno" value="*Año:" />
-									<p:inputText id="txtAno"
-										value="#{saldoInicialInventarioView.ano}"
-										binding="#{saldoInicialInventarioView.txtAno}" />
+									<p:selectOneMenu binding="#{saldoInicialInventarioView.txtAno}"
+										value="#{saldoInicialInventarioView.ano}">
+										<f:selectItem itemLabel="2.000" itemValue="2000" />
+										<f:selectItem itemLabel="2.001" itemValue="2001" />
+										<f:selectItem itemLabel="2.002" itemValue="2002" />
+										<f:selectItem itemLabel="2.003" itemValue="2003" />
+										<f:selectItem itemLabel="2.004" itemValue="2004" />
+										<f:selectItem itemLabel="2.005" itemValue="2005" />
+										<f:selectItem itemLabel="2.006" itemValue="2006" />
+										<f:selectItem itemLabel="2.007" itemValue="2007" />
+										<f:selectItem itemLabel="2.008" itemValue="2008" />
+										<f:selectItem itemLabel="2.009" itemValue="2009" />
+										<f:selectItem itemLabel="2.010" itemValue="2010" />
+										<f:selectItem itemLabel="2.011" itemValue="2011" />
+										<f:selectItem itemLabel="2.012" itemValue="2012" />
+										<f:selectItem itemLabel="2.013" itemValue="2013" />
+										<f:selectItem itemLabel="2.014" itemValue="2014" />
+									</p:selectOneMenu>
 
 									<h:outputText id="msgSaldoInicial" value="*Saldo Inicial:" />
 									<p:inputText id="txtSaldoInicial"
@@ -230,10 +254,13 @@ body {
 										<f:selectItem itemLabel="R" itemValue="R" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*Referencia Sucursal:" />
-									<p:selectOneMenu value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
+									<h:outputText id="msgIdResu_ReferenciaSucursal"
+										value="*ID Referencia Sucursal:" />
+									<p:selectOneMenu
+										value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
 										binding="#{saldoInicialInventarioView.txtIdResu_ReferenciaSucursal}">
-										<f:selectItems value="#{saldoInicialInventarioView.referencia}" />
+										<f:selectItems
+											value="#{saldoInicialInventarioView.referencia}" />
 									</p:selectOneMenu>
 
 								</h:panelGrid>

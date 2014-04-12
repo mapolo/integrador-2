@@ -11,7 +11,6 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
 
 		<ui:define name="body">
@@ -28,12 +27,10 @@
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
 
-
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -47,7 +44,6 @@ body {
 </style>
 				<div id="logo" align="center">
 
-
 					<h:form id="form">
 
 						<p:panel id="msgProjectBateriologoTitle" header="Bateriologo">
@@ -55,9 +51,8 @@ body {
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{bateriologoView.data}"
-								scrollable="true" scrollHeight="300"
-								id="tablaPrincipal" editable="true"
-								filteredValue="#{bateriologoView.data}">
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{bateriologoView.data}">
 
 								<p:ajax event="rowEdit" listener="#{bateriologoView.onEdit}" />
 								<p:ajax event="rowEditCancel"
@@ -69,7 +64,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idBate" sortBy="idBate"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idBate}" />
@@ -78,12 +72,10 @@ body {
 											<p:inputText value="#{car.idBate}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -99,7 +91,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.nombreCompleto}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.nombreCompleto}" />
 										</f:facet>
@@ -112,13 +103,10 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idSucu_Sucursal}" />
 										</f:facet>
-
 										<f:facet name="input">
-
 											<p:selectOneMenu value="#{bateriologoView.idSucu_Sucursal}"
-											style="width: 100px">
+												style="width: 100px">
 												<f:selectItems value="#{bateriologoView.sucursal}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -157,7 +145,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{bateriologoView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -223,8 +210,8 @@ body {
 										action="#{bateriologoView.action_create}"
 										binding="#{bateriologoView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

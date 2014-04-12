@@ -29,20 +29,14 @@ import co.edu.usbcali.modelo.Causal;
 import co.edu.usbcali.modelo.TipoCausal;
 import co.edu.usbcali.modelo.dto.CausalDTO;
 import co.edu.usbcali.modelo.dto.TipoCausalDTO;
-import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class CausalView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -60,8 +54,7 @@ public class CausalView {
 	private String idCusa;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	private Map<String,String> tipoCausales = new HashMap<String, String>();
-	
+	private Map<String, String> tipoCausales = new HashMap<String, String>();
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
@@ -103,41 +96,41 @@ public class CausalView {
 			entity = businessDelegatorView.getCausal(((CausalDTO) event
 					.getObject()).getIdCusa());
 
-			//entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
+			// entity.setCodigo(Long.parseLong(txtCodigo.getValue()+""));
 			entity.setFechaModificacion(new Date());
-			
+
 			entity.setCodigo(((CausalDTO) event.getObject()).getCodigo());
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
 			descripcion = ((CausalDTO) event.getObject()).getDescripcion();
 			entity.setDescripcion(descripcion);
-			
-			
+
 			TipoCausal entity2 = businessDelegatorView
 					.getTipoCausal(getIdTcau_TipoCausal());
 			entity.setTipoCausal(entity2);
-			
-			
-			
-			//entity.setCodigo(FacesUtils.checkLong(txtCodigo));
-			//System.out.println( idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
-			
-			//TipoCausal entity2 = businessDelegatorView.getTipoCausal(getIdTcau_TipoCausal());
-			//TipoCausal entity3 = businessDelegatorView.getTipoCausal(idTcau_TipoCausal);
-			
-			//System.out.println("entyty2:" + entity3);
-			//entity.setTipoCausal(entity3);
+
+			// entity.setCodigo(FacesUtils.checkLong(txtCodigo));
+			// System.out.println( idForanea() + "; " + getIdTcau_TipoCausal() +
+			// "; " + getSelectedCausal() + "; " + getData() );
+
+			// TipoCausal entity2 =
+			// businessDelegatorView.getTipoCausal(getIdTcau_TipoCausal());
+			// TipoCausal entity3 =
+			// businessDelegatorView.getTipoCausal(idTcau_TipoCausal);
+
+			// System.out.println("entyty2:" + entity3);
+			// entity.setTipoCausal(entity3);
 
 			businessDelegatorView.updateCausal(entity);
 			data = businessDelegatorView.getDataCausal();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -302,13 +295,12 @@ public class CausalView {
 			Long idCusa = new Long(txtIdCusa.getValue().toString());
 			entity = businessDelegatorView.getCausal(idCusa);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtIdTcau_TipoCausal.setDisabled(false);
@@ -392,7 +384,7 @@ public class CausalView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idCusa = new Long(txtIdCusa.getValue().toString());
+			// Long idCusa = new Long(txtIdCusa.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkLong(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -401,19 +393,23 @@ public class CausalView {
 
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			//entity.setIdCusa(idCusa);
+			// entity.setIdCusa(idCusa);
 
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			/*TipoCausal entity2 = businessDelegatorView
-					.getTipoCausal(idForanea());*/
+			/*
+			 * TipoCausal entity2 = businessDelegatorView
+			 * .getTipoCausal(idForanea());
+			 */
 
-			//System.out.println(entity2 + "; " + idForanea() + "; " + getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " + getData() );
-			
+			// System.out.println(entity2 + "; " + idForanea() + "; " +
+			// getIdTcau_TipoCausal() + "; " + getSelectedCausal() + "; " +
+			// getData() );
+
 			TipoCausal entity2 = businessDelegatorView
-					.getTipoCausal(getIdTcau_TipoCausal());		
+					.getTipoCausal(getIdTcau_TipoCausal());
 			entity.setTipoCausal(entity2);
 
 			businessDelegatorView.saveCausal(entity);
@@ -445,7 +441,7 @@ public class CausalView {
 			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			TipoCausal entity2 = businessDelegatorView
 					.getTipoCausal(idForanea());
-			
+
 			entity.setTipoCausal(entity2);
 			businessDelegatorView.updateCausal(entity);
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
@@ -783,18 +779,18 @@ public class CausalView {
 			List<TipoCausalDTO> data2 = businessDelegatorView
 					.getDataTipoCausal();
 			for (int i = 0; i < data2.size(); i++) {
-				tipoCausales.put(data2.get(i).getNombre(),data2.get(i).getIdTcau()+"");
+				tipoCausales.put(data2.get(i).getNombre(), data2.get(i)
+						.getIdTcau() + "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return tipoCausales;
 	}
 
 	public void setTipoCausales(Map<String, String> tipoCausales) {
 		this.tipoCausales = tipoCausales;
 	}
-	
 
 }

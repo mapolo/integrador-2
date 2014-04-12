@@ -27,20 +27,14 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ConfSemanasAno;
 import co.edu.usbcali.modelo.Semana;
-import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.modelo.dto.ConfSemanasAnoDTO;
 import co.edu.usbcali.modelo.dto.SemanaDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ConfSemanasAnoView {
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -50,7 +44,7 @@ public class ConfSemanasAnoView {
 	private Calendar txtFechaFinal;
 	private Calendar txtFechaInicial;
 	private InputText txtFechaModificacion;
-	
+
 	private String estadoRegistr;
 	private String operCreador;
 	private String operModifica;
@@ -60,8 +54,8 @@ public class ConfSemanasAnoView {
 	private String fechaFinal;
 	private String fechaInicial;
 	private String fechaModificacion;
-	private Map<String,String> semana = new HashMap<String, String>();
-	
+	private Map<String, String> semana = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -77,14 +71,12 @@ public class ConfSemanasAnoView {
 
 	String manufacturers[] = { "A", "R" };
 
-	
-	
 	public ConfSemanasAnoView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -101,31 +93,34 @@ public class ConfSemanasAnoView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getConfSemanasAno(((ConfSemanasAnoDTO) event
-					.getObject()).getIdCfsa());
-			
-			entity.setFechaModificacion(new Date());			
+			entity = businessDelegatorView
+					.getConfSemanasAno(((ConfSemanasAnoDTO) event.getObject())
+							.getIdCfsa());
+
+			entity.setFechaModificacion(new Date());
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
-			entity.setOperModifica(usuario);		
+			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistr);
-			
-			Semana entity2 = businessDelegatorView.getSemana(getIdSema_Semana());
+
+			Semana entity2 = businessDelegatorView
+					.getSemana(getIdSema_Semana());
 			System.out.println("semana " + entity2);
 			entity.setSemana(entity2);
-			
-			Date fechaInicial = ((ConfSemanasAnoDTO) event.getObject()).getFechaInicial();
+
+			Date fechaInicial = ((ConfSemanasAnoDTO) event.getObject())
+					.getFechaInicial();
 			entity.setFechaInicial(fechaInicial);
-			
-			Date fechaFinal = ((ConfSemanasAnoDTO) event.getObject()).getFechaFinal();
+
+			Date fechaFinal = ((ConfSemanasAnoDTO) event.getObject())
+					.getFechaFinal();
 			entity.setFechaFinal(fechaFinal);
-			
-			
+
 			businessDelegatorView.updateConfSemanasAno(entity);
 			data = businessDelegatorView.getDataConfSemanasAno();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -140,18 +135,17 @@ public class ConfSemanasAnoView {
 				+ ((ConfSemanasAnoDTO) event.getObject()).getIdCfsa());
 	}
 
-	
-
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			ConfSemanasAnoDTO confSemanasAnoDTO = (ConfSemanasAnoDTO) e
 					.getObject();
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(confSemanasAnoDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(confSemanasAnoDTO.getEstadoRegistro());
+			 */
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -219,49 +213,49 @@ public class ConfSemanasAnoView {
 		entity = null;
 		selectedConfSemanasAno = null;
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtIdSema_Semana != null) {
 			txtIdSema_Semana.setValue(null);
-			//txtIdSema_Semana.setDisabled(true);
+			// txtIdSema_Semana.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaFinal != null) {
 			txtFechaFinal.setValue(null);
-			//txtFechaFinal.setDisabled(true);
+			// txtFechaFinal.setDisabled(true);
 		}
 
 		if (txtFechaInicial != null) {
 			txtFechaInicial.setValue(null);
-			//txtFechaInicial.setDisabled(true);
+			// txtFechaInicial.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdCfsa != null) {
 			txtIdCfsa.setValue(null);
-			//txtIdCfsa.setDisabled(false);
+			// txtIdCfsa.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -312,11 +306,10 @@ public class ConfSemanasAnoView {
 			Long idCfsa = new Long(txtIdCfsa.getValue().toString());
 			entity = businessDelegatorView.getConfSemanasAno(idCfsa);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
-			//txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtIdSema_Semana.setDisabled(false);
@@ -327,8 +320,8 @@ public class ConfSemanasAnoView {
 			txtIdCfsa.setDisabled(false);
 			btnSave.setDisabled(false);
 		} else {
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaFinal.setValue(entity.getFechaFinal());
@@ -352,8 +345,8 @@ public class ConfSemanasAnoView {
 	public String action_edit(ActionEvent evt) {
 		selectedConfSemanasAno = (ConfSemanasAnoDTO) (evt.getComponent()
 				.getAttributes().get("selectedConfSemanasAno"));
-		//txtEstadoRegistro.setValue(selectedConfSemanasAno.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedConfSemanasAno.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedConfSemanasAno.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaFinal.setValue(selectedConfSemanasAno.getFechaFinal());
@@ -396,36 +389,38 @@ public class ConfSemanasAnoView {
 	public String action_create() {
 		try {
 			entity = new ConfSemanasAno();
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idCfsa = new Long(txtIdCfsa.getValue().toString());
+			// Long idCfsa = new Long(txtIdCfsa.getValue().toString());
 
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistr);
 			System.out.println("estad " + estadoRegistr + "; " + estado);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			
+
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			
-			//entity.setIdCfsa(idCfsa);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			/*entity.setSemana(businessDelegatorView.getSemana(FacesUtils
-					.checkLong(txtIdSema_Semana)));*/
-			
-			Semana entity2 = businessDelegatorView.getSemana(getIdSema_Semana());
+
+			// entity.setIdCfsa(idCfsa);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			/*
+			 * entity.setSemana(businessDelegatorView.getSemana(FacesUtils
+			 * .checkLong(txtIdSema_Semana)));
+			 */
+
+			Semana entity2 = businessDelegatorView
+					.getSemana(getIdSema_Semana());
 			entity.setSemana(entity2);
-			
-			
+
 			businessDelegatorView.saveConfSemanasAno(entity);
 			data = businessDelegatorView.getDataConfSemanasAno();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -437,17 +432,15 @@ public class ConfSemanasAnoView {
 
 		return "";
 	}
-	
-	
+
 	public Long idForanea() {
 
 		try {
-			List<SemanaDTO> data2 = businessDelegatorView
-					.getDataSemana();
+			List<SemanaDTO> data2 = businessDelegatorView.getDataSemana();
 			for (int i = 0; i < data2.size(); i++) {
 				if (txtIdSema_Semana.getValue().equals(
 						data2.get(i).getNumeroSemana())) {
-					
+
 					return data2.get(i).getIdSema();
 				}
 
@@ -466,7 +459,7 @@ public class ConfSemanasAnoView {
 				entity = businessDelegatorView.getConfSemanasAno(idCfsa);
 			}
 
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
@@ -552,13 +545,12 @@ public class ConfSemanasAnoView {
 		return "";
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -701,8 +693,6 @@ public class ConfSemanasAnoView {
 		this.showDialog = showDialog;
 	}
 
-	
-
 	public String getOperCreador() {
 		return operCreador;
 	}
@@ -782,25 +772,23 @@ public class ConfSemanasAnoView {
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
 	}
-	
-	
 
-	public Map<String,String> getSemana() {
+	public Map<String, String> getSemana() {
 		try {
-			List<SemanaDTO> data2 = businessDelegatorView
-					.getDataSemana();
+			List<SemanaDTO> data2 = businessDelegatorView.getDataSemana();
 			for (int i = 0; i < data2.size(); i++) {
-				
-				semana.put(data2.get(i).getNumeroSemana()+"", data2.get(i).getIdSema() + "");
+
+				semana.put(data2.get(i).getNumeroSemana() + "", data2.get(i)
+						.getIdSema() + "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return semana;
 	}
 
-	public void setSemana(Map<String,String> semana) {
+	public void setSemana(Map<String, String> semana) {
 		this.semana = semana;
 	}
 
@@ -811,7 +799,5 @@ public class ConfSemanasAnoView {
 	public void setEstadoRegistr(String estadoRegistr) {
 		this.estadoRegistr = estadoRegistr;
 	}
-	
-	
-	
+
 }

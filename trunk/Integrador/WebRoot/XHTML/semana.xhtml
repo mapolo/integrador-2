@@ -3,82 +3,184 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	</h:head>		
-	
-	<h:body>
-		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
-			<ui:define name="header">
-				<ui:include src="/WEB-INF/facelets/header.jspx" />
-			</ui:define>
-        	<br/>
-        	<br/> 	
-		 
-		 <ui:define name="body">	
-			<f:view>
-			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
-					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
-   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
-					</p:dialog>
-			
-		<h:form>
-			<div align="center">
-               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
-			 </div>
-			 <br />
-			<p:panel id="msgProjectSemanaTitle" header="Semana" >
-			   <p:messages id="msg" showDetail="true"/>
-			   <p:growl id="men"/>
-			       <h:panelGrid columns="2" id="panel" >
-												 <h:outputText id="msgIf(entity.getidSema()==null){throw new ZMessManager().new EmptyFieldException("idSema");}" value="If(entity.getidSema()==null){throw new ZMessManager().new EmptyFieldException("idSema");}"/>
-						 <p:inputText id="txtIf(entity.getidSema()==null){throw new ZMessManager().new EmptyFieldException("idSema");}" binding="#{semanaView.txtIf(entity.getidSema()==null){throw new ZMessManager().new EmptyFieldException("idSema");}}">
-						 <p:ajax update="panel,msg,panelBotones" listener="#{semanaView.listener_txtId}"/>
-						 </p:inputText>	
-																		
-												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
-						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{semanaView.txtEstadoRegistro}"/>
-												<h:outputText id="msgNumeroSemana" value=" NumeroSemana"/>
-						<p:inputText id="txtNumeroSemana" disabled="true" binding="#{semanaView.txtNumeroSemana}"/>
-												<h:outputText id="msgOperCreador" value=" OperCreador"/>
-						<p:inputText id="txtOperCreador" disabled="true" binding="#{semanaView.txtOperCreador}"/>
-												<h:outputText id="msgOperModifica" value=" OperModifica"/>
-						<p:inputText id="txtOperModifica" disabled="true" binding="#{semanaView.txtOperModifica}"/>
-												
-																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{semanaView.txtFechaCreacion}" >
-							<p:ajax event="dateSelect" listener="#{semanaView.listener_txtFechaCreacion}" update="men" />
-							</p:calendar>
-														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
-														<p:calendar showOn="button" navigator="true" locale="en" 
-							binding="#{semanaView.txtFechaModificacion}" >
-							<p:ajax event="dateSelect" listener="#{semanaView.listener_txtFechaModificacion}" update="men" />
-							</p:calendar>
-																			
-				   </h:panelGrid>
-				   
-				   <h:panelGrid id="panelBotones" columns="4">
-					
-						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{semanaView.action_save}" update="msg,panel,panelBotones"          binding="#{semanaView.btnSave}" />
-						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{semanaView.action_modify}" update="msg,panel,panelBotones"    binding="#{semanaView.btnModify}" />
-						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{semanaView.action_delete}" update="msg,panel,panelBotones"    binding="#{semanaView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
-						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{semanaView.action_clear}" update="msg,panel,panelBotones"      binding="#{semanaView.btnClear}" />
-				   
-				   </h:panelGrid>
-					
-			</p:panel>
-			
-		</h:form>
-		 </f:view>
-	 </ui:define>	  
-	
-	  <ui:define name="footer">
-		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
-	   </ui:define>	
-	</ui:composition>	
-	
-	</h:body>	
 
-</html>	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectSemanaTitle" header="Semana">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{semanaView.data}" id="listaSM"
+								editable="true" scrollable="true" scrollHeight="300"
+								filteredValue="#{semanaView.data}">
+
+								<p:ajax event="rowEdit" listener="#{semanaView.onEdit}" />
+								<p:ajax event="rowEditCancel" listener="#{semanaView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:6%">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idSema" sortBy="idSema"
+									style="width:5%">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSema}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idSema}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+
+								</p:column>
+
+								<p:column id="numeroSemana" filterBy="numeroSemana"
+									headerText="Numero de Semana" sortBy="numeroSemana"
+									filterMatchMode="contains">
+
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.numeroSemana}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.numeroSemana}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación" style="width:20%"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:20%"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:10%"
+									filterBy="estadoRegistro"
+									filterOptions="#{semanaView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+
+										<f:facet name="input">
+											<h:selectOneMenu value="#{semanaView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" update=":form"
+										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+
+							</p:dataTable>
+
+							<!--                   Ventana emergente           -->
+
+							<p:dialog id="dialog" header="Semana" widgetVar="carDialog"
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgNumeroSemana"
+										value="*Numero de la Semana:" />
+									<p:inputText id="txtNumeroSemana"
+										value="#{semanaView.numeroSemana}"
+										binding="#{semanaView.txtNumeroSemana}" />
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{semanaView.estado}"
+										value="#{semanaView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{semanaView.action_create}"
+										binding="#{semanaView.btnSave}"
+										update="listaSM,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

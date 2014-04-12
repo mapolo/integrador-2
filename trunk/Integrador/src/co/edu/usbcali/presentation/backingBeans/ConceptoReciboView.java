@@ -28,17 +28,12 @@ import co.edu.usbcali.modelo.dto.ConceptoReciboDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ConceptoReciboView {
 	private InputText txtAplicaCartera;
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private SelectOneMenu aaplicaCartea;
 	private InputText txtOperCreador;
@@ -117,7 +112,7 @@ public class ConceptoReciboView {
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -284,14 +279,13 @@ public class ConceptoReciboView {
 			Long idCpto = new Long(txtIdCpto.getValue().toString());
 			entity = businessDelegatorView.getConceptoRecibo(idCpto);
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 		}
 
 		if (entity == null) {
 			txtAplicaCartera.setDisabled(false);
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);

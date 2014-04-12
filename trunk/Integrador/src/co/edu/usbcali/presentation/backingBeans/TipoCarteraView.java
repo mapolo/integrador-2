@@ -28,16 +28,11 @@ import co.edu.usbcali.modelo.dto.TipoCarteraDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class TipoCarteraView {
 	private InputText txtCodigo;
 	private InputTextarea txtDescripcion;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -103,16 +98,16 @@ public class TipoCarteraView {
 			codigo = ((TipoCarteraDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.updateTipoCartera(entity);
 			data = businessDelegatorView.getDataTipoCartera();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -268,13 +263,12 @@ public class TipoCarteraView {
 			Long idTica = new Long(txtIdTica.getValue().toString());
 			entity = businessDelegatorView.getTipoCartera(idTica);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -347,13 +341,14 @@ public class TipoCarteraView {
 	public String action_create() {
 		try {
 			entity = new TipoCartera();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idTica = new Long(txtIdTica.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idTica = new Long(txtIdTica.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -361,14 +356,14 @@ public class TipoCarteraView {
 			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdTica(idTica);
+			// entity.setIdTica(idTica);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoCartera(entity);
 			data = businessDelegatorView.getDataTipoCartera();

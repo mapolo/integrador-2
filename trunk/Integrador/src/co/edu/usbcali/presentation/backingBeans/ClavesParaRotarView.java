@@ -17,40 +17,28 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
-import co.edu.usbcali.dataaccess.dao.ClaveFabricacionDAO;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ClaveFabricacion;
 import co.edu.usbcali.modelo.ClavesParaRotar;
-import co.edu.usbcali.modelo.DivisionPolitica;
-import co.edu.usbcali.modelo.Sucursal;
-import co.edu.usbcali.modelo.TipoIdentificacion;
-import co.edu.usbcali.modelo.dto.CausalDTO;
+
 import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.modelo.dto.ClavesParaRotarDTO;
-import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
-import co.edu.usbcali.modelo.dto.PersonaDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ClavesParaRotarView {
-	private InputText txtAno;
-	//private InputText txtEstadoRegistro;
+	private SelectOneMenu txtAno;
 	private SelectOneMenu estado;
-	private InputText txtMes;
+	private SelectOneMenu txtMes;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private SelectOneMenu txtIdClfa_ClaveFabricacion;
@@ -58,8 +46,7 @@ public class ClavesParaRotarView {
 	private InputText txtIdClpr;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
-	
+
 	private String ano;
 	private String estadoRegistro;
 	private String mes;
@@ -70,10 +57,10 @@ public class ClavesParaRotarView {
 	private String idClpr;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
-	private Map<String,String> claveFabricacion = new HashMap<String, String>();
-	private Map<String,String> sucursal = new HashMap<String, String>();
-	
+
+	private Map<String, String> claveFabricacion = new HashMap<String, String>();
+	private Map<String, String> sucursal = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -85,16 +72,24 @@ public class ClavesParaRotarView {
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 	private SelectItem[] manufacturerOptions;
+	private SelectItem[] manufacturerOptions2;
+	private SelectItem[] manufacturerOptions3;
 
 	String manufacturers[] = { "A", "R" };
+	String manufacturers2[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
+			"10", "11", "12" };
+	String manufacturers3[] = { "2000", "2001", "2002", "2003", "2004", "2005",
+			"2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013",
+			"2014" };
 
 	public ClavesParaRotarView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
+		setManufacturerOptions2(createFilterOptions(manufacturers2));
+		setManufacturerOptions3(createFilterOptions(manufacturers3));
 	}
-	
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -105,7 +100,7 @@ public class ClavesParaRotarView {
 
 		return options;
 	}
-	
+
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
 
 		try {
@@ -115,38 +110,35 @@ public class ClavesParaRotarView {
 					.getClavesParaRotar(((ClavesParaRotarDTO) event.getObject())
 							.getIdClpr());
 
-			
-			entity.setAno(((ClavesParaRotarDTO) event.getObject()).getAno());
-			entity.setMes(((ClavesParaRotarDTO) event.getObject()).getMes());
-			
-			entity.setEstadoRegistro(estadoRegistro);	
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
+			Long mes = new Long(txtMes.getValue().toString());
+			entity.setMes(mes);
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
-			
-			/*ClaveFabricacion entity2 = businessDelegatorView
-					.getClaveFabricacion(getIdClfa_ClaveFabricacion());		
-			entity.setClaveFabricacion(entity2);*/
-			
-			
+
 			entity.setClaveFabricacion(businessDelegatorView
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion()));
-			
-			if(txtIdSucu_Sucursal.getValue()==""){
+
+			if (txtIdSucu_Sucursal.getValue() == "") {
 				System.out.println("entro if");
 				entity.setSucursal(null);
-			}else{
+			} else {
 				System.out.println("entro else");
-				
-				entity.setSucursal(businessDelegatorView
-						.getSucursal(FacesUtils
-							.checkLong(txtIdSucu_Sucursal)));
+
+				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
 			}
-			
-			/*Sucursal entity3 = businessDelegatorView
-					.getSucursal(getIdSucu_Sucursal());		
-			entity.setSucursal(entity3);*/
-						
+
+			/*
+			 * Sucursal entity3 = businessDelegatorView
+			 * .getSucursal(getIdSucu_Sucursal()); entity.setSucursal(entity3);
+			 */
+
 			businessDelegatorView.updateClavesParaRotar(entity);
 			data = businessDelegatorView.getDataClavesParaRotar();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -166,8 +158,6 @@ public class ClavesParaRotarView {
 		System.out.println("Cancelado"
 				+ ((ClavesParaRotarDTO) event.getObject()).getIdClpr());
 	}
-	
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -175,19 +165,21 @@ public class ClavesParaRotarView {
 					.getObject();
 
 			if (txtAno == null) {
-				txtAno = new InputText();
+				txtAno = new SelectOneMenu();
 			}
 
 			txtAno.setValue(clavesParaRotarDTO.getAno());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(clavesParaRotarDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(clavesParaRotarDTO.getEstadoRegistro())
+			 * ;
+			 */
 
 			if (txtMes == null) {
-				txtMes = new InputText();
+				txtMes = new SelectOneMenu();
 			}
 
 			txtMes.setValue(clavesParaRotarDTO.getMes());
@@ -256,52 +248,52 @@ public class ClavesParaRotarView {
 
 		if (txtAno != null) {
 			txtAno.setValue(null);
-			//txtAno.setDisabled(true);
+			// txtAno.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtMes != null) {
 			txtMes.setValue(null);
-			//txtMes.setDisabled(true);
+			// txtMes.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtIdClfa_ClaveFabricacion != null) {
 			txtIdClfa_ClaveFabricacion.setValue(null);
-			//txtIdClfa_ClaveFabricacion.setDisabled(true);
+			// txtIdClfa_ClaveFabricacion.setDisabled(true);
 		}
 
 		if (txtIdSucu_Sucursal != null) {
 			txtIdSucu_Sucursal.setValue(null);
-			//txtIdSucu_Sucursal.setDisabled(true);
+			// txtIdSucu_Sucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdClpr != null) {
 			txtIdClpr.setValue(null);
-			//txtIdClpr.setDisabled(false);
+			// txtIdClpr.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -334,12 +326,11 @@ public class ClavesParaRotarView {
 			Long idClpr = new Long(txtIdClpr.getValue().toString());
 			entity = businessDelegatorView.getClavesParaRotar(idClpr);
 		} catch (Exception e) {
-			// TODO: handle exception
+			//
 		}
 
 		if (entity == null) {
 			txtAno.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtMes.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -352,8 +343,8 @@ public class ClavesParaRotarView {
 		} else {
 			txtAno.setValue(entity.getAno());
 			txtAno.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -380,8 +371,8 @@ public class ClavesParaRotarView {
 				.getAttributes().get("selectedClavesParaRotar"));
 		txtAno.setValue(selectedClavesParaRotar.getAno());
 		txtAno.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedClavesParaRotar.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedClavesParaRotar.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedClavesParaRotar.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedClavesParaRotar
@@ -426,44 +417,36 @@ public class ClavesParaRotarView {
 	public String action_create() {
 		try {
 			entity = new ClavesParaRotar();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idClpr = new Long(txtIdClpr.getValue().toString());
-			entity.setAno(FacesUtils.checkLong(txtAno));
-			entity.setMes(FacesUtils.checkLong(txtMes));
-			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
+			Long mes = new Long(txtMes.getValue().toString());
+			entity.setMes(mes);
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
 
-			
 			ClaveFabricacion entity2 = businessDelegatorView
-					.getClaveFabricacion(getIdClfa_ClaveFabricacion());		
+					.getClaveFabricacion(getIdClfa_ClaveFabricacion());
 			entity.setClaveFabricacion(entity2);
-			
-			/*Sucursal entity3 = businessDelegatorView
-					.getSucursal(getIdSucu_Sucursal());		
-			entity.setSucursal(entity3);*/
-			
-			if(txtIdSucu_Sucursal.getValue()==""){
-			
-			}else{
 
-				
-				entity.setSucursal(businessDelegatorView
-						.getSucursal(FacesUtils
-							.checkLong(txtIdSucu_Sucursal)));
+			if (txtIdSucu_Sucursal.getValue() == "") {
+
+			} else {
+				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
 			}
-			
-			
-			
+
 			businessDelegatorView.saveClavesParaRotar(entity);
 			data = businessDelegatorView.getDataClavesParaRotar();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -483,7 +466,7 @@ public class ClavesParaRotarView {
 			}
 
 			entity.setAno(FacesUtils.checkLong(txtAno));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -572,27 +555,26 @@ public class ClavesParaRotarView {
 		return "";
 	}
 
-	public InputText getTxtAno() {
+	public SelectOneMenu getTxtAno() {
 		return txtAno;
 	}
 
-	public void setTxtAno(InputText txtAno) {
+	public void setTxtAno(SelectOneMenu txtAno) {
 		this.txtAno = txtAno;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
-
-	public InputText getTxtMes() {
+	public SelectOneMenu getTxtMes() {
 		return txtMes;
 	}
 
-	public void setTxtMes(InputText txtMes) {
+	public void setTxtMes(SelectOneMenu txtMes) {
 		this.txtMes = txtMes;
 	}
 
@@ -818,65 +800,69 @@ public class ClavesParaRotarView {
 		this.estado = estado;
 	}
 
-
 	public SelectItem[] getManufacturerOptions() {
 		return manufacturerOptions;
 	}
 
-
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
 	}
-	
-	
-	
 
-
-	public Map<String,String> getClaveFabricacion() {
+	public Map<String, String> getClaveFabricacion() {
 		try {
 			List<ClaveFabricacionDTO> data2 = businessDelegatorView
 					.getDataClaveFabricacion();
-			
+
 			for (int i = 0; i < data2.size(); i++) {
-				claveFabricacion.put(data2.get(i).getCodigo(), data2.get(i).getIdClfa()+"");
-				
+				claveFabricacion.put(data2.get(i).getCodigo(), data2.get(i)
+						.getIdClfa() + "");
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return claveFabricacion;
 	}
 
-
-	public void setClaveFabricacion(Map<String,String> claveFabricacion) {
+	public void setClaveFabricacion(Map<String, String> claveFabricacion) {
 		this.claveFabricacion = claveFabricacion;
 	}
 
-	
-	
-
-	public Map<String,String> getSucursal() {
+	public Map<String, String> getSucursal() {
 		try {
-			List<SucursalDTO> data3 = businessDelegatorView
-					.getDataSucursal();
-			
+			List<SucursalDTO> data3 = businessDelegatorView.getDataSucursal();
+
 			for (int i = 0; i < data3.size(); i++) {
-				sucursal.put(data3.get(i).getNombre(), data3.get(i).getIdSucu()+"");
-				
+				sucursal.put(data3.get(i).getNombre(), data3.get(i).getIdSucu()
+						+ "");
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return sucursal;
 	}
 
-
-	public void setSucursal(Map<String,String> sucursal) {
+	public void setSucursal(Map<String, String> sucursal) {
 		this.sucursal = sucursal;
 	}
-	
-	
+
+	public SelectItem[] getManufacturerOptions2() {
+		return manufacturerOptions2;
+	}
+
+	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
+		this.manufacturerOptions2 = manufacturerOptions2;
+	}
+
+	public SelectItem[] getManufacturerOptions3() {
+		return manufacturerOptions3;
+	}
+
+	public void setManufacturerOptions3(SelectItem[] manufacturerOptions3) {
+		this.manufacturerOptions3 = manufacturerOptions3;
+	}
+
 }

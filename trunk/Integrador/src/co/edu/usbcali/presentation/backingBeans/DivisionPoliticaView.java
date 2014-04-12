@@ -2,7 +2,6 @@ package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +17,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -26,27 +24,16 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
-import co.edu.usbcali.modelo.ClaveFabricacion;
 import co.edu.usbcali.modelo.DivisionPolitica;
-import co.edu.usbcali.modelo.Sucursal;
-import co.edu.usbcali.modelo.TipoDivision;
-import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
-import co.edu.usbcali.modelo.dto.ClavesParaRotarDTO;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
-import co.edu.usbcali.modelo.dto.SucursalDTO;
 import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class DivisionPoliticaView {
 	private InputText txtCodigoDian;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtNombre;
 	private InputText txtOperCreador;
@@ -111,42 +98,38 @@ public class DivisionPoliticaView {
 					.getDivisionPolitica(((DivisionPoliticaDTO) event
 							.getObject()).getIdDipo());
 
-			
-			entity.setNombre(((DivisionPoliticaDTO) event.getObject()).getNombre());
-			entity.setCodigoDian(((DivisionPoliticaDTO) event.getObject()).getCodigoDian());
-			
-			
+			entity.setNombre(((DivisionPoliticaDTO) event.getObject())
+					.getNombre());
+			entity.setCodigoDian(((DivisionPoliticaDTO) event.getObject())
+					.getCodigoDian());
+
 			entity.setEstadoRegistro(estadoRegistro);
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
-			
-			
-			
-			/*DivisionPolitica entity2 = businessDelegatorView
-					.getDivisionPolitica(getIdDipo_DivisionPolitica());
-			entity.setDivisionPolitica(entity2);
-			
-			TipoDivision entity3 = businessDelegatorView
-					.getTipoDivision(getIdTidi_TipoDivision());
-			entity.setTipoDivision(entity3);*/
-			
-			entity.setTipoDivision(businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision()));
-			
-			 if(txtIdDipo_DivisionPolitica.getValue()==""){
-				 System.out.println("Entro ig");
-					entity.setDivisionPolitica(null);
-				}else{
-					System.out.println("entro else");
-					entity.setDivisionPolitica(businessDelegatorView
-							 .getDivisionPolitica(FacesUtils
-							 .checkLong(txtIdDipo_DivisionPolitica)));
-				}
 
-			
-			
-			
-	
+			/*
+			 * DivisionPolitica entity2 = businessDelegatorView
+			 * .getDivisionPolitica(getIdDipo_DivisionPolitica());
+			 * entity.setDivisionPolitica(entity2);
+			 * 
+			 * TipoDivision entity3 = businessDelegatorView
+			 * .getTipoDivision(getIdTidi_TipoDivision());
+			 * entity.setTipoDivision(entity3);
+			 */
+
+			entity.setTipoDivision(businessDelegatorView
+					.getTipoDivision(getIdTidi_TipoDivision()));
+
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+				System.out.println("Entro ig");
+				entity.setDivisionPolitica(null);
+			} else {
+				System.out.println("entro else");
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
 
 			businessDelegatorView.updateDivisionPolitica(entity);
 			try {
@@ -162,7 +145,7 @@ public class DivisionPoliticaView {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 			data = businessDelegatorView.getDataDivisionPolitica();
 			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
@@ -180,18 +163,18 @@ public class DivisionPoliticaView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((DivisionPoliticaDTO) event.getObject()).getIdDipo());
-		
+
 		RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
-		
+
 		reload();
-		
+
 	}
-	
-	public String reload(){
+
+	public String reload() {
 		System.out.println("Entro a reload");
-		
+
 		return "divisionPolitica.xhtml?faces-redirect=true";
-		
+
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -361,12 +344,11 @@ public class DivisionPoliticaView {
 			Long idDipo = new Long(txtIdDipo.getValue().toString());
 			entity = businessDelegatorView.getDivisionPolitica(idDipo);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigoDian.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtNombre.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -474,28 +456,28 @@ public class DivisionPoliticaView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-
 			entity.setTipoDivision(businessDelegatorView
-					 .getTipoDivision(FacesUtils
-					 .checkLong(txtIdTidi_TipoDivision)));
-			
-					 
-			 
-			 if(txtIdDipo_DivisionPolitica.getValue()==""){
-					
-				}else{
-					
-					entity.setDivisionPolitica(businessDelegatorView
-							 .getDivisionPolitica(FacesUtils
-							 .checkLong(txtIdDipo_DivisionPolitica)));
-				}
+					.getTipoDivision(FacesUtils
+							.checkLong(txtIdTidi_TipoDivision)));
 
-			/*DivisionPolitica entity2 = businessDelegatorView
-					.getDivisionPolitica(getIdDipo_DivisionPolitica());
-			entity.setDivisionPolitica(entity2);
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
 
-			TipoDivision entity3 = businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision());
-			entity.setTipoDivision(entity3);*/
+			} else {
+
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
+
+			/*
+			 * DivisionPolitica entity2 = businessDelegatorView
+			 * .getDivisionPolitica(getIdDipo_DivisionPolitica());
+			 * entity.setDivisionPolitica(entity2);
+			 * 
+			 * TipoDivision entity3 =
+			 * businessDelegatorView.getTipoDivision(getIdTidi_TipoDivision());
+			 * entity.setTipoDivision(entity3);
+			 */
 
 			businessDelegatorView.saveDivisionPolitica(entity);
 			data = businessDelegatorView.getDataDivisionPolitica();

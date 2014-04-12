@@ -1,7 +1,6 @@
 package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -29,15 +28,10 @@ import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class ClaveFabricacionView {
 	private InputText txtCodigo;
-	// private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -102,14 +96,16 @@ public class ClaveFabricacionView {
 			entity.setCodigo(codigo);
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			Date fechaInicial = ((ClaveFabricacionDTO) event.getObject()).getFechaInicial();
+
+			Date fechaInicial = ((ClaveFabricacionDTO) event.getObject())
+					.getFechaInicial();
 			entity.setFechaInicial(fechaInicial);
-			
-			Date fechaFinal = ((ClaveFabricacionDTO) event.getObject()).getFechaFinal();
+
+			Date fechaFinal = ((ClaveFabricacionDTO) event.getObject())
+					.getFechaFinal();
 			entity.setFechaFinal(fechaFinal);
 
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
 
 			businessDelegatorView.updateClaveFabricacion(entity);
@@ -117,7 +113,7 @@ public class ClaveFabricacionView {
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -302,12 +298,11 @@ public class ClaveFabricacionView {
 			Long idClfa = new Long(txtIdClfa.getValue().toString());
 			entity = businessDelegatorView.getClaveFabricacion(idClfa);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
-			// txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtFechaCreacion.setDisabled(false);
@@ -319,8 +314,6 @@ public class ClaveFabricacionView {
 		} else {
 			txtCodigo.setValue(entity.getCodigo());
 			txtCodigo.setDisabled(false);
-			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaFinal.setValue(entity.getFechaFinal());
@@ -389,29 +382,31 @@ public class ClaveFabricacionView {
 	public String action_create() {
 		try {
 			entity = new ClaveFabricacion();
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
-			
-			//Long idClfa = new Long(txtIdClfa.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idClfa = new Long(txtIdClfa.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			System.out.println("crear " + FacesUtils.checkDate(txtFechaInicial) );
+			System.out
+					.println("crear " + FacesUtils.checkDate(txtFechaInicial));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdClfa(idClfa);
+			// entity.setIdClfa(idClfa);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveClaveFabricacion(entity);
 			data = businessDelegatorView.getDataClaveFabricacion();

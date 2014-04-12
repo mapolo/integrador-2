@@ -14,7 +14,6 @@
 		<ui:define name="header">
 		</ui:define>
 
-
 		<ui:define name="body">
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
@@ -25,17 +24,14 @@
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
 				</p:dialog>
 
-
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-
 
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -110,7 +106,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaCheque}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.manejaCheque}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -128,7 +123,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.manejaTarjeta}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.manejaTarjeta}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -146,7 +140,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.exijeNumeroDocumento}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{tipoFormaPagoView.exijeNumeroDocumento}">
@@ -165,7 +158,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.esPosfechado}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.esPosfechado}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -183,7 +175,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.importaPda}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.importaPda}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -201,7 +192,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.dsctoFechaDoc}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.dsctoFechaDoc}">
 												<f:selectItem itemLabel="1" itemValue="1" />
@@ -243,7 +233,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoFormaPagoView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -264,7 +253,6 @@ body {
 										icon="ui-icon-documen" update=":form"
 										action="#{menuView.menu}" />
 								</f:facet>
-
 
 							</p:dataTable>
 
@@ -349,8 +337,8 @@ body {
 										action="#{tipoFormaPagoView.action_create}"
 										binding="#{tipoFormaPagoView.btnSave}"
 										update="tfp,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

@@ -93,7 +93,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
@@ -156,7 +155,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu
 												value="#{rutaDistribucionView.estadoRegistro}">
@@ -223,9 +221,9 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
-								
+
 								<p:separator id="separator" />
-								
+
 								<h:panelGrid id="panelBotones" columns="1">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
@@ -233,6 +231,7 @@ body {
 										binding="#{rutaDistribucionView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

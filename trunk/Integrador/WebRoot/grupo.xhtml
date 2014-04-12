@@ -349,11 +349,11 @@ body {
 
 								<h:panelGrid columns="4" id="panel">
 
-									<h:outputText id="msgGrupo_1" value="*Grupo:" />
+									<h:outputText id="msgGrupo_1" value="Grupo:" />
 									<p:inputText id="txtGrupo_1" value="#{grupoView.grupo_1}"
 										binding="#{grupoView.txtGrupo_1}" />
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo Padre:" />
+									<h:outputText id="msgIdGrpo_Grupo" value="ID Grupo Padre:" />
 									<p:selectOneMenu value="#{grupoView.idGrpo_Grupo}"
 										binding="#{grupoView.txtIdGrpo_Grupo}">
 										<f:selectItems value="#{grupoView.grupos}" />
@@ -424,7 +424,7 @@ body {
 									<p:inputText id="txtAsociado" value="#{grupoView.asociado}"
 										binding="#{grupoView.txtAsociado}" />
 
-									<h:outputText id="msgIdFlia_Familia" value="*ID Familia:" />
+									<h:outputText id="msgIdFlia_Familia" value="ID Familia:" />
 									<p:selectOneMenu value="#{grupoView.idFlia_Familia}"
 										binding="#{grupoView.txtIdFlia_Familia}">
 										<f:selectItems value="#{grupoView.familias}" />
@@ -448,6 +448,7 @@ body {
 										binding="#{grupoView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

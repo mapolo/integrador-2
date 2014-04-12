@@ -32,12 +32,10 @@
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
 
-
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
 
 				</p:megaMenu>
-
 
 				<style type="text/css">
 body {
@@ -67,7 +65,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idCpto" sortBy="idCpto"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCpto}" />
@@ -76,12 +73,10 @@ body {
 											<p:inputText value="#{car.idCpto}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -100,7 +95,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.aplicaCartera}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{conceptoReciboView.aplicaCartera}">
 												<f:selectItem itemLabel="S" itemValue="S" />
@@ -110,18 +104,15 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Descripción" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column headerText="Fecha de Creación" style="width: 100px"
@@ -148,7 +139,6 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{conceptoReciboView.manufacturerOptions}"
@@ -157,7 +147,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{conceptoReciboView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -208,7 +197,6 @@ body {
 										value="#{conceptoReciboView.descripcion}"
 										binding="#{conceptoReciboView.txtDescripcion}" />
 
-
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{conceptoReciboView.estado}"
@@ -227,8 +215,8 @@ body {
 										action="#{conceptoReciboView.action_create}"
 										binding="#{conceptoReciboView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

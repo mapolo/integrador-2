@@ -11,10 +11,7 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-		<br />
-		<br />
 
 		<ui:define name="body">
 			<f:view>
@@ -26,17 +23,14 @@
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
 				</p:dialog>
 
-
 				<div id="logo" align="center">
 					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
 				</div>
-
 
 				<p:megaMenu autoDisplay="false">
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -69,7 +63,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idCusa" sortBy="idCusa"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idCusa}" />
@@ -78,12 +71,10 @@ body {
 											<p:inputText value="#{car.idCusa}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -99,7 +90,6 @@ body {
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
@@ -112,13 +102,10 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.idTcau_TipoCausal}" />
 										</f:facet>
-
 										<f:facet name="input">
-
-											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}" style="width: 100px">
-											
+											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
+												style="width: 100px">
 												<f:selectItems value="#{causalView.tipoCausales}" />
-
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
@@ -156,7 +143,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{causalView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -193,13 +179,12 @@ body {
 									<p:inputText id="txtCodigo" value="#{causalView.codigo}"
 										binding="#{causalView.txtCodigo}" />
 
-									<h:outputText id="msgDescripcion" value="*Descripcion:" />
+									<h:outputText id="msgDescripcion" value="*Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{causalView.descripcion}"
 										binding="#{causalView.txtDescripcion}" />
 
-									<h:outputText id="msgIdTcau_TipoCausal"
-										value="ID del Tipo Causal:" />
+									<h:outputText id="msgIdTcau_TipoCausal" value="ID Tipo Causal:" />
 									<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
 										binding="#{causalView.txtIdTcau_TipoCausal}">
 										<f:selectItems value="#{causalView.tipoCausales}" />
@@ -223,8 +208,8 @@ body {
 										action="#{causalView.action_create}"
 										binding="#{causalView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

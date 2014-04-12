@@ -11,9 +11,7 @@
 <h:body>
 	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
 		<ui:define name="header">
-
 		</ui:define>
-
 
 		<ui:define name="body">
 			<f:view>
@@ -33,7 +31,6 @@
 
 					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
 						url="menu.xhtml" />
-
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -67,7 +64,6 @@ body {
 
 								<p:column headerText="ID" filterBy="idTica" sortBy="idTica"
 									style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.idTica}" />
@@ -76,12 +72,10 @@ body {
 											<p:inputText value="#{car.idTica}" disabled="true" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.codigo}" />
@@ -92,18 +86,15 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-
 								<p:column headerText="Descripción" style="width: 100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<p:inputTextarea value="#{car.descripcion}" />
 										</f:facet>
 									</p:cellEditor>
-
 								</p:column>
 
 								<p:column headerText="Fecha de Creación" style="width: 100px"
@@ -139,7 +130,6 @@ body {
 										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
 										</f:facet>
-
 										<f:facet name="input">
 											<h:selectOneMenu value="#{tipoCarteraView.estadoRegistro}">
 												<f:selectItem itemLabel="A" itemValue="A" />
@@ -171,7 +161,6 @@ body {
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
-
 									<h:outputText id="msgCodigo" value="*Codigo:" />
 									<p:inputText id="txtCodigo" value="#{tipoCarteraView.codigo}"
 										binding="#{tipoCarteraView.txtCodigo}" />
@@ -180,7 +169,6 @@ body {
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
 										value="#{tipoCarteraView.descripcion}"
 										binding="#{tipoCarteraView.txtDescripcion}" />
-
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -200,8 +188,8 @@ body {
 										action="#{tipoCarteraView.action_create()}"
 										binding="#{tipoCarteraView.btnSave}"
 										update="tablaPrincipal,msg,panel,panelBotones" />
-
 								</h:panelGrid>
+								
 							</p:dialog>
 						</p:panel>
 					</h:form>

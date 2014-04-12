@@ -17,7 +17,6 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
-import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.inputtextarea.InputTextarea;
@@ -25,27 +24,18 @@ import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
-import co.edu.usbcali.dataaccess.dao.SucursalDAO;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Bateriologo;
 import co.edu.usbcali.modelo.Sucursal;
-import co.edu.usbcali.modelo.TipoCausal;
 import co.edu.usbcali.modelo.dto.BateriologoDTO;
-import co.edu.usbcali.modelo.dto.CausalDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
-import co.edu.usbcali.modelo.dto.TipoCausalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
-/**
- * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
- */
 @ManagedBean
 @ViewScoped
 public class BateriologoView {
 	private InputText txtCodigo;
-	//private InputText txtEstadoRegistro;
 	private SelectOneMenu estado;
 	private InputTextarea txtNombreCompleto;
 	private InputText txtOperCreador;
@@ -54,7 +44,7 @@ public class BateriologoView {
 	private InputText txtIdBate;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String codigo;
 	private String estadoRegistro;
 	private String nombreCompleto;
@@ -64,8 +54,8 @@ public class BateriologoView {
 	private String idBate;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	private Map<String,String> sucursal = new HashMap<String, String>();
-	
+	private Map<String, String> sucursal = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -76,17 +66,17 @@ public class BateriologoView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
-	
+
 	private SelectItem[] manufacturerOptions;
 
 	String manufacturers[] = { "A", "R" };
 
 	public BateriologoView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -103,20 +93,22 @@ public class BateriologoView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getBateriologo(((BateriologoDTO) event
-					.getObject()).getIdBate());
+			entity = businessDelegatorView
+					.getBateriologo(((BateriologoDTO) event.getObject())
+							.getIdBate());
 
 			entity.setFechaModificacion(new Date());
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-			
+
 			entity.setCodigo(((BateriologoDTO) event.getObject()).getCodigo());
-			nombreCompleto = ((BateriologoDTO) event.getObject()).getNombreCompleto();
+			nombreCompleto = ((BateriologoDTO) event.getObject())
+					.getNombreCompleto();
 			entity.setNombreCompleto(nombreCompleto);
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			Sucursal entity2 = businessDelegatorView
-					.getSucursal(getIdSucu_Sucursal());			
+					.getSucursal(getIdSucu_Sucursal());
 			entity.setSucursal(entity2);
 
 			businessDelegatorView.updateBateriologo(entity);
@@ -124,7 +116,7 @@ public class BateriologoView {
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 
-		} catch (Exception e) { // TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -138,7 +130,6 @@ public class BateriologoView {
 		System.out.println("Cancelado"
 				+ ((BateriologoDTO) event.getObject()).getIdBate());
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -150,11 +141,12 @@ public class BateriologoView {
 
 			txtCodigo.setValue(bateriologoDTO.getCodigo());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(bateriologoDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(bateriologoDTO.getEstadoRegistro());
+			 */
 
 			if (txtNombreCompleto == null) {
 				txtNombreCompleto = new InputTextarea();
@@ -218,47 +210,47 @@ public class BateriologoView {
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-			//txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtNombreCompleto != null) {
 			txtNombreCompleto.setValue(null);
-			//txtNombreCompleto.setDisabled(true);
+			// txtNombreCompleto.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtIdSucu_Sucursal != null) {
 			txtIdSucu_Sucursal.setValue(null);
-			//txtIdSucu_Sucursal.setDisabled(true);
+			// txtIdSucu_Sucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdBate != null) {
 			txtIdBate.setValue(null);
-			//txtIdBate.setDisabled(false);
+			// txtIdBate.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -291,12 +283,11 @@ public class BateriologoView {
 			Long idBate = new Long(txtIdBate.getValue().toString());
 			entity = businessDelegatorView.getBateriologo(idBate);
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 
 		if (entity == null) {
 			txtCodigo.setDisabled(false);
-			//txtEstadoRegistro.setDisabled(false);
 			txtNombreCompleto.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
@@ -308,8 +299,6 @@ public class BateriologoView {
 		} else {
 			txtCodigo.setValue(entity.getCodigo());
 			txtCodigo.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -333,8 +322,8 @@ public class BateriologoView {
 				.getAttributes().get("selectedBateriologo"));
 		txtCodigo.setValue(selectedBateriologo.getCodigo());
 		txtCodigo.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedBateriologo.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedBateriologo.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedBateriologo.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedBateriologo
@@ -375,37 +364,39 @@ public class BateriologoView {
 	public String action_create() {
 		try {
 			entity = new Bateriologo();
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idBate = new Long(txtIdBate.getValue().toString());
+			// Long idBate = new Long(txtIdBate.getValue().toString());
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//entity.setIdBate(idBate);
+
+			// entity.setIdBate(idBate);
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			
-			/*entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));*/
-			
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			/*
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal)));
+			 */
+
 			Sucursal entity2 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());
-			
+
 			entity.setSucursal(entity2);
-			
+
 			businessDelegatorView.saveBateriologo(entity);
 			data = businessDelegatorView.getDataBateriologo();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -416,15 +407,15 @@ public class BateriologoView {
 
 		return "";
 	}
-	
+
 	public Long idForanea() {
 
 		try {
-			List<SucursalDTO> data2 = businessDelegatorView
-					.getDataSucursal();
-			
+			List<SucursalDTO> data2 = businessDelegatorView.getDataSucursal();
+
 			for (int i = 0; i < data2.size(); i++) {
-				if (txtIdSucu_Sucursal.getValue().equals(data2.get(i).getNombre())) {
+				if (txtIdSucu_Sucursal.getValue().equals(
+						data2.get(i).getNombre())) {
 					return data2.get(i).getIdSucu();
 				}
 
@@ -434,7 +425,7 @@ public class BateriologoView {
 		}
 
 		return 0L;
-	}	
+	}
 
 	public String action_modify() {
 		try {
@@ -444,7 +435,7 @@ public class BateriologoView {
 			}
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -537,13 +528,12 @@ public class BateriologoView {
 		this.txtCodigo = txtCodigo;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputTextarea getTxtNombreCompleto() {
 		return txtNombreCompleto;
@@ -678,8 +668,6 @@ public class BateriologoView {
 		this.showDialog = showDialog;
 	}
 
-	
-
 	public String getEstadoRegistro() {
 		return estadoRegistro;
 	}
@@ -760,22 +748,22 @@ public class BateriologoView {
 		this.manufacturerOptions = manufacturerOptions;
 	}
 
-	public Map<String,String> getSucursal() {
+	public Map<String, String> getSucursal() {
 		try {
-			List<SucursalDTO> data2 = businessDelegatorView
-					.getDataSucursal();
-			
-			for (int i = 0; i < data2.size(); i++) {				
-				sucursal.put(data2.get(i).getNombre(), data2.get(i).getIdSucu() + "");
+			List<SucursalDTO> data2 = businessDelegatorView.getDataSucursal();
+
+			for (int i = 0; i < data2.size(); i++) {
+				sucursal.put(data2.get(i).getNombre(), data2.get(i).getIdSucu()
+						+ "");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return sucursal;
 	}
 
-	public void setSucursal(Map<String,String> sucursal) {
+	public void setSucursal(Map<String, String> sucursal) {
 		this.sucursal = sucursal;
 	}
 
@@ -786,6 +774,5 @@ public class BateriologoView {
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	
+
 }
