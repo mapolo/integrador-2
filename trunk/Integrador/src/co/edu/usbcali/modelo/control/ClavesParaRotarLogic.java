@@ -197,11 +197,11 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 				throw new ZMessManager().new ForeignException("sucursal");
 			}*/
 
-			if ((entity.getAno() != null)
+			/*if ((entity.getAno() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getAno(), 22, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("ano");
-			}
+			}*/
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(

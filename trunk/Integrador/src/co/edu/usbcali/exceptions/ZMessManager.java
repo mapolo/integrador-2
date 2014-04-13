@@ -54,7 +54,7 @@ public class ZMessManager extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 
 		public NotValidFormatException(String info) {
-			super("El fotmato o el tamaño para el campo: \"" + info
+			super("El formato o el tamaño para el campo: \"" + info
 					+ "\" no es valido");
 		}
 	}

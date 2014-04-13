@@ -404,11 +404,18 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						.getOperModifica() != null) ? divisionPoliticaTmp
 						.getOperModifica() : null);
 				
-				if (divisionPoliticaTmp.getDivisionPolitica() != null) {
+				/*if (divisionPoliticaTmp.getDivisionPolitica() != null) {
 					divisionPoliticaDTO2
 					.setIdDipo_DivisionPolitica((divisionPoliticaTmp
 							.getDivisionPolitica().getIdDipo() != null) ? divisionPoliticaTmp
 							.getDivisionPolitica().getIdDipo() : null);
+				}*/
+				
+				if (divisionPoliticaTmp.getDivisionPolitica() != null) {
+					divisionPoliticaDTO2.setIdDipo_DivisionPolitica(divisionPoliticaTmp.getDivisionPolitica()
+							.getIdDipo());
+				}else {
+					divisionPoliticaDTO2.setIdDipo_DivisionPolitica(null);
 				}
 				
 				
@@ -417,6 +424,8 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						.setIdTidi_TipoDivision((divisionPoliticaTmp
 								.getTipoDivision().getIdTidi() != null) ? divisionPoliticaTmp
 								.getTipoDivision().getIdTidi() : null);
+				
+				
 				divisionPoliticaDTO.add(divisionPoliticaDTO2);
 			}
 

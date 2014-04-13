@@ -70,7 +70,7 @@ public class GrupoView {
 	private String pideGalones;
 	private String sugeridoPedido;
 	private String tipoNivel;
-	private Long idFlia_Familia;
+	private String idFlia_Familia;
 	private Long idGrpo_Grupo;
 	private String idGrpo;
 	private String fechaCreacion;
@@ -140,12 +140,34 @@ public class GrupoView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			Familia entity2 = businessDelegatorView
+			/*Familia entity2 = businessDelegatorView
 					.getFamilia(getIdFlia_Familia());
 			entity.setFamilia(entity2);
 
 			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
-			entity.setGrupo(entity3);
+			entity.setGrupo(entity3);*/
+			
+			
+			entity.setGrupo(businessDelegatorView
+					.getGrupo(getIdGrpo_Grupo()));
+			
+			Familia entity3 = businessDelegatorView
+					.getFamilia(Long.parseLong(getIdFlia_Familia()));
+			
+			System.out.println("entity3: " + entity3 + "; " + txtIdFlia_Familia.getValue());
+			
+			if(txtIdFlia_Familia.getValue()=="0"){
+				System.out.println("entro if");
+				entity.setFamilia(null);
+			}else{
+			System.out.println("entro else " + txtIdFlia_Familia.getValue()+ ";" + entity3);
+				entity.setFamilia(entity3);				
+				/*entity.setFamilia(businessDelegatorView
+						.getFamilia(FacesUtils
+							.checkLong(txtIdFlia_Familia)));*/
+			}
+			
+			
 
 			businessDelegatorView.updateGrupo(entity);
 
@@ -605,12 +627,23 @@ public class GrupoView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			Familia entity2 = businessDelegatorView
+			/*Familia entity2 = businessDelegatorView
 					.getFamilia(getIdFlia_Familia());
-			entity.setFamilia(entity2);
+			entity.setFamilia(entity2);*/
+			
+			if(txtIdFlia_Familia.getValue()==""){
+				
+			}else{
+
+				
+				entity.setFamilia(businessDelegatorView
+						.getFamilia(FacesUtils
+							.checkLong(txtIdFlia_Familia)));
+			}
 
 			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
 			entity.setGrupo(entity3);
+			
 
 			businessDelegatorView.saveGrupo(entity);
 			data = businessDelegatorView.getDataGrupo();
@@ -1122,11 +1155,11 @@ public class GrupoView {
 		this.tipoNivel = tipoNivel;
 	}
 
-	public Long getIdFlia_Familia() {
+	public String getIdFlia_Familia() {
 		return idFlia_Familia;
 	}
 
-	public void setIdFlia_Familia(Long idFlia_Familia) {
+	public void setIdFlia_Familia(String idFlia_Familia) {
 		this.idFlia_Familia = idFlia_Familia;
 	}
 

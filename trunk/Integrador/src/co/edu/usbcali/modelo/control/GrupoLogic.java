@@ -112,10 +112,10 @@ public class GrupoLogic implements IGrupoLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveGrupo(Grupo entity) throws Exception {
 		try {
-			if (entity.getFamilia() == null) {
+			/*if (entity.getFamilia() == null) {
 				throw new ZMessManager().new ForeignException("familia");
 			}
-
+*/
 			if (entity.getGrupo() == null) {
 				throw new ZMessManager().new ForeignException("grupo");
 			}
@@ -247,17 +247,17 @@ public class GrupoLogic implements IGrupoLogic {
 						"tipoNivel");
 			}
 
-			if (entity.getFamilia().getIdFlia() == null) {
+			/*if (entity.getFamilia().getIdFlia() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idFlia_Familia");
-			}
+			}*/
 
-			if ((entity.getFamilia().getIdFlia() != null)
+			/*if ((entity.getFamilia() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getFamilia().getIdFlia(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idFlia_Familia");
-			}
+			}*/
 
 			if (entity.getGrupo().getIdGrpo() == null) {
 				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");
@@ -355,9 +355,9 @@ public class GrupoLogic implements IGrupoLogic {
 				throw new ZMessManager().new NullEntityExcepcion("Grupo");
 			}
 
-			if (entity.getFamilia() == null) {
+			/*if (entity.getFamilia() == null) {
 				throw new ZMessManager().new ForeignException("familia");
-			}
+			}*/
 
 			if (entity.getGrupo() == null) {
 				throw new ZMessManager().new ForeignException("grupo");
@@ -490,17 +490,17 @@ public class GrupoLogic implements IGrupoLogic {
 						"tipoNivel");
 			}
 
-			if (entity.getFamilia().getIdFlia() == null) {
+			/*if (entity.getFamilia().getIdFlia() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idFlia_Familia");
-			}
+			}*/
 
-			if ((entity.getFamilia().getIdFlia() != null)
+			/*if ((entity.getFamilia().getIdFlia() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getFamilia().getIdFlia(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idFlia_Familia");
-			}
+			}*/
 
 			if (entity.getGrupo().getIdGrpo() == null) {
 				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");

@@ -126,6 +126,7 @@ body {
 											<p:selectOneMenu
 												value="#{empresaView.idDipo_DivisionPolitica}"
 												style="width:160px">
+												<f:selectItem itemLabel="Vacio" itemValue="999999" />
 												<f:selectItems value="#{empresaView.division}" />
 											</p:selectOneMenu>
 										</f:facet>
@@ -310,6 +311,7 @@ body {
 										value="ID División Politica:" />
 									<p:selectOneMenu value="#{empresaView.idDipo_DivisionPolitica}"
 										binding="#{empresaView.txtIdDipo_DivisionPolitica}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
 										<f:selectItems value="#{empresaView.division}" />
 									</p:selectOneMenu>
 
