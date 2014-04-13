@@ -120,15 +120,18 @@ public class DivisionPoliticaView {
 
 			entity.setTipoDivision(businessDelegatorView
 					.getTipoDivision(getIdTidi_TipoDivision()));
-
-			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+			
+			DivisionPolitica entity2 = businessDelegatorView.getDivisionPolitica(Long.parseLong(idDipo_DivisionPolitica));
+			if (txtIdDipo_DivisionPolitica.getValue() == "0") {
 				System.out.println("Entro ig");
 				entity.setDivisionPolitica(null);
 			} else {
 				System.out.println("entro else");
-				entity.setDivisionPolitica(businessDelegatorView
+				
+				entity.setDivisionPolitica(entity2);
+				/*entity.setDivisionPolitica(businessDelegatorView
 						.getDivisionPolitica(FacesUtils
-								.checkLong(txtIdDipo_DivisionPolitica)));
+								.checkLong(txtIdDipo_DivisionPolitica)));*/
 			}
 
 			businessDelegatorView.updateDivisionPolitica(entity);

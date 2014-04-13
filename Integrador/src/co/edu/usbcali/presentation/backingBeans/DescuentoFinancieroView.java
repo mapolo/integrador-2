@@ -26,6 +26,7 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.DescuentoFinanciero;
+import co.edu.usbcali.modelo.TipoFormaPago;
 import co.edu.usbcali.modelo.dto.DescuentoFinancieroDTO;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
 import co.edu.usbcali.modelo.dto.TipoFormaPagoDTO;
@@ -134,17 +135,22 @@ public class DescuentoFinancieroView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 
+			
 			entity.setGrupo(businessDelegatorView.getGrupo(getIdGrpo_Grupo()));
 
-			if (txtIdTfpa_TipoFormaPago.getValue() == "") {
+			TipoFormaPago entity2 = businessDelegatorView.getTipoFormaPago(Long.parseLong(idTfpa_TipoFormaPago));
+			System.out.println("1: " + txtIdTfpa_TipoFormaPago.getValue() +" 2: " + entity2);
+			if (txtIdTfpa_TipoFormaPago.getValue() == "0") {
 				System.out.println("entro if");
 				entity.setTipoFormaPago(null);
 			} else {
 				System.out.println("Entro else");
-
-				entity.setTipoFormaPago(businessDelegatorView
+				
+				entity.setTipoFormaPago(entity2);
+				
+				/*entity.setTipoFormaPago(businessDelegatorView
 						.getTipoFormaPago(FacesUtils
-								.checkLong(txtIdTfpa_TipoFormaPago)));
+								.checkLong(txtIdTfpa_TipoFormaPago)));*/
 			}
 
 			businessDelegatorView.updateDescuentoFinanciero(entity);

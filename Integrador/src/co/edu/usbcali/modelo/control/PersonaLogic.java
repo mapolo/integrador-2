@@ -31,6 +31,7 @@ import co.edu.usbcali.modelo.Proveedor;
 import co.edu.usbcali.modelo.RelacionComercial;
 import co.edu.usbcali.modelo.Sucursal;
 import co.edu.usbcali.modelo.Vendedor;
+import co.edu.usbcali.modelo.dto.EmpresaDTO;
 import co.edu.usbcali.modelo.dto.PersonaDTO;
 import co.edu.usbcali.utilities.Utilities;
 
@@ -677,13 +678,19 @@ public class PersonaLogic implements IPersonaLogic {
 								.getTelefono2() : null);
 				
 				
-				if (personaTmp.getDivisionPolitica() != null) {
+				/*if (personaTmp.getDivisionPolitica() != null) {
 					personaDTO2
 					.setIdDipo_DivisionPolitica((personaTmp
 							.getDivisionPolitica().getIdDipo() != null) ? personaTmp
 							.getDivisionPolitica().getIdDipo() : null);
+				}*/
+				if (personaTmp.getDivisionPolitica() != null) {
+					personaDTO2.setIdDipo_DivisionPolitica(personaTmp.getDivisionPolitica()
+							.getIdDipo());
+					
+				}else {
+					personaDTO2.setIdDipo_DivisionPolitica(null);
 				}
-				
 				
 				
 				

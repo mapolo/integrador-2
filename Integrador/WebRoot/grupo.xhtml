@@ -276,6 +276,7 @@ body {
 										<f:facet name="input">
 											<p:selectOneMenu value="#{grupoView.idFlia_Familia}"
 												style="width:160px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
 												<f:selectItems value="#{grupoView.familias}" />
 											</p:selectOneMenu>
 										</f:facet>
@@ -427,6 +428,7 @@ body {
 									<h:outputText id="msgIdFlia_Familia" value="ID Familia:" />
 									<p:selectOneMenu value="#{grupoView.idFlia_Familia}"
 										binding="#{grupoView.txtIdFlia_Familia}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
 										<f:selectItems value="#{grupoView.familias}" />
 									</p:selectOneMenu>
 

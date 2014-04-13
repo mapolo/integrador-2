@@ -405,13 +405,22 @@ public class DescuentoFinancieroLogic implements IDescuentoFinancieroLogic {
 				
 				
 				
-
 				if (descuentoFinancieroTmp.getTipoFormaPago() != null) {
+					
+					descuentoFinancieroDTO2.setIdTfpa_TipoFormaPago(descuentoFinancieroTmp.getTipoFormaPago()
+							.getIdTfpa());
+				}else {
+					descuentoFinancieroDTO2.setIdTfpa_TipoFormaPago(null);
+					
+				}
+				
+
+				/*if (descuentoFinancieroTmp.getTipoFormaPago() != null) {
 					descuentoFinancieroDTO2
 							.setIdTfpa_TipoFormaPago((descuentoFinancieroTmp
 									.getTipoFormaPago().getIdTfpa() != null) ? descuentoFinancieroTmp
 									.getTipoFormaPago().getIdTfpa() : null);
-				}
+				}*/
 				
 				
 				

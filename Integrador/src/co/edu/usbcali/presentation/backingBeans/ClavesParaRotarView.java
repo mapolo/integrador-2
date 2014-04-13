@@ -26,7 +26,7 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ClaveFabricacion;
 import co.edu.usbcali.modelo.ClavesParaRotar;
-
+import co.edu.usbcali.modelo.Sucursal;
 import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.modelo.dto.ClavesParaRotarDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
@@ -47,9 +47,9 @@ public class ClavesParaRotarView {
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
 
-	private String ano;
+	private Long ano;
 	private String estadoRegistro;
-	private String mes;
+	private Long mes;
 	private String operCreador;
 	private String operModifica;
 	private Long idClfa_ClaveFabricacion;
@@ -110,10 +110,12 @@ public class ClavesParaRotarView {
 					.getClavesParaRotar(((ClavesParaRotarDTO) event.getObject())
 							.getIdClpr());
 
-			Long ano = new Long(txtAno.getValue().toString());
+			//Long ano = new Long(txtAno.getValue().toString());
+			System.out.println("Año: " + ano + "txtAño: " + txtAno);
 			entity.setAno(ano);
 
-			Long mes = new Long(txtMes.getValue().toString());
+			//Long mes = new Long(txtMes.getValue().toString());
+			System.out.println("Mes: " + mes + "txtM: " + txtMes);
 			entity.setMes(mes);
 
 			entity.setEstadoRegistro(estadoRegistro);
@@ -124,14 +126,20 @@ public class ClavesParaRotarView {
 			entity.setClaveFabricacion(businessDelegatorView
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion()));
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
+			
+			
+			if (txtIdSucu_Sucursal.getValue() == "999") {
 				System.out.println("entro if");
 				entity.setSucursal(null);
+				
 			} else {
 				System.out.println("entro else");
+				
+				entity.setSucursal(entity2);
 
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+				/*entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));*/
 			}
 
 			/*
@@ -712,11 +720,11 @@ public class ClavesParaRotarView {
 		this.showDialog = showDialog;
 	}
 
-	public String getAno() {
+	public Long getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
+	public void setAno(Long ano) {
 		this.ano = ano;
 	}
 
@@ -728,11 +736,11 @@ public class ClavesParaRotarView {
 		this.estadoRegistro = estadoRegistro;
 	}
 
-	public String getMes() {
+	public Long getMes() {
 		return mes;
 	}
 
-	public void setMes(String mes) {
+	public void setMes(Long mes) {
 		this.mes = mes;
 	}
 

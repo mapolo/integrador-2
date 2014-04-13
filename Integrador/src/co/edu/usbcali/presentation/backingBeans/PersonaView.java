@@ -25,6 +25,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.DivisionPolitica;
 import co.edu.usbcali.modelo.Persona;
 import co.edu.usbcali.modelo.TipoIdentificacion;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
@@ -145,7 +146,6 @@ public class PersonaView {
 					.getDigitoVerificacion());
 
 			Long estadoPersona = new Long(estadoP.getValue().toString());
-
 			entity.setEstadoPersona(estadoPersona);
 
 			entity.setEstadoRegistro(estadoRegistro);
@@ -153,18 +153,28 @@ public class PersonaView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 
+			
+			
+			
 			TipoIdentificacion entity3 = businessDelegatorView
 					.getTipoIdentificacion(getIdTiid_TipoIdentificacion());
 			entity.setTipoIdentificacion(entity3);
 
-			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+			DivisionPolitica entity2 = businessDelegatorView.getDivisionPolitica(Long.parseLong(idDipo_DivisionPolitica));
+			
+			System.out.println("1: " + txtIdDipo_DivisionPolitica.getValue() + " 2: " + entity2);
+			if (txtIdDipo_DivisionPolitica.getValue() == "999") {
 				System.out.println("Entro if");
 				entity.setDivisionPolitica(null);
 			} else {
-				entity.setDivisionPolitica(businessDelegatorView
+				System.out.println("Entro con algo diferente a 0 " + entity2);
+				entity.setDivisionPolitica(entity2);
+				/*entity.setDivisionPolitica(businessDelegatorView
 						.getDivisionPolitica(FacesUtils
-								.checkLong(txtIdDipo_DivisionPolitica)));
+								.checkLong(txtIdDipo_DivisionPolitica)));*/
 			}
+			
+			
 
 			businessDelegatorView.updatePersona(entity);
 			data = businessDelegatorView.getDataPersona();

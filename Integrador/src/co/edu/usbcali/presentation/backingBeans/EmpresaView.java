@@ -24,6 +24,7 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.DivisionPolitica;
 import co.edu.usbcali.modelo.Empresa;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
 import co.edu.usbcali.modelo.dto.EmpresaDTO;
@@ -64,9 +65,9 @@ public class EmpresaView {
 	private String operModifica;
 	private String telefono1;
 	private String telefono2;
-	private Long idDipo_DivisionPolitica;
+	private String idDipo_DivisionPolitica;
 	private Long idPers_Persona;
-	private Long idTiid_TipoIdentificacion;
+	private String idTiid_TipoIdentificacion;
 	private String idEmpr;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -128,13 +129,34 @@ public class EmpresaView {
 			entity.setNombre(((EmpresaDTO) event.getObject()).getNombre());
 			entity.setTelefono1(((EmpresaDTO) event.getObject()).getTelefono1());
 			entity.setTelefono2(((EmpresaDTO) event.getObject()).getTelefono2());
-
-			entity.setDivisionPolitica(businessDelegatorView
-					.getDivisionPolitica(getIdDipo_DivisionPolitica()));
+			
+			
+			DivisionPolitica entity2 = businessDelegatorView.getDivisionPolitica(Long.parseLong(idDipo_DivisionPolitica));
+			
+			System.out.println("1: " + txtIdDipo_DivisionPolitica.getValue() + " 2: " + entity2);
+			if (txtIdDipo_DivisionPolitica.getValue() == "999999") {
+				System.out.println("Entro vacio a 0");
+				entity.setDivisionPolitica(null);
+			} else {
+				System.out.println("Entro con algo diferente a 0" + entity2);
+				
+				entity.setDivisionPolitica(entity2);
+				
+				/*entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));*/
+			}
+			
+			
+			
 			entity.setPersona(businessDelegatorView
 					.getPersona(getIdPers_Persona()));
+			
 			entity.setTipoIdentificacion(businessDelegatorView
-					.getTipoIdentificacion(getIdTiid_TipoIdentificacion()));
+					.getTipoIdentificacion(Long.parseLong(getIdTiid_TipoIdentificacion())));
+			
+			
+			
 
 			businessDelegatorView.updateEmpresa(entity);
 			data = businessDelegatorView.getDataEmpresa();
@@ -527,12 +549,25 @@ public class EmpresaView {
 			entity.setNombre(FacesUtils.checkString(txtNombre));
 			entity.setTelefono1(FacesUtils.checkString(txtTelefono1));
 			entity.setTelefono2(FacesUtils.checkString(txtTelefono2));
+			
 
-			entity.setDivisionPolitica(businessDelegatorView
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+
+			} else {
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
+
+			/*entity.setDivisionPolitica(businessDelegatorView
 					.getDivisionPolitica(FacesUtils
-							.checkLong(txtIdDipo_DivisionPolitica)));
+							.checkLong(txtIdDipo_DivisionPolitica)));*/
+			
+			
 			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 					.checkLong(txtIdPers_Persona)));
+			
+			
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
@@ -571,6 +606,7 @@ public class EmpresaView {
 			entity.setDivisionPolitica(businessDelegatorView
 					.getDivisionPolitica(FacesUtils
 							.checkLong(txtIdDipo_DivisionPolitica)));
+			
 			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 					.checkLong(txtIdPers_Persona)));
 			entity.setTipoIdentificacion(businessDelegatorView
@@ -964,11 +1000,11 @@ public class EmpresaView {
 		this.telefono2 = telefono2;
 	}
 
-	public Long getIdDipo_DivisionPolitica() {
+	public String getIdDipo_DivisionPolitica() {
 		return idDipo_DivisionPolitica;
 	}
 
-	public void setIdDipo_DivisionPolitica(Long idDipo_DivisionPolitica) {
+	public void setIdDipo_DivisionPolitica(String idDipo_DivisionPolitica) {
 		this.idDipo_DivisionPolitica = idDipo_DivisionPolitica;
 	}
 
@@ -980,11 +1016,11 @@ public class EmpresaView {
 		this.idPers_Persona = idPers_Persona;
 	}
 
-	public Long getIdTiid_TipoIdentificacion() {
+	public String getIdTiid_TipoIdentificacion() {
 		return idTiid_TipoIdentificacion;
 	}
 
-	public void setIdTiid_TipoIdentificacion(Long idTiid_TipoIdentificacion) {
+	public void setIdTiid_TipoIdentificacion(String idTiid_TipoIdentificacion) {
 		this.idTiid_TipoIdentificacion = idTiid_TipoIdentificacion;
 	}
 

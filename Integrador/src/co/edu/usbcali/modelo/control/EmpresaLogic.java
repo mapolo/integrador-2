@@ -141,10 +141,10 @@ public class EmpresaLogic implements IEmpresaLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveEmpresa(Empresa entity) throws Exception {
 		try {
-			if (entity.getDivisionPolitica() == null) {
+			/*if (entity.getDivisionPolitica() == null) {
 				throw new ZMessManager().new ForeignException(
 						"divisionPolitica");
-			}
+			}*/
 
 			if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
@@ -261,12 +261,12 @@ public class EmpresaLogic implements IEmpresaLogic {
 						"telefono2");
 			}
 
-			if (entity.getDivisionPolitica().getIdDipo() == null) {
+			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idDipo_DivisionPolitica");
-			}
+			}*/
 
-			if ((entity.getDivisionPolitica().getIdDipo() != null)
+			if ((entity.getDivisionPolitica() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -400,10 +400,10 @@ public class EmpresaLogic implements IEmpresaLogic {
 				throw new ZMessManager().new NullEntityExcepcion("Empresa");
 			}
 
-			if (entity.getDivisionPolitica() == null) {
+			/*if (entity.getDivisionPolitica() == null) {
 				throw new ZMessManager().new ForeignException(
 						"divisionPolitica");
-			}
+			}*/
 
 			if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
@@ -520,12 +520,12 @@ public class EmpresaLogic implements IEmpresaLogic {
 						"telefono2");
 			}
 
-			if (entity.getDivisionPolitica().getIdDipo() == null) {
+			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idDipo_DivisionPolitica");
-			}
+			}*/
 
-			if ((entity.getDivisionPolitica().getIdDipo() != null)
+			if ((entity.getDivisionPolitica() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
@@ -611,11 +611,25 @@ public class EmpresaLogic implements IEmpresaLogic {
 				empresaDTO2
 						.setTelefono2((empresaTmp.getTelefono2() != null) ? empresaTmp
 								.getTelefono2() : null);
-				empresaDTO2
-						.setIdDipo_DivisionPolitica((empresaTmp
-								.getDivisionPolitica().getIdDipo() != null) ? empresaTmp
-								.getDivisionPolitica().getIdDipo() : null);
-
+				
+				
+				/*if (empresaTmp.getDivisionPolitica() != null) {
+					empresaDTO2
+					.setIdDipo_DivisionPolitica((empresaTmp
+							.getDivisionPolitica().getIdDipo() != null) ? empresaTmp
+							.getDivisionPolitica().getIdDipo() : null);
+				}*/
+				
+				
+				if (empresaTmp.getDivisionPolitica() != null) {
+					
+					empresaDTO2.setIdDipo_DivisionPolitica(empresaTmp.getDivisionPolitica()
+							.getIdDipo());
+				}else {
+					empresaDTO2.setIdDipo_DivisionPolitica(null);
+				}
+				
+				
 				if (empresaTmp.getPersona() != null) {
 					empresaDTO2.setIdPers_Persona(empresaTmp.getPersona()
 							.getIdPers());
