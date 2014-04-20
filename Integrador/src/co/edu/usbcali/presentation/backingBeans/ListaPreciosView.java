@@ -26,6 +26,7 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ListaPrecios;
+import co.edu.usbcali.modelo.Sucursal;
 import co.edu.usbcali.modelo.dto.ListaPreciosDTO;
 import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
@@ -132,12 +133,20 @@ public class ListaPreciosView {
 
 			entity.setReferencia(businessDelegatorView
 					.getReferencia(getIdRefe_Referencia()));
-
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			
+			
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
+			System.out.println("antes: " + entity2 + "; " + txtIdSucu_Sucursal.getValue());
+			
+			if (entity2 == null) {
+				System.out.println("Entro null");
 				entity.setSucursal(null);
 			} else {
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+				System.out.println("Entro con: " + entity2 + "; " + txtIdSucu_Sucursal.getValue());
+				
+				
+				
+				entity.setSucursal(entity2);
 			}
 
 			businessDelegatorView.updateListaPrecios(entity);
@@ -518,6 +527,7 @@ public class ListaPreciosView {
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
+			
 
 			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
 					.checkLong(txtIdRefe_Referencia)));
@@ -534,6 +544,7 @@ public class ListaPreciosView {
 
 			businessDelegatorView.saveListaPrecios(entity);
 			data = businessDelegatorView.getDataListaPrecios();
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {

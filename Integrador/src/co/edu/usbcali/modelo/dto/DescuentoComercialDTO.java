@@ -31,6 +31,7 @@ public class DescuentoComercialDTO implements Serializable {
 	private Long idGrpo_Grupo;
 	private Long idPers_Persona;
 	private Long idSucu_Sucursal;
+	private Long idIdSucu_Sucursal;
 
 	public String getAsocGrupoItem() {
 		return asocGrupoItem;
@@ -190,6 +191,22 @@ public class DescuentoComercialDTO implements Serializable {
 
 	public void setIdPers_Persona(Long idPers_Persona) {
 		this.idPers_Persona = idPers_Persona;
+	}
+
+	public Long getIdSucu_Sucursal() {
+		return idSucu_Sucursal;
+	}
+
+	public void setIdSucu_Sucursal(Long idSucu_Sucursal) {
+		this.idSucu_Sucursal = idSucu_Sucursal;
+	}
+
+	public Long getIdIdSucu_Sucursal() {
+		return idIdSucu_Sucursal;
+	}
+
+	public void setIdIdSucu_Sucursal(Long idIdSucu_Sucursal) {
+		this.idIdSucu_Sucursal = idIdSucu_Sucursal;
 	}
 
 }

@@ -76,9 +76,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
+								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions3}"
-									filterMatchMode="contains" style="width:100px">
+									filterMatchMode="exact" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.ano}" />
@@ -105,9 +105,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="mes" filterBy="mes" headerText="Mes" sortBy="mes"
+								<p:column id="mes" filterBy="mes" headerText="Mes"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions2}"
-									filterMatchMode="contains" style="width:100px">
+									filterMatchMode="exact" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.mes}" />

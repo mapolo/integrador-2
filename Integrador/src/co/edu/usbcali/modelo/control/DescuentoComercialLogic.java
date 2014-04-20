@@ -84,7 +84,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 	public void saveDescuentoComercial(DescuentoComercial entity)
 			throws Exception {
 		try {
-			if (entity.getEmpresa() == null) {
+			/*if (entity.getEmpresa() == null) {
 				throw new ZMessManager().new ForeignException("empresa");
 			}
 
@@ -104,7 +104,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 			if (entity.getSucursalBySucursal() == null) {
 				throw new ZMessManager().new ForeignException(
 						"sucursalBySucursal");
-			}
+			}*/
 
 			if ((entity.getAsocGrupoItem() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -163,15 +163,15 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdDeco() == null) {
+			/*if (entity.getIdDeco() == null) {
 				throw new ZMessManager().new EmptyFieldException("idDeco");
-			}
+			}*/
 
-			if ((entity.getIdDeco() != null)
+			/*if ((entity.getIdDeco() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdDeco(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idDeco");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -230,7 +230,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"todasSucursales");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
+			/*if (entity.getEmpresa().getIdEmpr() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idEmpr_Empresa");
 			}
@@ -240,9 +240,9 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
-			}
+			}*/
 
-			if (entity.getGrupo().getIdGrpo() == null) {
+			/*if (entity.getGrupo().getIdGrpo() == null) {
 				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");
 			}
 
@@ -251,9 +251,9 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 							+ entity.getGrupo().getIdGrpo(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idGrpo_Grupo");
-			}
+			}*/
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -263,11 +263,11 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
-			if (getDescuentoComercial(entity.getIdDeco()) != null) {
+			/*if (getDescuentoComercial(entity.getIdDeco()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			descuentoComercialDAO.save(entity);
 		} catch (Exception e) {
@@ -305,7 +305,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"DescuentoComercial");
 			}
 
-			if (entity.getEmpresa() == null) {
+			/*if (entity.getEmpresa() == null) {
 				throw new ZMessManager().new ForeignException("empresa");
 			}
 
@@ -325,7 +325,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 			if (entity.getSucursalBySucursal() == null) {
 				throw new ZMessManager().new ForeignException(
 						"sucursalBySucursal");
-			}
+			}*/
 
 			if ((entity.getAsocGrupoItem() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -384,7 +384,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdDeco() == null) {
+			/*if (entity.getIdDeco() == null) {
 				throw new ZMessManager().new EmptyFieldException("idDeco");
 			}
 
@@ -392,7 +392,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdDeco(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idDeco");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -451,7 +451,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"todasSucursales");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
+			/*if (entity.getEmpresa().getIdEmpr() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idEmpr_Empresa");
 			}
@@ -461,9 +461,9 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
-			}
+			}*/
 
-			if (entity.getGrupo().getIdGrpo() == null) {
+			/*if (entity.getGrupo().getIdGrpo() == null) {
 				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");
 			}
 
@@ -472,19 +472,19 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 							+ entity.getGrupo().getIdGrpo(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idGrpo_Grupo");
-			}
+			}*/
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
-			}
+			}*/
 
-			if ((entity.getPersona().getIdPers() != null)
+			/*if ((entity.getPersona().getIdPers() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			descuentoComercialDAO.update(entity);
 		} catch (Exception e) {
@@ -565,20 +565,53 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 				} else {
 					descuentoComercialDTO2.setIdEmpr_Empresa(null);
 				}
+				
+				// fks null
+				
 
 				descuentoComercialDTO2
 						.setIdGrpo_Grupo((descuentoComercialTmp.getGrupo()
 								.getIdGrpo() != null) ? descuentoComercialTmp
 								.getGrupo().getIdGrpo() : null);
+				
+				descuentoComercialDTO2
+				.setIdSucu_Sucursal((descuentoComercialTmp.getSucursalBySucursal()
+						.getIdSucu() != null) ? descuentoComercialTmp
+						.getSucursalBySucursal().getIdSucu() : null);
+				
+				
 
 				if (descuentoComercialTmp.getPersona() != null) {
 					descuentoComercialDTO2
 							.setIdPers_Persona(descuentoComercialTmp
 									.getPersona().getIdPers());
+					
 				} else {
 					descuentoComercialDTO2.setIdPers_Persona(null);
 				}
 
+				
+				
+				if (descuentoComercialTmp.getEmpresa() != null) {
+					descuentoComercialDTO2
+							.setIdEmpr_Empresa(descuentoComercialTmp
+									.getEmpresa().getIdEmpr());
+					
+				} else {
+					descuentoComercialDTO2.setIdEmpr_Empresa(null);
+				}
+				
+				
+				if (descuentoComercialTmp.getSucursalByIdSucu() != null) {
+					descuentoComercialDTO2
+							.setIdIdSucu_Sucursal(descuentoComercialTmp
+									.getSucursalByIdSucu().getIdSucu());
+					
+				} else {
+					descuentoComercialDTO2.setIdIdSucu_Sucursal(null);
+				}
+				
+				
 				descuentoComercialDTO.add(descuentoComercialDTO2);
 			}
 

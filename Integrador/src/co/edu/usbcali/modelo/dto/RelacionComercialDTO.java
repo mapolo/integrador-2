@@ -22,6 +22,7 @@ public class RelacionComercialDTO implements Serializable {
 	private Long idEmpr_Empresa;
 	private Long idPers_Persona;
 	private Long idSucu_Sucursal;
+	private Long idSucu_SucursalH;
 
 	public String getEstadoRegistro() {
 		return estadoRegistro;
@@ -109,6 +110,22 @@ public class RelacionComercialDTO implements Serializable {
 
 	public void setIdPers_Persona(Long idPers_Persona) {
 		this.idPers_Persona = idPers_Persona;
+	}
+
+	public Long getIdSucu_Sucursal() {
+		return idSucu_Sucursal;
+	}
+
+	public void setIdSucu_Sucursal(Long idSucu_Sucursal) {
+		this.idSucu_Sucursal = idSucu_Sucursal;
+	}
+
+	public Long getIdSucu_SucursalH() {
+		return idSucu_SucursalH;
+	}
+
+	public void setIdSucu_SucursalH(Long idSucu_SucursalH) {
+		this.idSucu_SucursalH = idSucu_SucursalH;
 	}
 
 }

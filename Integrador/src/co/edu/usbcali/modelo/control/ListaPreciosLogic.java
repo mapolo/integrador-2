@@ -177,7 +177,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"idSucu_Sucursal");
 			}
 
-			if (entity.getTipoLista().getIdTili() == null) {
+			/*if (entity.getTipoLista().getIdTili() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idTili_TipoLista");
 			}
@@ -265,7 +265,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdLipr() == null) {
+			/*if (entity.getIdLipr() == null) {
 				throw new ZMessManager().new EmptyFieldException("idLipr");
 			}
 
@@ -273,7 +273,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdLipr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idLipr");
-			}
+			}*/
 
 			/*if ((entity.getMargen() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -333,7 +333,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						"idSucu_Sucursal");
 			}
 
-			if (entity.getTipoLista().getIdTili() == null) {
+			/*if (entity.getTipoLista().getIdTili() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idTili_TipoLista");
 			}
@@ -343,7 +343,7 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 							+ entity.getTipoLista().getIdTili(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTili_TipoLista");
-			}
+			}*/
 
 			listaPreciosDAO.update(entity);
 		} catch (Exception e) {
@@ -392,12 +392,15 @@ public class ListaPreciosLogic implements IListaPreciosLogic {
 						.getReferencia().getIdRefe() != null) ? listaPreciosTmp
 						.getReferencia().getIdRefe() : null);
 
+				
 				if (listaPreciosTmp.getSucursal() != null) {
 					listaPreciosDTO2.setIdSucu_Sucursal(listaPreciosTmp
 							.getSucursal().getIdSucu());
 				} else {
 					listaPreciosDTO2.setIdSucu_Sucursal(null);
 				}
+				
+				
 
 				listaPreciosDTO2.setIdTili_TipoLista((listaPreciosTmp
 						.getTipoLista().getIdTili() != null) ? listaPreciosTmp

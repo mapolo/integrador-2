@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
@@ -14,6 +17,7 @@ import co.edu.usbcali.dataaccess.dao.IAtencionVendedorDAO;
 import co.edu.usbcali.dataaccess.dao.IDocumentoDAO;
 import co.edu.usbcali.dataaccess.dao.IRelacionComercialDAO;
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.exceptions.ZMessManager.NotValidFormatException;
 import co.edu.usbcali.modelo.AtencionVendedor;
 import co.edu.usbcali.modelo.Documento;
 import co.edu.usbcali.modelo.RelacionComercial;
@@ -95,18 +99,60 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 	public void saveRelacionComercial(RelacionComercial entity)
 			throws Exception {
 		try {
-			if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
+			/*
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 */
+
+			/*
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 */
+
+			/*
+			 * if (entity.getSucursalBySucursalHija() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalBySucursalHija"); }
+			 */
+
+			if (entity.getEmpresa() == null && entity.getPersona() == null
+					&& entity.getSucursalBySucursalHija() == null) {
+
+				throw new Exception(
+						"Empresa, persona y sucursal hija no pueden ser nullos");
 			}
 
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
+			if (entity.getEmpresa() != null && entity.getPersona() != null
+					
+					&& entity.getSucursalBySucursalHija() != null) {
 
-			if (entity.getSucursalBySucursalHija() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalBySucursalHija");
+				throw new Exception(
+						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
+			
+			
+			int cont = 0;
+			
+			if(entity.getPersona()!=null){
+				cont++;
+			}
+			
+			if(entity.getSucursalBySucursalHija()!=null){
+				cont++;
+			}
+			
+			if(entity.getEmpresa()!=null){
+				cont++;
+			}
+			
+				
+			
+				
+			if(cont==2){
+				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
+			}
+				
+			
+			
 
 			if (entity.getSucursalBySucursalPadre() == null) {
 				throw new ZMessManager().new ForeignException(
@@ -135,22 +181,24 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdReco() == null) {
-				throw new ZMessManager().new EmptyFieldException("idReco");
-			}
+			/*
+			 * if (entity.getIdReco() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idReco"); }
+			 */
 
-			if ((entity.getIdReco() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdReco(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idReco");
-			}
+			/*
+			 * if ((entity.getIdReco() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdReco(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idReco"); }
+			 */
 
-			if ((entity.getLimiteCredito() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getLimiteCredito(), 14, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"limiteCredito");
-			}
+			/*
+			 * if ((entity.getLimiteCredito() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getLimiteCredito(), 14, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "limiteCredito"); }
+			 */
 
 			if ((entity.getLiquidaIva() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -188,33 +236,33 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 						"operModifica");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
-
-			if ((entity.getEmpresa().getIdEmpr() != null)
+			/*
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 */
+			if ((entity.getEmpresa() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
 			}
 
-			if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}
+			/*
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 */
 
-			if ((entity.getPersona().getIdPers() != null)
+			if ((entity.getPersona() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
 			}
 
-			if (getRelacionComercial(entity.getIdReco()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			/*
+			 * if (getRelacionComercial(entity.getIdReco()) != null) { throw new
+			 * ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY); }
+			 */
 
 			relacionComercialDAO.save(entity);
 		} catch (Exception e) {
@@ -270,23 +318,70 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 						"RelacionComercial");
 			}
 
-			if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
+			/*
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 */
+
+			/*
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 */
+
+			/*
+			 * if (entity.getSucursalBySucursalHija() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalBySucursalHija"); }
+			 */
+			
+
+			if (entity.getEmpresa() == null && entity.getPersona() == null
+					&& entity.getSucursalBySucursalHija() == null) {
+
+				throw new Exception(
+						"Empresa, persona y sucursal hija no pueden ser nullos");
 			}
 
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
+			if (entity.getEmpresa() != null && entity.getPersona() != null
+					
+					&& entity.getSucursalBySucursalHija() != null) {
 
-			if (entity.getSucursalBySucursalHija() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalBySucursalHija");
+				throw new Exception(
+						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
+			
+			
+			int cont = 0;
+			
+			if(entity.getPersona()!=null){
+				cont++;
+			}
+			
+			if(entity.getSucursalBySucursalHija()!=null){
+				cont++;
+			}
+			
+			if(entity.getEmpresa()!=null){
+				cont++;
+			}
+			
+				
+			
+				
+			if(cont==2){
+				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
+				
+				/*throw new
+				  ZMessManager().new ForeignException( "solo puede estar llena empresa, sucursal hija o persona");*/
+				
+			}
+			
+			
+			
 
-			if (entity.getSucursalBySucursalPadre() == null) {
+			/*if (entity.getSucursalBySucursalPadre() == null) {
 				throw new ZMessManager().new ForeignException(
 						"sucursalBySucursalPadre");
-			}
+			}*/
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -310,29 +405,31 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdReco() == null) {
-				throw new ZMessManager().new EmptyFieldException("idReco");
-			}
+			/*
+			 * if (entity.getIdReco() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idReco"); }
+			 */
 
-			if ((entity.getIdReco() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdReco(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idReco");
-			}
+			/*
+			 * if ((entity.getIdReco() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdReco(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idReco"); }
+			 */
 
-			if ((entity.getLimiteCredito() != null)
+			/*if ((entity.getLimiteCredito() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getLimiteCredito(), 14, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"limiteCredito");
-			}
+			}*/
 
-			if ((entity.getLiquidaIva() != null)
+			/*if ((entity.getLiquidaIva() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
 							entity.getLiquidaIva(), 1) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"liquidaIva");
-			}
+			}*/
 
 			if ((entity.getObservacion() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -363,29 +460,29 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 						"operModifica");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
+			/*
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 */
 
-			if ((entity.getEmpresa().getIdEmpr() != null)
+			/*if ((entity.getEmpresa() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
-			}
+			}*/
 
-			if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}
+			/*
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 */
 
-			if ((entity.getPersona().getIdPers() != null)
+			/*if ((entity.getPersona() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			relacionComercialDAO.update(entity);
 		} catch (Exception e) {
@@ -404,6 +501,7 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			List<RelacionComercialDTO> relacionComercialDTO = new ArrayList<RelacionComercialDTO>();
 
 			for (RelacionComercial relacionComercialTmp : relacionComercial) {
+
 				RelacionComercialDTO relacionComercialDTO2 = new RelacionComercialDTO();
 
 				relacionComercialDTO2.setIdReco(relacionComercialTmp
@@ -411,22 +509,29 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 				relacionComercialDTO2.setEstadoRegistro((relacionComercialTmp
 						.getEstadoRegistro() != null) ? relacionComercialTmp
 						.getEstadoRegistro() : null);
+
 				relacionComercialDTO2.setFechaCreacion(relacionComercialTmp
 						.getFechaCreacion());
+
 				relacionComercialDTO2.setFechaModificacion(relacionComercialTmp
 						.getFechaModificacion());
+
 				relacionComercialDTO2.setLimiteCredito((relacionComercialTmp
 						.getLimiteCredito() != null) ? relacionComercialTmp
 						.getLimiteCredito() : null);
+
 				relacionComercialDTO2.setLiquidaIva((relacionComercialTmp
 						.getLiquidaIva() != null) ? relacionComercialTmp
 						.getLiquidaIva() : null);
+
 				relacionComercialDTO2.setObservacion((relacionComercialTmp
 						.getObservacion() != null) ? relacionComercialTmp
 						.getObservacion() : null);
+
 				relacionComercialDTO2.setOperCreador((relacionComercialTmp
 						.getOperCreador() != null) ? relacionComercialTmp
 						.getOperCreador() : null);
+
 				relacionComercialDTO2.setOperModifica((relacionComercialTmp
 						.getOperModifica() != null) ? relacionComercialTmp
 						.getOperModifica() : null);
@@ -446,6 +551,29 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 				} else {
 					relacionComercialDTO2.setIdPers_Persona(null);
 				}
+
+				// fks null
+
+				if (relacionComercialTmp.getSucursalBySucursalPadre() != null) {
+					relacionComercialDTO2
+							.setIdSucu_Sucursal(relacionComercialTmp
+									.getSucursalBySucursalPadre().getIdSucu());
+
+				} else {
+					relacionComercialDTO2.setIdSucu_Sucursal(null);
+
+				}
+				
+
+				if (relacionComercialTmp.getSucursalBySucursalHija() != null) {
+					relacionComercialDTO2
+							.setIdSucu_SucursalH(relacionComercialTmp
+									.getSucursalBySucursalHija().getIdSucu());
+				} else {
+					relacionComercialDTO2.setIdSucu_SucursalH(null);
+				}
+				
+				
 
 				relacionComercialDTO.add(relacionComercialDTO2);
 			}

@@ -338,7 +338,7 @@ public class SucursalLogic implements ISucursalLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdSucu() == null) {
+			/*if (entity.getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException("idSucu");
 			}
 
@@ -346,7 +346,7 @@ public class SucursalLogic implements ISucursalLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idSucu");
-			}
+			}*/
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -462,9 +462,9 @@ public class SucursalLogic implements ISucursalLogic {
 						"idTisu_TipoSucursal");
 			}
 
-			if (getSucursal(entity.getIdSucu()) != null) {
+			/*if (getSucursal(entity.getIdSucu()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			sucursalDAO.save(entity);
 		} catch (Exception e) {
@@ -762,7 +762,7 @@ public class SucursalLogic implements ISucursalLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdSucu() == null) {
+			/*if (entity.getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException("idSucu");
 			}
 
@@ -770,7 +770,7 @@ public class SucursalLogic implements ISucursalLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idSucu");
-			}
+			}*/
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -987,7 +987,7 @@ public class SucursalLogic implements ISucursalLogic {
 		try {
 			entity = sucursalDAO.findById(idSucu);
 		} catch (Exception e) {
-			throw new ZMessManager().new FindingException("Sucursal");
+			//throw new ZMessManager().new FindingException("Sucursal");
 		} finally {
 		}
 
