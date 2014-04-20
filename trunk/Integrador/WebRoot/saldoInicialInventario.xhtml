@@ -51,7 +51,7 @@ body {
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<p:dataTable var="car" value="#saldoInicialInventarioView.data}"
+							<p:dataTable var="car" value="#{saldoInicialInventarioView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true"
 								filteredValue="#{saldoInicialInventarioView.data}">
@@ -77,9 +77,9 @@ body {
 									</p:cellEditor>
 								</p:column>
 
-								<p:column id="ano" filterBy="ano" headerText="Año" sortBy="ano"
+								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{saldoInicialInventarioView.manufacturerOptions2}"
-									filterMatchMode="contains" style="width:100px">
+									filterMatchMode="exact" style="width:100px">
 									<p:cellEditor>
 										<f:facet name="output">
 											<h:outputText value="#{car.ano}" />

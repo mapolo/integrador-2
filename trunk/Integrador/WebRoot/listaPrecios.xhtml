@@ -74,6 +74,7 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
+								
 
 								<p:column id="valor" filterBy="valor" headerText="Valor"
 									sortBy="valor" filterMatchMode="contains" style="width: 100px">
@@ -211,7 +212,8 @@ body {
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
-
+								
+																
 								<p:column headerText="ID Sucursal" style="width:100px"
 									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
 									<p:cellEditor>
@@ -221,13 +223,14 @@ body {
 										<f:facet name="input">
 											<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
 												style="width:160px">
-												<f:selectItem itemLabel="Vacio" itemValue="" />
+												<f:selectItem itemLabel="Vacio" itemValue="9" />
 												<f:selectItems value="#{listaPreciosView.sucursal}" />
 											</p:selectOneMenu>
 										</f:facet>
 									</p:cellEditor>
 								</p:column>
 
+								
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"

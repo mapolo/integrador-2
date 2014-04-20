@@ -26,6 +26,7 @@ public class ListaPreciosEspecialesDTO implements Serializable {
 	private Long idPers_Persona;
 	private Long idRefe_Referencia;
 	private Long idSucu_Sucursal;
+	private Long idSucu_Sucursal2;
 
 	public String getConcepto() {
 		return concepto;
@@ -146,5 +147,23 @@ public class ListaPreciosEspecialesDTO implements Serializable {
 	public void setIdRefe_Referencia(Long idRefe_Referencia) {
 		this.idRefe_Referencia = idRefe_Referencia;
 	}
+
+	public Long getIdSucu_Sucursal() {
+		return idSucu_Sucursal;
+	}
+
+	public void setIdSucu_Sucursal(Long idSucu_Sucursal) {
+		this.idSucu_Sucursal = idSucu_Sucursal;
+	}
+
+	public Long getIdSucu_Sucursal2() {
+		return idSucu_Sucursal2;
+	}
+
+	public void setIdSucu_Sucursal2(Long idSucu_Sucursal2) {
+		this.idSucu_Sucursal2 = idSucu_Sucursal2;
+	}
+
+	
 
 }

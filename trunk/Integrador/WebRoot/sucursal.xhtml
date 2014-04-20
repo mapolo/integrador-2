@@ -1,0 +1,427 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectSucursalTitle" header="Sucursal">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{sucursalView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{sucursalView.data}">
+
+								<p:ajax event="rowEdit" listener="#{sucursalView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{sucursalView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idSucu" sortBy="idSucu"
+									style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idSucu}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Sucursal Padre" style="width:100px"
+									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_Sucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{sucursalView.idSucu_Sucursal}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.sucursal}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+									sortBy="nombre" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.nombre}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="direccion" filterBy="direccion"
+									headerText="Dirección" sortBy="direccion"
+									filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.direccion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.direccion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono" filterBy="telefono"
+									headerText="Telefono" sortBy="telefono"
+									filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="zipCode" filterBy="zipCode"
+									headerText="Codigo Postal" sortBy="zipCode"
+									filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.zipCode}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.zipCode}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="email" filterBy="email" headerText="Email"
+									sortBy="email" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.email}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.email}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column filterBy="estadoSucursal" headerText="Estado Sucursal"
+									filterOptions="#{sucursalView.manufacturerOptions2}"
+									filterMatchMode="exact" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoSucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{sucursalView.estadoSucursal}">
+												<f:selectItem itemLabel="S" itemValue="S" />
+												<f:selectItem itemLabel="N" itemValue="N" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Persona" style="width:100px"
+									filterBy="idPers_Persona" sortBy="idPers_Persona">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idPers_Persona}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{sucursalView.idPers_Persona}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.persona}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Empresa" style="width:100px"
+									filterBy="idEmpr_Empresa" sortBy="idEmpr_Empresa">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idEmpr_Empresa}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{sucursalView.idEmpr_Empresa}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.empresa}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID División Politica" style="width:100px"
+									filterBy="idDipo_DivisionPolitica"
+									sortBy="idDipo_DivisionPolitica">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{sucursalView.idDipo_DivisionPolitica}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.divisionPolitica}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Tipo de Sucursal" style="width:100px"
+									filterBy="idTisu_TipoSucursal" sortBy="idTisu_TipoSucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTisu_TipoSucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{sucursalView.idTisu_TipoSucursal}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.tipoSucursal}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Regional Geografica"
+									style="width:100px" filterBy="idRege_RegionalGeografica"
+									sortBy="idRege_RegionalGeografica">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idRege_RegionalGeografica}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{sucursalView.idRege_RegionalGeografica}"
+												style="width:160px">
+												<f:selectItems value="#{sucursalView.regionalGeografica}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha de Creación" style="width: 100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width: 100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{sucursalView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{sucursalView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Sucursal" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgIdSucu_Sucursal" value="Sucursal Padre:" />
+									<p:selectOneMenu value="#{sucursalView.idSucu_Sucursal}"
+										binding="#{sucursalView.txtIdSucu_Sucursal}">
+										<f:selectItems value="#{sucursalView.sucursal}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgCodigo" value="Codigo:" />
+									<p:inputText id="txtCodigo" value="#{sucursalView.codigo}"
+										binding="#{sucursalView.txtCodigo}" />
+
+									<h:outputText id="msgNombre" value="Nombre:" />
+									<p:inputText id="txtNombre" value="#{sucursalView.nombre}"
+										binding="#{sucursalView.txtNombre}" />
+
+									<h:outputText id="msgDireccion" value="Dirección:" />
+									<p:inputText id="txtDireccion"
+										value="#{sucursalView.direccion}"
+										binding="#{sucursalView.txtDireccion}" />
+
+									<h:outputText id="msgTelefono" value="Telefono:" />
+									<p:inputText id="txtTelefono" value="#{sucursalView.telefono}"
+										binding="#{sucursalView.txtTelefono}" />
+
+									<h:outputText id="msgZipCode" value="Codigo Postal:" />
+									<p:inputText id="txtZipCode" value="#{sucursalView.zipCode}"
+										binding="#{sucursalView.txtZipCode}" />
+
+									<h:outputText id="msgEmail" value="Email:" />
+									<p:inputText id="txtEmail" value="#{sucursalView.email}"
+										binding="#{sucursalView.txtEmail}" />
+
+									<h:outputText id="msgEstadoSucursal" value="*Estado Sucursal:" />
+									<p:selectOneMenu binding="#{sucursalView.txtEstadoSucursal}"
+										value="#{sucursalView.estadoSucursal}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>					
+
+									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
+									<p:selectOneMenu value="#{sucursalView.idPers_Persona}"
+										binding="#{sucursalView.txtIdPers_Persona}">
+										<f:selectItems value="#{sucursalView.persona}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa:" />
+									<p:selectOneMenu value="#{sucursalView.idEmpr_Empresa}"
+										binding="#{sucursalView.txtIdEmpr_Empresa}">
+										<f:selectItems value="#{sucursalView.empresa}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdDipo_DivisionPolitica"
+										value="ID División Politica:" />
+									<p:selectOneMenu
+										value="#{sucursalView.idDipo_DivisionPolitica}"
+										binding="#{sucursalView.txtIdDipo_DivisionPolitica}">
+										<f:selectItems value="#{sucursalView.divisionPolitica}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdTisu_TipoSucursal"
+										value="ID Tipo de Sucursal:" />
+									<p:selectOneMenu value="#{sucursalView.idTisu_TipoSucursal}"
+										binding="#{sucursalView.txtIdTisu_TipoSucursal}">
+										<f:selectItems value="#{sucursalView.tipoSucursal}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdRege_RegionalGeografica"
+										value="ID Regional Geografica:" />
+									<p:selectOneMenu
+										value="#{sucursalView.idRege_RegionalGeografica}"
+										binding="#{sucursalView.txtIdRege_RegionalGeografica}">
+										<f:selectItems value="#{sucursalView.regionalGeografica}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{sucursalView.estado}"
+										value="#{sucursalView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{sucursalView.action_create}"
+										binding="#{sucursalView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

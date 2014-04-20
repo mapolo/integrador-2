@@ -3,7 +3,9 @@ package co.edu.usbcali.presentation.backingBeans;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -12,15 +14,31 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.DescuentoComercial;
+import co.edu.usbcali.modelo.Empresa;
+import co.edu.usbcali.modelo.Persona;
+import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.dto.ConfSemanasAnoDTO;
 import co.edu.usbcali.modelo.dto.DescuentoComercialDTO;
+import co.edu.usbcali.modelo.dto.EmpresaDTO;
+import co.edu.usbcali.modelo.dto.GrupoDTO;
+import co.edu.usbcali.modelo.dto.ListaPreciosEspecialesDTO;
+import co.edu.usbcali.modelo.dto.PersonaDTO;
+import co.edu.usbcali.modelo.dto.ReferenciaDTO;
+import co.edu.usbcali.modelo.dto.RelacionComercialDTO;
+import co.edu.usbcali.modelo.dto.SucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -33,9 +51,10 @@ import co.edu.usbcali.utilities.FacesUtils;
 public class DescuentoComercialView {
 	private InputText txtAsocGrupoItem;
 	private InputText txtCreadoAutomatico;
-	private InputText txtEspacios;
-	private InputText txtEstadoPlano;
-	private InputText txtEstadoRegistro;
+	private InputTextarea txtEspacios;
+	private SelectOneMenu txtEstadoPlano;
+	//private InputText txtEstadoRegistro;
+	private SelectOneMenu estado;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtPorcDescItem;
@@ -43,15 +62,46 @@ public class DescuentoComercialView {
 	private InputText txtPorcDescMinItem;
 	private InputText txtTipoAsocGrupoItem;
 	private InputText txtTodasSucursales;
-	private InputText txtIdEmpr_Empresa;
-	private InputText txtIdGrpo_Grupo;
-	private InputText txtIdPers_Persona;
-	private InputText txtIdSucu_Sucursal;
+	private SelectOneMenu txtIdEmpr_Empresa;
+	private SelectOneMenu txtIdGrpo_Grupo;
+	private SelectOneMenu txtIdPers_Persona;
+	private SelectOneMenu txtIdSucu_Sucursal;
+	private SelectOneMenu txtIdIdSucu_Sucursal;
 	private InputText txtIdDeco;
-	private Calendar txtFechaCreacion;
+	private InputText txtFechaCreacion;
 	private Calendar txtFechaFinal;
 	private Calendar txtFechaInicial;
-	private Calendar txtFechaModificacion;
+	private InputText txtFechaModificacion;
+	
+	private String asocGrupoItem;
+	private String creadoAutomatico;
+	private String espacios;
+	private String estadoPlano;
+	private String estadoRegistro;
+	private String operCreador;
+	private String operModifica;
+	private String porcDescItem;
+	private String porcDescMaxItem;
+	private String porcDescMinItem;
+	private String tipoAsocGrupoItem;
+	private String todasSucursales;
+	private String idEmpr_Empresa;
+	private String idGrpo_Grupo;
+	private String idPers_Persona;
+	private String idSucu_Sucursal;
+	private String idIdSucu_Sucursal;
+	private String idDeco;
+	private String fechaCreacion;
+	private String fechaFinal;
+	private String fechaInicial;
+	private String fechaModificacion;
+	
+	private Map<String, String> persona = new HashMap<String, String>();
+	private Map<String, String> empresa = new HashMap<String, String>();
+	private Map<String, String> sucursal = new HashMap<String, String>();
+	private Map<String, String> sucursal2 = new HashMap<String, String>();
+	private Map<String, String>  grupo = new HashMap<String, String>();
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -62,10 +112,164 @@ public class DescuentoComercialView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+	private SelectItem[] manufacturerOptions2;
+
+	String manufacturers[] = { "A", "R" };
+	String manufacturers2[] = { "1", "'0" };
 
 	public DescuentoComercialView() {
 		super();
+		
+		setManufacturerOptions(createFilterOptions(manufacturers));
+		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
+	
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+			
+
+			entity = null;
+			entity = businessDelegatorView.getDescuentoComercial(((DescuentoComercialDTO) event
+					.getObject()).getIdDeco());
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setFechaModificacion(new Date());
+
+			entity.setEstadoPlano(((DescuentoComercialDTO) event.getObject())
+					.getEstadoPlano());
+			
+			Date fechaInicial = ((DescuentoComercialDTO) event.getObject())
+					.getFechaInicial();
+			entity.setFechaInicial(fechaInicial);
+			Date fechaFinal = ((DescuentoComercialDTO) event.getObject())
+					.getFechaFinal();
+			entity.setFechaFinal(fechaFinal);
+			
+			
+			entity.setEspacios(((DescuentoComercialDTO) event.getObject())
+					.getEspacios());
+			
+			entity.setCreadoAutomatico(((DescuentoComercialDTO) event.getObject())
+					.getCreadoAutomatico());
+			
+			entity.setTodasSucursales(((DescuentoComercialDTO) event.getObject())
+					.getTodasSucursales());
+			
+			entity.setTipoAsocGrupoItem(((DescuentoComercialDTO) event.getObject())
+					.getTipoAsocGrupoItem());
+			
+			entity.setAsocGrupoItem(((DescuentoComercialDTO) event.getObject())
+					.getAsocGrupoItem());
+			
+			entity.setPorcDescMinItem(((DescuentoComercialDTO) event.getObject())
+					.getPorcDescMinItem());
+			
+			entity.setPorcDescItem(((DescuentoComercialDTO) event.getObject())
+					.getPorcDescItem());
+			
+			entity.setPorcDescMaxItem(((DescuentoComercialDTO) event.getObject())
+					.getPorcDescMaxItem());
+			
+			
+//							Llaves foraneas	
+			
+			Empresa entity4 =  businessDelegatorView.getEmpresa(Long.parseLong(idEmpr_Empresa));
+			
+			System.out.println("Empresa 1: " + txtIdEmpr_Empresa.getValue() );
+	
+			if (txtIdEmpr_Empresa.getValue() == "0") {
+				System.out.println("entro cero 1");
+			entity.setEmpresa(null);
+				
+			}else {
+				entity.setEmpresa(entity4);
+				
+				/*entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+						.checkLong(txtIdEmpr_Empresa)));*/
+			}
+			
+	
+			
+			Persona entity2 = businessDelegatorView.getPersona(Long.parseLong(idPers_Persona));
+			System.out.println("Persona2: " + txtIdPers_Persona.getValue() );
+			
+			if (txtIdPers_Persona.getValue().equals("0")) {
+				System.out.println("entro cero2");
+				entity.setPersona(null);
+			}else {
+				
+				entity.setPersona(entity2);
+				/*entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+						.checkLong(txtIdPers_Persona)));*/
+			}
+			
+	
+			
+			Sucursal entity6 = businessDelegatorView.getSucursal(Long.parseLong(idIdSucu_Sucursal));
+			
+			System.out.println("Sucursal 3: " + txtIdIdSucu_Sucursal.getValue() );
+			
+			if (txtIdIdSucu_Sucursal.getValue().equals("0")) {
+				
+				System.out.println("entro cero 3");
+				entity.setSucursalByIdSucu(null);
+			}else {
+				
+				entity.setSucursalByIdSucu(entity6);
+				/*entity.setSucursalBySucursalHija(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_SucursalH)));*/
+			}
+			
+	
+			System.out.println("4: " + txtIdSucu_Sucursal.getValue());
+			entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils
+					.checkLong(txtIdSucu_Sucursal)));
+			
+			System.out.println("5: " + txtIdGrpo_Grupo.getValue());
+			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+					.checkLong(txtIdGrpo_Grupo)));
+
+			
+			
+			
+			businessDelegatorView.updateDescuentoComercial(entity);
+			data = businessDelegatorView.getDataDescuentoComercial();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			FacesUtils.addErrorMessage(e.getMessage());
+			
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
+				((DescuentoComercialDTO) event.getObject()).getIdDeco() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((DescuentoComercialDTO) event.getObject()).getIdDeco());
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -86,23 +290,23 @@ public class DescuentoComercialView {
 					.getCreadoAutomatico());
 
 			if (txtEspacios == null) {
-				txtEspacios = new InputText();
+				txtEspacios = new InputTextarea();
 			}
 
 			txtEspacios.setValue(descuentoComercialDTO.getEspacios());
 
 			if (txtEstadoPlano == null) {
-				txtEstadoPlano = new InputText();
+				txtEstadoPlano = new SelectOneMenu();
 			}
 
 			txtEstadoPlano.setValue(descuentoComercialDTO.getEstadoPlano());
 
-			if (txtEstadoRegistro == null) {
+			/*if (txtEstadoRegistro == null) {
 				txtEstadoRegistro = new InputText();
 			}
 
 			txtEstadoRegistro.setValue(descuentoComercialDTO
-					.getEstadoRegistro());
+					.getEstadoRegistro());*/
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -151,27 +355,27 @@ public class DescuentoComercialView {
 					.getTodasSucursales());
 
 			if (txtIdEmpr_Empresa == null) {
-				txtIdEmpr_Empresa = new InputText();
+				txtIdEmpr_Empresa = new SelectOneMenu();
 			}
 
 			txtIdEmpr_Empresa.setValue(descuentoComercialDTO
 					.getIdEmpr_Empresa());
 
 			if (txtIdGrpo_Grupo == null) {
-				txtIdGrpo_Grupo = new InputText();
+				txtIdGrpo_Grupo = new SelectOneMenu();
 			}
 
 			txtIdGrpo_Grupo.setValue(descuentoComercialDTO.getIdGrpo_Grupo());
 
 			if (txtIdPers_Persona == null) {
-				txtIdPers_Persona = new InputText();
+				txtIdPers_Persona = new SelectOneMenu();
 			}
 
 			txtIdPers_Persona.setValue(descuentoComercialDTO
 					.getIdPers_Persona());
 
 			if (txtIdSucu_Sucursal == null) {
-				txtIdSucu_Sucursal = new InputText();
+				txtIdSucu_Sucursal = new SelectOneMenu();
 			}
 
 			if (txtIdDeco == null) {
@@ -181,7 +385,7 @@ public class DescuentoComercialView {
 			txtIdDeco.setValue(descuentoComercialDTO.getIdDeco());
 
 			if (txtFechaCreacion == null) {
-				txtFechaCreacion = new Calendar();
+				txtFechaCreacion = new InputText();
 			}
 
 			txtFechaCreacion.setValue(descuentoComercialDTO.getFechaCreacion());
@@ -199,7 +403,7 @@ public class DescuentoComercialView {
 			txtFechaInicial.setValue(descuentoComercialDTO.getFechaInicial());
 
 			if (txtFechaModificacion == null) {
-				txtFechaModificacion = new Calendar();
+				txtFechaModificacion = new InputText();
 			}
 
 			txtFechaModificacion.setValue(descuentoComercialDTO
@@ -224,111 +428,111 @@ public class DescuentoComercialView {
 
 		if (txtAsocGrupoItem != null) {
 			txtAsocGrupoItem.setValue(null);
-			txtAsocGrupoItem.setDisabled(true);
+			//txtAsocGrupoItem.setDisabled(true);
 		}
 
 		if (txtCreadoAutomatico != null) {
 			txtCreadoAutomatico.setValue(null);
-			txtCreadoAutomatico.setDisabled(true);
+			//txtCreadoAutomatico.setDisabled(true);
 		}
 
 		if (txtEspacios != null) {
 			txtEspacios.setValue(null);
-			txtEspacios.setDisabled(true);
+			//txtEspacios.setDisabled(true);
 		}
 
 		if (txtEstadoPlano != null) {
 			txtEstadoPlano.setValue(null);
-			txtEstadoPlano.setDisabled(true);
+			//txtEstadoPlano.setDisabled(true);
 		}
 
-		if (txtEstadoRegistro != null) {
+		/*if (txtEstadoRegistro != null) {
 			txtEstadoRegistro.setValue(null);
 			txtEstadoRegistro.setDisabled(true);
-		}
+		}*/
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			//txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
-			txtOperModifica.setValue(null);
+			//txtOperModifica.setValue(null);
 			txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPorcDescItem != null) {
 			txtPorcDescItem.setValue(null);
-			txtPorcDescItem.setDisabled(true);
+			//txtPorcDescItem.setDisabled(true);
 		}
 
 		if (txtPorcDescMaxItem != null) {
 			txtPorcDescMaxItem.setValue(null);
-			txtPorcDescMaxItem.setDisabled(true);
+			//txtPorcDescMaxItem.setDisabled(true);
 		}
 
 		if (txtPorcDescMinItem != null) {
 			txtPorcDescMinItem.setValue(null);
-			txtPorcDescMinItem.setDisabled(true);
+			//txtPorcDescMinItem.setDisabled(true);
 		}
 
 		if (txtTipoAsocGrupoItem != null) {
 			txtTipoAsocGrupoItem.setValue(null);
-			txtTipoAsocGrupoItem.setDisabled(true);
+			//txtTipoAsocGrupoItem.setDisabled(true);
 		}
 
 		if (txtTodasSucursales != null) {
 			txtTodasSucursales.setValue(null);
-			txtTodasSucursales.setDisabled(true);
+			//txtTodasSucursales.setDisabled(true);
 		}
 
 		if (txtIdEmpr_Empresa != null) {
 			txtIdEmpr_Empresa.setValue(null);
-			txtIdEmpr_Empresa.setDisabled(true);
+			//txtIdEmpr_Empresa.setDisabled(true);
 		}
 
 		if (txtIdGrpo_Grupo != null) {
 			txtIdGrpo_Grupo.setValue(null);
-			txtIdGrpo_Grupo.setDisabled(true);
+			//txtIdGrpo_Grupo.setDisabled(true);
 		}
 
 		if (txtIdPers_Persona != null) {
 			txtIdPers_Persona.setValue(null);
-			txtIdPers_Persona.setDisabled(true);
+			//txtIdPers_Persona.setDisabled(true);
 		}
 
 		if (txtIdSucu_Sucursal != null) {
 			txtIdSucu_Sucursal.setValue(null);
-			txtIdSucu_Sucursal.setDisabled(true);
+			//txtIdSucu_Sucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			//txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaFinal != null) {
 			txtFechaFinal.setValue(null);
-			txtFechaFinal.setDisabled(true);
+			//txtFechaFinal.setDisabled(true);
 		}
 
 		if (txtFechaInicial != null) {
 			txtFechaInicial.setValue(null);
-			txtFechaInicial.setDisabled(true);
+			//txtFechaInicial.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			//txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdDeco != null) {
 			txtIdDeco.setValue(null);
-			txtIdDeco.setDisabled(false);
+			//txtIdDeco.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -383,7 +587,7 @@ public class DescuentoComercialView {
 			txtCreadoAutomatico.setDisabled(false);
 			txtEspacios.setDisabled(false);
 			txtEstadoPlano.setDisabled(false);
-			txtEstadoRegistro.setDisabled(false);
+			//txtEstadoRegistro.setDisabled(false);
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setDisabled(false);
 			txtPorcDescItem.setDisabled(false);
@@ -410,8 +614,8 @@ public class DescuentoComercialView {
 			txtEspacios.setDisabled(false);
 			txtEstadoPlano.setValue(entity.getEstadoPlano());
 			txtEstadoPlano.setDisabled(false);
-			txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			txtEstadoRegistro.setDisabled(false);
+			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			//txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaFinal.setValue(entity.getFechaFinal());
@@ -462,9 +666,9 @@ public class DescuentoComercialView {
 		txtEspacios.setDisabled(false);
 		txtEstadoPlano.setValue(selectedDescuentoComercial.getEstadoPlano());
 		txtEstadoPlano.setDisabled(false);
-		txtEstadoRegistro.setValue(selectedDescuentoComercial
+		/*txtEstadoRegistro.setValue(selectedDescuentoComercial
 				.getEstadoRegistro());
-		txtEstadoRegistro.setDisabled(false);
+		txtEstadoRegistro.setDisabled(false);*/
 		txtFechaCreacion
 				.setValue(selectedDescuentoComercial.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
@@ -530,23 +734,21 @@ public class DescuentoComercialView {
 	public String action_create() {
 		try {
 			entity = new DescuentoComercial();
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			Long idDeco = new Long(txtIdDeco.getValue().toString());
+			String usuario = (String) session.getAttribute("Usuario");
+			//Long idDeco = new Long(txtIdDeco.getValue().toString());
 
 			entity.setAsocGrupoItem(FacesUtils.checkString(txtAsocGrupoItem));
 			entity.setCreadoAutomatico(FacesUtils
 					.checkLong(txtCreadoAutomatico));
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
 			entity.setEstadoPlano(FacesUtils.checkLong(txtEstadoPlano));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdDeco(idDeco);
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setPorcDescItem(FacesUtils.checkDouble(txtPorcDescItem));
 			entity.setPorcDescMaxItem(FacesUtils
 					.checkDouble(txtPorcDescMaxItem));
@@ -555,14 +757,56 @@ public class DescuentoComercialView {
 			entity.setTipoAsocGrupoItem(FacesUtils
 					.checkLong(txtTipoAsocGrupoItem));
 			entity.setTodasSucursales(FacesUtils.checkLong(txtTodasSucursales));
-			entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-					.checkLong(txtIdEmpr_Empresa)));
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
-			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));
+			
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			if (txtIdEmpr_Empresa.getValue() == "") {
+				
+			}else{
+				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+						.checkLong(txtIdEmpr_Empresa)));
+			}
+			
+			
+			
+			if (txtIdGrpo_Grupo.getValue() == "") {
+				
+			}else{
+				entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+						.checkLong(txtIdGrpo_Grupo)));
+			}
+			
+			
+			
+			if (txtIdPers_Persona.getValue() == "") {
+				
+			}else{
+				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+						.checkLong(txtIdPers_Persona)));
+			}
+			
+			
+			
+			if (txtIdIdSucu_Sucursal.getValue() == "") {
+				
+			}else{
+				entity.setSucursalByIdSucu(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdIdSucu_Sucursal)));
+				
+			}
 
+			
+			entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
+				
+				
+		
 			businessDelegatorView.saveDescuentoComercial(entity);
+			data = businessDelegatorView.getDataDescuentoComercial();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -584,7 +828,7 @@ public class DescuentoComercialView {
 					.checkLong(txtCreadoAutomatico));
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
 			entity.setEstadoPlano(FacesUtils.checkLong(txtEstadoPlano));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
@@ -715,29 +959,29 @@ public class DescuentoComercialView {
 		this.txtCreadoAutomatico = txtCreadoAutomatico;
 	}
 
-	public InputText getTxtEspacios() {
+	public InputTextarea getTxtEspacios() {
 		return txtEspacios;
 	}
 
-	public void setTxtEspacios(InputText txtEspacios) {
+	public void setTxtEspacios(InputTextarea txtEspacios) {
 		this.txtEspacios = txtEspacios;
 	}
 
-	public InputText getTxtEstadoPlano() {
+	public SelectOneMenu getTxtEstadoPlano() {
 		return txtEstadoPlano;
 	}
 
-	public void setTxtEstadoPlano(InputText txtEstadoPlano) {
+	public void setTxtEstadoPlano(SelectOneMenu txtEstadoPlano) {
 		this.txtEstadoPlano = txtEstadoPlano;
 	}
 
-	public InputText getTxtEstadoRegistro() {
+	/*public InputText getTxtEstadoRegistro() {
 		return txtEstadoRegistro;
 	}
 
 	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
 		this.txtEstadoRegistro = txtEstadoRegistro;
-	}
+	}*/
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -795,43 +1039,43 @@ public class DescuentoComercialView {
 		this.txtTodasSucursales = txtTodasSucursales;
 	}
 
-	public InputText getTxtIdEmpr_Empresa() {
+	public SelectOneMenu getTxtIdEmpr_Empresa() {
 		return txtIdEmpr_Empresa;
 	}
 
-	public void setTxtIdEmpr_Empresa(InputText txtIdEmpr_Empresa) {
+	public void setTxtIdEmpr_Empresa(SelectOneMenu txtIdEmpr_Empresa) {
 		this.txtIdEmpr_Empresa = txtIdEmpr_Empresa;
 	}
 
-	public InputText getTxtIdGrpo_Grupo() {
+	public SelectOneMenu getTxtIdGrpo_Grupo() {
 		return txtIdGrpo_Grupo;
 	}
 
-	public void setTxtIdGrpo_Grupo(InputText txtIdGrpo_Grupo) {
+	public void setTxtIdGrpo_Grupo(SelectOneMenu txtIdGrpo_Grupo) {
 		this.txtIdGrpo_Grupo = txtIdGrpo_Grupo;
 	}
 
-	public InputText getTxtIdPers_Persona() {
+	public SelectOneMenu getTxtIdPers_Persona() {
 		return txtIdPers_Persona;
 	}
 
-	public void setTxtIdPers_Persona(InputText txtIdPers_Persona) {
+	public void setTxtIdPers_Persona(SelectOneMenu txtIdPers_Persona) {
 		this.txtIdPers_Persona = txtIdPers_Persona;
 	}
 
-	public InputText getTxtIdSucu_Sucursal() {
+	public SelectOneMenu getTxtIdSucu_Sucursal() {
 		return txtIdSucu_Sucursal;
 	}
 
-	public void setTxtIdSucu_Sucursal(InputText txtIdSucu_Sucursal) {
+	public void setTxtIdSucu_Sucursal(SelectOneMenu txtIdSucu_Sucursal) {
 		this.txtIdSucu_Sucursal = txtIdSucu_Sucursal;
 	}
 
-	public Calendar getTxtFechaCreacion() {
+	public InputText getTxtFechaCreacion() {
 		return txtFechaCreacion;
 	}
 
-	public void setTxtFechaCreacion(Calendar txtFechaCreacion) {
+	public void setTxtFechaCreacion(InputText txtFechaCreacion) {
 		this.txtFechaCreacion = txtFechaCreacion;
 	}
 
@@ -851,11 +1095,11 @@ public class DescuentoComercialView {
 		this.txtFechaInicial = txtFechaInicial;
 	}
 
-	public Calendar getTxtFechaModificacion() {
+	public InputText getTxtFechaModificacion() {
 		return txtFechaModificacion;
 	}
 
-	public void setTxtFechaModificacion(Calendar txtFechaModificacion) {
+	public void setTxtFechaModificacion(InputText txtFechaModificacion) {
 		this.txtFechaModificacion = txtFechaModificacion;
 	}
 
@@ -944,4 +1188,337 @@ public class DescuentoComercialView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getAsocGrupoItem() {
+		return asocGrupoItem;
+	}
+
+	public void setAsocGrupoItem(String asocGrupoItem) {
+		this.asocGrupoItem = asocGrupoItem;
+	}
+
+	public String getCreadoAutomatico() {
+		return creadoAutomatico;
+	}
+
+	public void setCreadoAutomatico(String creadoAutomatico) {
+		this.creadoAutomatico = creadoAutomatico;
+	}
+
+	public String getEspacios() {
+		return espacios;
+	}
+
+	public void setEspacios(String espacios) {
+		this.espacios = espacios;
+	}
+
+	public String getEstadoPlano() {
+		return estadoPlano;
+	}
+
+	public void setEstadoPlano(String estadoPlano) {
+		this.estadoPlano = estadoPlano;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getPorcDescItem() {
+		return porcDescItem;
+	}
+
+	public void setPorcDescItem(String porcDescItem) {
+		this.porcDescItem = porcDescItem;
+	}
+
+	public String getPorcDescMaxItem() {
+		return porcDescMaxItem;
+	}
+
+	public void setPorcDescMaxItem(String porcDescMaxItem) {
+		this.porcDescMaxItem = porcDescMaxItem;
+	}
+
+	public String getPorcDescMinItem() {
+		return porcDescMinItem;
+	}
+
+	public void setPorcDescMinItem(String porcDescMinItem) {
+		this.porcDescMinItem = porcDescMinItem;
+	}
+
+	public String getTipoAsocGrupoItem() {
+		return tipoAsocGrupoItem;
+	}
+
+	public void setTipoAsocGrupoItem(String tipoAsocGrupoItem) {
+		this.tipoAsocGrupoItem = tipoAsocGrupoItem;
+	}
+
+	public String getTodasSucursales() {
+		return todasSucursales;
+	}
+
+	public void setTodasSucursales(String todasSucursales) {
+		this.todasSucursales = todasSucursales;
+	}
+
+	public String getIdEmpr_Empresa() {
+		return idEmpr_Empresa;
+	}
+
+	public void setIdEmpr_Empresa(String idEmpr_Empresa) {
+		this.idEmpr_Empresa = idEmpr_Empresa;
+	}
+
+	public String getIdGrpo_Grupo() {
+		return idGrpo_Grupo;
+	}
+
+	public void setIdGrpo_Grupo(String idGrpo_Grupo) {
+		this.idGrpo_Grupo = idGrpo_Grupo;
+	}
+
+	public String getIdPers_Persona() {
+		return idPers_Persona;
+	}
+
+	public void setIdPers_Persona(String idPers_Persona) {
+		this.idPers_Persona = idPers_Persona;
+	}
+
+	public String getIdSucu_Sucursal() {
+		return idSucu_Sucursal;
+	}
+
+	public void setIdSucu_Sucursal(String idSucu_Sucursal) {
+		this.idSucu_Sucursal = idSucu_Sucursal;
+	}
+
+	public String getIdDeco() {
+		return idDeco;
+	}
+
+	public void setIdDeco(String idDeco) {
+		this.idDeco = idDeco;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(String fechaFinal) {
+		this.fechaFinal = fechaFinal;
+	}
+
+	public String getFechaInicial() {
+		return fechaInicial;
+	}
+
+	public void setFechaInicial(String fechaInicial) {
+		this.fechaInicial = fechaInicial;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public SelectOneMenu getEstado() {
+		return estado;
+	}
+
+	public void setEstado(SelectOneMenu estado) {
+		this.estado = estado;
+	}
+
+	public SelectOneMenu getTxtIdIdSucu_Sucursal() {
+		return txtIdIdSucu_Sucursal;
+	}
+
+	public void setTxtIdIdSucu_Sucursal(SelectOneMenu txtIdIdSucu_Sucursal) {
+		this.txtIdIdSucu_Sucursal = txtIdIdSucu_Sucursal;
+	}
+
+	public String getIdIdSucu_Sucursal() {
+		return idIdSucu_Sucursal;
+	}
+
+	public void setIdIdSucu_Sucursal(String idIdSucu_Sucursal) {
+		this.idIdSucu_Sucursal = idIdSucu_Sucursal;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public SelectItem[] getManufacturerOptions2() {
+		return manufacturerOptions2;
+	}
+
+	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
+		this.manufacturerOptions2 = manufacturerOptions2;
+	}
+	
+	
+	
+	
+
+	public Map<String, String> getPersona() {
+		try {
+			List<PersonaDTO> data2 = businessDelegatorView
+					.getDataPersona();
+
+			for (int i = 0; i < data2.size(); i++) {
+				persona.put(data2.get(i).getPrimerNombre(), data2.get(i)
+						.getIdPers() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return persona;
+	}
+
+	public void setPersona(Map<String, String> persona) {
+		this.persona = persona;
+	}
+	
+	
+
+	public Map<String, String> getEmpresa() {
+		try {
+			List<EmpresaDTO> data4 = businessDelegatorView
+					.getDataEmpresa();
+
+			for (int i = 0; i < data4.size(); i++) {
+				empresa.put(data4.get(i).getNombre(), data4.get(i)
+						.getIdEmpr() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return empresa;
+	}
+	
+	public void setEmpresa(Map<String, String> empresa) {	
+		this.empresa = empresa;
+	}
+	
+	
+	
+	
+
+	public Map<String, String> getSucursal() {
+		try {
+			List<SucursalDTO> data3 = businessDelegatorView
+					.getDataSucursal();
+
+			for (int i = 0; i < data3.size(); i++) {
+				sucursal.put(data3.get(i).getCodigo(), data3.get(i)
+						.getIdSucu() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sucursal;
+	}
+
+	public void setSucursal(Map<String, String> sucursal) {
+		this.sucursal = sucursal;
+	}
+	
+	
+	
+
+	public Map<String, String> getSucursal2() {
+
+		try {
+			List<SucursalDTO> data6 = businessDelegatorView
+					.getDataSucursal();
+
+			for (int i = 0; i < data6.size(); i++) {
+				sucursal2.put(data6.get(i).getNombre(), data6.get(i)
+						.getIdSucu()+ "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return sucursal2;
+	}
+
+	public void setSucursal2(Map<String, String> sucursal2) {
+		this.sucursal2 = sucursal2;
+	}
+	
+	
+	
+
+	public Map<String, String> getGrupo() {
+		try {
+			List<GrupoDTO> data5 = businessDelegatorView
+					.getDataGrupo();
+
+			for (int i = 0; i < data5.size(); i++) {
+				grupo.put(data5.get(i).getNombre(), data5.get(i)
+						.getIdGrpo()+ "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return grupo;
+	}
+
+	public void setGrupo(Map<String, String> grupo) {
+		this.grupo = grupo;
+	}
+	
+	
+	
 }

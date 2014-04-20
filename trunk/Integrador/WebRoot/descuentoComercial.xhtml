@@ -1,0 +1,557 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectDescuentoComercialTitle"
+							header="DescuentoComercial">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{descuentoComercialView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true"
+								filteredValue="#{descuentoComercialView.data}">
+
+								<p:ajax event="rowEdit"
+									listener="#{descuentoComercialView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{descuentoComercialView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idDeco" sortBy="idDeco"
+									style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idDeco}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idDeco}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha Inicial" style="width: 100px"
+									filterBy="fechaInicial" sortBy="fechaInicial">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaInicial}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:calendar value="#{car.fechaInicial}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Fecha Final" style="width: 100px"
+									filterBy="fechaFinal" sortBy="fechaFinal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaFinal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:calendar value="#{car.fechaFinal}" showOn="button"
+												pattern="yyyy-MM-dd" navigator="true">
+											</p:calendar>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column id="espacios" filterBy="espacios"
+									headerText="Espacios" sortBy="espacios"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.espacios}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.espacios }" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								
+								<p:column headerText="Estado plano" style="width:100px"
+									filterBy="estadoPlano"
+									filterOptions="#{descuentoComercialView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{descuentoComercialView.estadoPlano}">
+												<f:selectItem itemLabel="0" itemValue="0" />
+												<f:selectItem itemLabel="1" itemValue="1" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column id="creadoAutomatico" filterBy="creadoAutomatico" headerText="Creado Automatico"
+									sortBy="creadoAutomatico" filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.creadoAutomatico}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.creadoAutomatico}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="todasSucursales" filterBy="todasSucursales"
+									headerText="Todas Sucursales" sortBy="tipoGrabado"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.todasSucursales}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.todasSucursales}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="tipoAsocGrupoItem" filterBy="tipoAsocGrupoItem"
+									headerText="Tipo Asoc Grupo Item" sortBy="concepto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.tipoAsocGrupoItem}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.tipoAsocGrupoItem}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column id="asocGrupoItem" filterBy="asocGrupoItem"
+									headerText="Asoc. Grupo Item" sortBy="concepto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.asocGrupoItem}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.asocGrupoItem}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column id="porcDescMinItem" filterBy="porcDescMinItem"
+									headerText="Porcentaje Descuento Minimo Item" sortBy="concepto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcDescMinItem}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.porcDescMinItem}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column id="porcDescItem" filterBy="porcDescItem"
+									headerText="Porcentaje Descuento Item" sortBy="concepto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcDescItem}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.porcDescItem}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column id="porcDescMaxItem" filterBy="porcDescMaxItem"
+									headerText="Porcentaje Descuento Maximo Item" sortBy="concepto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcDescMaxItem}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.porcDescMaxItem}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								
+
+								<p:column headerText="ID sucursal padre" style="width:100px"
+									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_Sucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoComercialView.idSucu_Sucursal}"
+												style="width:100px">
+
+												<f:selectItems
+													value="#{descuentoComercialView.sucursal}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID sucursal hija" style="width:100px"
+									filterBy="idIdSucu_Sucursal" sortBy="idIdSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idIdSucu_Sucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoComercialView.idIdSucu_Sucursal}"
+												style="width:100px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
+												<f:selectItems
+													value="#{descuentoComercialView.sucursal2}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								<p:column headerText="ID Empresa" style="width:100px"
+									filterBy="idEmpr_Empresa" sortBy="idEmpr_Empresa">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idEmpr_Empresa}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoComercialView.idEmpr_Empresa}"
+												style="width:100px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
+												<f:selectItems value="#{descuentoComercialView.empresa}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="ID Persona" style="width:100px"
+									filterBy="idPers_Persona" sortBy="idPers_Persona">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idPers_Persona}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoComercialView.idPers_Persona}"
+												style="width:100px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
+												<f:selectItems value="#{descuentoComercialView.persona}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Fecha de Creación" style="width:100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{descuentoComercialView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{descuentoComercialView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								
+								
+								
+								<p:column headerText="ID Grupo" style="width:100px"
+									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idGrpo_Grupo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{descuentoComercialView.idGrpo_Grupo}"
+												style="width:100px">
+
+												<f:selectItems
+													value="#{descuentoComercialView.grupo}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Relacion comercial"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+								
+								
+									<h:outputText id="msgFechaInicial" value=" *Fecha Inicial:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoComercialView.txtFechaInicial}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoComercialView.listener_txtFechaInicial}"
+											update="men" />
+									</p:calendar>
+								
+								<h:outputText id="msgFechaFinal" value=" *Fecha Final:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoComercialView.txtFechaFinal}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoComercialView.listener_txtFechaFinal}"
+											update="men" />
+									</p:calendar>
+									
+
+								<h:outputText id="msgEspacios" value=" Espacios:" />
+									<p:inputTextarea rows="6" cols="33" id="txtEspacios"
+										disabled="false" value="#{descuentoComercialView.espacios}"
+										binding="#{descuentoComercialView.txtEspacios}" />
+																			
+										
+										
+										<h:outputText id="msgEstadoPlano" value=" Estado Plano:" />
+									<p:selectOneMenu
+										binding="#{descuentoComercialView.txtEstadoPlano}"
+										value="#{descuentoComercialView.estadoPlano}" disabled="false">										
+										<f:selectItem itemLabel="0" itemValue="0" />
+										<f:selectItem itemLabel="1" itemValue="1" />
+									</p:selectOneMenu>
+									
+									
+									<h:outputText id="msgCreadoAutomatico"
+										value=" Creado Automatico:" />
+									<p:inputText id="txtCreadoAutomatico"
+										value="#{descuentoComercialView.creadoAutomatico}"
+										binding="#{descuentoComercialView.txtCreadoAutomatico}" />
+									
+									
+									<h:outputText id="msgTodasSucursales" value=" Todas Sucursales:" />
+									<p:inputText id="txtTodasSucursales"
+										value="#{descuentoComercialView.todasSucursales}"
+										binding="#{descuentoComercialView.txtTodasSucursales}" />
+									
+									<h:outputText id="msgTipoAsocGrupoItem"
+										value=" Tipo Asocia Grupo Item:" />
+									<p:inputText id="txtTipoAsocGrupoItem"
+										value="#{descuentoComercialView.tipoAsocGrupoItem}"
+										binding="#{descuentoComercialView.txtTipoAsocGrupoItem}" />
+
+									<h:outputText id="msgAsocGrupoItem" value=" Asocia Grupo Item:" />
+									<p:inputText id="txtAsocGrupoItem"
+										value="#{descuentoComercialView.asocGrupoItem}"
+										binding="#{descuentoComercialView.txtAsocGrupoItem}" />
+										
+										<h:outputText id="msgPorcDescMinItem" value=" Porcentaje Descuento Minimo Item:" />
+									<p:inputText id="txtPorcDescMinItem"
+										value="#{descuentoComercialView.porcDescMinItem}"
+										binding="#{descuentoComercialView.txtPorcDescMinItem}" />
+										
+										
+										<h:outputText id="msgPorcDescItem" value=" Porcentaje Descuento Item:" />
+									<p:inputText id="txtPorcDescItem"
+										value="#{descuentoComercialView.porcDescItem}"
+										binding="#{descuentoComercialView.txtPorcDescItem}" />
+										
+										
+										<h:outputText id="msgPorcDescMaxItem" value=" Porcentaje Descuento Maximo Item:" />
+									<p:inputText id="txtPorcDescMaxItem"
+										value="#{descuentoComercialView.porcDescMaxItem}"
+										binding="#{descuentoComercialView.txtPorcDescMaxItem}" />
+										
+										
+										<h:outputText id="msgIdSucu_Sucursal" value=" Nombre de Sucursal:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idSucu_Sucursal}"
+										binding="#{descuentoComercialView.txtIdSucu_Sucursal}">
+
+										<f:selectItems value="#{descuentoComercialView.sucursal}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgIdSucu_Sucursal2"
+										value=" Nombre Sucursal Hija:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idIdSucu_Sucursal}"
+										binding="#{descuentoComercialView.txtIdIdSucu_Sucursal}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.sucursal2}" />
+									</p:selectOneMenu>
+									
+									
+									<h:outputText id="msgIdEmpr_Empresa" value=" Nombre Empresa:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idEmpr_Empresa}"
+										binding="#{descuentoComercialView.txtIdEmpr_Empresa}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.empresa}" />
+									</p:selectOneMenu>
+									
+									
+									<h:outputText id="msgIdPers_Persona" value=" Nombre Persona:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idPers_Persona}"
+										binding="#{descuentoComercialView.txtIdPers_Persona}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.persona}" />
+									</p:selectOneMenu>
+																
+
+
+									<h:outputText id="msgEstadoRegistro" value=" Estado Registro:" />
+									<p:selectOneMenu binding="#{descuentoComercialView.estado}"
+										value="#{descuentoComercialView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+	
+
+									<h:outputText id="msgIdGrpo_Grupo" value=" Nombre del Grupo:" />
+									<p:selectOneMenu value="#{descuentoComercialView.idGrpo_Grupo}"
+										binding="#{descuentoComercialView.txtIdGrpo_Grupo}">
+										
+										<f:selectItems value="#{descuentoComercialView.grupo}" />
+									</p:selectOneMenu>
+
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{descuentoComercialView.action_create}"
+										binding="#{descuentoComercialView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+
+					</h:form>
+
+				</div>
+			</f:view>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

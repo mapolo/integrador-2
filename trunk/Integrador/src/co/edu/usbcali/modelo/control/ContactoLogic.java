@@ -74,9 +74,9 @@ public class ContactoLogic implements IContactoLogic {
 						"atencionVendedor");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if (entity.getTipoContacto() == null) {
 				throw new ZMessManager().new ForeignException("tipoContacto");
@@ -110,15 +110,15 @@ public class ContactoLogic implements IContactoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCont() == null) {
+			/*if (entity.getIdCont() == null) {
 				throw new ZMessManager().new EmptyFieldException("idCont");
-			}
+			}*/
 
-			if ((entity.getIdCont() != null)
+			/*if ((entity.getIdCont() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdCont(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idCont");
-			}
+			}*/
 
 			if (entity.getNombreCompleto() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -168,7 +168,7 @@ public class ContactoLogic implements IContactoLogic {
 						"telefono2");
 			}
 
-			if (entity.getAtencionVendedor().getIdAtve() == null) {
+			/*if (entity.getAtencionVendedor().getIdAtve() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idAtve_AtencionVendedor");
 			}
@@ -178,9 +178,9 @@ public class ContactoLogic implements IContactoLogic {
 							+ entity.getAtencionVendedor().getIdAtve(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idAtve_AtencionVendedor");
-			}
+			}*/
 
-			if (entity.getSucursal().getIdSucu() == null) {
+			/*if (entity.getSucursal().getIdSucu() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idSucu_Sucursal");
 			}
@@ -190,9 +190,9 @@ public class ContactoLogic implements IContactoLogic {
 							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idSucu_Sucursal");
-			}
+			}*/
 
-			if (entity.getTipoContacto().getIdTico() == null) {
+			/*if (entity.getTipoContacto().getIdTico() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idTico_TipoContacto");
 			}
@@ -206,7 +206,7 @@ public class ContactoLogic implements IContactoLogic {
 
 			if (getContacto(entity.getIdCont()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			contactoDAO.save(entity);
 		} catch (Exception e) {
@@ -245,9 +245,9 @@ public class ContactoLogic implements IContactoLogic {
 						"atencionVendedor");
 			}
 
-			if (entity.getSucursal() == null) {
+			/*if (entity.getSucursal() == null) {
 				throw new ZMessManager().new ForeignException("sucursal");
-			}
+			}*/
 
 			if (entity.getTipoContacto() == null) {
 				throw new ZMessManager().new ForeignException("tipoContacto");
@@ -281,7 +281,7 @@ public class ContactoLogic implements IContactoLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCont() == null) {
+			/*if (entity.getIdCont() == null) {
 				throw new ZMessManager().new EmptyFieldException("idCont");
 			}
 
@@ -289,7 +289,7 @@ public class ContactoLogic implements IContactoLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdCont(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idCont");
-			}
+			}*/
 
 			if (entity.getNombreCompleto() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -339,7 +339,7 @@ public class ContactoLogic implements IContactoLogic {
 						"telefono2");
 			}
 
-			if (entity.getAtencionVendedor().getIdAtve() == null) {
+			/*if (entity.getAtencionVendedor().getIdAtve() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idAtve_AtencionVendedor");
 			}
@@ -373,7 +373,7 @@ public class ContactoLogic implements IContactoLogic {
 							+ entity.getTipoContacto().getIdTico(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTico_TipoContacto");
-			}
+			}*/
 
 			contactoDAO.update(entity);
 		} catch (Exception e) {
@@ -422,16 +422,30 @@ public class ContactoLogic implements IContactoLogic {
 								.getAtencionVendedor().getIdAtve() != null) ? contactoTmp
 								.getAtencionVendedor().getIdAtve() : null);
 
+				//fks null
+				
 				if (contactoTmp.getSucursal() != null) {
 					contactoDTO2.setIdSucu_Sucursal(contactoTmp.getSucursal()
 							.getIdSucu());
 				} else {
 					contactoDTO2.setIdSucu_Sucursal(null);
 				}
+				
+				
+				if (contactoTmp.getAtencionVendedor() != null) {
+					contactoDTO2.setIdAtve_AtencionVendedor(contactoTmp.getAtencionVendedor()
+							.getIdAtve());
+				} else {
+					contactoDTO2.setIdAtve_AtencionVendedor(null);
+				}
+				
+				
 
 				contactoDTO2.setIdTico_TipoContacto((contactoTmp
 						.getTipoContacto().getIdTico() != null) ? contactoTmp
 						.getTipoContacto().getIdTico() : null);
+				
+				
 				contactoDTO.add(contactoDTO2);
 			}
 

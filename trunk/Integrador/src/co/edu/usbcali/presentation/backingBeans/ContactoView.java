@@ -3,7 +3,9 @@ package co.edu.usbcali.presentation.backingBeans;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 
 import javax.faces.application.FacesMessage;
@@ -12,15 +14,31 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+import javax.servlet.http.HttpSession;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
+import org.primefaces.component.inputtextarea.InputTextarea;
+import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.AtencionVendedor;
 import co.edu.usbcali.modelo.Contacto;
+import co.edu.usbcali.modelo.Empresa;
+import co.edu.usbcali.modelo.Persona;
+import co.edu.usbcali.modelo.Referencia;
+import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.TipoContacto;
+import co.edu.usbcali.modelo.dto.AtencionVendedorDTO;
 import co.edu.usbcali.modelo.dto.ContactoDTO;
+import co.edu.usbcali.modelo.dto.EmpresaDTO;
+import co.edu.usbcali.modelo.dto.ListaPreciosEspecialesDTO;
+import co.edu.usbcali.modelo.dto.SucursalDTO;
+import co.edu.usbcali.modelo.dto.TipoContactoDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
 
@@ -31,19 +49,38 @@ import co.edu.usbcali.utilities.FacesUtils;
 @ManagedBean
 @ViewScoped
 public class ContactoView {
-	private InputText txtEmail;
-	private InputText txtEstadoRegistro;
-	private InputText txtNombreCompleto;
+	private InputTextarea txtEmail;
+	private SelectOneMenu txtEstadoRegistro;
+	private InputTextarea txtNombreCompleto;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
 	private InputText txtTelefono1;
 	private InputText txtTelefono2;
-	private InputText txtIdAtve_AtencionVendedor;
-	private InputText txtIdSucu_Sucursal;
-	private InputText txtIdTico_TipoContacto;
+	private SelectOneMenu txtIdAtve_AtencionVendedor;
+	private SelectOneMenu txtIdSucu_Sucursal;
+	private SelectOneMenu txtIdTico_TipoContacto;
 	private InputText txtIdCont;
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaModificacion;
+
+	private String email;
+	private String estadoRegistro;
+	private String nombreCompleto;
+	private String operCreador;
+	private String operModifica;
+	private String telefono1;
+	private String telefono2;
+	private String idAtve_AtencionVendedor;
+	private String idSucu_Sucursal;
+	private String idTico_TipoContacto;
+	private String idCont;
+	private String fechaCreacion;
+	private String fechaModificacion;
+
+	private Map<String, String> atencionVende = new HashMap<String, String>();
+	private Map<String, String> sucursal = new HashMap<String, String>();
+	private Map<String, String> tipoCont = new HashMap<String, String>();
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -54,9 +91,106 @@ public class ContactoView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+
+	String manufacturers[] = { "A", "R" };
 
 	public ContactoView() {
 		super();
+
+		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
+	}
+
+	public void onEdit(org.primefaces.event.RowEditEvent event) {
+
+		try {
+
+			entity = null;
+			entity = businessDelegatorView.getContacto(((ContactoDTO) event
+					.getObject()).getIdCont());
+
+			entity.setEstadoRegistro(estadoRegistro);
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
+			entity.setOperModifica(usuario);
+			entity.setFechaModificacion(new Date());
+
+			
+			entity.setNombreCompleto(((ContactoDTO) event.getObject())
+					.getNombreCompleto());
+			entity.setTelefono1(((ContactoDTO) event.getObject())
+					.getTelefono1());
+			entity.setTelefono2(((ContactoDTO) event.getObject())
+					.getTelefono2());
+			entity.setEmail(((ContactoDTO) event.getObject())
+					.getEmail());
+			
+			
+			
+			
+
+			
+
+			// Llaves foraneas
+			
+			
+			AtencionVendedor entity1 = businessDelegatorView.getAtencionVendedor(Long.parseLong(idAtve_AtencionVendedor));
+			if (txtIdAtve_AtencionVendedor.getValue() == "") {
+				entity.setAtencionVendedor(null);
+			} else {
+				entity.setAtencionVendedor(entity1);
+			}
+			
+			
+			
+			
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
+			if (txtIdSucu_Sucursal.getValue() == "") {
+				entity.setSucursal(null);
+			} else {
+				entity.setSucursal(entity2);
+			}
+
+			
+			
+			
+			
+			TipoContacto entity3 = businessDelegatorView.getTipoContacto(Long.parseLong(idTico_TipoContacto));
+			if (txtIdTico_TipoContacto.getValue() == "") {
+				entity.setTipoContacto(null);
+			} else {
+				entity.setTipoContacto(entity3);
+			}
+			
+
+			businessDelegatorView.updateContacto(entity);
+			data = businessDelegatorView.getDataContacto();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void onCancel(org.primefaces.event.RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
+				((ContactoDTO) event.getObject()).getIdCont() + "");
+
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("Cancelado"
+				+ ((ContactoDTO) event.getObject()).getIdCont());
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -64,19 +198,19 @@ public class ContactoView {
 			ContactoDTO contactoDTO = (ContactoDTO) e.getObject();
 
 			if (txtEmail == null) {
-				txtEmail = new InputText();
+				txtEmail = new InputTextarea();
 			}
 
 			txtEmail.setValue(contactoDTO.getEmail());
 
 			if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
+				txtEstadoRegistro = new SelectOneMenu();
 			}
 
 			txtEstadoRegistro.setValue(contactoDTO.getEstadoRegistro());
 
 			if (txtNombreCompleto == null) {
-				txtNombreCompleto = new InputText();
+				txtNombreCompleto = new InputTextarea();
 			}
 
 			txtNombreCompleto.setValue(contactoDTO.getNombreCompleto());
@@ -106,20 +240,20 @@ public class ContactoView {
 			txtTelefono2.setValue(contactoDTO.getTelefono2());
 
 			if (txtIdAtve_AtencionVendedor == null) {
-				txtIdAtve_AtencionVendedor = new InputText();
+				txtIdAtve_AtencionVendedor = new SelectOneMenu();
 			}
 
 			txtIdAtve_AtencionVendedor.setValue(contactoDTO
 					.getIdAtve_AtencionVendedor());
 
 			if (txtIdSucu_Sucursal == null) {
-				txtIdSucu_Sucursal = new InputText();
+				txtIdSucu_Sucursal = new SelectOneMenu();
 			}
 
 			txtIdSucu_Sucursal.setValue(contactoDTO.getIdSucu_Sucursal());
 
 			if (txtIdTico_TipoContacto == null) {
-				txtIdTico_TipoContacto = new InputText();
+				txtIdTico_TipoContacto = new SelectOneMenu();
 			}
 
 			txtIdTico_TipoContacto.setValue(contactoDTO
@@ -162,71 +296,71 @@ public class ContactoView {
 
 		if (txtEmail != null) {
 			txtEmail.setValue(null);
-			txtEmail.setDisabled(true);
+			// txtEmail.setDisabled(true);
 		}
 
 		if (txtEstadoRegistro != null) {
 			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
+			// txtEstadoRegistro.setDisabled(true);
 		}
 
 		if (txtNombreCompleto != null) {
 			txtNombreCompleto.setValue(null);
-			txtNombreCompleto.setDisabled(true);
+			// txtNombreCompleto.setDisabled(true);
 		}
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtTelefono1 != null) {
 			txtTelefono1.setValue(null);
-			txtTelefono1.setDisabled(true);
+			// txtTelefono1.setDisabled(true);
 		}
 
 		if (txtTelefono2 != null) {
 			txtTelefono2.setValue(null);
-			txtTelefono2.setDisabled(true);
+			// txtTelefono2.setDisabled(true);
 		}
 
 		if (txtIdAtve_AtencionVendedor != null) {
 			txtIdAtve_AtencionVendedor.setValue(null);
-			txtIdAtve_AtencionVendedor.setDisabled(true);
+			// txtIdAtve_AtencionVendedor.setDisabled(true);
 		}
 
 		if (txtIdSucu_Sucursal != null) {
 			txtIdSucu_Sucursal.setValue(null);
-			txtIdSucu_Sucursal.setDisabled(true);
+			// txtIdSucu_Sucursal.setDisabled(true);
 		}
 
 		if (txtIdTico_TipoContacto != null) {
 			txtIdTico_TipoContacto.setValue(null);
-			txtIdTico_TipoContacto.setDisabled(true);
+			// txtIdTico_TipoContacto.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdCont != null) {
 			txtIdCont.setValue(null);
-			txtIdCont.setDisabled(false);
+			// txtIdCont.setDisabled(false);
 		}
 
 		if (btnSave != null) {
-			btnSave.setDisabled(true);
+			btnSave.setDisabled(false);
 		}
 
 		return "";
@@ -363,28 +497,54 @@ public class ContactoView {
 		try {
 			entity = new Contacto();
 
-			Long idCont = new Long(txtIdCont.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idCont = new Long(txtIdCont.getValue().toString());
 
 			entity.setEmail(FacesUtils.checkString(txtEmail));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setIdCont(idCont);
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			// entity.setIdCont(idCont);
+
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setTelefono1(FacesUtils.checkString(txtTelefono1));
 			entity.setTelefono2(FacesUtils.checkString(txtTelefono2));
-			entity.setAtencionVendedor(businessDelegatorView
-					.getAtencionVendedor(FacesUtils
-							.checkLong(txtIdAtve_AtencionVendedor)));
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
-			entity.setTipoContacto(businessDelegatorView
-					.getTipoContacto(FacesUtils
-							.checkLong(txtIdTico_TipoContacto)));
+
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+
+			if (txtIdAtve_AtencionVendedor.getValue() == "") {
+				System.out.println("Entro null atencion vendedor");
+				entity.setAtencionVendedor(null);
+			} else {
+				entity.setAtencionVendedor(businessDelegatorView
+						.getAtencionVendedor(FacesUtils
+								.checkLong(txtIdAtve_AtencionVendedor)));
+			}
+
+			if (txtIdSucu_Sucursal.getValue() == "") {
+
+			} else {
+				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
+			}
+
+			if (txtIdTico_TipoContacto.getValue() == "") {
+
+			} else {
+				entity.setTipoContacto(businessDelegatorView
+						.getTipoContacto(FacesUtils
+								.checkLong(txtIdTico_TipoContacto)));
+			}
+
 			businessDelegatorView.saveContacto(entity);
+			data = businessDelegatorView.getDataContacto();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
@@ -498,27 +658,27 @@ public class ContactoView {
 		return "";
 	}
 
-	public InputText getTxtEmail() {
+	public InputTextarea getTxtEmail() {
 		return txtEmail;
 	}
 
-	public void setTxtEmail(InputText txtEmail) {
+	public void setTxtEmail(InputTextarea txtEmail) {
 		this.txtEmail = txtEmail;
 	}
 
-	public InputText getTxtEstadoRegistro() {
+	public SelectOneMenu getTxtEstadoRegistro() {
 		return txtEstadoRegistro;
 	}
 
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	public void setTxtEstadoRegistro(SelectOneMenu txtEstadoRegistro) {
 		this.txtEstadoRegistro = txtEstadoRegistro;
 	}
 
-	public InputText getTxtNombreCompleto() {
+	public InputTextarea getTxtNombreCompleto() {
 		return txtNombreCompleto;
 	}
 
-	public void setTxtNombreCompleto(InputText txtNombreCompleto) {
+	public void setTxtNombreCompleto(InputTextarea txtNombreCompleto) {
 		this.txtNombreCompleto = txtNombreCompleto;
 	}
 
@@ -554,28 +714,28 @@ public class ContactoView {
 		this.txtTelefono2 = txtTelefono2;
 	}
 
-	public InputText getTxtIdAtve_AtencionVendedor() {
+	public SelectOneMenu getTxtIdAtve_AtencionVendedor() {
 		return txtIdAtve_AtencionVendedor;
 	}
 
 	public void setTxtIdAtve_AtencionVendedor(
-			InputText txtIdAtve_AtencionVendedor) {
+			SelectOneMenu txtIdAtve_AtencionVendedor) {
 		this.txtIdAtve_AtencionVendedor = txtIdAtve_AtencionVendedor;
 	}
 
-	public InputText getTxtIdSucu_Sucursal() {
+	public SelectOneMenu getTxtIdSucu_Sucursal() {
 		return txtIdSucu_Sucursal;
 	}
 
-	public void setTxtIdSucu_Sucursal(InputText txtIdSucu_Sucursal) {
+	public void setTxtIdSucu_Sucursal(SelectOneMenu txtIdSucu_Sucursal) {
 		this.txtIdSucu_Sucursal = txtIdSucu_Sucursal;
 	}
 
-	public InputText getTxtIdTico_TipoContacto() {
+	public SelectOneMenu getTxtIdTico_TipoContacto() {
 		return txtIdTico_TipoContacto;
 	}
 
-	public void setTxtIdTico_TipoContacto(InputText txtIdTico_TipoContacto) {
+	public void setTxtIdTico_TipoContacto(SelectOneMenu txtIdTico_TipoContacto) {
 		this.txtIdTico_TipoContacto = txtIdTico_TipoContacto;
 	}
 
@@ -679,4 +839,179 @@ public class ContactoView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getNombreCompleto() {
+		return nombreCompleto;
+	}
+
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getTelefono1() {
+		return telefono1;
+	}
+
+	public void setTelefono1(String telefono1) {
+		this.telefono1 = telefono1;
+	}
+
+	public String getTelefono2() {
+		return telefono2;
+	}
+
+	public void setTelefono2(String telefono2) {
+		this.telefono2 = telefono2;
+	}
+
+	public String getIdAtve_AtencionVendedor() {
+		return idAtve_AtencionVendedor;
+	}
+
+	public void setIdAtve_AtencionVendedor(String idAtve_AtencionVendedor) {
+		this.idAtve_AtencionVendedor = idAtve_AtencionVendedor;
+	}
+
+	public String getIdSucu_Sucursal() {
+		return idSucu_Sucursal;
+	}
+
+	public void setIdSucu_Sucursal(String idSucu_Sucursal) {
+		this.idSucu_Sucursal = idSucu_Sucursal;
+	}
+
+	public String getIdTico_TipoContacto() {
+		return idTico_TipoContacto;
+	}
+
+	public void setIdTico_TipoContacto(String idTico_TipoContacto) {
+		this.idTico_TipoContacto = idTico_TipoContacto;
+	}
+
+	public String getIdCont() {
+		return idCont;
+	}
+
+	public void setIdCont(String idCont) {
+		this.idCont = idCont;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public Map<String, String> getAtencionVende() {
+		try {
+			List<AtencionVendedorDTO> data2 = businessDelegatorView
+					.getDataAtencionVendedor();
+
+			for (int i = 0; i < data2.size(); i++) {
+				atencionVende.put(data2.get(i).getIdAtve() + "", data2.get(i)
+						.getIdAtve() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return atencionVende;
+	}
+
+	public void setAtencionVende(Map<String, String> atencionVende) {
+		this.atencionVende = atencionVende;
+	}
+
+	public Map<String, String> getSucursal() {
+		try {
+			List<SucursalDTO> data3 = businessDelegatorView.getDataSucursal();
+
+			for (int i = 0; i < data3.size(); i++) {
+				sucursal.put(data3.get(i).getNombre(), data3.get(i).getIdSucu()
+						+ "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return sucursal;
+	}
+
+	public void setSucursal(Map<String, String> sucursal) {
+		this.sucursal = sucursal;
+	}
+
+	public Map<String, String> getTipoCont() {
+		try {
+			List<TipoContactoDTO> data4 = businessDelegatorView
+					.getDataTipoContacto();
+
+			for (int i = 0; i < data4.size(); i++) {
+				tipoCont.put(data4.get(i).getIdTico() + "", data4.get(i)
+						.getIdTico() + "");
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return tipoCont;
+	}
+
+	public void setTipoCont(Map<String, String> tipoCont) {
+		this.tipoCont = tipoCont;
+	}
+
 }

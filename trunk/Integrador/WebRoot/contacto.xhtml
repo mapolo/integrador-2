@@ -1,0 +1,349 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectContactoTitle" header="Contacto">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+
+							<p:dataTable var="car" value="#{contactoView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{contactoView.data}">
+
+								<p:ajax event="rowEdit" listener="#{contactoView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{contactoView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column headerText="ID" filterBy="idCont" sortBy="idCont"
+									style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idCont}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.idCont}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Tipo Contacto" style="width:100px"
+									filterBy="idTico_TipoContacto" sortBy="idTico_TipoContacto">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTico_TipoContacto}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{contactoView.idTico_TipoContacto}"
+												style="width:100px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
+												<f:selectItems value="#{contactoView.idTico_TipoContacto}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="ID Sucursal" style="width:100px"
+									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_Sucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{contactoView.idSucu_Sucursal}"
+												style="width:100px">
+												<f:selectItem itemLabel="Vacio" itemValue="0" />
+												<f:selectItems value="#{contactoView.sucursal}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column headerText="ID Atencion Vendedor" style="width:100px"
+									filterBy="idAtve_AtencionVendedor"
+									sortBy="idAtve_AtencionVendedor">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idAtve_AtencionVendedor}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{contactoView.idAtve_AtencionVendedor}"
+												style="width:100px">
+
+												<f:selectItems value="#{contactoView.atencionVende}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column id="nombreCompleto" filterBy="nombreCompleto"
+									headerText="Nombre Completo" sortBy="nombreCompleto"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.nombreCompleto}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.nombreCompleto}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="telefono1" filterBy="telefono1"
+									headerText="Telefono1" sortBy="telefono1"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono1}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono1}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+								<p:column id="telefono2" filterBy="telefono2"
+									headerText="Telefono2" sortBy="telefono2"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.telefono2}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.telefono2}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+
+								<p:column id="email" filterBy="email" headerText="Email"
+									sortBy="email" filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.email}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.email}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Fecha de Creación" style="width:100px"
+									filterBy="fechaCreacion" sortBy="fechaCreacion">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.fechaCreacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Operador Creador" style="width:100px"
+									filterBy="operCreador" sortBy="operCreador">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.operCreador}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.operCreador}" style="width:100%"
+												disabled="true" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{contactoView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{contactoView.estadoRegistro}">
+												<f:selectItem itemLabel="A" itemValue="A" />
+												<f:selectItem itemLabel="R" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="returnButton" value="Menu"
+										icon="ui-icon-documen" update=":form"
+										action="#{menuView.menu}" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Lista Precios Especiales"
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+
+
+								<h:panelGrid columns="2" id="panel">
+
+
+									<h:outputText id="msgIdTico_TipoContacto"
+										value="  ID Tipo Contacto:" />
+									<p:selectOneMenu value="#{contactoView.idTico_TipoContacto}"
+										binding="#{contactoView.txtIdTico_TipoContacto}">
+
+										<f:selectItems value="#{contactoView.tipoCont}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgIdSucu_Sucursal" value=" Nombre Sucursal:" />
+									<p:selectOneMenu value="#{contactoView.idSucu_Sucursal}"
+										binding="#{contactoView.txtIdSucu_Sucursal}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
+										<f:selectItems value="#{contactoView.sucursal}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgIdAtve_AtencionVendedor"
+										value=" Nombre Atencion Vendedor:" />
+									<p:selectOneMenu
+										value="#{contactoView.idAtve_AtencionVendedor}"
+										binding="#{contactoView.txtIdAtve_AtencionVendedor}">
+										<f:selectItem itemLabel="Vacio" itemValue="" />
+										<f:selectItems value="#{contactoView.atencionVende}" />
+									</p:selectOneMenu>
+
+
+									<h:outputText id="msgNombreCompleto" value=" *Nombre Completo:" />
+									<p:inputTextarea rows="6" cols="33" id="txtNombreCompleto"
+										disabled="false" value="#{contactoView.nombreCompleto}"
+										binding="#{contactoView.txtNombreCompleto}" />
+
+
+									<h:outputText id="msgTelefono1" value=" Telefono 1:" />
+									<p:inputText id="txtTelefono1"
+										value="#{contactoView.telefono1}"
+										binding="#{contactoView.txtTelefono1}" />
+
+
+									<h:outputText id="msgTelefono2" value=" Telefono 2:" />
+									<p:inputText id="txtTelefono2"
+										value="#{contactoView.telefono2}"
+										binding="#{contactoView.txtTelefono2}" />
+
+
+
+									<h:outputText id="msgEmail" value=" Email:" />
+									<p:inputTextarea rows="6" cols="33" id="txtEmail"
+										disabled="false" value="#{contactoView.email}"
+										binding="#{contactoView.txtEmail}" />
+
+
+									<h:outputText id="msgEstadoRegistro" value=" Estado Registro:" />
+									<p:selectOneMenu binding="#{contactoView.txtEstadoRegistro}"
+										value="#{contactoView.estadoRegistro}">
+										<f:selectItem itemLabel="A" itemValue="A" />
+										<f:selectItem itemLabel="R" itemValue="R" />
+									</p:selectOneMenu>
+
+
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{contactoView.action_create}"
+										binding="#{contactoView.btnSave}"
+										update="tablaPrincipal,msg,panel,panelBotones" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</p:panel>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+
+	</ui:composition>
+
+</h:body>
+
+</html>
