@@ -1,0 +1,306 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="ListaPreciosData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{listaPreciosView.data}" var="listaPrecios"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{listaPreciosView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{listaPrecios.if(entity.getidLipr()==null){throw new ZMessManager().new EmptyFieldException("idLipr");}}" sortBy="#{listaPrecios.if(entity.getidLipr()==null){throw new ZMessManager().new EmptyFieldException("idLipr");}}" 
+							headerText="if(entity.getidLipr()==null){throw new ZMessManager().new EmptyFieldException("idLipr");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.if(entity.getidLipr()==null){throw new ZMessManager().new EmptyFieldException("idLipr");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.if(entity.getidLipr()==null){throw new ZMessManager().new EmptyFieldException("idLipr");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{listaPrecios.espacios}" sortBy="#{listaPrecios.espacios}" 
+							headerText="espacios">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.espacios}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.espacios}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.estadoRegistro}" sortBy="#{listaPrecios.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.margen}" sortBy="#{listaPrecios.margen}" 
+							headerText="margen">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.margen}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.margen}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.operCreador}" sortBy="#{listaPrecios.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.operModifica}" sortBy="#{listaPrecios.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.valor}" sortBy="#{listaPrecios.valor}" 
+							headerText="valor">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.valor}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.valor}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.idRefe_Referencia}" sortBy="#{listaPrecios.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.idSucu_Sucursal}" sortBy="#{listaPrecios.idSucu_Sucursal}" 
+							headerText="idSucu_Sucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.idSucu_Sucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.idSucu_Sucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{listaPrecios.idTili_TipoLista}" sortBy="#{listaPrecios.idTili_TipoLista}" 
+							headerText="idTili_TipoLista">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.idTili_TipoLista}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{listaPrecios.idTili_TipoLista}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{listaPrecios.fechaCreacion}" sortBy="#{listaPrecios.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{listaPrecios.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{listaPreciosView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{listaPrecios.fechaFinal}" sortBy="#{listaPrecios.fechaFinal}" 
+							headerText="fechaFinal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.fechaFinal}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{listaPrecios.fechaFinal}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{listaPreciosView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{listaPrecios.fechaInicial}" sortBy="#{listaPrecios.fechaInicial}" 
+							headerText="fechaInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.fechaInicial}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{listaPrecios.fechaInicial}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{listaPreciosView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{listaPrecios.fechaModificacion}" sortBy="#{listaPrecios.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{listaPrecios.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{listaPrecios.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{listaPreciosView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{listaPreciosView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{listaPrecios}"  target="#{listaPreciosView.selectedListaPrecios}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

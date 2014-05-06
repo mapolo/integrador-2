@@ -1,0 +1,227 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectDescuentoFinancieroTitle"
+							header="Descuento Financiero">
+							<p:growl id="men" />
+							<p:growl id="growl" />
+
+							<p:dataTable var="car" value="#{descuentoFinancieroView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" rowKey="#{car.idDefi}"
+								filteredValue="#{descuentoFinancieroView.data}"
+								selection="#{descuentoFinancieroView.selectedDescuentoFinanciero}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+									sortBy="nombre" filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.nombre}" />
+								</p:column>
+
+								<p:column id="fechaInicio" filterBy="fechaInicio"
+									headerText="Fecha de inicio" sortBy="fechaInicio"
+									filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.fechaInicio}" />
+								</p:column>
+
+								<p:column id="fechaFinal" filterBy="fechaFinal"
+									headerText="Fecha Final" sortBy="fechaFinal"
+									filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.fechaFinal}" />
+								</p:column>
+
+								<p:column id="porcentajeDescuento"
+									filterBy="porcentajeDescuento"
+									headerText="Porcentaje de Descuento"
+									sortBy="porcentajeDescuento" filterMatchMode="contains"
+									style="width:100px">
+									<h:outputText value="#{car.porcentajeDescuento}" />
+								</p:column>
+
+								<p:column id="diaDesde" filterBy="diaDesde"
+									headerText="Dia Desde" sortBy="diaDesde"
+									filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.diaDesde}" />
+								</p:column>
+
+								<p:column id="diaHasta" filterBy="diaHasta"
+									headerText="Dia Hasta" sortBy="diaHasta"
+									filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.diaHasta}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{descuentoFinancieroView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<h:outputText value="#{car.estadoRegistro}" />
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="createButton" value="Crear"
+										action="#{descuentoFinancieroView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{descuentoFinancieroView.action_modify2()}"
+										binding="#{descuentoFinancieroView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Descuento Financiero"
+								widgetVar="carDialog" resizable="false" width="500"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo"
+										value="#{descuentoFinancieroView.codigo}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{descuentoFinancieroView.txtCodigo}" />
+
+									<h:outputText id="msgNombre" value="Nombre:" />
+									<p:inputText id="txtNombre"
+										value="#{descuentoFinancieroView.nombre}"
+										binding="#{descuentoFinancieroView.txtNombre}" />
+
+									<h:outputText id="msgFechaInicio" value="Fecha de Inicio:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoFinancieroView.txtFechaInicio}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoFinancieroView.listener_txtFechaInicio}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgFechaFinal" value="Fecha Final:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoFinancieroView.txtFechaFinal}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoFinancieroView.listener_txtFechaFinal}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgPorcentajeDescuento"
+										value="*Porcentaje de Descuento:" />
+									<p:inputText id="txtPorcentajeDescuento"
+										value="#{descuentoFinancieroView.porcentajeDescuento}"
+										binding="#{descuentoFinancieroView.txtPorcentajeDescuento}" />
+
+									<h:outputText id="msgDiaDesde" value="Dia Desde:" />
+									<p:inputText id="txtDiaDesde"
+										value="#{descuentoFinancieroView.diaDesde}"
+										binding="#{descuentoFinancieroView.txtDiaDesde}" />
+
+									<h:outputText id="msgDiaHasta" value="Dia Hasta:" />
+									<p:inputText id="txtDiaHasta"
+										value="#{descuentoFinancieroView.diaHasta}"
+										binding="#{descuentoFinancieroView.txtDiaHasta}" />
+
+									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo:" />
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idGrpo_Grupo}"
+										binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{descuentoFinancieroView.grupo}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{descuentoFinancieroView.estado}"
+										value="#{descuentoFinancieroView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdTfpa_TipoFormaPago"
+										value="ID Tipo Forma de Pago:" />
+									<p:selectOneMenu
+										value="#{descuentoFinancieroView.idTfpa_TipoFormaPago}"
+										binding="#{descuentoFinancieroView.txtIdTfpa_TipoFormaPago}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems
+											value="#{descuentoFinancieroView.tipoFormaPago}" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="2">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										disabled="false"
+										action="#{descuentoFinancieroView.action_create()}"
+										binding="#{descuentoFinancieroView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{descuentoFinancieroView.action_modify()}"
+										binding="#{descuentoFinancieroView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectDistribucionCarteraTitle" header="DistribucionCartera" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidDica()==null){throw new ZMessManager().new EmptyFieldException("idDica");}" value="If(entity.getidDica()==null){throw new ZMessManager().new EmptyFieldException("idDica");}"/>
+						 <p:inputText id="txtIf(entity.getidDica()==null){throw new ZMessManager().new EmptyFieldException("idDica");}" binding="#{distribucionCarteraView.txtIf(entity.getidDica()==null){throw new ZMessManager().new EmptyFieldException("idDica");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{distribucionCarteraView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{distribucionCarteraView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNumeroCuota" value=" NumeroCuota"/>
+						<p:inputText id="txtNumeroCuota" disabled="true" binding="#{distribucionCarteraView.txtNumeroCuota}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{distribucionCarteraView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{distribucionCarteraView.txtOperModifica}"/>
+												<h:outputText id="msgValor" value=" Valor"/>
+						<p:inputText id="txtValor" disabled="true" binding="#{distribucionCarteraView.txtValor}"/>
+												<h:outputText id="msgIdCart_Cartera" value=" IdCart_Cartera"/>
+						<p:inputText id="txtIdCart_Cartera" disabled="true" binding="#{distribucionCarteraView.txtIdCart_Cartera}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{distribucionCarteraView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{distribucionCarteraView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{distribucionCarteraView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{distribucionCarteraView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaVencimiento" value=" FechaVencimiento"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{distribucionCarteraView.txtFechaVencimiento}" >
+							<p:ajax event="dateSelect" listener="#{distribucionCarteraView.listener_txtFechaVencimiento}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{distribucionCarteraView.action_save}" update="msg,panel,panelBotones"          binding="#{distribucionCarteraView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{distribucionCarteraView.action_modify}" update="msg,panel,panelBotones"    binding="#{distribucionCarteraView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{distribucionCarteraView.action_delete}" update="msg,panel,panelBotones"    binding="#{distribucionCarteraView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{distribucionCarteraView.action_clear}" update="msg,panel,panelBotones"      binding="#{distribucionCarteraView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

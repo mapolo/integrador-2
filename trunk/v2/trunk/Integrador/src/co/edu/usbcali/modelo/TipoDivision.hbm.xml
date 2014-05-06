@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.TipoDivision" table="TIPO_DIVISION" >
+        <id name="idTidi" type="java.lang.Long">      
+            <column name="ID_TIDI" precision="10" scale="0" />
+           <generator class="sequence" >
+            <param name="sequence">TIDI_ID_TIDI_SEQ</param>
+           </generator>
+        </id>
+        <property name="nombre" type="java.lang.String">
+            <column name="NOMBRE" length="100" not-null="true" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="divisionPoliticas" inverse="true" lazy="true" table="DIVISION_POLITICA" fetch="select">
+            <key>
+                <column name="ID_TIDI" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.DivisionPolitica" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,193 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableRecibo" header="ReciboData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{reciboView.data}" var="recibo"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{recibo.idRcbo}" sortBy="#{recibo.idRcbo}" >
+										 <f:facet name="header">
+										<h:outputText value="idRcbo"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.idRcbo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{recibo.estadoRegistro}" sortBy="#{recibo.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.fechaCreacion}" sortBy="#{recibo.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.fechaModificacion}" sortBy="#{recibo.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.fechaTransaccion}" sortBy="#{recibo.fechaTransaccion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaTransaccion"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.fechaTransaccion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.numeroRboProvisional}" sortBy="#{recibo.numeroRboProvisional}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroRboProvisional"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.numeroRboProvisional}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.observacion}" sortBy="#{recibo.observacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Observacion"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.observacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.operCreador}" sortBy="#{recibo.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.operModifica}" sortBy="#{recibo.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.idDocu_Documento}" sortBy="#{recibo.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{recibo.idUnve_UnidadVenta}" sortBy="#{recibo.idUnve_UnidadVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnve_UnidadVenta"/>
+										</f:facet>
+										 <h:outputText value="#{recibo.idUnve_UnidadVenta}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogRecibo"
+										actionListener="#{reciboView.action_edit}">
+										<f:attribute name="selectedRecibo" value="#{recibo}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{reciboView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedRecibo" value="#{recibo}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{reciboView.action_new()}" update=":dialogRecibo" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogRecibo" appendToBody="true" draggable="true"
+						closable="false" visible="#{reciboView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelRecibo" header="Recibo">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdRcbo" value="IdRcbo"/>
+									 <p:inputText id="txtIdRcbo" binding="#{reciboView.txtIdRcbo}">
+									 <p:ajax update=":dialogRecibo" listener="#{reciboView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{reciboView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNumeroRboProvisional" value=" NumeroRboProvisional"/>
+									<p:inputText id="txtNumeroRboProvisional" disabled="true" binding="#{reciboView.txtNumeroRboProvisional}"/>
+																		<h:outputText id="msgObservacion" value=" Observacion"/>
+									<p:inputText id="txtObservacion" disabled="true" binding="#{reciboView.txtObservacion}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{reciboView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{reciboView.txtOperModifica}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{reciboView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+									<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{reciboView.txtIdUnve_UnidadVenta}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{reciboView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{reciboView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{reciboView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{reciboView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaTransaccion" value=" FechaTransaccion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{reciboView.txtFechaTransaccion}" >
+										<p:ajax event="dateSelect" listener="#{reciboView.listener_txtFechaTransaccion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{reciboView.btnSave}" value="Save" action="#{reciboView.action_save()}" update=":dialogRecibo :frm:panelDataTableRecibo" />
+									<p:commandButton id="btnClear" value="Clear" action="#{reciboView.action_clear()}" update=":dialogRecibo" />
+									<p:commandButton id="btnExit" value="Exit" action="#{reciboView.action_closeDialog()}" update=":dialogRecibo" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

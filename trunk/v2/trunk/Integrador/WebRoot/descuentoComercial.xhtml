@@ -1,0 +1,269 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectDescuentoComercialTitle"
+							header="Descuento Comercial">
+
+							<p:growl id="men" />
+							<p:growl id="growl" />
+
+							<p:dataTable var="car" value="#{descuentoComercialView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" rowKey="#{car.idDeco}"
+								filteredValue="#{descuentoComercialView.data}"
+								selection="#{descuentoComercialView.selectedDescuentoComercial}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								<p:column headerText="Fecha Inicial" style="width: 100px"
+									filterBy="fechaInicial" sortBy="fechaInicial">
+									<h:outputText value="#{car.fechaInicial}" />
+								</p:column>
+
+								<p:column headerText="Fecha Final" style="width: 100px"
+									filterBy="fechaFinal" sortBy="fechaFinal">
+									<h:outputText value="#{car.fechaFinal}" />
+								</p:column>
+
+								<p:column id="porcDescMinItem" filterBy="porcDescMinItem"
+									headerText="Porcentaje Descuento Minimo Item"
+									sortBy="porcDescMinItem" filterMatchMode="contains"
+									style="width:100px">
+									<h:outputText value="#{car.porcDescMinItem}" />
+								</p:column>
+
+								<p:column id="porcDescItem" filterBy="porcDescItem"
+									headerText="Porcentaje Descuento Item" sortBy="porcDescItem"
+									filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.porcDescItem}" />
+								</p:column>
+
+								<p:column id="porcDescMaxItem" filterBy="porcDescMaxItem"
+									headerText="Porcentaje Descuento Maximo Item"
+									sortBy="porcDescMaxItem" filterMatchMode="contains"
+									style="width:100px">
+									<h:outputText value="#{car.porcDescMaxItem}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{descuentoComercialView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<h:outputText value="#{car.estadoRegistro}" />
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										action="#{descuentoComercialView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{descuentoComercialView.action_modify2()}"
+										binding="#{descuentoComercialView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Descuento Comercial"
+								widgetVar="carDialog" resizable="false" width="800"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgFechaInicial" value="*Fecha Inicial:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoComercialView.txtFechaInicial}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoComercialView.listener_txtFechaInicial}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{descuentoComercialView.txtFechaFinal}">
+										<p:ajax event="dateSelect"
+											listener="#{descuentoComercialView.listener_txtFechaFinal}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgEstadoPlano" value="Estado Plano:" />
+									<p:selectOneMenu
+										binding="#{descuentoComercialView.txtEstadoPlano}"
+										value="#{descuentoComercialView.estadoPlano}" disabled="false">
+										<f:selectItem itemLabel="0" itemValue="0" />
+										<f:selectItem itemLabel="1" itemValue="1" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgCreadoAutomatico"
+										value="Creado Automatico:" />
+									<p:inputText id="txtCreadoAutomatico"
+										value="#{descuentoComercialView.creadoAutomatico}"
+										binding="#{descuentoComercialView.txtCreadoAutomatico}" />
+
+									<h:outputText id="msgTodasSucursales"
+										value="Todas las Sucursales:" />
+									<p:inputText id="txtTodasSucursales"
+										value="#{descuentoComercialView.todasSucursales}"
+										binding="#{descuentoComercialView.txtTodasSucursales}" />
+
+									<h:outputText id="msgTipoAsocGrupoItem"
+										value="Tipo Asociado Grupo Item:" />
+									<p:inputText id="txtTipoAsocGrupoItem"
+										value="#{descuentoComercialView.tipoAsocGrupoItem}"
+										binding="#{descuentoComercialView.txtTipoAsocGrupoItem}" />
+
+									<h:outputText id="msgAsocGrupoItem"
+										value="Asociado Grupo Item:" />
+									<p:inputText id="txtAsocGrupoItem"
+										value="#{descuentoComercialView.asocGrupoItem}"
+										binding="#{descuentoComercialView.txtAsocGrupoItem}" />
+
+									<h:outputText id="msgPorcDescMinItem"
+										value="Porcentaje Descuento Minimo Item:" />
+									<p:inputText id="txtPorcDescMinItem"
+										value="#{descuentoComercialView.porcDescMinItem}"
+										binding="#{descuentoComercialView.txtPorcDescMinItem}" />
+
+									<h:outputText id="msgPorcDescItem"
+										value="Porcentaje Descuento Item:" />
+									<p:inputText id="txtPorcDescItem"
+										value="#{descuentoComercialView.porcDescItem}"
+										binding="#{descuentoComercialView.txtPorcDescItem}" />
+
+									<h:outputText id="msgPorcDescMaxItem"
+										value="Porcentaje Descuento Maximo Item:" />
+									<p:inputText id="txtPorcDescMaxItem"
+										value="#{descuentoComercialView.porcDescMaxItem}"
+										binding="#{descuentoComercialView.txtPorcDescMaxItem}" />
+
+									<h:outputText id="msgIdSucu_Sucursal" value="*ID Sucursal:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idSucu_Sucursal}"
+										binding="#{descuentoComercialView.txtIdSucu_Sucursal}">
+										<f:selectItems value="#{descuentoComercialView.sucursal}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdSucu_Sucursal2"
+										value="ID Sucursal Hija:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idSucu_SucursalH}"
+										binding="#{descuentoComercialView.txtIdSucu_SucursalH}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.sucursal2}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idEmpr_Empresa}"
+										binding="#{descuentoComercialView.txtIdEmpr_Empresa}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.empresa}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
+									<p:selectOneMenu
+										value="#{descuentoComercialView.idPers_Persona}"
+										binding="#{descuentoComercialView.txtIdPers_Persona}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{descuentoComercialView.persona}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{descuentoComercialView.estado}"
+										value="#{descuentoComercialView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo:" />
+									<p:selectOneMenu value="#{descuentoComercialView.idGrpo_Grupo}"
+										binding="#{descuentoComercialView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{descuentoComercialView.grupo}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEspacios" value="Espacios:" />
+									<p:inputTextarea rows="6" cols="33" id="txtEspacios"
+										disabled="false" value="#{descuentoComercialView.espacios}"
+										binding="#{descuentoComercialView.txtEspacios}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="2">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{descuentoComercialView.action_create}"
+										binding="#{descuentoComercialView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{descuentoComercialView.action_modify()}"
+										binding="#{descuentoComercialView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

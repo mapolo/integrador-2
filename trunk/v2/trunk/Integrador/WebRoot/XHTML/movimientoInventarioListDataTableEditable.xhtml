@@ -1,0 +1,382 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="MovimientoInventarioData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{movimientoInventarioView.data}" var="movimientoInventario"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{movimientoInventarioView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{movimientoInventario.if(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}}" sortBy="#{movimientoInventario.if(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}}" 
+							headerText="if(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.if(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.if(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{movimientoInventario.cantidad}" sortBy="#{movimientoInventario.cantidad}" 
+							headerText="cantidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.cantidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.cantidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.claseVenta}" sortBy="#{movimientoInventario.claseVenta}" 
+							headerText="claseVenta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.claseVenta}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.claseVenta}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.costoUnitario}" sortBy="#{movimientoInventario.costoUnitario}" 
+							headerText="costoUnitario">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.costoUnitario}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.costoUnitario}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.estadoRegistro}" sortBy="#{movimientoInventario.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.numeroRegistro}" sortBy="#{movimientoInventario.numeroRegistro}" 
+							headerText="numeroRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.numeroRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.numeroRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.operCreador}" sortBy="#{movimientoInventario.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.operModifica}" sortBy="#{movimientoInventario.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.placaVehiculo}" sortBy="#{movimientoInventario.placaVehiculo}" 
+							headerText="placaVehiculo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.placaVehiculo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.placaVehiculo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.porcentajeIva}" sortBy="#{movimientoInventario.porcentajeIva}" 
+							headerText="porcentajeIva">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.porcentajeIva}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.porcentajeIva}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.referencia}" sortBy="#{movimientoInventario.referencia}" 
+							headerText="referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.valorTotal}" sortBy="#{movimientoInventario.valorTotal}" 
+							headerText="valorTotal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.valorTotal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.valorTotal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.idCusa_Causal}" sortBy="#{movimientoInventario.idCusa_Causal}" 
+							headerText="idCusa_Causal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.idCusa_Causal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.idCusa_Causal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.idDocu_Documento}" sortBy="#{movimientoInventario.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.idResu_ReferenciaSucursal}" sortBy="#{movimientoInventario.idResu_ReferenciaSucursal}" 
+							headerText="idResu_ReferenciaSucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.idResu_ReferenciaSucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.idResu_ReferenciaSucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{movimientoInventario.idSucu_Sucursal}" sortBy="#{movimientoInventario.idSucu_Sucursal}" 
+							headerText="idSucu_Sucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.idSucu_Sucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{movimientoInventario.idSucu_Sucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{movimientoInventario.fechaCreacion}" sortBy="#{movimientoInventario.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{movimientoInventario.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{movimientoInventarioView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{movimientoInventario.fechaModificacion}" sortBy="#{movimientoInventario.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{movimientoInventario.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{movimientoInventarioView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{movimientoInventario.fechaMovimiento}" sortBy="#{movimientoInventario.fechaMovimiento}" 
+							headerText="fechaMovimiento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{movimientoInventario.fechaMovimiento}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{movimientoInventario.fechaMovimiento}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{movimientoInventarioView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{movimientoInventarioView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{movimientoInventario}"  target="#{movimientoInventarioView.selectedMovimientoInventario}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

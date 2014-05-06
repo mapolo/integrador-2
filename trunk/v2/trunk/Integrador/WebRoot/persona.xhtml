@@ -1,0 +1,250 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectPersonaTitle" header="Persona">
+
+							<p:growl id="men" />
+							<p:growl id="growl" />
+
+							<p:dataTable var="car" value="#{personaView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{personaView.data}"
+								rowKey="#{car.idPers}"
+								selection="#{personaView.selectedPersona}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								<p:column id="identificacion" filterBy="identificacion"
+									headerText="Identificación" sortBy="identificacion"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.identificacion}" />
+								</p:column>
+
+								<p:column id="primerNombre" filterBy="primerNombre"
+									headerText="Primer Nombre" sortBy="primerNombre"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.primerNombre}" />
+								</p:column>
+
+								<p:column id="segundoNombre" filterBy="segundoNombre"
+									headerText="Segundo Nombre" sortBy="segundoNombre"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.segundoNombre}" />
+								</p:column>
+
+								<p:column id="primerApellido" filterBy="primerApellido"
+									headerText="Primer Apellido" sortBy="primerApellido"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.primerApellido}" />
+								</p:column>
+
+								<p:column id="segundoApellido" filterBy="segundoApellido"
+									headerText="Segundo Apellido" sortBy="segundoApellido"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.segundoApellido}" />
+								</p:column>
+
+								<p:column headerText="Dirección" style="width: 100px">
+									<h:outputLabel value="#{car.direccion}"
+										style="text-transform:uppercase;" />
+								</p:column>
+
+								<p:column id="telefono1" filterBy="telefono1"
+									headerText="Telefono" sortBy="telefono1"
+									filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.telefono1}" />
+								</p:column>
+
+								<p:column id="email" filterBy="email" headerText="Email"
+									sortBy="email" filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.email}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro"
+									filterBy="estadoRegistro"
+									filterOptions="#{personaView.manufacturerOptions}"
+									filterMatchMode="exact" style="width: 100px">
+									<h:outputText value="#{car.estadoRegistro}" />
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										action="#{personaView.action_VCrear()}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{personaView.action_modify2()}"
+										binding="#{personaView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Persona" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgIdTiid_TipoIdentificacion"
+										value="*ID Tipo de Identificación:" />
+									<p:selectOneMenu
+										value="#{personaView.idTiid_TipoIdentificacion}"
+										binding="#{personaView.txtIdTiid_TipoIdentificacion}">
+										<f:selectItems value="#{personaView.tipoIdentificacion}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdDipo_DivisionPolitica"
+										value="ID División Politica:" />
+									<p:selectOneMenu value="#{personaView.idDipo_DivisionPolitica}"
+										binding="#{personaView.txtIdDipo_DivisionPolitica}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{personaView.divisionPolitica}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdentificacion" value="*Identificación:" />
+									<p:inputText id="txtIdentificacion"
+										value="#{personaView.identificacion}"
+										binding="#{personaView.txtIdentificacion}" />
+
+									<h:outputText id="msgPrimerNombre" value="*Primer Nombre:" />
+									<p:inputText id="txtPrimerNombre"
+										value="#{personaView.primerNombre}"
+										binding="#{personaView.txtPrimerNombre}" />
+
+									<h:outputText id="msgSegundoNombre" value="Segundo Nombre:" />
+									<p:inputText id="txtSegundoNombre"
+										value="#{personaView.segundoNombre}"
+										binding="#{personaView.txtSegundoNombre}" />
+
+									<h:outputText id="msgPrimerApellido" value="Primer Apellido:" />
+									<p:inputText id="txtPrimerApellido"
+										value="#{personaView.primerApellido}"
+										binding="#{personaView.txtPrimerApellido}" />
+
+									<h:outputText id="msgSegundoApellido" value="Segundo Apellido:" />
+									<p:inputText id="txtSegundoApellido"
+										value="#{personaView.segundoApellido}"
+										binding="#{personaView.txtSegundoApellido}" />
+
+									<h:outputText id="msgTelefono1" value="Telefono:" />
+									<p:inputText id="txtTelefono1" value="#{personaView.telefono1}"
+										binding="#{personaView.txtTelefono1}" />
+
+									<h:outputText id="msgTelefono2" value="Telefono 2:" />
+									<p:inputText id="txtTelefono2" value="#{personaView.telefono2}"
+										binding="#{personaView.txtTelefono2}" />
+
+									<h:outputText id="msgApartadoAereo" value="Apartado Aereo:" />
+									<p:inputText id="txtApartadoAereo"
+										value="#{personaView.apartadoAereo}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{personaView.txtApartadoAereo}" />
+
+									<h:outputText id="msgEmail" value="Email:" />
+									<p:inputText id="txtEmail" value="#{personaView.email}"
+										binding="#{personaView.txtEmail}" />
+
+									<h:outputText id="msgDigitoVerificacion"
+										value="Digito de Verificación:" />
+									<p:inputText id="txtDigitoVerificacion"
+										value="#{personaView.digitoVerificacion}"
+										binding="#{personaView.txtDigitoVerificacion}" />
+
+									<h:outputText id="msgEstadoPersona"
+										value="Estado de la Persona:" />
+									<p:selectOneMenu binding="#{personaView.estadoP}"
+										value="#{personaView.estadoPersona}">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{personaView.estado}"
+										value="#{personaView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgDireccion" value="Dirección:" />
+									<p:inputTextarea rows="3" cols="15" id="txtDireccion"
+										value="#{personaView.direccion}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{personaView.txtDireccion}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="2">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{personaView.action_create}"
+										binding="#{personaView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{personaView.action_modify()}"
+										binding="#{personaView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

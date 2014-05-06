@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableCruce" header="CruceData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{cruceView.data}" var="cruce"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{cruce.idCrce}" sortBy="#{cruce.idCrce}" >
+										 <f:facet name="header">
+										<h:outputText value="idCrce"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.idCrce}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{cruce.descuento}" sortBy="#{cruce.descuento}" >
+										 <f:facet name="header">
+										<h:outputText value="Descuento"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.descuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.estadoRegistro}" sortBy="#{cruce.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.fechaCreacion}" sortBy="#{cruce.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.fechaModificacion}" sortBy="#{cruce.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.operCreador}" sortBy="#{cruce.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.operModifica}" sortBy="#{cruce.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.idDefi_DescuentoFinanciero}" sortBy="#{cruce.idDefi_DescuentoFinanciero}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDefi_DescuentoFinanciero"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.idDefi_DescuentoFinanciero}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.idRddo_RboDetalleDocumentos}" sortBy="#{cruce.idRddo_RboDetalleDocumentos}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRddo_RboDetalleDocumentos"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.idRddo_RboDetalleDocumentos}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{cruce.idRdfp_RboDetalleFormasPago}" sortBy="#{cruce.idRdfp_RboDetalleFormasPago}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRdfp_RboDetalleFormasPago"/>
+										</f:facet>
+										 <h:outputText value="#{cruce.idRdfp_RboDetalleFormasPago}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogCruce"
+										actionListener="#{cruceView.action_edit}">
+										<f:attribute name="selectedCruce" value="#{cruce}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{cruceView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedCruce" value="#{cruce}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{cruceView.action_new()}" update=":dialogCruce" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogCruce" appendToBody="true" draggable="true"
+						closable="false" visible="#{cruceView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelCruce" header="Cruce">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdCrce" value="IdCrce"/>
+									 <p:inputText id="txtIdCrce" binding="#{cruceView.txtIdCrce}">
+									 <p:ajax update=":dialogCruce" listener="#{cruceView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgDescuento" value=" Descuento"/>
+									<p:inputText id="txtDescuento" disabled="true" binding="#{cruceView.txtDescuento}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{cruceView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{cruceView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{cruceView.txtOperModifica}"/>
+																		<h:outputText id="msgIdDefi_DescuentoFinanciero" value=" IdDefi_DescuentoFinanciero"/>
+									<p:inputText id="txtIdDefi_DescuentoFinanciero" disabled="true" binding="#{cruceView.txtIdDefi_DescuentoFinanciero}"/>
+																		<h:outputText id="msgIdRddo_RboDetalleDocumentos" value=" IdRddo_RboDetalleDocumentos"/>
+									<p:inputText id="txtIdRddo_RboDetalleDocumentos" disabled="true" binding="#{cruceView.txtIdRddo_RboDetalleDocumentos}"/>
+																		<h:outputText id="msgIdRdfp_RboDetalleFormasPago" value=" IdRdfp_RboDetalleFormasPago"/>
+									<p:inputText id="txtIdRdfp_RboDetalleFormasPago" disabled="true" binding="#{cruceView.txtIdRdfp_RboDetalleFormasPago}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{cruceView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{cruceView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{cruceView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{cruceView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{cruceView.btnSave}" value="Save" action="#{cruceView.action_save()}" update=":dialogCruce :frm:panelDataTableCruce" />
+									<p:commandButton id="btnClear" value="Clear" action="#{cruceView.action_clear()}" update=":dialogCruce" />
+									<p:commandButton id="btnExit" value="Exit" action="#{cruceView.action_closeDialog()}" update=":dialogCruce" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,394 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="PersonaData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{personaView.data}" var="persona"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{personaView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{persona.if(entity.getidPers()==null){throw new ZMessManager().new EmptyFieldException("idPers");}}" sortBy="#{persona.if(entity.getidPers()==null){throw new ZMessManager().new EmptyFieldException("idPers");}}" 
+							headerText="if(entity.getidPers()==null){throw new ZMessManager().new EmptyFieldException("idPers");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.if(entity.getidPers()==null){throw new ZMessManager().new EmptyFieldException("idPers");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.if(entity.getidPers()==null){throw new ZMessManager().new EmptyFieldException("idPers");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{persona.apartadoAereo}" sortBy="#{persona.apartadoAereo}" 
+							headerText="apartadoAereo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.apartadoAereo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.apartadoAereo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.digitoVerificacion}" sortBy="#{persona.digitoVerificacion}" 
+							headerText="digitoVerificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.digitoVerificacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.digitoVerificacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.direccion}" sortBy="#{persona.direccion}" 
+							headerText="direccion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.direccion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.direccion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.email}" sortBy="#{persona.email}" 
+							headerText="email">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.email}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.email}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.estadoPersona}" sortBy="#{persona.estadoPersona}" 
+							headerText="estadoPersona">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.estadoPersona}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.estadoPersona}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.estadoRegistro}" sortBy="#{persona.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.identificacion}" sortBy="#{persona.identificacion}" 
+							headerText="identificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.identificacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.identificacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.operCreador}" sortBy="#{persona.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.operModifica}" sortBy="#{persona.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.primerApellido}" sortBy="#{persona.primerApellido}" 
+							headerText="primerApellido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.primerApellido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.primerApellido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.primerNombre}" sortBy="#{persona.primerNombre}" 
+							headerText="primerNombre">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.primerNombre}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.primerNombre}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.segundoApellido}" sortBy="#{persona.segundoApellido}" 
+							headerText="segundoApellido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.segundoApellido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.segundoApellido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.segundoNombre}" sortBy="#{persona.segundoNombre}" 
+							headerText="segundoNombre">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.segundoNombre}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.segundoNombre}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.telefono1}" sortBy="#{persona.telefono1}" 
+							headerText="telefono1">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.telefono1}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.telefono1}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.telefono2}" sortBy="#{persona.telefono2}" 
+							headerText="telefono2">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.telefono2}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.telefono2}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.idDipo_DivisionPolitica}" sortBy="#{persona.idDipo_DivisionPolitica}" 
+							headerText="idDipo_DivisionPolitica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.idDipo_DivisionPolitica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.idDipo_DivisionPolitica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{persona.idTiid_TipoIdentificacion}" sortBy="#{persona.idTiid_TipoIdentificacion}" 
+							headerText="idTiid_TipoIdentificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.idTiid_TipoIdentificacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{persona.idTiid_TipoIdentificacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{persona.fechaCreacion}" sortBy="#{persona.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{persona.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{personaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{persona.fechaModificacion}" sortBy="#{persona.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{persona.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{persona.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{personaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{personaView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{persona}"  target="#{personaView.selectedPersona}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

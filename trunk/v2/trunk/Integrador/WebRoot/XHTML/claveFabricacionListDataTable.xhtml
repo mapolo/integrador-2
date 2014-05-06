@@ -1,0 +1,178 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableClaveFabricacion" header="ClaveFabricacionData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{claveFabricacionView.data}" var="claveFabricacion"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{claveFabricacion.idClfa}" sortBy="#{claveFabricacion.idClfa}" >
+										 <f:facet name="header">
+										<h:outputText value="idClfa"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.idClfa}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{claveFabricacion.codigo}" sortBy="#{claveFabricacion.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.estadoRegistro}" sortBy="#{claveFabricacion.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.fechaCreacion}" sortBy="#{claveFabricacion.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.fechaFinal}" sortBy="#{claveFabricacion.fechaFinal}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaFinal"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.fechaFinal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.fechaInicial}" sortBy="#{claveFabricacion.fechaInicial}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInicial"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.fechaInicial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.fechaModificacion}" sortBy="#{claveFabricacion.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.operCreador}" sortBy="#{claveFabricacion.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{claveFabricacion.operModifica}" sortBy="#{claveFabricacion.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{claveFabricacion.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogClaveFabricacion"
+										actionListener="#{claveFabricacionView.action_edit}">
+										<f:attribute name="selectedClaveFabricacion" value="#{claveFabricacion}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{claveFabricacionView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedClaveFabricacion" value="#{claveFabricacion}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{claveFabricacionView.action_new()}" update=":dialogClaveFabricacion" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogClaveFabricacion" appendToBody="true" draggable="true"
+						closable="false" visible="#{claveFabricacionView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelClaveFabricacion" header="ClaveFabricacion">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdClfa" value="IdClfa"/>
+									 <p:inputText id="txtIdClfa" binding="#{claveFabricacionView.txtIdClfa}">
+									 <p:ajax update=":dialogClaveFabricacion" listener="#{claveFabricacionView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{claveFabricacionView.txtCodigo}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{claveFabricacionView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{claveFabricacionView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{claveFabricacionView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{claveFabricacionView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{claveFabricacionView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaFinal" value=" FechaFinal"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{claveFabricacionView.txtFechaFinal}" >
+										<p:ajax event="dateSelect" listener="#{claveFabricacionView.listener_txtFechaFinal}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInicial" value=" FechaInicial"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{claveFabricacionView.txtFechaInicial}" >
+										<p:ajax event="dateSelect" listener="#{claveFabricacionView.listener_txtFechaInicial}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{claveFabricacionView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{claveFabricacionView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{claveFabricacionView.btnSave}" value="Save" action="#{claveFabricacionView.action_save()}" update=":dialogClaveFabricacion :frm:panelDataTableClaveFabricacion" />
+									<p:commandButton id="btnClear" value="Clear" action="#{claveFabricacionView.action_clear()}" update=":dialogClaveFabricacion" />
+									<p:commandButton id="btnExit" value="Exit" action="#{claveFabricacionView.action_closeDialog()}" update=":dialogClaveFabricacion" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

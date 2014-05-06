@@ -1,0 +1,234 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="SaldoInicialInventarioData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{saldoInicialInventarioView.data}" var="saldoInicialInventario"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{saldoInicialInventarioView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{saldoInicialInventario.if(entity.getidSini()==null){throw new ZMessManager().new EmptyFieldException("idSini");}}" sortBy="#{saldoInicialInventario.if(entity.getidSini()==null){throw new ZMessManager().new EmptyFieldException("idSini");}}" 
+							headerText="if(entity.getidSini()==null){throw new ZMessManager().new EmptyFieldException("idSini");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.if(entity.getidSini()==null){throw new ZMessManager().new EmptyFieldException("idSini");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.if(entity.getidSini()==null){throw new ZMessManager().new EmptyFieldException("idSini");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{saldoInicialInventario.ano}" sortBy="#{saldoInicialInventario.ano}" 
+							headerText="ano">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.ano}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.ano}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.costoInicial}" sortBy="#{saldoInicialInventario.costoInicial}" 
+							headerText="costoInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.costoInicial}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.costoInicial}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.estadoRegistro}" sortBy="#{saldoInicialInventario.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.operCreador}" sortBy="#{saldoInicialInventario.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.operModifica}" sortBy="#{saldoInicialInventario.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.saldoInicial}" sortBy="#{saldoInicialInventario.saldoInicial}" 
+							headerText="saldoInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.saldoInicial}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.saldoInicial}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{saldoInicialInventario.idResu_ReferenciaSucursal}" sortBy="#{saldoInicialInventario.idResu_ReferenciaSucursal}" 
+							headerText="idResu_ReferenciaSucursal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.idResu_ReferenciaSucursal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{saldoInicialInventario.idResu_ReferenciaSucursal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{saldoInicialInventario.fechaCreacion}" sortBy="#{saldoInicialInventario.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{saldoInicialInventario.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{saldoInicialInventarioView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{saldoInicialInventario.fechaModificacion}" sortBy="#{saldoInicialInventario.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{saldoInicialInventario.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{saldoInicialInventario.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{saldoInicialInventarioView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{saldoInicialInventarioView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{saldoInicialInventario}"  target="#{saldoInicialInventarioView.selectedSaldoInicialInventario}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

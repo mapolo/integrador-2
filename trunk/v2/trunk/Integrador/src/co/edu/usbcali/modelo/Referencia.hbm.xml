@@ -1,0 +1,191 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Referencia" table="REFERENCIA" >
+        <id name="idRefe" type="java.lang.Long">
+            <column name="ID_REFE" precision="10" scale="0" />
+            <generator class="sequence" >
+            <param name="sequence">REFE_ID_REFE_SEQ</param>
+           </generator>
+        </id>
+        <property name="codigo" type="java.lang.String">
+            <column name="CODIGO" length="18" not-null="true" unique="true" />
+        </property>
+        <property name="descripcion" type="java.lang.String">
+            <column name="DESCRIPCION" length="60" />
+        </property>
+        <property name="descripcionCorta" type="java.lang.String">
+            <column name="DESCRIPCION_CORTA" length="30" />
+        </property>
+        <property name="unidadMedida" type="java.lang.String">
+            <column name="UNIDAD_MEDIDA" length="3" />
+        </property>
+        <property name="unidadMedidaProvisional" type="java.lang.String">
+            <column name="UNIDAD_MEDIDA_PROVISIONAL" length="3" />
+        </property>
+        <property name="marca" type="java.lang.String">
+            <column name="MARCA" length="18" />
+        </property>
+        <property name="equivalente1" type="java.lang.String">
+            <column name="EQUIVALENTE1" length="18" />
+        </property>
+        <property name="equivalente2" type="java.lang.String">
+            <column name="EQUIVALENTE2" length="18" />
+        </property>
+        <property name="volumen" type="java.lang.Double">
+            <column name="VOLUMEN" precision="13" scale="3" />
+        </property>
+        <property name="galones" type="java.lang.Double">
+            <column name="GALONES" precision="13" scale="3" />
+        </property>
+        <property name="porcentajeIva" type="java.lang.Double">
+            <column name="PORCENTAJE_IVA" precision="6" scale="3" />
+        </property>
+        <property name="pideCantidad" type="java.lang.String">
+            <column name="PIDE_CANTIDAD" length="1" />
+        </property>
+        <property name="pideValor" type="java.lang.String">
+            <column name="PIDE_VALOR" length="1" />
+        </property>
+        <property name="costo" type="java.lang.Double">
+            <column name="COSTO" precision="14" />
+        </property>
+        <property name="aplicacion" type="java.lang.String">
+            <column name="APLICACION" length="40" />
+        </property>
+        <property name="descripcionTecnica" type="java.lang.String">
+            <column name="DESCRIPCION_TECNICA" length="150" />
+        </property>
+        <property name="esGarantia" type="java.lang.String">
+            <column name="ES_GARANTIA" length="1" />
+        </property>
+        <property name="peso" type="java.lang.Double">
+            <column name="PESO" precision="13" scale="3" />
+        </property>
+        <property name="QPorCaja" type="java.lang.Long">
+            <column name="Q_POR_CAJA" precision="3" scale="0" />
+        </property>
+        <property name="fechaVigentePBodega" type="java.util.Date">
+            <column name="FECHA_VIGENTE_P_BODEGA" length="7" />
+        </property>
+        <property name="margenMinimoPBodega" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_P_BODEGA" precision="2" scale="0" />
+        </property>
+        <property name="margenMinimoGBodega" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_G_BODEGA" precision="2" scale="0" />
+        </property>
+        <property name="margenMinimoRefBodega" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_REF_BODEGA" precision="2" scale="0" />
+        </property>
+        <property name="fechaVigentePEne" type="java.util.Date">
+            <column name="FECHA_VIGENTE_P_ENE" length="7" />
+        </property>
+        <property name="margenMinimoPEne" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_P_ENE" precision="2" scale="0" />
+        </property>
+        <property name="margenMinimoRefEne" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_REF_ENE" precision="2" scale="0" />
+        </property>
+        <property name="margenMinimoGEne" type="java.lang.Long">
+            <column name="MARGEN_MINIMO_G_ENE" precision="2" scale="0" />
+        </property>
+        <property name="productoEspecial" type="java.lang.Long">
+            <column name="PRODUCTO_ESPECIAL" precision="1" scale="0" />
+        </property>
+        <property name="productoConsumo" type="java.lang.Long">
+            <column name="PRODUCTO_CONSUMO" precision="1" scale="0" />
+        </property>
+        <property name="manejaLote" type="java.lang.Long">
+            <column name="MANEJA_LOTE" precision="1" scale="0" />
+        </property>
+        <property name="manejaDecimales" type="java.lang.Long">
+            <column name="MANEJA_DECIMALES" precision="1" scale="0" />
+        </property>
+        <property name="codigoBarras" type="java.lang.String">
+            <column name="CODIGO_BARRAS" length="25" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="referenciaSucursals" inverse="true" lazy="true" table="REFERENCIA_SUCURSAL" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ReferenciaSucursal" />
+        </set>
+        <set name="itemRotacionsForReferenciaRecibida" inverse="true" lazy="true" table="ITEM_ROTACION" fetch="select">
+            <key>
+                <column name="REFERENCIA_RECIBIDA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ItemRotacion" />
+        </set>
+        <set name="grupoReferencias" inverse="true" lazy="true" table="GRUPO_REFERENCIA" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.GrupoReferencia" />
+        </set>
+        <set name="listaPrecioses" inverse="true" lazy="true" table="LISTA_PRECIOS" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ListaPrecios" />
+        </set>
+        <set name="pedidos" inverse="true" lazy="true" table="PEDIDO" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Pedido" />
+        </set>
+        <set name="itemLogisticaReversivas" inverse="true" lazy="true" table="ITEM_LOGISTICA_REVERSIVA" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ItemLogisticaReversiva" />
+        </set>
+        <set name="ordenesDeCompras" inverse="true" lazy="true" table="ORDENES_DE_COMPRA" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.OrdenesDeCompra" />
+        </set>
+        <set name="garantias" inverse="true" lazy="true" table="GARANTIA" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Garantia" />
+        </set>
+        <set name="pronosticoVentas" inverse="true" lazy="true" table="PRONOSTICO_VENTA" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.PronosticoVenta" />
+        </set>
+        <set name="listaPreciosEspecialeses" inverse="true" lazy="true" table="LISTA_PRECIOS_ESPECIALES" fetch="select">
+            <key>
+                <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ListaPreciosEspeciales" />
+        </set>
+        <set name="itemRotacionsForReferenciaEntregada" inverse="true" lazy="true" table="ITEM_ROTACION" fetch="select">
+            <key>
+                <column name="REFERENCIA_ENTREGADA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ItemRotacion" />
+        </set>
+    </class>
+</hibernate-mapping>

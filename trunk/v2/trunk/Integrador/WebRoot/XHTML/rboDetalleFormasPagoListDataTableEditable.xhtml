@@ -1,0 +1,318 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="RboDetalleFormasPagoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{rboDetalleFormasPagoView.data}" var="rboDetalleFormasPago"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{rboDetalleFormasPagoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{rboDetalleFormasPago.if(entity.getidRdfp()==null){throw new ZMessManager().new EmptyFieldException("idRdfp");}}" sortBy="#{rboDetalleFormasPago.if(entity.getidRdfp()==null){throw new ZMessManager().new EmptyFieldException("idRdfp");}}" 
+							headerText="if(entity.getidRdfp()==null){throw new ZMessManager().new EmptyFieldException("idRdfp");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.if(entity.getidRdfp()==null){throw new ZMessManager().new EmptyFieldException("idRdfp");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.if(entity.getidRdfp()==null){throw new ZMessManager().new EmptyFieldException("idRdfp");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{rboDetalleFormasPago.estadoRegistro}" sortBy="#{rboDetalleFormasPago.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.montoCancelado}" sortBy="#{rboDetalleFormasPago.montoCancelado}" 
+							headerText="montoCancelado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.montoCancelado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.montoCancelado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.numeroDocumeto}" sortBy="#{rboDetalleFormasPago.numeroDocumeto}" 
+							headerText="numeroDocumeto">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.numeroDocumeto}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.numeroDocumeto}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.operCreador}" sortBy="#{rboDetalleFormasPago.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.operModifica}" sortBy="#{rboDetalleFormasPago.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.transaccion}" sortBy="#{rboDetalleFormasPago.transaccion}" 
+							headerText="transaccion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.transaccion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.transaccion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.idBanc_Banco}" sortBy="#{rboDetalleFormasPago.idBanc_Banco}" 
+							headerText="idBanc_Banco">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.idBanc_Banco}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.idBanc_Banco}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.idChps_ChequePosfechado}" sortBy="#{rboDetalleFormasPago.idChps_ChequePosfechado}" 
+							headerText="idChps_ChequePosfechado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.idChps_ChequePosfechado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.idChps_ChequePosfechado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.idDocu_Documento}" sortBy="#{rboDetalleFormasPago.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.idRcbo_Recibo}" sortBy="#{rboDetalleFormasPago.idRcbo_Recibo}" 
+							headerText="idRcbo_Recibo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.idRcbo_Recibo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.idRcbo_Recibo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{rboDetalleFormasPago.idTfpa_TipoFormaPago}" sortBy="#{rboDetalleFormasPago.idTfpa_TipoFormaPago}" 
+							headerText="idTfpa_TipoFormaPago">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.idTfpa_TipoFormaPago}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{rboDetalleFormasPago.idTfpa_TipoFormaPago}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{rboDetalleFormasPago.fechaConsignacion}" sortBy="#{rboDetalleFormasPago.fechaConsignacion}" 
+							headerText="fechaConsignacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.fechaConsignacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{rboDetalleFormasPago.fechaConsignacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{rboDetalleFormasPagoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{rboDetalleFormasPago.fechaCreacion}" sortBy="#{rboDetalleFormasPago.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{rboDetalleFormasPago.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{rboDetalleFormasPagoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{rboDetalleFormasPago.fechaModificacion}" sortBy="#{rboDetalleFormasPago.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{rboDetalleFormasPago.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{rboDetalleFormasPago.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{rboDetalleFormasPagoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{rboDetalleFormasPagoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{rboDetalleFormasPago}"  target="#{rboDetalleFormasPagoView.selectedRboDetalleFormasPago}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableDetalleVisita" header="DetalleVisitaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{detalleVisitaView.data}" var="detalleVisita"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{detalleVisita.idDevi}" sortBy="#{detalleVisita.idDevi}" >
+										 <f:facet name="header">
+										<h:outputText value="idDevi"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.idDevi}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{detalleVisita.estadoRegistro}" sortBy="#{detalleVisita.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.fechaCreacion}" sortBy="#{detalleVisita.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.fechaModificacion}" sortBy="#{detalleVisita.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.operCreador}" sortBy="#{detalleVisita.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.operModifica}" sortBy="#{detalleVisita.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.idDocu_Documento}" sortBy="#{detalleVisita.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{detalleVisita.idVisi_Visita}" sortBy="#{detalleVisita.idVisi_Visita}" >
+										 <f:facet name="header">
+										<h:outputText value="IdVisi_Visita"/>
+										</f:facet>
+										 <h:outputText value="#{detalleVisita.idVisi_Visita}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogDetalleVisita"
+										actionListener="#{detalleVisitaView.action_edit}">
+										<f:attribute name="selectedDetalleVisita" value="#{detalleVisita}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{detalleVisitaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedDetalleVisita" value="#{detalleVisita}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{detalleVisitaView.action_new()}" update=":dialogDetalleVisita" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogDetalleVisita" appendToBody="true" draggable="true"
+						closable="false" visible="#{detalleVisitaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelDetalleVisita" header="DetalleVisita">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdDevi" value="IdDevi"/>
+									 <p:inputText id="txtIdDevi" binding="#{detalleVisitaView.txtIdDevi}">
+									 <p:ajax update=":dialogDetalleVisita" listener="#{detalleVisitaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{detalleVisitaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{detalleVisitaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{detalleVisitaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{detalleVisitaView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdVisi_Visita" value=" IdVisi_Visita"/>
+									<p:inputText id="txtIdVisi_Visita" disabled="true" binding="#{detalleVisitaView.txtIdVisi_Visita}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{detalleVisitaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{detalleVisitaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{detalleVisitaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{detalleVisitaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{detalleVisitaView.btnSave}" value="Save" action="#{detalleVisitaView.action_save()}" update=":dialogDetalleVisita :frm:panelDataTableDetalleVisita" />
+									<p:commandButton id="btnClear" value="Clear" action="#{detalleVisitaView.action_clear()}" update=":dialogDetalleVisita" />
+									<p:commandButton id="btnExit" value="Exit" action="#{detalleVisitaView.action_closeDialog()}" update=":dialogDetalleVisita" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,217 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableBanco" header="BancoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{bancoView.data}" var="banco"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{banco.idBanc}" sortBy="#{banco.idBanc}" >
+										 <f:facet name="header">
+										<h:outputText value="idBanc"/>
+										</f:facet>
+										 <h:outputText value="#{banco.idBanc}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{banco.codigo}" sortBy="#{banco.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{banco.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.confirmaCheque}" sortBy="#{banco.confirmaCheque}" >
+										 <f:facet name="header">
+										<h:outputText value="ConfirmaCheque"/>
+										</f:facet>
+										 <h:outputText value="#{banco.confirmaCheque}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.consigna}" sortBy="#{banco.consigna}" >
+										 <f:facet name="header">
+										<h:outputText value="Consigna"/>
+										</f:facet>
+										 <h:outputText value="#{banco.consigna}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.cuentaBanco}" sortBy="#{banco.cuentaBanco}" >
+										 <f:facet name="header">
+										<h:outputText value="CuentaBanco"/>
+										</f:facet>
+										 <h:outputText value="#{banco.cuentaBanco}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.cuentaDescuento}" sortBy="#{banco.cuentaDescuento}" >
+										 <f:facet name="header">
+										<h:outputText value="CuentaDescuento"/>
+										</f:facet>
+										 <h:outputText value="#{banco.cuentaDescuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.descripcion}" sortBy="#{banco.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{banco.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.estadoRegistro}" sortBy="#{banco.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{banco.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.fechaCreacion}" sortBy="#{banco.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{banco.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.fechaModificacion}" sortBy="#{banco.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{banco.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.importaPda}" sortBy="#{banco.importaPda}" >
+										 <f:facet name="header">
+										<h:outputText value="ImportaPda"/>
+										</f:facet>
+										 <h:outputText value="#{banco.importaPda}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.manejaBeneficiario}" sortBy="#{banco.manejaBeneficiario}" >
+										 <f:facet name="header">
+										<h:outputText value="ManejaBeneficiario"/>
+										</f:facet>
+										 <h:outputText value="#{banco.manejaBeneficiario}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.operCreador}" sortBy="#{banco.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{banco.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{banco.operModifica}" sortBy="#{banco.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{banco.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogBanco"
+										actionListener="#{bancoView.action_edit}">
+										<f:attribute name="selectedBanco" value="#{banco}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{bancoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedBanco" value="#{banco}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{bancoView.action_new()}" update=":dialogBanco" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogBanco" appendToBody="true" draggable="true"
+						closable="false" visible="#{bancoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelBanco" header="Banco">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdBanc" value="IdBanc"/>
+									 <p:inputText id="txtIdBanc" binding="#{bancoView.txtIdBanc}">
+									 <p:ajax update=":dialogBanco" listener="#{bancoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{bancoView.txtCodigo}"/>
+																		<h:outputText id="msgConfirmaCheque" value=" ConfirmaCheque"/>
+									<p:inputText id="txtConfirmaCheque" disabled="true" binding="#{bancoView.txtConfirmaCheque}"/>
+																		<h:outputText id="msgConsigna" value=" Consigna"/>
+									<p:inputText id="txtConsigna" disabled="true" binding="#{bancoView.txtConsigna}"/>
+																		<h:outputText id="msgCuentaBanco" value=" CuentaBanco"/>
+									<p:inputText id="txtCuentaBanco" disabled="true" binding="#{bancoView.txtCuentaBanco}"/>
+																		<h:outputText id="msgCuentaDescuento" value=" CuentaDescuento"/>
+									<p:inputText id="txtCuentaDescuento" disabled="true" binding="#{bancoView.txtCuentaDescuento}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{bancoView.txtDescripcion}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{bancoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgImportaPda" value=" ImportaPda"/>
+									<p:inputText id="txtImportaPda" disabled="true" binding="#{bancoView.txtImportaPda}"/>
+																		<h:outputText id="msgManejaBeneficiario" value=" ManejaBeneficiario"/>
+									<p:inputText id="txtManejaBeneficiario" disabled="true" binding="#{bancoView.txtManejaBeneficiario}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{bancoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{bancoView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{bancoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{bancoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{bancoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{bancoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{bancoView.btnSave}" value="Save" action="#{bancoView.action_save()}" update=":dialogBanco :frm:panelDataTableBanco" />
+									<p:commandButton id="btnClear" value="Clear" action="#{bancoView.action_clear()}" update=":dialogBanco" />
+									<p:commandButton id="btnExit" value="Exit" action="#{bancoView.action_closeDialog()}" update=":dialogBanco" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

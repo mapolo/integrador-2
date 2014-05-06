@@ -1,0 +1,90 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectDivisionPoliticaTitle" header="DivisionPolitica" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidDipo()==null){throw new ZMessManager().new EmptyFieldException("idDipo");}" value="If(entity.getidDipo()==null){throw new ZMessManager().new EmptyFieldException("idDipo");}"/>
+						 <p:inputText id="txtIf(entity.getidDipo()==null){throw new ZMessManager().new EmptyFieldException("idDipo");}" binding="#{divisionPoliticaView.txtIf(entity.getidDipo()==null){throw new ZMessManager().new EmptyFieldException("idDipo");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{divisionPoliticaView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigoDian" value=" CodigoDian"/>
+						<p:inputText id="txtCodigoDian" disabled="true" binding="#{divisionPoliticaView.txtCodigoDian}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{divisionPoliticaView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNombre" value=" Nombre"/>
+						<p:inputText id="txtNombre" disabled="true" binding="#{divisionPoliticaView.txtNombre}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{divisionPoliticaView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{divisionPoliticaView.txtOperModifica}"/>
+												<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+						<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{divisionPoliticaView.txtIdDipo_DivisionPolitica}"/>
+												<h:outputText id="msgIdTidi_TipoDivision" value=" IdTidi_TipoDivision"/>
+						<p:inputText id="txtIdTidi_TipoDivision" disabled="true" binding="#{divisionPoliticaView.txtIdTidi_TipoDivision}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{divisionPoliticaView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{divisionPoliticaView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{divisionPoliticaView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{divisionPoliticaView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{divisionPoliticaView.action_save}" update="msg,panel,panelBotones"          binding="#{divisionPoliticaView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{divisionPoliticaView.action_modify}" update="msg,panel,panelBotones"    binding="#{divisionPoliticaView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{divisionPoliticaView.action_delete}" update="msg,panel,panelBotones"    binding="#{divisionPoliticaView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{divisionPoliticaView.action_clear}" update="msg,panel,panelBotones"      binding="#{divisionPoliticaView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

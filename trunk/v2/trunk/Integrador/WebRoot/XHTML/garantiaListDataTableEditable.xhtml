@@ -1,0 +1,466 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="GarantiaData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{garantiaView.data}" var="garantia"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{garantiaView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{garantia.if(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}}" sortBy="#{garantia.if(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}}" 
+							headerText="if(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.if(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.if(entity.getidGar()==null){throw new ZMessManager().new EmptyFieldException("idGar");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{garantia.alineacionTrazabilidad}" sortBy="#{garantia.alineacionTrazabilidad}" 
+							headerText="alineacionTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.alineacionTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.alineacionTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.anoTrazabilidad}" sortBy="#{garantia.anoTrazabilidad}" 
+							headerText="anoTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.anoTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.anoTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.diaTrazabilidad}" sortBy="#{garantia.diaTrazabilidad}" 
+							headerText="diaTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.diaTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.diaTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.estado}" sortBy="#{garantia.estado}" 
+							headerText="estado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.estado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.estado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.estadoRegistro}" sortBy="#{garantia.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.lineaTrazabilidad}" sortBy="#{garantia.lineaTrazabilidad}" 
+							headerText="lineaTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.lineaTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.lineaTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.mesTrazabilidad}" sortBy="#{garantia.mesTrazabilidad}" 
+							headerText="mesTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.mesTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.mesTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.numeroGarantia}" sortBy="#{garantia.numeroGarantia}" 
+							headerText="numeroGarantia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.numeroGarantia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.numeroGarantia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.observacion}" sortBy="#{garantia.observacion}" 
+							headerText="observacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.observacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.observacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.operCreador}" sortBy="#{garantia.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.operModifica}" sortBy="#{garantia.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.placaTrazabilidad}" sortBy="#{garantia.placaTrazabilidad}" 
+							headerText="placaTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.placaTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.placaTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.turnoTrazabilidad}" sortBy="#{garantia.turnoTrazabilidad}" 
+							headerText="turnoTrazabilidad">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.turnoTrazabilidad}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.turnoTrazabilidad}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idBate_Bateriologo}" sortBy="#{garantia.idBate_Bateriologo}" 
+							headerText="idBate_Bateriologo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idBate_Bateriologo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idBate_Bateriologo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idClfa_ClaveFabricacion}" sortBy="#{garantia.idClfa_ClaveFabricacion}" 
+							headerText="idClfa_ClaveFabricacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idClfa_ClaveFabricacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idClfa_ClaveFabricacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idDocu_Documento}" sortBy="#{garantia.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idCfal_Fallas}" sortBy="#{garantia.idCfal_Fallas}" 
+							headerText="idCfal_Fallas">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idCfal_Fallas}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idCfal_Fallas}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idRefe_Referencia}" sortBy="#{garantia.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{garantia.idTiga_TipoGarantia}" sortBy="#{garantia.idTiga_TipoGarantia}" 
+							headerText="idTiga_TipoGarantia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.idTiga_TipoGarantia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{garantia.idTiga_TipoGarantia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{garantia.fechaCambio}" sortBy="#{garantia.fechaCambio}" 
+							headerText="fechaCambio">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.fechaCambio}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{garantia.fechaCambio}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{garantiaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{garantia.fechaCreacion}" sortBy="#{garantia.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{garantia.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{garantiaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{garantia.fechaModificacion}" sortBy="#{garantia.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{garantia.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{garantiaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{garantia.fechaVenta}" sortBy="#{garantia.fechaVenta}" 
+							headerText="fechaVenta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{garantia.fechaVenta}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{garantia.fechaVenta}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{garantiaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{garantiaView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{garantia}"  target="#{garantiaView.selectedGarantia}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

@@ -1,0 +1,295 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectRelacionComercialTitle"
+							header="Relación Comercial">
+						
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{relacionComercialView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{relacionComercialView.data}">
+
+								<p:ajax event="rowEdit"
+									listener="#{relacionComercialView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{relacionComercialView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+
+								<p:column headerText="ID Sucursal Padre" style="width:100px"
+									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_Sucursal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{relacionComercialView.idSucu_Sucursal}"
+												style="width:100px">
+												<f:selectItems value="#{relacionComercialView.sucursal}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Sucursal Hija" style="width:100px"
+									filterBy="idSucu_SucursalH" sortBy="idSucu_SucursalH">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idSucu_SucursalH}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{relacionComercialView.idSucu_SucursalH}"
+												style="width:100px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
+												<f:selectItems value="#{relacionComercialView.sucursal2}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Empresa Hija" style="width:100px"
+									filterBy="idEmpr_Empresa" sortBy="idEmpr_Empresa">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idEmpr_Empresa}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{relacionComercialView.idEmpr_Empresa}"
+												style="width:100px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
+												<f:selectItems value="#{relacionComercialView.empresa}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Liquida IVA" style="width:100px"
+									filterBy="liquidaIva"
+									filterOptions="#{relacionComercialView.manufacturerOptions2}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.liquidaIva}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{relacionComercialView.liquidaIva}">
+												<f:selectItem itemLabel="S" itemValue="S" />
+												<f:selectItem itemLabel="N" itemValue="N" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Persona" style="width:100px"
+									filterBy="idPers_Persona" sortBy="idPers_Persona">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idPers_Persona}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{relacionComercialView.idPers_Persona}"
+												style="width:100px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
+												<f:selectItems value="#{relacionComercialView.persona}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="limiteCredito" filterBy="limiteCredito"
+									headerText="Limite Credito" sortBy="limiteCredito"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.limiteCredito}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.limiteCredito}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="observacion" filterBy="observacion"
+									headerText="Observación" sortBy="observacion"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.observacion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.observacion}"
+												style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+
+
+								<p:column headerText="Estado del Registro" style="width:100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{relacionComercialView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{relacionComercialView.estadoRegistro}">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Relacion Comercial"
+								widgetVar="carDialog" resizable="false" width="500"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgIdSucu_Sucursal"
+										value="*ID Sucursal Padre:" />
+									<p:selectOneMenu
+										value="#{relacionComercialView.idSucu_Sucursal}"
+										binding="#{relacionComercialView.txtIdSucu_Sucursal}">
+										<f:selectItems value="#{relacionComercialView.sucursal}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdSucu_SucursalH"
+										value="ID Sucursal Hija:" />
+									<p:selectOneMenu
+										value="#{relacionComercialView.idSucu_SucursalH}"
+										binding="#{relacionComercialView.txtIdSucu_SucursalH}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{relacionComercialView.sucursal2}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa Hija:" />
+									<p:selectOneMenu
+										value="#{relacionComercialView.idEmpr_Empresa}"
+										binding="#{relacionComercialView.txtIdEmpr_Empresa}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{relacionComercialView.empresa}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgLiquidaIva" value="Liquida Iva:" />
+									<p:selectOneMenu
+										binding="#{relacionComercialView.txtLiquidaIva}"
+										value="#{relacionComercialView.liquidaIva}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
+									<p:selectOneMenu
+										value="#{relacionComercialView.idPers_Persona}"
+										binding="#{relacionComercialView.txtIdPers_Persona}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{relacionComercialView.persona}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgLimiteCredito" value="Limite Credito:" />
+									<p:inputText id="txtLimiteCredito"
+										value="#{relacionComercialView.limiteCredito}"
+										binding="#{relacionComercialView.txtLimiteCredito}" />
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{relacionComercialView.estado}"
+										value="#{relacionComercialView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgObservacion" value="Observación:" />
+									<p:inputTextarea rows="6" cols="33" id="txtObservacion"
+										disabled="false" value="#{relacionComercialView.observacion}"
+										binding="#{relacionComercialView.txtObservacion}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{relacionComercialView.action_create}"
+										binding="#{relacionComercialView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

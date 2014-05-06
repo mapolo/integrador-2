@@ -1,0 +1,162 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectUnidadNegocioTitle"
+							header="Unidad del Negocio">
+					
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{unidadNegocioView.data}"
+								scrollable="true" scrollHeight="300" id="unidad" editable="true"
+								filteredValue="#{unidadNegocioView.data}">
+
+								<p:ajax event="rowEdit" listener="#{unidadNegocioView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{unidadNegocioView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}"
+												style="text-transform:uppercase;" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}"
+												onkeyup="javascript:this.value=this.value.toUpperCase();" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Descripción" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputLabel value="#{car.descripcion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{unidadNegocioView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{unidadNegocioView.estadoRegistro}">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Unidad del Negocio"
+								widgetVar="carDialog" resizable="false" width="500"
+								showEffect="clip" hideEffect="fold">
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" value="#{unidadNegocioView.codigo}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{unidadNegocioView.txtCodigo}" />
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{unidadNegocioView.estado}"
+										value="#{unidadNegocioView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgDescripcion" value="Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										value="#{unidadNegocioView.descripcion}"
+										binding="#{unidadNegocioView.txtDescripcion}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{unidadNegocioView.action_create()}"
+										binding="#{unidadNegocioView.btnSave}"
+										update="unidad,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

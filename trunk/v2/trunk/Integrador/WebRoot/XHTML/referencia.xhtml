@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectReferenciaTitle" header="Referencia" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidRefe()==null){throw new ZMessManager().new EmptyFieldException("idRefe");}" value="If(entity.getidRefe()==null){throw new ZMessManager().new EmptyFieldException("idRefe");}"/>
+						 <p:inputText id="txtIf(entity.getidRefe()==null){throw new ZMessManager().new EmptyFieldException("idRefe");}" binding="#{referenciaView.txtIf(entity.getidRefe()==null){throw new ZMessManager().new EmptyFieldException("idRefe");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{referenciaView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgQPorCaja" value=" QPorCaja"/>
+						<p:inputText id="txtQPorCaja" disabled="true" binding="#{referenciaView.txtQPorCaja}"/>
+												<h:outputText id="msgAplicacion" value=" Aplicacion"/>
+						<p:inputText id="txtAplicacion" disabled="true" binding="#{referenciaView.txtAplicacion}"/>
+												<h:outputText id="msgCodigo" value=" Codigo"/>
+						<p:inputText id="txtCodigo" disabled="true" binding="#{referenciaView.txtCodigo}"/>
+												<h:outputText id="msgCodigoBarras" value=" CodigoBarras"/>
+						<p:inputText id="txtCodigoBarras" disabled="true" binding="#{referenciaView.txtCodigoBarras}"/>
+												<h:outputText id="msgCosto" value=" Costo"/>
+						<p:inputText id="txtCosto" disabled="true" binding="#{referenciaView.txtCosto}"/>
+												<h:outputText id="msgDescripcion" value=" Descripcion"/>
+						<p:inputText id="txtDescripcion" disabled="true" binding="#{referenciaView.txtDescripcion}"/>
+												<h:outputText id="msgDescripcionCorta" value=" DescripcionCorta"/>
+						<p:inputText id="txtDescripcionCorta" disabled="true" binding="#{referenciaView.txtDescripcionCorta}"/>
+												<h:outputText id="msgDescripcionTecnica" value=" DescripcionTecnica"/>
+						<p:inputText id="txtDescripcionTecnica" disabled="true" binding="#{referenciaView.txtDescripcionTecnica}"/>
+												<h:outputText id="msgEquivalente1" value=" Equivalente1"/>
+						<p:inputText id="txtEquivalente1" disabled="true" binding="#{referenciaView.txtEquivalente1}"/>
+												<h:outputText id="msgEquivalente2" value=" Equivalente2"/>
+						<p:inputText id="txtEquivalente2" disabled="true" binding="#{referenciaView.txtEquivalente2}"/>
+												<h:outputText id="msgEsGarantia" value=" EsGarantia"/>
+						<p:inputText id="txtEsGarantia" disabled="true" binding="#{referenciaView.txtEsGarantia}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{referenciaView.txtEstadoRegistro}"/>
+												<h:outputText id="msgGalones" value=" Galones"/>
+						<p:inputText id="txtGalones" disabled="true" binding="#{referenciaView.txtGalones}"/>
+												<h:outputText id="msgManejaDecimales" value=" ManejaDecimales"/>
+						<p:inputText id="txtManejaDecimales" disabled="true" binding="#{referenciaView.txtManejaDecimales}"/>
+												<h:outputText id="msgManejaLote" value=" ManejaLote"/>
+						<p:inputText id="txtManejaLote" disabled="true" binding="#{referenciaView.txtManejaLote}"/>
+												<h:outputText id="msgMarca" value=" Marca"/>
+						<p:inputText id="txtMarca" disabled="true" binding="#{referenciaView.txtMarca}"/>
+												<h:outputText id="msgMargenMinimoGBodega" value=" MargenMinimoGBodega"/>
+						<p:inputText id="txtMargenMinimoGBodega" disabled="true" binding="#{referenciaView.txtMargenMinimoGBodega}"/>
+												<h:outputText id="msgMargenMinimoGEne" value=" MargenMinimoGEne"/>
+						<p:inputText id="txtMargenMinimoGEne" disabled="true" binding="#{referenciaView.txtMargenMinimoGEne}"/>
+												<h:outputText id="msgMargenMinimoPBodega" value=" MargenMinimoPBodega"/>
+						<p:inputText id="txtMargenMinimoPBodega" disabled="true" binding="#{referenciaView.txtMargenMinimoPBodega}"/>
+												<h:outputText id="msgMargenMinimoPEne" value=" MargenMinimoPEne"/>
+						<p:inputText id="txtMargenMinimoPEne" disabled="true" binding="#{referenciaView.txtMargenMinimoPEne}"/>
+												<h:outputText id="msgMargenMinimoRefBodega" value=" MargenMinimoRefBodega"/>
+						<p:inputText id="txtMargenMinimoRefBodega" disabled="true" binding="#{referenciaView.txtMargenMinimoRefBodega}"/>
+												<h:outputText id="msgMargenMinimoRefEne" value=" MargenMinimoRefEne"/>
+						<p:inputText id="txtMargenMinimoRefEne" disabled="true" binding="#{referenciaView.txtMargenMinimoRefEne}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{referenciaView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{referenciaView.txtOperModifica}"/>
+												<h:outputText id="msgPeso" value=" Peso"/>
+						<p:inputText id="txtPeso" disabled="true" binding="#{referenciaView.txtPeso}"/>
+												<h:outputText id="msgPideCantidad" value=" PideCantidad"/>
+						<p:inputText id="txtPideCantidad" disabled="true" binding="#{referenciaView.txtPideCantidad}"/>
+												<h:outputText id="msgPideValor" value=" PideValor"/>
+						<p:inputText id="txtPideValor" disabled="true" binding="#{referenciaView.txtPideValor}"/>
+												<h:outputText id="msgPorcentajeIva" value=" PorcentajeIva"/>
+						<p:inputText id="txtPorcentajeIva" disabled="true" binding="#{referenciaView.txtPorcentajeIva}"/>
+												<h:outputText id="msgProductoConsumo" value=" ProductoConsumo"/>
+						<p:inputText id="txtProductoConsumo" disabled="true" binding="#{referenciaView.txtProductoConsumo}"/>
+												<h:outputText id="msgProductoEspecial" value=" ProductoEspecial"/>
+						<p:inputText id="txtProductoEspecial" disabled="true" binding="#{referenciaView.txtProductoEspecial}"/>
+												<h:outputText id="msgUnidadMedida" value=" UnidadMedida"/>
+						<p:inputText id="txtUnidadMedida" disabled="true" binding="#{referenciaView.txtUnidadMedida}"/>
+												<h:outputText id="msgUnidadMedidaProvisional" value=" UnidadMedidaProvisional"/>
+						<p:inputText id="txtUnidadMedidaProvisional" disabled="true" binding="#{referenciaView.txtUnidadMedidaProvisional}"/>
+												<h:outputText id="msgVolumen" value=" Volumen"/>
+						<p:inputText id="txtVolumen" disabled="true" binding="#{referenciaView.txtVolumen}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{referenciaView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{referenciaView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{referenciaView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{referenciaView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaVigentePBodega" value=" FechaVigentePBodega"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{referenciaView.txtFechaVigentePBodega}" >
+							<p:ajax event="dateSelect" listener="#{referenciaView.listener_txtFechaVigentePBodega}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaVigentePEne" value=" FechaVigentePEne"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{referenciaView.txtFechaVigentePEne}" >
+							<p:ajax event="dateSelect" listener="#{referenciaView.listener_txtFechaVigentePEne}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{referenciaView.action_save}" update="msg,panel,panelBotones"          binding="#{referenciaView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{referenciaView.action_modify}" update="msg,panel,panelBotones"    binding="#{referenciaView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{referenciaView.action_delete}" update="msg,panel,panelBotones"    binding="#{referenciaView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{referenciaView.action_clear}" update="msg,panel,panelBotones"      binding="#{referenciaView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

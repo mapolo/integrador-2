@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.MovimientoInventario" table="MOVIMIENTO_INVENTARIO" >
+        <id name="idMoin" type="java.lang.Long">
+            <column name="ID_MOIN" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="documento" class="co.edu.usbcali.modelo.Documento" fetch="select">
+            <column name="ID_DOCU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="sucursalBySucursalRecibeEnvia" class="co.edu.usbcali.modelo.Sucursal" fetch="select">
+            <column name="SUCURSAL_RECIBE_ENVIA" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="causal" class="co.edu.usbcali.modelo.Causal" fetch="select">
+            <column name="CAUSAL_DEVOLUCION" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="sucursalBySucursalEntrega" class="co.edu.usbcali.modelo.Sucursal" fetch="select">
+            <column name="SUCURSAL_ENTREGA" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="referenciaSucursal" class="co.edu.usbcali.modelo.ReferenciaSucursal" fetch="select">
+            <column name="ID_RESU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="numeroRegistro" type="java.lang.Long">
+            <column name="NUMERO_REGISTRO" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="fechaMovimiento" type="java.util.Date">
+            <column name="FECHA_MOVIMIENTO" length="7" />
+        </property>
+        <property name="cantidad" type="java.lang.Double">
+            <column name="CANTIDAD" precision="12" />
+        </property>
+        <property name="referencia" type="java.lang.String">
+            <column name="REFERENCIA" length="100" not-null="true" />
+        </property>
+        <property name="valorTotal" type="java.lang.Double">
+            <column name="VALOR_TOTAL" precision="12" not-null="true" />
+        </property>
+        <property name="porcentajeIva" type="java.lang.Double">
+            <column name="PORCENTAJE_IVA" precision="6" scale="3" />
+        </property>
+        <property name="costoUnitario" type="java.lang.Double">
+            <column name="COSTO_UNITARIO" precision="12" />
+        </property>
+        <property name="placaVehiculo" type="java.lang.String">
+            <column name="PLACA_VEHICULO" length="10" />
+        </property>
+        <property name="claseVenta" type="java.lang.String">
+            <column name="CLASE_VENTA" length="10" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="movimientoVendedors" inverse="true" lazy="true" table="MOVIMIENTO_VENDEDOR" fetch="select">
+            <key>
+                <column name="ID_MOIN" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.MovimientoVendedor" />
+        </set>
+    </class>
+</hibernate-mapping>

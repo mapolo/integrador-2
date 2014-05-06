@@ -1,0 +1,239 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectGrupoTitle" header="Grupo">
+
+							<p:growl id="men" />
+							<p:growl id="growl" />
+
+							<p:dataTable var="car" value="#{grupoView.data}"
+								scrollable="true" rowKey="#{car.idGrpo}" scrollHeight="300"
+								id="tablaPrincipal" editable="true"
+								filteredValue="#{grupoView.data}"
+								selection="#{grupoView.selectedGrupo}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								<p:column headerText="Grupo" filterBy="grupo_1" sortBy="grupo_1"
+									style="width:100px">
+									<h:outputText value="#{car.grupo_1}" />
+								</p:column>
+
+								<p:column headerText="Nombre" filterBy="nombre" sortBy="nombre"
+									style="width:100px">
+									<h:outputText value="#{car.nombre}" />
+								</p:column>
+
+								<p:column headerText="Margen Minimo Bodega"
+									filterBy="margenMinimoBodega" sortBy="margenMinimoBodega"
+									style="width:100px">
+									<h:outputText value="#{car.margenMinimoBodega}" />
+								</p:column>
+
+								<p:column headerText="Margen Minimo Energiteca"
+									filterBy="margenMinimoEnergiteca"
+									sortBy="margenMinimoEnergiteca" style="width:100px">
+									<h:outputText value="#{car.margenMinimoEnergiteca}" />
+								</p:column>
+
+								<p:column headerText="División" filterBy="division"
+									sortBy="division" style="width:100px">
+									<h:outputText value="#{car.division}" />
+								</p:column>
+
+								<p:column headerText="Tipo de Nivel" filterBy="tipoNivel"
+									sortBy="tipoNivel" style="width:100px">
+									<h:outputText value="#{car.tipoNivel}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{grupoView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<h:outputText value="#{car.estadoRegistro}" />
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										action="#{grupoView.action_VCrear()}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{grupoView.action_modify2()}"
+										binding="#{grupoView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Grupo" widgetVar="carDialog"
+								resizable="false" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgGrupo_1" value="Grupo:" />
+									<p:inputText id="txtGrupo_1" value="#{grupoView.grupo_1}"
+										binding="#{grupoView.txtGrupo_1}" />
+
+									<h:outputText id="msgIdGrpo_Grupo" value="ID Grupo Padre:" />
+									<p:selectOneMenu value="#{grupoView.idGrpo_Grupo}"
+										binding="#{grupoView.txtIdGrpo_Grupo}">
+										<f:selectItems value="#{grupoView.grupos}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgNombre" value="Nombre:" />
+									<p:inputText id="txtNombre" value="#{grupoView.nombre}"
+										binding="#{grupoView.txtNombre}" />
+
+									<h:outputText id="msgMargenMinimoBodega"
+										value="Margen Minimo Bodega:" />
+									<p:inputText id="txtMargenMinimoBodega"
+										value="#{grupoView.margenMinimoBodega}"
+										binding="#{grupoView.txtMargenMinimoBodega}" />
+
+									<h:outputText id="msgMargenMinimoEnergiteca"
+										value="Margen Minimo Energiteca:" />
+									<p:inputText id="txtMargenMinimoEnergiteca"
+										value="#{grupoView.margenMinimoEnergiteca}"
+										binding="#{grupoView.txtMargenMinimoEnergiteca}" />
+
+									<h:outputText id="msgDivision" value="División:" />
+									<p:inputText id="txtDivision" value="#{grupoView.division}"
+										binding="#{grupoView.txtDivision}" />
+
+									<h:outputText id="msgTipoNivel" value="Tipo de Nivel:" />
+									<p:inputText id="txtTipoNivel" value="#{grupoView.tipoNivel}"
+										binding="#{grupoView.txtTipoNivel}" />
+
+									<h:outputText id="msgEspecial" value="Especial:" />
+									<p:selectOneMenu binding="#{grupoView.txtEspecial}"
+										value="#{grupoView.especial}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgModificaReferencia"
+										value="Modifica Referencia:" />
+									<p:selectOneMenu binding="#{grupoView.txtModificaReferencia}"
+										value="#{grupoView.modificaReferencia}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgPideGalones" value="Pide Galones:" />
+									<p:selectOneMenu binding="#{grupoView.txtPideGalones}"
+										value="#{grupoView.pideGalones}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgManejaOrdenCompra"
+										value="Maneja Orden de Compra:" />
+									<p:selectOneMenu binding="#{grupoView.txtManejaOrdenCompra}"
+										value="#{grupoView.manejaOrdenCompra}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgSugeridoPedido" value="Sugerido Pedido:" />
+									<p:selectOneMenu binding="#{grupoView.txtSugeridoPedido}"
+										value="#{grupoView.sugeridoPedido}">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgAsociado" value="Asociado:" />
+									<p:inputText id="txtAsociado" value="#{grupoView.asociado}"
+										binding="#{grupoView.txtAsociado}" />
+
+									<h:outputText id="msgIdFlia_Familia" value="ID Familia:" />
+									<p:selectOneMenu value="#{grupoView.idFlia_Familia}"
+										binding="#{grupoView.txtIdFlia_Familia}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems value="#{grupoView.familias}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{grupoView.estado}"
+										value="#{grupoView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="2">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{grupoView.action_create}"
+										binding="#{grupoView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{grupoView.action_modify()}"
+										binding="#{grupoView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

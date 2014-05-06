@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectBateriologoTitle" header="Bateriologo" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidBate()==null){throw new ZMessManager().new EmptyFieldException("idBate");}" value="If(entity.getidBate()==null){throw new ZMessManager().new EmptyFieldException("idBate");}"/>
+						 <p:inputText id="txtIf(entity.getidBate()==null){throw new ZMessManager().new EmptyFieldException("idBate");}" binding="#{bateriologoView.txtIf(entity.getidBate()==null){throw new ZMessManager().new EmptyFieldException("idBate");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{bateriologoView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigo" value=" Codigo"/>
+						<p:inputText id="txtCodigo" disabled="true" binding="#{bateriologoView.txtCodigo}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{bateriologoView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNombreCompleto" value=" NombreCompleto"/>
+						<p:inputText id="txtNombreCompleto" disabled="true" binding="#{bateriologoView.txtNombreCompleto}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{bateriologoView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{bateriologoView.txtOperModifica}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{bateriologoView.txtIdSucu_Sucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{bateriologoView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{bateriologoView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{bateriologoView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{bateriologoView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{bateriologoView.action_save}" update="msg,panel,panelBotones"          binding="#{bateriologoView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{bateriologoView.action_modify}" update="msg,panel,panelBotones"    binding="#{bateriologoView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{bateriologoView.action_delete}" update="msg,panel,panelBotones"    binding="#{bateriologoView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{bateriologoView.action_clear}" update="msg,panel,panelBotones"      binding="#{bateriologoView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

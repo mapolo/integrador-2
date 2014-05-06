@@ -1,0 +1,262 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableSucursal" header="SucursalData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{sucursalView.data}" var="sucursal"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{sucursal.idSucu}" sortBy="#{sucursal.idSucu}" >
+										 <f:facet name="header">
+										<h:outputText value="idSucu"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idSucu}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{sucursal.codigo}" sortBy="#{sucursal.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.direccion}" sortBy="#{sucursal.direccion}" >
+										 <f:facet name="header">
+										<h:outputText value="Direccion"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.direccion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.email}" sortBy="#{sucursal.email}" >
+										 <f:facet name="header">
+										<h:outputText value="Email"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.email}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.estadoRegistro}" sortBy="#{sucursal.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.estadoSucursal}" sortBy="#{sucursal.estadoSucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoSucursal"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.estadoSucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.fechaCreacion}" sortBy="#{sucursal.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.fechaModificacion}" sortBy="#{sucursal.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.nombre}" sortBy="#{sucursal.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.operCreador}" sortBy="#{sucursal.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.operModifica}" sortBy="#{sucursal.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.telefono}" sortBy="#{sucursal.telefono}" >
+										 <f:facet name="header">
+										<h:outputText value="Telefono"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.telefono}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.zipCode}" sortBy="#{sucursal.zipCode}" >
+										 <f:facet name="header">
+										<h:outputText value="ZipCode"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.zipCode}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idDipo_DivisionPolitica}" sortBy="#{sucursal.idDipo_DivisionPolitica}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDipo_DivisionPolitica"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idDipo_DivisionPolitica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idEmpr_Empresa}" sortBy="#{sucursal.idEmpr_Empresa}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEmpr_Empresa"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idEmpr_Empresa}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idPers_Persona}" sortBy="#{sucursal.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idRege_RegionalGeografica}" sortBy="#{sucursal.idRege_RegionalGeografica}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRege_RegionalGeografica"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idRege_RegionalGeografica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idSucu_Sucursal}" sortBy="#{sucursal.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idSucu_Sucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{sucursal.idTisu_TipoSucursal}" sortBy="#{sucursal.idTisu_TipoSucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTisu_TipoSucursal"/>
+										</f:facet>
+										 <h:outputText value="#{sucursal.idTisu_TipoSucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSucursal"
+										actionListener="#{sucursalView.action_edit}">
+										<f:attribute name="selectedSucursal" value="#{sucursal}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{sucursalView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSucursal" value="#{sucursal}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{sucursalView.action_new()}" update=":dialogSucursal" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSucursal" appendToBody="true" draggable="true"
+						closable="false" visible="#{sucursalView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelSucursal" header="Sucursal">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdSucu" value="IdSucu"/>
+									 <p:inputText id="txtIdSucu" binding="#{sucursalView.txtIdSucu}">
+									 <p:ajax update=":dialogSucursal" listener="#{sucursalView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{sucursalView.txtCodigo}"/>
+																		<h:outputText id="msgDireccion" value=" Direccion"/>
+									<p:inputText id="txtDireccion" disabled="true" binding="#{sucursalView.txtDireccion}"/>
+																		<h:outputText id="msgEmail" value=" Email"/>
+									<p:inputText id="txtEmail" disabled="true" binding="#{sucursalView.txtEmail}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{sucursalView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgEstadoSucursal" value=" EstadoSucursal"/>
+									<p:inputText id="txtEstadoSucursal" disabled="true" binding="#{sucursalView.txtEstadoSucursal}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{sucursalView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{sucursalView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{sucursalView.txtOperModifica}"/>
+																		<h:outputText id="msgTelefono" value=" Telefono"/>
+									<p:inputText id="txtTelefono" disabled="true" binding="#{sucursalView.txtTelefono}"/>
+																		<h:outputText id="msgZipCode" value=" ZipCode"/>
+									<p:inputText id="txtZipCode" disabled="true" binding="#{sucursalView.txtZipCode}"/>
+																		<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+									<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{sucursalView.txtIdDipo_DivisionPolitica}"/>
+																		<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+									<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{sucursalView.txtIdEmpr_Empresa}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{sucursalView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdRege_RegionalGeografica" value=" IdRege_RegionalGeografica"/>
+									<p:inputText id="txtIdRege_RegionalGeografica" disabled="true" binding="#{sucursalView.txtIdRege_RegionalGeografica}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{sucursalView.txtIdSucu_Sucursal}"/>
+																		<h:outputText id="msgIdTisu_TipoSucursal" value=" IdTisu_TipoSucursal"/>
+									<p:inputText id="txtIdTisu_TipoSucursal" disabled="true" binding="#{sucursalView.txtIdTisu_TipoSucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{sucursalView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{sucursalView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{sucursalView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{sucursalView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{sucursalView.btnSave}" value="Save" action="#{sucursalView.action_save()}" update=":dialogSucursal :frm:panelDataTableSucursal" />
+									<p:commandButton id="btnClear" value="Clear" action="#{sucursalView.action_clear()}" update=":dialogSucursal" />
+									<p:commandButton id="btnExit" value="Exit" action="#{sucursalView.action_closeDialog()}" update=":dialogSucursal" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

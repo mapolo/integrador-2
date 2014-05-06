@@ -1,0 +1,226 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTablePronosticoVenta" header="PronosticoVentaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{pronosticoVentaView.data}" var="pronosticoVenta"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{pronosticoVenta.idPtcv}" sortBy="#{pronosticoVenta.idPtcv}" >
+										 <f:facet name="header">
+										<h:outputText value="idPtcv"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.idPtcv}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{pronosticoVenta.ano}" sortBy="#{pronosticoVenta.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.cantidadAPedir}" sortBy="#{pronosticoVenta.cantidadAPedir}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadAPedir"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.cantidadAPedir}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.cantidadAntAPedir}" sortBy="#{pronosticoVenta.cantidadAntAPedir}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadAntAPedir"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.cantidadAntAPedir}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.cantidadPromedio}" sortBy="#{pronosticoVenta.cantidadPromedio}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadPromedio"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.cantidadPromedio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.estadoAutorizacion}" sortBy="#{pronosticoVenta.estadoAutorizacion}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoAutorizacion"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.estadoAutorizacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.estadoRegistro}" sortBy="#{pronosticoVenta.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.fechaCreacion}" sortBy="#{pronosticoVenta.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.fechaModificacion}" sortBy="#{pronosticoVenta.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.mes}" sortBy="#{pronosticoVenta.mes}" >
+										 <f:facet name="header">
+										<h:outputText value="Mes"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.mes}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.operCreador}" sortBy="#{pronosticoVenta.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.operModifica}" sortBy="#{pronosticoVenta.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.idRefe_Referencia}" sortBy="#{pronosticoVenta.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.idRefe_Referencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.idSucu_Sucursal}" sortBy="#{pronosticoVenta.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.idSucu_Sucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pronosticoVenta.idUnve_UnidadVenta}" sortBy="#{pronosticoVenta.idUnve_UnidadVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnve_UnidadVenta"/>
+										</f:facet>
+										 <h:outputText value="#{pronosticoVenta.idUnve_UnidadVenta}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogPronosticoVenta"
+										actionListener="#{pronosticoVentaView.action_edit}">
+										<f:attribute name="selectedPronosticoVenta" value="#{pronosticoVenta}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{pronosticoVentaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedPronosticoVenta" value="#{pronosticoVenta}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{pronosticoVentaView.action_new()}" update=":dialogPronosticoVenta" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogPronosticoVenta" appendToBody="true" draggable="true"
+						closable="false" visible="#{pronosticoVentaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelPronosticoVenta" header="PronosticoVenta">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPtcv" value="IdPtcv"/>
+									 <p:inputText id="txtIdPtcv" binding="#{pronosticoVentaView.txtIdPtcv}">
+									 <p:ajax update=":dialogPronosticoVenta" listener="#{pronosticoVentaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{pronosticoVentaView.txtAno}"/>
+																		<h:outputText id="msgCantidadAPedir" value=" CantidadAPedir"/>
+									<p:inputText id="txtCantidadAPedir" disabled="true" binding="#{pronosticoVentaView.txtCantidadAPedir}"/>
+																		<h:outputText id="msgCantidadAntAPedir" value=" CantidadAntAPedir"/>
+									<p:inputText id="txtCantidadAntAPedir" disabled="true" binding="#{pronosticoVentaView.txtCantidadAntAPedir}"/>
+																		<h:outputText id="msgCantidadPromedio" value=" CantidadPromedio"/>
+									<p:inputText id="txtCantidadPromedio" disabled="true" binding="#{pronosticoVentaView.txtCantidadPromedio}"/>
+																		<h:outputText id="msgEstadoAutorizacion" value=" EstadoAutorizacion"/>
+									<p:inputText id="txtEstadoAutorizacion" disabled="true" binding="#{pronosticoVentaView.txtEstadoAutorizacion}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{pronosticoVentaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgMes" value=" Mes"/>
+									<p:inputText id="txtMes" disabled="true" binding="#{pronosticoVentaView.txtMes}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{pronosticoVentaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{pronosticoVentaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{pronosticoVentaView.txtIdRefe_Referencia}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{pronosticoVentaView.txtIdSucu_Sucursal}"/>
+																		<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+									<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{pronosticoVentaView.txtIdUnve_UnidadVenta}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pronosticoVentaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{pronosticoVentaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pronosticoVentaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{pronosticoVentaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{pronosticoVentaView.btnSave}" value="Save" action="#{pronosticoVentaView.action_save()}" update=":dialogPronosticoVenta :frm:panelDataTablePronosticoVenta" />
+									<p:commandButton id="btnClear" value="Clear" action="#{pronosticoVentaView.action_clear()}" update=":dialogPronosticoVenta" />
+									<p:commandButton id="btnExit" value="Exit" action="#{pronosticoVentaView.action_closeDialog()}" update=":dialogPronosticoVenta" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

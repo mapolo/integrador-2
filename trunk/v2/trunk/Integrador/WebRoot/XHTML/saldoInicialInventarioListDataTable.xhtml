@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableSaldoInicialInventario" header="SaldoInicialInventarioData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{saldoInicialInventarioView.data}" var="saldoInicialInventario"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{saldoInicialInventario.idSini}" sortBy="#{saldoInicialInventario.idSini}" >
+										 <f:facet name="header">
+										<h:outputText value="idSini"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.idSini}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{saldoInicialInventario.ano}" sortBy="#{saldoInicialInventario.ano}" >
+										 <f:facet name="header">
+										<h:outputText value="Ano"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.ano}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.costoInicial}" sortBy="#{saldoInicialInventario.costoInicial}" >
+										 <f:facet name="header">
+										<h:outputText value="CostoInicial"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.costoInicial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.estadoRegistro}" sortBy="#{saldoInicialInventario.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.fechaCreacion}" sortBy="#{saldoInicialInventario.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.fechaModificacion}" sortBy="#{saldoInicialInventario.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.operCreador}" sortBy="#{saldoInicialInventario.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.operModifica}" sortBy="#{saldoInicialInventario.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.saldoInicial}" sortBy="#{saldoInicialInventario.saldoInicial}" >
+										 <f:facet name="header">
+										<h:outputText value="SaldoInicial"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.saldoInicial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{saldoInicialInventario.idResu_ReferenciaSucursal}" sortBy="#{saldoInicialInventario.idResu_ReferenciaSucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdResu_ReferenciaSucursal"/>
+										</f:facet>
+										 <h:outputText value="#{saldoInicialInventario.idResu_ReferenciaSucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogSaldoInicialInventario"
+										actionListener="#{saldoInicialInventarioView.action_edit}">
+										<f:attribute name="selectedSaldoInicialInventario" value="#{saldoInicialInventario}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{saldoInicialInventarioView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedSaldoInicialInventario" value="#{saldoInicialInventario}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{saldoInicialInventarioView.action_new()}" update=":dialogSaldoInicialInventario" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogSaldoInicialInventario" appendToBody="true" draggable="true"
+						closable="false" visible="#{saldoInicialInventarioView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelSaldoInicialInventario" header="SaldoInicialInventario">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdSini" value="IdSini"/>
+									 <p:inputText id="txtIdSini" binding="#{saldoInicialInventarioView.txtIdSini}">
+									 <p:ajax update=":dialogSaldoInicialInventario" listener="#{saldoInicialInventarioView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgAno" value=" Ano"/>
+									<p:inputText id="txtAno" disabled="true" binding="#{saldoInicialInventarioView.txtAno}"/>
+																		<h:outputText id="msgCostoInicial" value=" CostoInicial"/>
+									<p:inputText id="txtCostoInicial" disabled="true" binding="#{saldoInicialInventarioView.txtCostoInicial}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{saldoInicialInventarioView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{saldoInicialInventarioView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{saldoInicialInventarioView.txtOperModifica}"/>
+																		<h:outputText id="msgSaldoInicial" value=" SaldoInicial"/>
+									<p:inputText id="txtSaldoInicial" disabled="true" binding="#{saldoInicialInventarioView.txtSaldoInicial}"/>
+																		<h:outputText id="msgIdResu_ReferenciaSucursal" value=" IdResu_ReferenciaSucursal"/>
+									<p:inputText id="txtIdResu_ReferenciaSucursal" disabled="true" binding="#{saldoInicialInventarioView.txtIdResu_ReferenciaSucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{saldoInicialInventarioView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{saldoInicialInventarioView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{saldoInicialInventarioView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{saldoInicialInventarioView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{saldoInicialInventarioView.btnSave}" value="Save" action="#{saldoInicialInventarioView.action_save()}" update=":dialogSaldoInicialInventario :frm:panelDataTableSaldoInicialInventario" />
+									<p:commandButton id="btnClear" value="Clear" action="#{saldoInicialInventarioView.action_clear()}" update=":dialogSaldoInicialInventario" />
+									<p:commandButton id="btnExit" value="Exit" action="#{saldoInicialInventarioView.action_closeDialog()}" update=":dialogSaldoInicialInventario" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

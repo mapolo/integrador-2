@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableTipoIdentificacion" header="TipoIdentificacionData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tipoIdentificacionView.data}" var="tipoIdentificacion"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tipoIdentificacion.idTiid}" sortBy="#{tipoIdentificacion.idTiid}" >
+										 <f:facet name="header">
+										<h:outputText value="idTiid"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.idTiid}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tipoIdentificacion.codigo}" sortBy="#{tipoIdentificacion.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.descripcion}" sortBy="#{tipoIdentificacion.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.estadoRegistro}" sortBy="#{tipoIdentificacion.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.fechaCreacion}" sortBy="#{tipoIdentificacion.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.fechaModificacion}" sortBy="#{tipoIdentificacion.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.operCreador}" sortBy="#{tipoIdentificacion.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoIdentificacion.operModifica}" sortBy="#{tipoIdentificacion.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{tipoIdentificacion.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTipoIdentificacion"
+										actionListener="#{tipoIdentificacionView.action_edit}">
+										<f:attribute name="selectedTipoIdentificacion" value="#{tipoIdentificacion}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tipoIdentificacionView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTipoIdentificacion" value="#{tipoIdentificacion}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tipoIdentificacionView.action_new()}" update=":dialogTipoIdentificacion" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTipoIdentificacion" appendToBody="true" draggable="true"
+						closable="false" visible="#{tipoIdentificacionView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelTipoIdentificacion" header="TipoIdentificacion">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdTiid" value="IdTiid"/>
+									 <p:inputText id="txtIdTiid" binding="#{tipoIdentificacionView.txtIdTiid}">
+									 <p:ajax update=":dialogTipoIdentificacion" listener="#{tipoIdentificacionView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{tipoIdentificacionView.txtCodigo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoIdentificacionView.txtDescripcion}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoIdentificacionView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoIdentificacionView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoIdentificacionView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoIdentificacionView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoIdentificacionView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoIdentificacionView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoIdentificacionView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tipoIdentificacionView.btnSave}" value="Save" action="#{tipoIdentificacionView.action_save()}" update=":dialogTipoIdentificacion :frm:panelDataTableTipoIdentificacion" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tipoIdentificacionView.action_clear()}" update=":dialogTipoIdentificacion" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tipoIdentificacionView.action_closeDialog()}" update=":dialogTipoIdentificacion" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

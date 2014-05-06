@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.bytecode.use_reflection_optimizer">
+			false
+		</property>
+		<property name="dialect">
+			org.hibernate.dialect.Oracle9Dialect
+		</property>
+		<mapping resource="co/edu/usbcali/modelo/TipoDocumento.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RboDetalleDocumentos.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/AtencionVendedor.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/LogisticaReversiva.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RboDetalleFormasPago.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DiasSemana.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Garantia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RutaDistribucion.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Visita.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/UnidadNegocio.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ItemLogisticaReversiva.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ClavesParaRotar.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Contacto.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/CamposParametrizables.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoSucursal.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/OrdenesDeCompra.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/UnidadVenta.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Familia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Tabla.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RutaRelacionComercial.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Empresa.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoLista.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Causal.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DistribucionCartera.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ReferenciaSucursal.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Compania.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ListaPrecios.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Banco.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Cartera.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Cliente.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Recibo.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoContacto.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ClaveFabricacion.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ProgramacionVisitas.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoCartera.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/FrecuenciaVisita.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Bateriologo.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Sucursal.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/FrecuenciaSemana.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Semana.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Multifamilia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Vendedor.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Documento.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/PresupuestoCartera.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/PresupuestoVentas.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ProgramacionAdicional.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/SaldoInicialInventario.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoIdentificacion.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ListaPreciosEspeciales.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Cruce.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DescuentoFinanciero.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RegionalGeografica.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Proveedor.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/PronosticoVenta.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ItemRotacion.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Fallas.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/MovimientoInventario.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/SolicitudCambio.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ChequePosfechado.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Persona.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/PeriodoGarantia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/RelacionComercial.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoCausal.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoFormaPago.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DivisionPolitica.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Grupo.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ConsecutivoDocumento.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/GrupoReferencia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/StockInventarioMensual.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Referencia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/SolicitudCampo.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoGarantia.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/Pedido.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ConceptoRecibo.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DetalleVisita.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/MovimientoVendedor.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/EstadoDocumento.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/ConfSemanasAno.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/TipoDivision.hbm.xml" />
+		<mapping resource="co/edu/usbcali/modelo/DescuentoComercial.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

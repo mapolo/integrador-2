@@ -1,0 +1,378 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+					<h:form id="form">
+
+						<p:panel id="msgProjectReferenciaTitle" header="Referencia">
+							<p:messages id="msg" showDetail="false" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{referenciaView.data}"
+								scrollable="true" scrollHeight="300" id="refe" editable="true"
+								filteredValue="#{referenciaView.data}">
+
+								<p:ajax event="rowEdit" listener="#{referenciaView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{referenciaView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigo}"
+												style="text-transform:uppercase;" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="descripcion" filterBy="descripcion"
+									headerText="Descripción" sortBy="descripcion"
+									filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.descripcion}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.descripcion}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="marca" filterBy="marca" headerText="Marca"
+									sortBy="marca" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.marca}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.marca}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="porcentajeIva" filterBy="porcentajeIva"
+									headerText="Porcentaje del Iva" sortBy="porcentajeIva"
+									filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.porcentajeIva}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.porcentajeIva}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="costo" filterBy="costo" headerText="Costo"
+									sortBy="costo" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.costo}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.costo}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="peso" filterBy="peso" headerText="Peso"
+									sortBy="peso" filterMatchMode="contains" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.peso}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.peso}" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro"
+									filterBy="estadoRegistro"
+									filterOptions="#{referenciaView.manufacturerOptions}"
+									filterMatchMode="exact" style="width: 100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{referenciaView.estadoRegistro}">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Referencia" widgetVar="carDialog"
+								resizable="true" width="800" showEffect="clip"
+								hideEffect="fold">
+
+								<h:panelGrid columns="4" id="panel">
+
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" value="#{referenciaView.codigo}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{referenciaView.txtCodigo}" />
+
+									<h:outputText id="msgUnidadMedida" value="Unidad de Medida:" />
+									<p:inputText id="txtUnidadMedida"
+										value="#{referenciaView.unidadMedida}"
+										binding="#{referenciaView.txtUnidadMedida}" />
+
+									<h:outputText id="msgUnidadMedidaProvisional"
+										value="Unidad Medida Provisional:" />
+									<p:inputText id="txtUnidadMedidaProvisional"
+										value="#{referenciaView.unidadMedidaProvisional}"
+										binding="#{referenciaView.txtUnidadMedidaProvisional}" />
+
+									<h:outputText id="msgMarca" value="Marca:" />
+									<p:inputText id="txtMarca" value="#{referenciaView.marca}"
+										binding="#{referenciaView.txtMarca}" />
+
+									<h:outputText id="msgEquivalente1" value="Equivalente:" />
+									<p:inputText id="txtEquivalente1"
+										value="#{referenciaView.equivalente1}"
+										binding="#{referenciaView.txtEquivalente1}" />
+
+									<h:outputText id="msgEquivalente2" value="Equivalente 2:" />
+									<p:inputText id="txtEquivalente2"
+										value="#{referenciaView.equivalente2}"
+										binding="#{referenciaView.txtEquivalente2}" />
+
+									<h:outputText id="msgVolumen" value="Volumen:" />
+									<p:inputText id="txtVolumen" value="#{referenciaView.volumen}"
+										binding="#{referenciaView.txtVolumen}" />
+
+									<h:outputText id="msgGalones" value="Galones:" />
+									<p:inputText id="txtGalones" value="#{referenciaView.galones}"
+										binding="#{referenciaView.txtGalones}" />
+
+									<h:outputText id="msgPorcentajeIva" value="Porcentaje del Iva:" />
+									<p:inputText id="txtPorcentajeIva"
+										value="#{referenciaView.porcentajeIva}"
+										binding="#{referenciaView.txtPorcentajeIva}" />
+
+									<h:outputText id="msgPideCantidad" value="Pide Cantidad:" />
+										<p:selectOneMenu binding="#{referenciaView.txtPideCantidad}"
+										value="#{referenciaView.pideCantidad}" disabled="false">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgPideValor" value="Pide Valor:" />
+									<p:selectOneMenu binding="#{referenciaView.txtPideValor}"
+										value="#{referenciaView.pideValor}" disabled="false">
+										<f:selectItem itemLabel="+" itemValue="+" />
+										<f:selectItem itemLabel="-" itemValue="-" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgCosto" value="Costo:" />
+									<p:inputText id="txtCosto" value="#{referenciaView.costo}"
+										binding="#{referenciaView.txtCosto}" />
+
+									<h:outputText id="msgAplicacion" value="Aplicación:" />
+									<p:inputText id="txtAplicacion"
+										value="#{referenciaView.aplicacion}"
+										binding="#{referenciaView.txtAplicacion}" />
+
+									<h:outputText id="msgEsGarantia" value="Es Garantia:" />
+										<p:selectOneMenu binding="#{referenciaView.txtEsGarantia}"
+										value="#{referenciaView.esGarantia}" disabled="false">
+										<f:selectItem itemLabel="S" itemValue="S" />
+										<f:selectItem itemLabel="N" itemValue="N" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgPeso" value="Peso:" />
+									<p:inputText id="txtPeso" value="#{referenciaView.peso}"
+										binding="#{referenciaView.txtPeso}" />
+
+									<h:outputText id="msgQPorCaja" value="Cantidad Por Caja:" />
+									<p:inputText id="txtQPorCaja"
+										value="#{referenciaView.QPorCaja}"
+										binding="#{referenciaView.txtQPorCaja}" />
+
+									<h:outputText id="msgFechaVigentePBodega"
+										value="Fecha Vigente P Bodega:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{referenciaView.txtFechaVigentePBodega}">
+										<p:ajax event="dateSelect"
+											listener="#{referenciaView.listener_txtFechaVigentePBodega}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgMargenMinimoPBodega"
+										value="Margen Minimo P Bodega:" />
+									<p:inputText id="txtMargenMinimoPBodega"
+										value="#{referenciaView.margenMinimoPBodega}"
+										binding="#{referenciaView.txtMargenMinimoPBodega}" />
+
+									<h:outputText id="msgMargenMinimoGBodega"
+										value="Margen Minimo G Bodega:" />
+									<p:inputText id="txtMargenMinimoGBodega"
+										value="#{referenciaView.margenMinimoGBodega}"
+										binding="#{referenciaView.txtMargenMinimoGBodega}" />
+
+									<h:outputText id="msgMargenMinimoRefBodega"
+										value="Margen Minimo Ref Bodega:" />
+									<p:inputText id="txtMargenMinimoRefBodega"
+										value="#{referenciaView.margenMinimoRefBodega}"
+										binding="#{referenciaView.txtMargenMinimoRefBodega}" />
+
+									<h:outputText id="msgFechaVigentePEne"
+										value="Fecha Vigente P Ene:" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{referenciaView.txtFechaVigentePEne}">
+										<p:ajax event="dateSelect"
+											listener="#{referenciaView.listener_txtFechaVigentePEne}"
+											update="men" />
+									</p:calendar>
+
+									<h:outputText id="msgMargenMinimoPEne"
+										value="Margen Minimo P Ene:" />
+									<p:inputText id="txtMargenMinimoPEne"
+										value="#{referenciaView.margenMinimoPEne}"
+										binding="#{referenciaView.txtMargenMinimoPEne}" />
+
+									<h:outputText id="msgMargenMinimoRefEne"
+										value="Margen Minimo Ref Ene:" />
+									<p:inputText id="txtMargenMinimoRefEne"
+										value="#{referenciaView.margenMinimoRefEne}"
+										binding="#{referenciaView.txtMargenMinimoRefEne}" />
+
+									<h:outputText id="msgMargenMinimoGEne"
+										value="Margen Minimo G Ene:" />
+									<p:inputText id="txtMargenMinimoGEne"
+										value="#{referenciaView.margenMinimoGEne}"
+										binding="#{referenciaView.txtMargenMinimoGEne}" />
+
+									<h:outputText id="msgProductoEspecial"
+										value="Producto Especial:" />
+									<p:inputText id="txtProductoEspecial"
+										value="#{referenciaView.productoEspecial}"
+										binding="#{referenciaView.txtProductoEspecial}" />
+
+									<h:outputText id="msgProductoConsumo" value="Producto Consumo:" />
+									<p:inputText id="txtProductoConsumo"
+										value="#{referenciaView.productoConsumo}"
+										binding="#{referenciaView.txtProductoConsumo}" />
+
+									<h:outputText id="msgManejaLote" value="Maneja Lote:" />
+									<p:inputText id="txtManejaLote"
+										value="#{referenciaView.manejaLote}"
+										binding="#{referenciaView.txtManejaLote}" />
+
+									<h:outputText id="msgManejaDecimales" value="Maneja Decimales:" />
+									<p:inputText id="txtManejaDecimales"
+										value="#{referenciaView.manejaDecimales}"
+										binding="#{referenciaView.txtManejaDecimales}" />
+
+									<h:outputText id="msgCodigoBarras" value="Codigo de Barras:" />
+									<p:inputText id="txtCodigoBarras"
+										value="#{referenciaView.codigoBarras}"
+										binding="#{referenciaView.txtCodigoBarras}" />
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{referenciaView.estado}"
+										value="#{referenciaView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgDescripcion" value="Descripción:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
+										value="#{referenciaView.descripcion}"
+										binding="#{referenciaView.txtDescripcion}" />
+
+									<h:outputText id="msgDescripcionCorta"
+										value="Descripción Corta:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcionCorta"
+										value="#{referenciaView.descripcionCorta}"
+										binding="#{referenciaView.txtDescripcionCorta}" />
+
+									<h:outputText id="msgDescripcionTecnica"
+										value="Descripción Tecnica:" />
+									<p:inputTextarea rows="6" cols="33" id="txtDescripcionTecnica"
+										value="#{referenciaView.descripcionTecnica}"
+										binding="#{referenciaView.txtDescripcionTecnica}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{referenciaView.action_create}"
+										binding="#{referenciaView.btnSave}"
+										update="refe,msg,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

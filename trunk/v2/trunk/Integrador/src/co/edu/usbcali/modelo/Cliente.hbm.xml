@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Cliente" table="CLIENTE" >
+        <id name="idClie" type="java.lang.Long">
+            <column name="ID_CLIE" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="persona" class="co.edu.usbcali.modelo.Persona" fetch="select">
+            <column name="ID_PERS" precision="10" scale="0" unique="true" />
+        </many-to-one>
+        <many-to-one name="empresa" class="co.edu.usbcali.modelo.Empresa" fetch="select">
+            <column name="ID_EMPR" precision="10" scale="0" unique="true" />
+        </many-to-one>
+        <many-to-one name="tipoCartera" class="co.edu.usbcali.modelo.TipoCartera" fetch="select">
+            <column name="ID_TICA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="multifamiliasForClienteHijo" inverse="true" lazy="true" table="MULTIFAMILIA" fetch="select">
+            <key>
+                <column name="CLIENTE_HIJO" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Multifamilia" />
+        </set>
+        <set name="multifamiliasForClientePadre" inverse="true" lazy="true" table="MULTIFAMILIA" fetch="select">
+            <key>
+                <column name="CLIENTE_PADRE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Multifamilia" />
+        </set>
+    </class>
+</hibernate-mapping>
