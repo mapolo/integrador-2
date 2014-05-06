@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectPresupuestoVentasTitle" header="PresupuestoVentas" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}" value="If(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}"/>
+						 <p:inputText id="txtIf(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}" binding="#{presupuestoVentasView.txtIf(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{presupuestoVentasView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgAno" value=" Ano"/>
+						<p:inputText id="txtAno" disabled="true" binding="#{presupuestoVentasView.txtAno}"/>
+												<h:outputText id="msgCanal" value=" Canal"/>
+						<p:inputText id="txtCanal" disabled="true" binding="#{presupuestoVentasView.txtCanal}"/>
+												<h:outputText id="msgCantidadPresupuesto" value=" CantidadPresupuesto"/>
+						<p:inputText id="txtCantidadPresupuesto" disabled="true" binding="#{presupuestoVentasView.txtCantidadPresupuesto}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{presupuestoVentasView.txtEstadoRegistro}"/>
+												<h:outputText id="msgMes" value=" Mes"/>
+						<p:inputText id="txtMes" disabled="true" binding="#{presupuestoVentasView.txtMes}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{presupuestoVentasView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{presupuestoVentasView.txtOperModifica}"/>
+												<h:outputText id="msgValorPresupuesto" value=" ValorPresupuesto"/>
+						<p:inputText id="txtValorPresupuesto" disabled="true" binding="#{presupuestoVentasView.txtValorPresupuesto}"/>
+												<h:outputText id="msgIdFlia_Familia" value=" IdFlia_Familia"/>
+						<p:inputText id="txtIdFlia_Familia" disabled="true" binding="#{presupuestoVentasView.txtIdFlia_Familia}"/>
+												<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+						<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{presupuestoVentasView.txtIdUnve_UnidadVenta}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{presupuestoVentasView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{presupuestoVentasView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{presupuestoVentasView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{presupuestoVentasView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{presupuestoVentasView.action_save}" update="msg,panel,panelBotones"          binding="#{presupuestoVentasView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{presupuestoVentasView.action_modify}" update="msg,panel,panelBotones"    binding="#{presupuestoVentasView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{presupuestoVentasView.action_delete}" update="msg,panel,panelBotones"    binding="#{presupuestoVentasView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{presupuestoVentasView.action_clear}" update="msg,panel,panelBotones"      binding="#{presupuestoVentasView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

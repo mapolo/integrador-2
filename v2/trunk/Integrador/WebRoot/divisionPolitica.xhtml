@@ -1,0 +1,217 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectDivisionPoliticaTitle"
+							header="División Politica">
+						
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{divisionPoliticaView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{divisionPoliticaView.data}">
+
+								<p:ajax event="rowEdit"
+									listener="#{divisionPoliticaView.onEdit}" />
+								<p:ajax event="rowEditCancel"
+									listener="#{divisionPoliticaView.onCancel}" />
+
+								<p:column headerText="Editar" style="width:40px">
+									<p:rowEditor />
+								</p:column>
+
+								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+									sortBy="nombre" filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.nombre}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.nombre}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID División Politica" style="width:20%"
+									filterBy="idDipo_DivisionPolitica"
+									sortBy="idDipo_DivisionPolitica">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{divisionPoliticaView.idDipo_DivisionPolitica}"
+												style="width:160px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
+												<f:selectItems
+													value="#{divisionPoliticaView.divisionPolitica}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="ID Tipo División" style="width:20%"
+									filterBy="idTidi_TipoDivision" sortBy="idTidi_TipoDivision">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTidi_TipoDivision}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu
+												value="#{divisionPoliticaView.idTidi_TipoDivision}"
+												style="width:160px">
+												<f:selectItems value="#{divisionPoliticaView.tipoDivision}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column id="codigoDian" filterBy="codigoDian"
+									headerText="Codigo Dian" sortBy="codigoDian"
+									filterMatchMode="contains" style="width:100px">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.codigoDian}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigoDian}" style="width:100%" />
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width:20%"
+									filterBy="estadoRegistro"
+									filterOptions="#{divisionPoliticaView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.estadoRegistro}" />
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu
+												value="#{divisionPoliticaView.estadoRegistro}">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="División Politica"
+								widgetVar="carDialog" resizable="false" width="500"
+								showEffect="clip" hideEffect="fold">
+
+								<p:messages id="messages" autoUpdate="true" />
+
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgNombre" value="*Nombre:" />
+									<p:inputText id="txtNombre"
+										value="#{divisionPoliticaView.nombre}"
+										binding="#{divisionPoliticaView.txtNombre}" />
+
+									<h:outputText id="msgIdDipo_DivisionPolitica"
+										value="ID División Politica:" />
+									<p:selectOneMenu
+										value="#{divisionPoliticaView.idDipo_DivisionPolitica}"
+										binding="#{divisionPoliticaView.txtIdDipo_DivisionPolitica}">
+										<f:selectItem itemLabel="Seleccionar" itemValue="" />
+										<f:selectItems
+											value="#{divisionPoliticaView.divisionPolitica}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgIdTidi_TipoDivision"
+										value="*ID Tipo de División:" />
+									<p:selectOneMenu
+										value="#{divisionPoliticaView.idTidi_TipoDivision}"
+										binding="#{divisionPoliticaView.txtIdTidi_TipoDivision}">
+										<f:selectItems value="#{divisionPoliticaView.tipoDivision}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgCodigoDian" value="Codigo Dian:" />
+									<p:inputText id="txtCodigoDian"
+										value="#{divisionPoliticaView.codigoDian}"
+										binding="#{divisionPoliticaView.txtCodigoDian}" />
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{divisionPoliticaView.estado}"
+										value="#{divisionPoliticaView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="1">
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{divisionPoliticaView.action_create}"
+										binding="#{divisionPoliticaView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

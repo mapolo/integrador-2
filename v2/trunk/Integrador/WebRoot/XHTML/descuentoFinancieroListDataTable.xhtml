@@ -1,0 +1,228 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						
+						 <br />
+						<p:panel id="panelDataTableDescuentoFinanciero" header="DescuentoFinancieroData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{descuentoFinancieroView.data}" var="descuentoFinanciero"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{descuentoFinanciero.idDefi}" sortBy="#{descuentoFinanciero.idDefi}" >
+										 <f:facet name="header">
+										<h:outputText value="idDefi"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.idDefi}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{descuentoFinanciero.codigo}" sortBy="#{descuentoFinanciero.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.diaDesde}" sortBy="#{descuentoFinanciero.diaDesde}" >
+										 <f:facet name="header">
+										<h:outputText value="DiaDesde"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.diaDesde}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.diaHasta}" sortBy="#{descuentoFinanciero.diaHasta}" >
+										 <f:facet name="header">
+										<h:outputText value="DiaHasta"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.diaHasta}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.estadoRegistro}" sortBy="#{descuentoFinanciero.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.fechaCreacion}" sortBy="#{descuentoFinanciero.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.fechaFinal}" sortBy="#{descuentoFinanciero.fechaFinal}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaFinal"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.fechaFinal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.fechaInicio}" sortBy="#{descuentoFinanciero.fechaInicio}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaInicio"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.fechaInicio}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.fechaModificacion}" sortBy="#{descuentoFinanciero.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.nombre}" sortBy="#{descuentoFinanciero.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.operCreador}" sortBy="#{descuentoFinanciero.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.operModifica}" sortBy="#{descuentoFinanciero.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.porcentajeDescuento}" sortBy="#{descuentoFinanciero.porcentajeDescuento}" >
+										 <f:facet name="header">
+										<h:outputText value="PorcentajeDescuento"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.porcentajeDescuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.idGrpo_Grupo}" sortBy="#{descuentoFinanciero.idGrpo_Grupo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdGrpo_Grupo"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.idGrpo_Grupo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{descuentoFinanciero.idTfpa_TipoFormaPago}" sortBy="#{descuentoFinanciero.idTfpa_TipoFormaPago}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTfpa_TipoFormaPago"/>
+										</f:facet>
+										 <h:outputText value="#{descuentoFinanciero.idTfpa_TipoFormaPago}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogDescuentoFinanciero"
+										actionListener="#{descuentoFinancieroView.action_edit}">
+										<f:attribute name="selectedDescuentoFinanciero" value="#{descuentoFinanciero}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{descuentoFinancieroView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedDescuentoFinanciero" value="#{descuentoFinanciero}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{descuentoFinancieroView.action_new()}" update=":dialogDescuentoFinanciero" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogDescuentoFinanciero" appendToBody="true" draggable="true"
+						closable="false" visible="#{descuentoFinancieroView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelDescuentoFinanciero" header="DescuentoFinanciero">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdDefi" value="IdDefi"/>
+									 <p:inputText id="txtIdDefi" binding="#{descuentoFinancieroView.txtIdDefi}">
+									 <p:ajax update=":dialogDescuentoFinanciero" listener="#{descuentoFinancieroView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{descuentoFinancieroView.txtCodigo}"/>
+																		<h:outputText id="msgDiaDesde" value=" DiaDesde"/>
+									<p:inputText id="txtDiaDesde" disabled="true" binding="#{descuentoFinancieroView.txtDiaDesde}"/>
+																		<h:outputText id="msgDiaHasta" value=" DiaHasta"/>
+									<p:inputText id="txtDiaHasta" disabled="true" binding="#{descuentoFinancieroView.txtDiaHasta}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{descuentoFinancieroView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{descuentoFinancieroView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{descuentoFinancieroView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{descuentoFinancieroView.txtOperModifica}"/>
+																		<h:outputText id="msgPorcentajeDescuento" value=" PorcentajeDescuento"/>
+									<p:inputText id="txtPorcentajeDescuento" disabled="true" binding="#{descuentoFinancieroView.txtPorcentajeDescuento}"/>
+																		<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo"/>
+									<p:inputText id="txtIdGrpo_Grupo" disabled="true" binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}"/>
+																		<h:outputText id="msgIdTfpa_TipoFormaPago" value=" IdTfpa_TipoFormaPago"/>
+									<p:inputText id="txtIdTfpa_TipoFormaPago" disabled="true" binding="#{descuentoFinancieroView.txtIdTfpa_TipoFormaPago}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{descuentoFinancieroView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{descuentoFinancieroView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaFinal" value=" FechaFinal"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{descuentoFinancieroView.txtFechaFinal}" >
+										<p:ajax event="dateSelect" listener="#{descuentoFinancieroView.listener_txtFechaFinal}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaInicio" value=" FechaInicio"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{descuentoFinancieroView.txtFechaInicio}" >
+										<p:ajax event="dateSelect" listener="#{descuentoFinancieroView.listener_txtFechaInicio}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{descuentoFinancieroView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{descuentoFinancieroView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{descuentoFinancieroView.btnSave}" value="Save" action="#{descuentoFinancieroView.action_save()}" update=":dialogDescuentoFinanciero :frm:panelDataTableDescuentoFinanciero" />
+									<p:commandButton id="btnClear" value="Clear" action="#{descuentoFinancieroView.action_clear()}" update=":dialogDescuentoFinanciero" />
+									<p:commandButton id="btnExit" value="Exit" action="#{descuentoFinancieroView.action_closeDialog()}" update=":dialogDescuentoFinanciero" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			
+		</ui:composition>	
+	</h:body>	
+</html>	

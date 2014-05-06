@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="TipoFormaPagoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{tipoFormaPagoView.data}" var="tipoFormaPago"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{tipoFormaPagoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{tipoFormaPago.if(entity.getidTfpa()==null){throw new ZMessManager().new EmptyFieldException("idTfpa");}}" sortBy="#{tipoFormaPago.if(entity.getidTfpa()==null){throw new ZMessManager().new EmptyFieldException("idTfpa");}}" 
+							headerText="if(entity.getidTfpa()==null){throw new ZMessManager().new EmptyFieldException("idTfpa");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.if(entity.getidTfpa()==null){throw new ZMessManager().new EmptyFieldException("idTfpa");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.if(entity.getidTfpa()==null){throw new ZMessManager().new EmptyFieldException("idTfpa");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{tipoFormaPago.codigo}" sortBy="#{tipoFormaPago.codigo}" 
+							headerText="codigo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.codigo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.codigo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.descripcion}" sortBy="#{tipoFormaPago.descripcion}" 
+							headerText="descripcion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.descripcion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.descripcion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.dsctoFechaDoc}" sortBy="#{tipoFormaPago.dsctoFechaDoc}" 
+							headerText="dsctoFechaDoc">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.dsctoFechaDoc}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.dsctoFechaDoc}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.esPosfechado}" sortBy="#{tipoFormaPago.esPosfechado}" 
+							headerText="esPosfechado">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.esPosfechado}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.esPosfechado}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.estadoRegistro}" sortBy="#{tipoFormaPago.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.exijeNumeroDocumento}" sortBy="#{tipoFormaPago.exijeNumeroDocumento}" 
+							headerText="exijeNumeroDocumento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.exijeNumeroDocumento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.exijeNumeroDocumento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.importaPda}" sortBy="#{tipoFormaPago.importaPda}" 
+							headerText="importaPda">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.importaPda}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.importaPda}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.manejaCheque}" sortBy="#{tipoFormaPago.manejaCheque}" 
+							headerText="manejaCheque">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.manejaCheque}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.manejaCheque}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.manejaTarjeta}" sortBy="#{tipoFormaPago.manejaTarjeta}" 
+							headerText="manejaTarjeta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.manejaTarjeta}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.manejaTarjeta}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.operCreador}" sortBy="#{tipoFormaPago.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoFormaPago.operModifica}" sortBy="#{tipoFormaPago.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoFormaPago.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{tipoFormaPago.fechaCreacion}" sortBy="#{tipoFormaPago.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{tipoFormaPago.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{tipoFormaPagoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{tipoFormaPago.fechaModificacion}" sortBy="#{tipoFormaPago.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoFormaPago.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{tipoFormaPago.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{tipoFormaPagoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{tipoFormaPagoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{tipoFormaPago}"  target="#{tipoFormaPagoView.selectedTipoFormaPago}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

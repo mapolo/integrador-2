@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableTipoSucursal" header="TipoSucursalData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tipoSucursalView.data}" var="tipoSucursal"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tipoSucursal.idTisu}" sortBy="#{tipoSucursal.idTisu}" >
+										 <f:facet name="header">
+										<h:outputText value="idTisu"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.idTisu}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tipoSucursal.codigo}" sortBy="#{tipoSucursal.codigo}" >
+										 <f:facet name="header">
+										<h:outputText value="Codigo"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.codigo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.descripcion}" sortBy="#{tipoSucursal.descripcion}" >
+										 <f:facet name="header">
+										<h:outputText value="Descripcion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.descripcion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.estadoRegistro}" sortBy="#{tipoSucursal.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.fechaCreacion}" sortBy="#{tipoSucursal.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.fechaModificacion}" sortBy="#{tipoSucursal.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.operCreador}" sortBy="#{tipoSucursal.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoSucursal.operModifica}" sortBy="#{tipoSucursal.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{tipoSucursal.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTipoSucursal"
+										actionListener="#{tipoSucursalView.action_edit}">
+										<f:attribute name="selectedTipoSucursal" value="#{tipoSucursal}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tipoSucursalView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTipoSucursal" value="#{tipoSucursal}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tipoSucursalView.action_new()}" update=":dialogTipoSucursal" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTipoSucursal" appendToBody="true" draggable="true"
+						closable="false" visible="#{tipoSucursalView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelTipoSucursal" header="TipoSucursal">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdTisu" value="IdTisu"/>
+									 <p:inputText id="txtIdTisu" binding="#{tipoSucursalView.txtIdTisu}">
+									 <p:ajax update=":dialogTipoSucursal" listener="#{tipoSucursalView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigo" value=" Codigo"/>
+									<p:inputText id="txtCodigo" disabled="true" binding="#{tipoSucursalView.txtCodigo}"/>
+																		<h:outputText id="msgDescripcion" value=" Descripcion"/>
+									<p:inputText id="txtDescripcion" disabled="true" binding="#{tipoSucursalView.txtDescripcion}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoSucursalView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoSucursalView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoSucursalView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoSucursalView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoSucursalView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoSucursalView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoSucursalView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tipoSucursalView.btnSave}" value="Save" action="#{tipoSucursalView.action_save()}" update=":dialogTipoSucursal :frm:panelDataTableTipoSucursal" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tipoSucursalView.action_clear()}" update=":dialogTipoSucursal" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tipoSucursalView.action_closeDialog()}" update=":dialogTipoSucursal" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

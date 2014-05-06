@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableMultifamilia" header="MultifamiliaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{multifamiliaView.data}" var="multifamilia"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{multifamilia.idMufa}" sortBy="#{multifamilia.idMufa}" >
+										 <f:facet name="header">
+										<h:outputText value="idMufa"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.idMufa}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{multifamilia.estadoRegistro}" sortBy="#{multifamilia.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.fechaCreacion}" sortBy="#{multifamilia.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.fechaModificacion}" sortBy="#{multifamilia.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.operCreador}" sortBy="#{multifamilia.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.operModifica}" sortBy="#{multifamilia.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.idClie_Cliente}" sortBy="#{multifamilia.idClie_Cliente}" >
+										 <f:facet name="header">
+										<h:outputText value="IdClie_Cliente"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.idClie_Cliente}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{multifamilia.idSucu_Sucursal}" sortBy="#{multifamilia.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{multifamilia.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogMultifamilia"
+										actionListener="#{multifamiliaView.action_edit}">
+										<f:attribute name="selectedMultifamilia" value="#{multifamilia}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{multifamiliaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedMultifamilia" value="#{multifamilia}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{multifamiliaView.action_new()}" update=":dialogMultifamilia" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogMultifamilia" appendToBody="true" draggable="true"
+						closable="false" visible="#{multifamiliaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelMultifamilia" header="Multifamilia">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdMufa" value="IdMufa"/>
+									 <p:inputText id="txtIdMufa" binding="#{multifamiliaView.txtIdMufa}">
+									 <p:ajax update=":dialogMultifamilia" listener="#{multifamiliaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{multifamiliaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{multifamiliaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{multifamiliaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdClie_Cliente" value=" IdClie_Cliente"/>
+									<p:inputText id="txtIdClie_Cliente" disabled="true" binding="#{multifamiliaView.txtIdClie_Cliente}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{multifamiliaView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{multifamiliaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{multifamiliaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{multifamiliaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{multifamiliaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{multifamiliaView.btnSave}" value="Save" action="#{multifamiliaView.action_save()}" update=":dialogMultifamilia :frm:panelDataTableMultifamilia" />
+									<p:commandButton id="btnClear" value="Clear" action="#{multifamiliaView.action_clear()}" update=":dialogMultifamilia" />
+									<p:commandButton id="btnExit" value="Exit" action="#{multifamiliaView.action_closeDialog()}" update=":dialogMultifamilia" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

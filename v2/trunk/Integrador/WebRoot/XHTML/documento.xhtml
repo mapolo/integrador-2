@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectDocumentoTitle" header="Documento" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidDocu()==null){throw new ZMessManager().new EmptyFieldException("idDocu");}" value="If(entity.getidDocu()==null){throw new ZMessManager().new EmptyFieldException("idDocu");}"/>
+						 <p:inputText id="txtIf(entity.getidDocu()==null){throw new ZMessManager().new EmptyFieldException("idDocu");}" binding="#{documentoView.txtIf(entity.getidDocu()==null){throw new ZMessManager().new EmptyFieldException("idDocu");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{documentoView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{documentoView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNumeroDefinitivo" value=" NumeroDefinitivo"/>
+						<p:inputText id="txtNumeroDefinitivo" disabled="true" binding="#{documentoView.txtNumeroDefinitivo}"/>
+												<h:outputText id="msgNumeroDocumento" value=" NumeroDocumento"/>
+						<p:inputText id="txtNumeroDocumento" disabled="true" binding="#{documentoView.txtNumeroDocumento}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{documentoView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{documentoView.txtOperModifica}"/>
+												<h:outputText id="msgValorTotal" value=" ValorTotal"/>
+						<p:inputText id="txtValorTotal" disabled="true" binding="#{documentoView.txtValorTotal}"/>
+												<h:outputText id="msgIdCusa_Causal" value=" IdCusa_Causal"/>
+						<p:inputText id="txtIdCusa_Causal" disabled="true" binding="#{documentoView.txtIdCusa_Causal}"/>
+												<h:outputText id="msgIdCodo_ConsecutivoDocumento" value=" IdCodo_ConsecutivoDocumento"/>
+						<p:inputText id="txtIdCodo_ConsecutivoDocumento" disabled="true" binding="#{documentoView.txtIdCodo_ConsecutivoDocumento}"/>
+												<h:outputText id="msgIdEsdo_EstadoDocumento" value=" IdEsdo_EstadoDocumento"/>
+						<p:inputText id="txtIdEsdo_EstadoDocumento" disabled="true" binding="#{documentoView.txtIdEsdo_EstadoDocumento}"/>
+												<h:outputText id="msgIdReco_RelacionComercial" value=" IdReco_RelacionComercial"/>
+						<p:inputText id="txtIdReco_RelacionComercial" disabled="true" binding="#{documentoView.txtIdReco_RelacionComercial}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{documentoView.txtIdSucu_Sucursal}"/>
+												<h:outputText id="msgIdTido_TipoDocumento" value=" IdTido_TipoDocumento"/>
+						<p:inputText id="txtIdTido_TipoDocumento" disabled="true" binding="#{documentoView.txtIdTido_TipoDocumento}"/>
+												<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+						<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{documentoView.txtIdUnve_UnidadVenta}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{documentoView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaDocumento" value=" FechaDocumento"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{documentoView.txtFechaDocumento}" >
+							<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaDocumento}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{documentoView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{documentoView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{documentoView.action_save}" update="msg,panel,panelBotones"          binding="#{documentoView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{documentoView.action_modify}" update="msg,panel,panelBotones"    binding="#{documentoView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{documentoView.action_delete}" update="msg,panel,panelBotones"    binding="#{documentoView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{documentoView.action_clear}" update="msg,panel,panelBotones"      binding="#{documentoView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

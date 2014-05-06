@@ -1,0 +1,111 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectMovimientoInventarioTitle" header="MovimientoInventario" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}" value="If(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}"/>
+						 <p:inputText id="txtIf(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}" binding="#{movimientoInventarioView.txtIf(entity.getidMoin()==null){throw new ZMessManager().new EmptyFieldException("idMoin");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{movimientoInventarioView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCantidad" value=" Cantidad"/>
+						<p:inputText id="txtCantidad" disabled="true" binding="#{movimientoInventarioView.txtCantidad}"/>
+												<h:outputText id="msgClaseVenta" value=" ClaseVenta"/>
+						<p:inputText id="txtClaseVenta" disabled="true" binding="#{movimientoInventarioView.txtClaseVenta}"/>
+												<h:outputText id="msgCostoUnitario" value=" CostoUnitario"/>
+						<p:inputText id="txtCostoUnitario" disabled="true" binding="#{movimientoInventarioView.txtCostoUnitario}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{movimientoInventarioView.txtEstadoRegistro}"/>
+												<h:outputText id="msgNumeroRegistro" value=" NumeroRegistro"/>
+						<p:inputText id="txtNumeroRegistro" disabled="true" binding="#{movimientoInventarioView.txtNumeroRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{movimientoInventarioView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{movimientoInventarioView.txtOperModifica}"/>
+												<h:outputText id="msgPlacaVehiculo" value=" PlacaVehiculo"/>
+						<p:inputText id="txtPlacaVehiculo" disabled="true" binding="#{movimientoInventarioView.txtPlacaVehiculo}"/>
+												<h:outputText id="msgPorcentajeIva" value=" PorcentajeIva"/>
+						<p:inputText id="txtPorcentajeIva" disabled="true" binding="#{movimientoInventarioView.txtPorcentajeIva}"/>
+												<h:outputText id="msgReferencia" value=" Referencia"/>
+						<p:inputText id="txtReferencia" disabled="true" binding="#{movimientoInventarioView.txtReferencia}"/>
+												<h:outputText id="msgValorTotal" value=" ValorTotal"/>
+						<p:inputText id="txtValorTotal" disabled="true" binding="#{movimientoInventarioView.txtValorTotal}"/>
+												<h:outputText id="msgIdCusa_Causal" value=" IdCusa_Causal"/>
+						<p:inputText id="txtIdCusa_Causal" disabled="true" binding="#{movimientoInventarioView.txtIdCusa_Causal}"/>
+												<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+						<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{movimientoInventarioView.txtIdDocu_Documento}"/>
+												<h:outputText id="msgIdResu_ReferenciaSucursal" value=" IdResu_ReferenciaSucursal"/>
+						<p:inputText id="txtIdResu_ReferenciaSucursal" disabled="true" binding="#{movimientoInventarioView.txtIdResu_ReferenciaSucursal}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{movimientoInventarioView.txtIdSucu_Sucursal}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{movimientoInventarioView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{movimientoInventarioView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{movimientoInventarioView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{movimientoInventarioView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaMovimiento" value=" FechaMovimiento"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{movimientoInventarioView.txtFechaMovimiento}" >
+							<p:ajax event="dateSelect" listener="#{movimientoInventarioView.listener_txtFechaMovimiento}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{movimientoInventarioView.action_save}" update="msg,panel,panelBotones"          binding="#{movimientoInventarioView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{movimientoInventarioView.action_modify}" update="msg,panel,panelBotones"    binding="#{movimientoInventarioView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{movimientoInventarioView.action_delete}" update="msg,panel,panelBotones"    binding="#{movimientoInventarioView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{movimientoInventarioView.action_clear}" update="msg,panel,panelBotones"      binding="#{movimientoInventarioView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

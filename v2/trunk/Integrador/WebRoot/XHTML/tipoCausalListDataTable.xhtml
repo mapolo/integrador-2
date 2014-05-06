@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableTipoCausal" header="TipoCausalData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{tipoCausalView.data}" var="tipoCausal"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{tipoCausal.idTcau}" sortBy="#{tipoCausal.idTcau}" >
+										 <f:facet name="header">
+										<h:outputText value="idTcau"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.idTcau}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{tipoCausal.estadoRegistro}" sortBy="#{tipoCausal.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoCausal.fechaCreacion}" sortBy="#{tipoCausal.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoCausal.fechaModificacion}" sortBy="#{tipoCausal.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoCausal.nombre}" sortBy="#{tipoCausal.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoCausal.operCreador}" sortBy="#{tipoCausal.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{tipoCausal.operModifica}" sortBy="#{tipoCausal.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{tipoCausal.operModifica}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogTipoCausal"
+										actionListener="#{tipoCausalView.action_edit}">
+										<f:attribute name="selectedTipoCausal" value="#{tipoCausal}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{tipoCausalView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedTipoCausal" value="#{tipoCausal}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{tipoCausalView.action_new()}" update=":dialogTipoCausal" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogTipoCausal" appendToBody="true" draggable="true"
+						closable="false" visible="#{tipoCausalView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelTipoCausal" header="TipoCausal">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdTcau" value="IdTcau"/>
+									 <p:inputText id="txtIdTcau" binding="#{tipoCausalView.txtIdTcau}">
+									 <p:ajax update=":dialogTipoCausal" listener="#{tipoCausalView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{tipoCausalView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{tipoCausalView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{tipoCausalView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{tipoCausalView.txtOperModifica}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoCausalView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoCausalView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{tipoCausalView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{tipoCausalView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{tipoCausalView.btnSave}" value="Save" action="#{tipoCausalView.action_save()}" update=":dialogTipoCausal :frm:panelDataTableTipoCausal" />
+									<p:commandButton id="btnClear" value="Clear" action="#{tipoCausalView.action_clear()}" update=":dialogTipoCausal" />
+									<p:commandButton id="btnExit" value="Exit" action="#{tipoCausalView.action_closeDialog()}" update=":dialogTipoCausal" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

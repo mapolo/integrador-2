@@ -1,0 +1,208 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<h:form id = "form">
+
+
+
+					<p:panel id="msgProjectCausalTitle" header="Causal">
+						<p:messages id="msg" showDetail="true" />
+						<p:growl id="men" />
+
+
+				<p:dataTable var="car" value="#{causalView.data}"
+							scrollable="true" scrollHeight="300" id="tablaPrincipal"
+							editable="true" filteredValue="#{causalView.data}">
+
+							<p:ajax event="rowEdit" listener="#{causalView.onEdit}" />
+							<p:ajax event="rowEditCancel"
+								listener="#{causalView.onCancel}" />
+
+							<p:column headerText="Editar" style="width:6%">
+								<p:rowEditor />
+							</p:column>
+
+							<p:column headerText="ID" filterBy="idClfa" sortBy="idClfa"
+								style="width:10%">
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.idClfa}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.idClfa}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+
+							</p:column>
+
+							<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+								sortBy="codigo" filterMatchMode="contains">
+
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.codigo}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.codigo}" style="width:100%" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+
+							<p:column headerText="Fecha de Creación" style="width:20%"
+								filterBy="fechaCreacion" sortBy="fechaCreacion">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.fechaCreacion}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.fechaCreacion}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+							<p:column headerText="Operador Creador" style="width:20%"
+								filterBy="operCreador" sortBy="operCreador">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.operCreador}" />
+									</f:facet>
+									<f:facet name="input">
+										<p:inputText value="#{car.operCreador}" style="width:100%"
+											disabled="true" />
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+
+							<p:column headerText="Estado del Registro" style="width:20%"
+								filterBy="estadoRegistro"
+								filterOptions="#{claveFabricacionView.manufacturerOptions}"
+								filterMatchMode="exact">
+								<p:cellEditor>
+									<f:facet name="output">
+										<h:outputText value="#{car.estadoRegistro}" />
+									</f:facet>
+
+									<f:facet name="input">
+										<h:selectOneMenu
+											value="#{claveFabricacionView.estadoRegistro}">
+											<f:selectItem itemLabel="A" itemValue="A" />
+											<f:selectItem itemLabel="R" itemValue="R" />
+										</h:selectOneMenu>
+									</f:facet>
+								</p:cellEditor>
+							</p:column>
+
+
+
+							<f:facet name="footer">
+								<p:commandButton id="viewButton" value="Crear"
+									icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+									update=":form" />
+							</f:facet>
+
+							<f:facet name="footer">
+								<p:commandButton id="returnButton" value="Menu"
+									icon="ui-icon-documen" update=":form" action="#{menuView.menu}" />
+							</f:facet>
+
+						</p:dataTable>
+
+						<!--                          Tabla emergente           -->
+
+						<p:dialog id="dialog" header="Clave de Fabricación"
+							widgetVar="carDialog" resizable="false" width="400"
+							showEffect="clip" hideEffect="fold">
+
+
+						<h:panelGrid columns="2" id="panel">
+
+
+								<h:outputText id="idClfa" value="ID Clave de Fabricación" />
+								<p:inputText id="txtIdTidi"
+									value="#{claveFabricacionView.idClfa}" disabled="false"
+									binding="#{claveFabricacionView.txtIdClfa}" />
+
+
+
+							<h:outputText id="msgCodigo" value=" Codigo" />
+							<p:inputText id="txtCodigo" disabled="true"
+								binding="#{causalView.txtCodigo}" />
+								
+								
+							<h:outputText id="msgDescripcion" value=" Descripcion" />
+							<p:inputText id="txtDescripcion" disabled="true"
+								binding="#{causalView.txtDescripcion}" />
+								
+								
+							<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
+							<p:inputText id="txtEstadoRegistro" disabled="true"
+								binding="#{causalView.txtEstadoRegistro}" />
+								
+								
+							<h:outputText id="msgOperCreador" value=" OperCreador" />
+							<p:inputText id="txtOperCreador" disabled="true"
+								binding="#{causalView.txtOperCreador}" />
+								
+								
+							<h:outputText id="msgOperModifica" value=" OperModifica" />
+							<p:inputText id="txtOperModifica" disabled="true"
+								binding="#{causalView.txtOperModifica}" />
+								
+								
+							<h:outputText id="msgIdTcau_TipoCausal"
+								value=" IdTcau_TipoCausal" />
+							<p:inputText id="txtIdTcau_TipoCausal" disabled="true"
+								binding="#{causalView.txtIdTcau_TipoCausal}" />
+
+							
+
+						</h:panelGrid>
+
+						<h:panelGrid id="panelBotones" columns="4">
+
+							
+
+						</h:panelGrid>
+
+					</p:panel>
+
+				</h:form>
+			</f:view>
+		</ui:define>
+
+
+	</ui:composition>
+
+</h:body>
+
+</html>

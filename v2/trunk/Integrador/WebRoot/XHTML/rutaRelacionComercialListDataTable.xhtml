@@ -1,0 +1,163 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableRutaRelacionComercial" header="RutaRelacionComercialData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{rutaRelacionComercialView.data}" var="rutaRelacionComercial"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{rutaRelacionComercial.idRrec}" sortBy="#{rutaRelacionComercial.idRrec}" >
+										 <f:facet name="header">
+										<h:outputText value="idRrec"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.idRrec}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{rutaRelacionComercial.estadoRegistro}" sortBy="#{rutaRelacionComercial.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.fechaCreacion}" sortBy="#{rutaRelacionComercial.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.fechaModificacion}" sortBy="#{rutaRelacionComercial.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.operCreador}" sortBy="#{rutaRelacionComercial.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.operModifica}" sortBy="#{rutaRelacionComercial.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.idAtve_AtencionVendedor}" sortBy="#{rutaRelacionComercial.idAtve_AtencionVendedor}" >
+										 <f:facet name="header">
+										<h:outputText value="IdAtve_AtencionVendedor"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.idAtve_AtencionVendedor}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rutaRelacionComercial.idRudi_RutaDistribucion}" sortBy="#{rutaRelacionComercial.idRudi_RutaDistribucion}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRudi_RutaDistribucion"/>
+										</f:facet>
+										 <h:outputText value="#{rutaRelacionComercial.idRudi_RutaDistribucion}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogRutaRelacionComercial"
+										actionListener="#{rutaRelacionComercialView.action_edit}">
+										<f:attribute name="selectedRutaRelacionComercial" value="#{rutaRelacionComercial}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{rutaRelacionComercialView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedRutaRelacionComercial" value="#{rutaRelacionComercial}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{rutaRelacionComercialView.action_new()}" update=":dialogRutaRelacionComercial" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogRutaRelacionComercial" appendToBody="true" draggable="true"
+						closable="false" visible="#{rutaRelacionComercialView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelRutaRelacionComercial" header="RutaRelacionComercial">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdRrec" value="IdRrec"/>
+									 <p:inputText id="txtIdRrec" binding="#{rutaRelacionComercialView.txtIdRrec}">
+									 <p:ajax update=":dialogRutaRelacionComercial" listener="#{rutaRelacionComercialView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{rutaRelacionComercialView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{rutaRelacionComercialView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{rutaRelacionComercialView.txtOperModifica}"/>
+																		<h:outputText id="msgIdAtve_AtencionVendedor" value=" IdAtve_AtencionVendedor"/>
+									<p:inputText id="txtIdAtve_AtencionVendedor" disabled="true" binding="#{rutaRelacionComercialView.txtIdAtve_AtencionVendedor}"/>
+																		<h:outputText id="msgIdRudi_RutaDistribucion" value=" IdRudi_RutaDistribucion"/>
+									<p:inputText id="txtIdRudi_RutaDistribucion" disabled="true" binding="#{rutaRelacionComercialView.txtIdRudi_RutaDistribucion}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{rutaRelacionComercialView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{rutaRelacionComercialView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{rutaRelacionComercialView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{rutaRelacionComercialView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{rutaRelacionComercialView.btnSave}" value="Save" action="#{rutaRelacionComercialView.action_save()}" update=":dialogRutaRelacionComercial :frm:panelDataTableRutaRelacionComercial" />
+									<p:commandButton id="btnClear" value="Clear" action="#{rutaRelacionComercialView.action_clear()}" update=":dialogRutaRelacionComercial" />
+									<p:commandButton id="btnExit" value="Exit" action="#{rutaRelacionComercialView.action_closeDialog()}" update=":dialogRutaRelacionComercial" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>		
+	
+	<h:body>
+		   <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 <ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+			
+		<h:form>
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			<p:panel id="msgProjectConsecutivoDocumentoTitle" header="ConsecutivoDocumento" >
+			   <p:messages id="msg" showDetail="true"/>
+			   <p:growl id="men"/>
+			       <h:panelGrid columns="2" id="panel" >
+												 <h:outputText id="msgIf(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}" value="If(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}"/>
+						 <p:inputText id="txtIf(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}" binding="#{consecutivoDocumentoView.txtIf(entity.getidCodo()==null){throw new ZMessManager().new EmptyFieldException("idCodo");}}">
+						 <p:ajax update="panel,msg,panelBotones" listener="#{consecutivoDocumentoView.listener_txtId}"/>
+						 </p:inputText>	
+																		
+												<h:outputText id="msgCodigoTerminal" value=" CodigoTerminal"/>
+						<p:inputText id="txtCodigoTerminal" disabled="true" binding="#{consecutivoDocumentoView.txtCodigoTerminal}"/>
+												<h:outputText id="msgConsecutivoActual" value=" ConsecutivoActual"/>
+						<p:inputText id="txtConsecutivoActual" disabled="true" binding="#{consecutivoDocumentoView.txtConsecutivoActual}"/>
+												<h:outputText id="msgConsecutivoFinal" value=" ConsecutivoFinal"/>
+						<p:inputText id="txtConsecutivoFinal" disabled="true" binding="#{consecutivoDocumentoView.txtConsecutivoFinal}"/>
+												<h:outputText id="msgConsecutivoInicial" value=" ConsecutivoInicial"/>
+						<p:inputText id="txtConsecutivoInicial" disabled="true" binding="#{consecutivoDocumentoView.txtConsecutivoInicial}"/>
+												<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+						<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{consecutivoDocumentoView.txtEstadoRegistro}"/>
+												<h:outputText id="msgOperCreador" value=" OperCreador"/>
+						<p:inputText id="txtOperCreador" disabled="true" binding="#{consecutivoDocumentoView.txtOperCreador}"/>
+												<h:outputText id="msgOperModifica" value=" OperModifica"/>
+						<p:inputText id="txtOperModifica" disabled="true" binding="#{consecutivoDocumentoView.txtOperModifica}"/>
+												<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+						<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{consecutivoDocumentoView.txtIdSucu_Sucursal}"/>
+												<h:outputText id="msgIdTido_TipoDocumento" value=" IdTido_TipoDocumento"/>
+						<p:inputText id="txtIdTido_TipoDocumento" disabled="true" binding="#{consecutivoDocumentoView.txtIdTido_TipoDocumento}"/>
+												<h:outputText id="msgIdVend_Vendedor" value=" IdVend_Vendedor"/>
+						<p:inputText id="txtIdVend_Vendedor" disabled="true" binding="#{consecutivoDocumentoView.txtIdVend_Vendedor}"/>
+												
+																				<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{consecutivoDocumentoView.txtFechaCreacion}" >
+							<p:ajax event="dateSelect" listener="#{consecutivoDocumentoView.listener_txtFechaCreacion}" update="men" />
+							</p:calendar>
+														<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+														<p:calendar showOn="button" navigator="true" locale="en" 
+							binding="#{consecutivoDocumentoView.txtFechaModificacion}" >
+							<p:ajax event="dateSelect" listener="#{consecutivoDocumentoView.listener_txtFechaModificacion}" update="men" />
+							</p:calendar>
+																			
+				   </h:panelGrid>
+				   
+				   <h:panelGrid id="panelBotones" columns="4">
+					
+						<p:commandButton id="btnSave" disabled="true" value="Save" action="#{consecutivoDocumentoView.action_save}" update="msg,panel,panelBotones"          binding="#{consecutivoDocumentoView.btnSave}" />
+						<p:commandButton id="btnModify" disabled="true" value="Modify" action="#{consecutivoDocumentoView.action_modify}" update="msg,panel,panelBotones"    binding="#{consecutivoDocumentoView.btnModify}" />
+						<p:commandButton id="btnDelete" disabled="true" value="Delete" action="#{consecutivoDocumentoView.action_delete}" update="msg,panel,panelBotones"    binding="#{consecutivoDocumentoView.btnDelete}" onclick="return confirm('Do you really want to delete this Entry?')" />
+						<p:commandButton id="btnClear" disabled="false" value="Clear" action="#{consecutivoDocumentoView.action_clear}" update="msg,panel,panelBotones"      binding="#{consecutivoDocumentoView.btnClear}" />
+				   
+				   </h:panelGrid>
+					
+			</p:panel>
+			
+		</h:form>
+		 </f:view>
+	 </ui:define>	  
+	
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>	
+	
+	</h:body>	
+
+</html>	

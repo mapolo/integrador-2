@@ -1,0 +1,630 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="PedidoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{pedidoView.data}" var="pedido"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{pedidoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{pedido.if(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}}" sortBy="#{pedido.if(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}}" 
+							headerText="if(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.if(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.if(entity.getidPddo()==null){throw new ZMessManager().new EmptyFieldException("idPddo");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{pedido.cantidadAdicionadas}" sortBy="#{pedido.cantidadAdicionadas}" 
+							headerText="cantidadAdicionadas">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadAdicionadas}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadAdicionadas}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.cantidadCanceladas}" sortBy="#{pedido.cantidadCanceladas}" 
+							headerText="cantidadCanceladas">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadCanceladas}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadCanceladas}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.cantidadComprometida}" sortBy="#{pedido.cantidadComprometida}" 
+							headerText="cantidadComprometida">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadComprometida}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadComprometida}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.cantidadDespRecibir}" sortBy="#{pedido.cantidadDespRecibir}" 
+							headerText="cantidadDespRecibir">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadDespRecibir}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadDespRecibir}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.cantidadOrdenada}" sortBy="#{pedido.cantidadOrdenada}" 
+							headerText="cantidadOrdenada">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadOrdenada}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadOrdenada}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.cantidadPedidas}" sortBy="#{pedido.cantidadPedidas}" 
+							headerText="cantidadPedidas">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.cantidadPedidas}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.cantidadPedidas}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.clasePedido}" sortBy="#{pedido.clasePedido}" 
+							headerText="clasePedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.clasePedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.clasePedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.comprometida}" sortBy="#{pedido.comprometida}" 
+							headerText="comprometida">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.comprometida}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.comprometida}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.condicionPago}" sortBy="#{pedido.condicionPago}" 
+							headerText="condicionPago">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.condicionPago}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.condicionPago}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.costoVenta}" sortBy="#{pedido.costoVenta}" 
+							headerText="costoVenta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.costoVenta}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.costoVenta}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.espacios}" sortBy="#{pedido.espacios}" 
+							headerText="espacios">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.espacios}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.espacios}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.estadoPedido}" sortBy="#{pedido.estadoPedido}" 
+							headerText="estadoPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.estadoPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.estadoPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.estadoRegistro}" sortBy="#{pedido.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.estadoSysgol}" sortBy="#{pedido.estadoSysgol}" 
+							headerText="estadoSysgol">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.estadoSysgol}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.estadoSysgol}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.existenciaAnterior}" sortBy="#{pedido.existenciaAnterior}" 
+							headerText="existenciaAnterior">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.existenciaAnterior}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.existenciaAnterior}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.horaPedido}" sortBy="#{pedido.horaPedido}" 
+							headerText="horaPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.horaPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.horaPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.numeroFactura}" sortBy="#{pedido.numeroFactura}" 
+							headerText="numeroFactura">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.numeroFactura}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.numeroFactura}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.numeroPedido}" sortBy="#{pedido.numeroPedido}" 
+							headerText="numeroPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.numeroPedido}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.numeroPedido}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.observacion}" sortBy="#{pedido.observacion}" 
+							headerText="observacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.observacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.observacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.operCreador}" sortBy="#{pedido.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.operModifica}" sortBy="#{pedido.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.ordenDespacho}" sortBy="#{pedido.ordenDespacho}" 
+							headerText="ordenDespacho">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.ordenDespacho}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.ordenDespacho}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.porcentajeDescuento}" sortBy="#{pedido.porcentajeDescuento}" 
+							headerText="porcentajeDescuento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.porcentajeDescuento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.porcentajeDescuento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.precioEspecial}" sortBy="#{pedido.precioEspecial}" 
+							headerText="precioEspecial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.precioEspecial}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.precioEspecial}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.precioVenta}" sortBy="#{pedido.precioVenta}" 
+							headerText="precioVenta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.precioVenta}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.precioVenta}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.urgencia}" sortBy="#{pedido.urgencia}" 
+							headerText="urgencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.urgencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.urgencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.idDocu_Documento}" sortBy="#{pedido.idDocu_Documento}" 
+							headerText="idDocu_Documento">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.idDocu_Documento}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.idDocu_Documento}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{pedido.idRefe_Referencia}" sortBy="#{pedido.idRefe_Referencia}" 
+							headerText="idRefe_Referencia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.idRefe_Referencia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{pedido.idRefe_Referencia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{pedido.fechaCreacion}" sortBy="#{pedido.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{pedido.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{pedidoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{pedido.fechaDeseada}" sortBy="#{pedido.fechaDeseada}" 
+							headerText="fechaDeseada">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.fechaDeseada}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{pedido.fechaDeseada}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{pedidoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{pedido.fechaFactura}" sortBy="#{pedido.fechaFactura}" 
+							headerText="fechaFactura">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.fechaFactura}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{pedido.fechaFactura}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{pedidoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{pedido.fechaModificacion}" sortBy="#{pedido.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{pedido.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{pedidoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{pedido.fechaPedido}" sortBy="#{pedido.fechaPedido}" 
+							headerText="fechaPedido">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{pedido.fechaPedido}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{pedido.fechaPedido}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{pedidoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{pedidoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{pedido}"  target="#{pedidoView.selectedPedido}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

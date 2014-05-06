@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Pedido" table="PEDIDO" >
+        <id name="idPddo" type="java.lang.Long">
+            <column name="ID_PDDO" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="documento" class="co.edu.usbcali.modelo.Documento" fetch="select">
+            <column name="ID_DOCU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="referencia" class="co.edu.usbcali.modelo.Referencia" fetch="select">
+            <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="numeroPedido" type="java.lang.Long">
+            <column name="NUMERO_PEDIDO" precision="20" scale="0" />
+        </property>
+        <property name="clasePedido" type="java.lang.String">
+            <column name="CLASE_PEDIDO" length="1" />
+        </property>
+        <property name="estadoPedido" type="java.lang.String">
+            <column name="ESTADO_PEDIDO" length="1" />
+        </property>
+        <property name="fechaPedido" type="java.util.Date">
+            <column name="FECHA_PEDIDO" length="7" />
+        </property>
+        <property name="fechaDeseada" type="java.util.Date">
+            <column name="FECHA_DESEADA" length="7" />
+        </property>
+        <property name="precioVenta" type="java.lang.Double">
+            <column name="PRECIO_VENTA" precision="14" />
+        </property>
+        <property name="costoVenta" type="java.lang.Double">
+            <column name="COSTO_VENTA" precision="14" />
+        </property>
+        <property name="porcentajeDescuento" type="java.lang.Double">
+            <column name="PORCENTAJE_DESCUENTO" precision="6" scale="3" />
+        </property>
+        <property name="cantidadPedidas" type="java.lang.Double">
+            <column name="CANTIDAD_PEDIDAS" precision="12" />
+        </property>
+        <property name="cantidadAdicionadas" type="java.lang.Double">
+            <column name="CANTIDAD_ADICIONADAS" precision="12" />
+        </property>
+        <property name="cantidadCanceladas" type="java.lang.Double">
+            <column name="CANTIDAD_CANCELADAS" precision="12" />
+        </property>
+        <property name="cantidadOrdenada" type="java.lang.Double">
+            <column name="CANTIDAD_ORDENADA" precision="12" />
+        </property>
+        <property name="cantidadDespRecibir" type="java.lang.Double">
+            <column name="CANTIDAD_DESP_RECIBIR" precision="12" />
+        </property>
+        <property name="urgencia" type="java.lang.String">
+            <column name="URGENCIA" length="1" />
+        </property>
+        <property name="ordenDespacho" type="java.lang.String">
+            <column name="ORDEN_DESPACHO" length="1" />
+        </property>
+        <property name="observacion" type="java.lang.String">
+            <column name="OBSERVACION" length="1000" />
+        </property>
+        <property name="horaPedido" type="java.lang.String">
+            <column name="HORA_PEDIDO" length="5" />
+        </property>
+        <property name="numeroFactura" type="java.lang.Long">
+            <column name="NUMERO_FACTURA" precision="20" scale="0" />
+        </property>
+        <property name="fechaFactura" type="java.util.Date">
+            <column name="FECHA_FACTURA" length="7" />
+        </property>
+        <property name="existenciaAnterior" type="java.lang.Double">
+            <column name="EXISTENCIA_ANTERIOR" precision="12" />
+        </property>
+        <property name="condicionPago" type="java.lang.String">
+            <column name="CONDICION_PAGO" length="3" />
+        </property>
+        <property name="estadoSysgol" type="java.lang.String">
+            <column name="ESTADO_SYSGOL" length="1" />
+        </property>
+        <property name="precioEspecial" type="java.lang.String">
+            <column name="PRECIO_ESPECIAL" length="1" />
+        </property>
+        <property name="comprometida" type="java.lang.String">
+            <column name="COMPROMETIDA" length="1" />
+        </property>
+        <property name="cantidadComprometida" type="java.lang.Double">
+            <column name="CANTIDAD_COMPROMETIDA" precision="12" />
+        </property>
+        <property name="espacios" type="java.lang.String">
+            <column name="ESPACIOS" length="1" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,181 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableDivisionPolitica" header="DivisionPoliticaData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{divisionPoliticaView.data}" var="divisionPolitica"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{divisionPolitica.idDipo}" sortBy="#{divisionPolitica.idDipo}" >
+										 <f:facet name="header">
+										<h:outputText value="idDipo"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.idDipo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{divisionPolitica.codigoDian}" sortBy="#{divisionPolitica.codigoDian}" >
+										 <f:facet name="header">
+										<h:outputText value="CodigoDian"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.codigoDian}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.estadoRegistro}" sortBy="#{divisionPolitica.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.fechaCreacion}" sortBy="#{divisionPolitica.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.fechaModificacion}" sortBy="#{divisionPolitica.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.nombre}" sortBy="#{divisionPolitica.nombre}" >
+										 <f:facet name="header">
+										<h:outputText value="Nombre"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.nombre}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.operCreador}" sortBy="#{divisionPolitica.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.operModifica}" sortBy="#{divisionPolitica.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.idDipo_DivisionPolitica}" sortBy="#{divisionPolitica.idDipo_DivisionPolitica}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDipo_DivisionPolitica"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.idDipo_DivisionPolitica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{divisionPolitica.idTidi_TipoDivision}" sortBy="#{divisionPolitica.idTidi_TipoDivision}" >
+										 <f:facet name="header">
+										<h:outputText value="IdTidi_TipoDivision"/>
+										</f:facet>
+										 <h:outputText value="#{divisionPolitica.idTidi_TipoDivision}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogDivisionPolitica"
+										actionListener="#{divisionPoliticaView.action_edit}">
+										<f:attribute name="selectedDivisionPolitica" value="#{divisionPolitica}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{divisionPoliticaView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedDivisionPolitica" value="#{divisionPolitica}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{divisionPoliticaView.action_new()}" update=":dialogDivisionPolitica" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogDivisionPolitica" appendToBody="true" draggable="true"
+						closable="false" visible="#{divisionPoliticaView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelDivisionPolitica" header="DivisionPolitica">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdDipo" value="IdDipo"/>
+									 <p:inputText id="txtIdDipo" binding="#{divisionPoliticaView.txtIdDipo}">
+									 <p:ajax update=":dialogDivisionPolitica" listener="#{divisionPoliticaView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCodigoDian" value=" CodigoDian"/>
+									<p:inputText id="txtCodigoDian" disabled="true" binding="#{divisionPoliticaView.txtCodigoDian}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{divisionPoliticaView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgNombre" value=" Nombre"/>
+									<p:inputText id="txtNombre" disabled="true" binding="#{divisionPoliticaView.txtNombre}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{divisionPoliticaView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{divisionPoliticaView.txtOperModifica}"/>
+																		<h:outputText id="msgIdDipo_DivisionPolitica" value=" IdDipo_DivisionPolitica"/>
+									<p:inputText id="txtIdDipo_DivisionPolitica" disabled="true" binding="#{divisionPoliticaView.txtIdDipo_DivisionPolitica}"/>
+																		<h:outputText id="msgIdTidi_TipoDivision" value=" IdTidi_TipoDivision"/>
+									<p:inputText id="txtIdTidi_TipoDivision" disabled="true" binding="#{divisionPoliticaView.txtIdTidi_TipoDivision}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{divisionPoliticaView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{divisionPoliticaView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{divisionPoliticaView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{divisionPoliticaView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{divisionPoliticaView.btnSave}" value="Save" action="#{divisionPoliticaView.action_save()}" update=":dialogDivisionPolitica :frm:panelDataTableDivisionPolitica" />
+									<p:commandButton id="btnClear" value="Clear" action="#{divisionPoliticaView.action_clear()}" update=":dialogDivisionPolitica" />
+									<p:commandButton id="btnExit" value="Exit" action="#{divisionPoliticaView.action_closeDialog()}" update=":dialogDivisionPolitica" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableOrdenesDeCompra" header="OrdenesDeCompraData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{ordenesDeCompraView.data}" var="ordenesDeCompra"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{ordenesDeCompra.idOrdc}" sortBy="#{ordenesDeCompra.idOrdc}" >
+										 <f:facet name="header">
+										<h:outputText value="idOrdc"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idOrdc}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{ordenesDeCompra.cantidadPedida}" sortBy="#{ordenesDeCompra.cantidadPedida}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadPedida"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.cantidadPedida}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.cantidadRecibido}" sortBy="#{ordenesDeCompra.cantidadRecibido}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadRecibido"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.cantidadRecibido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.estadoRegistro}" sortBy="#{ordenesDeCompra.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.fechaCreacion}" sortBy="#{ordenesDeCompra.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.fechaEntrega}" sortBy="#{ordenesDeCompra.fechaEntrega}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaEntrega"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.fechaEntrega}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.fechaModificacion}" sortBy="#{ordenesDeCompra.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.fechaPedido}" sortBy="#{ordenesDeCompra.fechaPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaPedido"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.fechaPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.fechaRecibido}" sortBy="#{ordenesDeCompra.fechaRecibido}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaRecibido"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.fechaRecibido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.iva}" sortBy="#{ordenesDeCompra.iva}" >
+										 <f:facet name="header">
+										<h:outputText value="Iva"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.iva}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.numeroFactura}" sortBy="#{ordenesDeCompra.numeroFactura}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroFactura"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.numeroFactura}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.numeroPedido}" sortBy="#{ordenesDeCompra.numeroPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroPedido"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.numeroPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.operCreador}" sortBy="#{ordenesDeCompra.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.operModifica}" sortBy="#{ordenesDeCompra.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.porcentajeDescuento}" sortBy="#{ordenesDeCompra.porcentajeDescuento}" >
+										 <f:facet name="header">
+										<h:outputText value="PorcentajeDescuento"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.porcentajeDescuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.precioUnitarioPedido}" sortBy="#{ordenesDeCompra.precioUnitarioPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="PrecioUnitarioPedido"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.precioUnitarioPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.precioUnitarioRecibdo}" sortBy="#{ordenesDeCompra.precioUnitarioRecibdo}" >
+										 <f:facet name="header">
+										<h:outputText value="PrecioUnitarioRecibdo"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.precioUnitarioRecibdo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.idDocu_Documento}" sortBy="#{ordenesDeCompra.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.idEmpr_Empresa}" sortBy="#{ordenesDeCompra.idEmpr_Empresa}" >
+										 <f:facet name="header">
+										<h:outputText value="IdEmpr_Empresa"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idEmpr_Empresa}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.idPers_Persona}" sortBy="#{ordenesDeCompra.idPers_Persona}" >
+										 <f:facet name="header">
+										<h:outputText value="IdPers_Persona"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idPers_Persona}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.idRefe_Referencia}" sortBy="#{ordenesDeCompra.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idRefe_Referencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{ordenesDeCompra.idSucu_Sucursal}" sortBy="#{ordenesDeCompra.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{ordenesDeCompra.idSucu_Sucursal}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogOrdenesDeCompra"
+										actionListener="#{ordenesDeCompraView.action_edit}">
+										<f:attribute name="selectedOrdenesDeCompra" value="#{ordenesDeCompra}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{ordenesDeCompraView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedOrdenesDeCompra" value="#{ordenesDeCompra}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{ordenesDeCompraView.action_new()}" update=":dialogOrdenesDeCompra" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogOrdenesDeCompra" appendToBody="true" draggable="true"
+						closable="false" visible="#{ordenesDeCompraView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelOrdenesDeCompra" header="OrdenesDeCompra">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdOrdc" value="IdOrdc"/>
+									 <p:inputText id="txtIdOrdc" binding="#{ordenesDeCompraView.txtIdOrdc}">
+									 <p:ajax update=":dialogOrdenesDeCompra" listener="#{ordenesDeCompraView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCantidadPedida" value=" CantidadPedida"/>
+									<p:inputText id="txtCantidadPedida" disabled="true" binding="#{ordenesDeCompraView.txtCantidadPedida}"/>
+																		<h:outputText id="msgCantidadRecibido" value=" CantidadRecibido"/>
+									<p:inputText id="txtCantidadRecibido" disabled="true" binding="#{ordenesDeCompraView.txtCantidadRecibido}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{ordenesDeCompraView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgIva" value=" Iva"/>
+									<p:inputText id="txtIva" disabled="true" binding="#{ordenesDeCompraView.txtIva}"/>
+																		<h:outputText id="msgNumeroFactura" value=" NumeroFactura"/>
+									<p:inputText id="txtNumeroFactura" disabled="true" binding="#{ordenesDeCompraView.txtNumeroFactura}"/>
+																		<h:outputText id="msgNumeroPedido" value=" NumeroPedido"/>
+									<p:inputText id="txtNumeroPedido" disabled="true" binding="#{ordenesDeCompraView.txtNumeroPedido}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{ordenesDeCompraView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{ordenesDeCompraView.txtOperModifica}"/>
+																		<h:outputText id="msgPorcentajeDescuento" value=" PorcentajeDescuento"/>
+									<p:inputText id="txtPorcentajeDescuento" disabled="true" binding="#{ordenesDeCompraView.txtPorcentajeDescuento}"/>
+																		<h:outputText id="msgPrecioUnitarioPedido" value=" PrecioUnitarioPedido"/>
+									<p:inputText id="txtPrecioUnitarioPedido" disabled="true" binding="#{ordenesDeCompraView.txtPrecioUnitarioPedido}"/>
+																		<h:outputText id="msgPrecioUnitarioRecibdo" value=" PrecioUnitarioRecibdo"/>
+									<p:inputText id="txtPrecioUnitarioRecibdo" disabled="true" binding="#{ordenesDeCompraView.txtPrecioUnitarioRecibdo}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{ordenesDeCompraView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdEmpr_Empresa" value=" IdEmpr_Empresa"/>
+									<p:inputText id="txtIdEmpr_Empresa" disabled="true" binding="#{ordenesDeCompraView.txtIdEmpr_Empresa}"/>
+																		<h:outputText id="msgIdPers_Persona" value=" IdPers_Persona"/>
+									<p:inputText id="txtIdPers_Persona" disabled="true" binding="#{ordenesDeCompraView.txtIdPers_Persona}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{ordenesDeCompraView.txtIdRefe_Referencia}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{ordenesDeCompraView.txtIdSucu_Sucursal}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ordenesDeCompraView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{ordenesDeCompraView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaEntrega" value=" FechaEntrega"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ordenesDeCompraView.txtFechaEntrega}" >
+										<p:ajax event="dateSelect" listener="#{ordenesDeCompraView.listener_txtFechaEntrega}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ordenesDeCompraView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{ordenesDeCompraView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaPedido" value=" FechaPedido"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ordenesDeCompraView.txtFechaPedido}" >
+										<p:ajax event="dateSelect" listener="#{ordenesDeCompraView.listener_txtFechaPedido}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaRecibido" value=" FechaRecibido"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{ordenesDeCompraView.txtFechaRecibido}" >
+										<p:ajax event="dateSelect" listener="#{ordenesDeCompraView.listener_txtFechaRecibido}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{ordenesDeCompraView.btnSave}" value="Save" action="#{ordenesDeCompraView.action_save()}" update=":dialogOrdenesDeCompra :frm:panelDataTableOrdenesDeCompra" />
+									<p:commandButton id="btnClear" value="Clear" action="#{ordenesDeCompraView.action_clear()}" update=":dialogOrdenesDeCompra" />
+									<p:commandButton id="btnExit" value="Exit" action="#{ordenesDeCompraView.action_closeDialog()}" update=":dialogOrdenesDeCompra" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

@@ -1,0 +1,226 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="ClaveFabricacionData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{claveFabricacionView.data}" var="claveFabricacion"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{claveFabricacionView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{claveFabricacion.if(entity.getidClfa()==null){throw new ZMessManager().new EmptyFieldException("idClfa");}}" sortBy="#{claveFabricacion.if(entity.getidClfa()==null){throw new ZMessManager().new EmptyFieldException("idClfa");}}" 
+							headerText="if(entity.getidClfa()==null){throw new ZMessManager().new EmptyFieldException("idClfa");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.if(entity.getidClfa()==null){throw new ZMessManager().new EmptyFieldException("idClfa");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{claveFabricacion.if(entity.getidClfa()==null){throw new ZMessManager().new EmptyFieldException("idClfa");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{claveFabricacion.codigo}" sortBy="#{claveFabricacion.codigo}" 
+							headerText="codigo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.codigo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{claveFabricacion.codigo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{claveFabricacion.estadoRegistro}" sortBy="#{claveFabricacion.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{claveFabricacion.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{claveFabricacion.operCreador}" sortBy="#{claveFabricacion.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{claveFabricacion.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{claveFabricacion.operModifica}" sortBy="#{claveFabricacion.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{claveFabricacion.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{claveFabricacion.fechaCreacion}" sortBy="#{claveFabricacion.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{claveFabricacion.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{claveFabricacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{claveFabricacion.fechaFinal}" sortBy="#{claveFabricacion.fechaFinal}" 
+							headerText="fechaFinal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.fechaFinal}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{claveFabricacion.fechaFinal}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{claveFabricacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{claveFabricacion.fechaInicial}" sortBy="#{claveFabricacion.fechaInicial}" 
+							headerText="fechaInicial">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.fechaInicial}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{claveFabricacion.fechaInicial}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{claveFabricacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{claveFabricacion.fechaModificacion}" sortBy="#{claveFabricacion.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{claveFabricacion.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{claveFabricacion.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{claveFabricacionView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{claveFabricacionView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{claveFabricacion}"  target="#{claveFabricacionView.selectedClaveFabricacion}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

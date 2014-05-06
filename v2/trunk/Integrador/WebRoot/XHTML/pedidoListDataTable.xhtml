@@ -1,0 +1,406 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTablePedido" header="PedidoData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{pedidoView.data}" var="pedido"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{pedido.idPddo}" sortBy="#{pedido.idPddo}" >
+										 <f:facet name="header">
+										<h:outputText value="idPddo"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.idPddo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{pedido.cantidadAdicionadas}" sortBy="#{pedido.cantidadAdicionadas}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadAdicionadas"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadAdicionadas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.cantidadCanceladas}" sortBy="#{pedido.cantidadCanceladas}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadCanceladas"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadCanceladas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.cantidadComprometida}" sortBy="#{pedido.cantidadComprometida}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadComprometida"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadComprometida}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.cantidadDespRecibir}" sortBy="#{pedido.cantidadDespRecibir}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadDespRecibir"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadDespRecibir}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.cantidadOrdenada}" sortBy="#{pedido.cantidadOrdenada}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadOrdenada"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadOrdenada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.cantidadPedidas}" sortBy="#{pedido.cantidadPedidas}" >
+										 <f:facet name="header">
+										<h:outputText value="CantidadPedidas"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.cantidadPedidas}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.clasePedido}" sortBy="#{pedido.clasePedido}" >
+										 <f:facet name="header">
+										<h:outputText value="ClasePedido"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.clasePedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.comprometida}" sortBy="#{pedido.comprometida}" >
+										 <f:facet name="header">
+										<h:outputText value="Comprometida"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.comprometida}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.condicionPago}" sortBy="#{pedido.condicionPago}" >
+										 <f:facet name="header">
+										<h:outputText value="CondicionPago"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.condicionPago}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.costoVenta}" sortBy="#{pedido.costoVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="CostoVenta"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.costoVenta}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.espacios}" sortBy="#{pedido.espacios}" >
+										 <f:facet name="header">
+										<h:outputText value="Espacios"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.espacios}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.estadoPedido}" sortBy="#{pedido.estadoPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoPedido"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.estadoPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.estadoRegistro}" sortBy="#{pedido.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.estadoSysgol}" sortBy="#{pedido.estadoSysgol}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoSysgol"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.estadoSysgol}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.existenciaAnterior}" sortBy="#{pedido.existenciaAnterior}" >
+										 <f:facet name="header">
+										<h:outputText value="ExistenciaAnterior"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.existenciaAnterior}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.fechaCreacion}" sortBy="#{pedido.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.fechaDeseada}" sortBy="#{pedido.fechaDeseada}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaDeseada"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.fechaDeseada}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.fechaFactura}" sortBy="#{pedido.fechaFactura}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaFactura"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.fechaFactura}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.fechaModificacion}" sortBy="#{pedido.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.fechaPedido}" sortBy="#{pedido.fechaPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaPedido"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.fechaPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.horaPedido}" sortBy="#{pedido.horaPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="HoraPedido"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.horaPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.numeroFactura}" sortBy="#{pedido.numeroFactura}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroFactura"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.numeroFactura}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.numeroPedido}" sortBy="#{pedido.numeroPedido}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroPedido"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.numeroPedido}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.observacion}" sortBy="#{pedido.observacion}" >
+										 <f:facet name="header">
+										<h:outputText value="Observacion"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.observacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.operCreador}" sortBy="#{pedido.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.operModifica}" sortBy="#{pedido.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.ordenDespacho}" sortBy="#{pedido.ordenDespacho}" >
+										 <f:facet name="header">
+										<h:outputText value="OrdenDespacho"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.ordenDespacho}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.porcentajeDescuento}" sortBy="#{pedido.porcentajeDescuento}" >
+										 <f:facet name="header">
+										<h:outputText value="PorcentajeDescuento"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.porcentajeDescuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.precioEspecial}" sortBy="#{pedido.precioEspecial}" >
+										 <f:facet name="header">
+										<h:outputText value="PrecioEspecial"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.precioEspecial}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.precioVenta}" sortBy="#{pedido.precioVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="PrecioVenta"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.precioVenta}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.urgencia}" sortBy="#{pedido.urgencia}" >
+										 <f:facet name="header">
+										<h:outputText value="Urgencia"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.urgencia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.idDocu_Documento}" sortBy="#{pedido.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{pedido.idRefe_Referencia}" sortBy="#{pedido.idRefe_Referencia}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRefe_Referencia"/>
+										</f:facet>
+										 <h:outputText value="#{pedido.idRefe_Referencia}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogPedido"
+										actionListener="#{pedidoView.action_edit}">
+										<f:attribute name="selectedPedido" value="#{pedido}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{pedidoView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedPedido" value="#{pedido}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{pedidoView.action_new()}" update=":dialogPedido" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogPedido" appendToBody="true" draggable="true"
+						closable="false" visible="#{pedidoView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelPedido" header="Pedido">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdPddo" value="IdPddo"/>
+									 <p:inputText id="txtIdPddo" binding="#{pedidoView.txtIdPddo}">
+									 <p:ajax update=":dialogPedido" listener="#{pedidoView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgCantidadAdicionadas" value=" CantidadAdicionadas"/>
+									<p:inputText id="txtCantidadAdicionadas" disabled="true" binding="#{pedidoView.txtCantidadAdicionadas}"/>
+																		<h:outputText id="msgCantidadCanceladas" value=" CantidadCanceladas"/>
+									<p:inputText id="txtCantidadCanceladas" disabled="true" binding="#{pedidoView.txtCantidadCanceladas}"/>
+																		<h:outputText id="msgCantidadComprometida" value=" CantidadComprometida"/>
+									<p:inputText id="txtCantidadComprometida" disabled="true" binding="#{pedidoView.txtCantidadComprometida}"/>
+																		<h:outputText id="msgCantidadDespRecibir" value=" CantidadDespRecibir"/>
+									<p:inputText id="txtCantidadDespRecibir" disabled="true" binding="#{pedidoView.txtCantidadDespRecibir}"/>
+																		<h:outputText id="msgCantidadOrdenada" value=" CantidadOrdenada"/>
+									<p:inputText id="txtCantidadOrdenada" disabled="true" binding="#{pedidoView.txtCantidadOrdenada}"/>
+																		<h:outputText id="msgCantidadPedidas" value=" CantidadPedidas"/>
+									<p:inputText id="txtCantidadPedidas" disabled="true" binding="#{pedidoView.txtCantidadPedidas}"/>
+																		<h:outputText id="msgClasePedido" value=" ClasePedido"/>
+									<p:inputText id="txtClasePedido" disabled="true" binding="#{pedidoView.txtClasePedido}"/>
+																		<h:outputText id="msgComprometida" value=" Comprometida"/>
+									<p:inputText id="txtComprometida" disabled="true" binding="#{pedidoView.txtComprometida}"/>
+																		<h:outputText id="msgCondicionPago" value=" CondicionPago"/>
+									<p:inputText id="txtCondicionPago" disabled="true" binding="#{pedidoView.txtCondicionPago}"/>
+																		<h:outputText id="msgCostoVenta" value=" CostoVenta"/>
+									<p:inputText id="txtCostoVenta" disabled="true" binding="#{pedidoView.txtCostoVenta}"/>
+																		<h:outputText id="msgEspacios" value=" Espacios"/>
+									<p:inputText id="txtEspacios" disabled="true" binding="#{pedidoView.txtEspacios}"/>
+																		<h:outputText id="msgEstadoPedido" value=" EstadoPedido"/>
+									<p:inputText id="txtEstadoPedido" disabled="true" binding="#{pedidoView.txtEstadoPedido}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{pedidoView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgEstadoSysgol" value=" EstadoSysgol"/>
+									<p:inputText id="txtEstadoSysgol" disabled="true" binding="#{pedidoView.txtEstadoSysgol}"/>
+																		<h:outputText id="msgExistenciaAnterior" value=" ExistenciaAnterior"/>
+									<p:inputText id="txtExistenciaAnterior" disabled="true" binding="#{pedidoView.txtExistenciaAnterior}"/>
+																		<h:outputText id="msgHoraPedido" value=" HoraPedido"/>
+									<p:inputText id="txtHoraPedido" disabled="true" binding="#{pedidoView.txtHoraPedido}"/>
+																		<h:outputText id="msgNumeroFactura" value=" NumeroFactura"/>
+									<p:inputText id="txtNumeroFactura" disabled="true" binding="#{pedidoView.txtNumeroFactura}"/>
+																		<h:outputText id="msgNumeroPedido" value=" NumeroPedido"/>
+									<p:inputText id="txtNumeroPedido" disabled="true" binding="#{pedidoView.txtNumeroPedido}"/>
+																		<h:outputText id="msgObservacion" value=" Observacion"/>
+									<p:inputText id="txtObservacion" disabled="true" binding="#{pedidoView.txtObservacion}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{pedidoView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{pedidoView.txtOperModifica}"/>
+																		<h:outputText id="msgOrdenDespacho" value=" OrdenDespacho"/>
+									<p:inputText id="txtOrdenDespacho" disabled="true" binding="#{pedidoView.txtOrdenDespacho}"/>
+																		<h:outputText id="msgPorcentajeDescuento" value=" PorcentajeDescuento"/>
+									<p:inputText id="txtPorcentajeDescuento" disabled="true" binding="#{pedidoView.txtPorcentajeDescuento}"/>
+																		<h:outputText id="msgPrecioEspecial" value=" PrecioEspecial"/>
+									<p:inputText id="txtPrecioEspecial" disabled="true" binding="#{pedidoView.txtPrecioEspecial}"/>
+																		<h:outputText id="msgPrecioVenta" value=" PrecioVenta"/>
+									<p:inputText id="txtPrecioVenta" disabled="true" binding="#{pedidoView.txtPrecioVenta}"/>
+																		<h:outputText id="msgUrgencia" value=" Urgencia"/>
+									<p:inputText id="txtUrgencia" disabled="true" binding="#{pedidoView.txtUrgencia}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{pedidoView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdRefe_Referencia" value=" IdRefe_Referencia"/>
+									<p:inputText id="txtIdRefe_Referencia" disabled="true" binding="#{pedidoView.txtIdRefe_Referencia}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pedidoView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaDeseada" value=" FechaDeseada"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pedidoView.txtFechaDeseada}" >
+										<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaDeseada}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaFactura" value=" FechaFactura"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pedidoView.txtFechaFactura}" >
+										<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaFactura}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pedidoView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaPedido" value=" FechaPedido"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{pedidoView.txtFechaPedido}" >
+										<p:ajax event="dateSelect" listener="#{pedidoView.listener_txtFechaPedido}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{pedidoView.btnSave}" value="Save" action="#{pedidoView.action_save()}" update=":dialogPedido :frm:panelDataTablePedido" />
+									<p:commandButton id="btnClear" value="Clear" action="#{pedidoView.action_clear()}" update=":dialogPedido" />
+									<p:commandButton id="btnExit" value="Exit" action="#{pedidoView.action_closeDialog()}" update=":dialogPedido" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

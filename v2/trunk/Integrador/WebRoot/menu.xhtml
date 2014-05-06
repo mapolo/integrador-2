@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<body>
+	<div id="logo" align="center">
+		<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+	</div>
+
+	<style type="text/css">
+body {
+	background: black;
+}
+</style>
+	<div align="center">
+
+		<h:form id="form" style="width: 620px; ">
+
+			<p:growl id="growl" showDetail="true" />
+
+			<p:panel id="msgEvaluacionRapidaDesmpeno" header="Menú Principal"
+				style="text-align: center;">
+				<p:messages id="msg" showDetail="false" />
+
+				<p:megaMenu autoDisplay="false">
+					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+						url="http://www.mac.com.co/" />
+
+					<p:submenu label="Gestión de Datos" icon="ui-icon-pencil">
+						<p:column>
+
+							<p:submenu label="Gestión">
+
+								<p:menuitem value="Banco" url="banco.xhtml" />
+
+								<p:menuitem value="Bateriologo" url="bateriologo.xhtml" />
+
+								<p:menuitem value="Causal" url="causal.xhtml" />
+
+								<p:menuitem value="Clave de Fabricación"
+									url="claveFabricacion.xhtml" />
+
+								<p:menuitem value="Claves para Rotar"
+									url="clavesParaRotar.xhtml" />
+
+								<p:menuitem value="Concepto del Recibo"
+									url="conceptoRecibo.xhtml" />
+
+								<p:menuitem value="Configuración Semanas - Año"
+									url="confSemanasAno.xhtml" />
+
+								<p:menuitem value="Descuento Comercial "
+									url="descuentoComercial.xhtml" />
+
+								<p:menuitem value="Descuento Financiero"
+									url="descuentoFinanciero.xhtml" />
+
+								<p:menuitem value="División Politica"
+									url="divisionPolitica.xhtml" />
+
+								<p:menuitem value="Empresa" url="empresa.xhtml" />
+
+								<p:menuitem value="Fallas" url="fallas.xhtml" />
+
+							</p:submenu>
+
+						</p:column>
+
+						<p:column>
+
+							<p:submenu label="Gestión">
+
+								<p:menuitem value="Frecuencia de Visita"
+									url="frecuenciaVisita.xhtml" />
+
+								<p:menuitem value="Grupo" url="grupo.xhtml" />
+
+								<p:menuitem value="Lista de Precios" url="listaPrecios.xhtml" />
+
+								<p:menuitem value="Lista de Precios Especiales"
+									url="listaPreciosEspeciales.xhtml" />
+
+								<p:menuitem value="Periodo de Garantía"
+									url="periodoGarantia.xhtml" />
+
+								<p:menuitem value="Persona" url="persona.xhtml" />
+
+								<p:menuitem value="Relación Comercial"
+									url="relacionComercial.xhtml" />
+
+								<p:menuitem value="Ruta de Distribución"
+									url="rutaDistribucion.xhtml" />
+
+								<p:menuitem value="Saldo Inicial del Inventario"
+									url="saldoInicialInventario.xhtml" />
+
+								<p:menuitem value="Sucursal" url="sucursal.xhtml" />
+
+								<p:menuitem value="Unidad del Negocio" url="unidadNegocio.xhtml" />
+
+							</p:submenu>
+
+						</p:column>
+
+						<p:column>
+
+							<p:submenu label="Tipo">
+
+								<p:menuitem value="Tipo de Cartera" url="tipoCartera.xhtml" />
+
+								<p:menuitem value="Tipo de Causal" url="tipoCausal.xhtml" />
+
+								<p:menuitem value="Tipo de División" url="tipoDivision.xhtml" />
+
+								<p:menuitem value="Tipo de Documento" url="tipoDocumento.xhtml" />
+
+								<p:menuitem value="Tipo de Forma de Pago"
+									url="tipoFormaPago.xhtml" />
+
+								<p:menuitem value="Tipo de Garantía" url="tipoGarantia.xhtml" />
+
+								<p:menuitem value="Tipo de Identificación"
+									url="tipoIdentificacion.xhtml" />
+
+								<p:menuitem value="Tipo de Sucursal" url="tipoSucursal.xhtml" />
+
+							</p:submenu>
+
+						</p:column>
+
+					</p:submenu>
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" style="text-align: right" />
+				</p:megaMenu>
+			</p:panel>
+		</h:form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+		 <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 	
+		 
+		 	<ui:define name="body">	
+				<f:view>
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		  			<h:form id="frm">								  		
+						<div align="center">
+			               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+						 </div>
+						 <br />
+						<p:panel id="panelDataTableRboDetalleDocumentos" header="RboDetalleDocumentosData">
+							<p:growl id="men"/>				
+							<p:dataTable value="#{rboDetalleDocumentosView.data}" var="rboDetalleDocumentos"
+								paginator="true" rows="5">
+																										<p:column filterBy="#{rboDetalleDocumentos.idRddo}" sortBy="#{rboDetalleDocumentos.idRddo}" >
+										 <f:facet name="header">
+										<h:outputText value="idRddo"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idRddo}"/>
+										 </p:column>
+			                    																									
+										<p:column filterBy="#{rboDetalleDocumentos.debitoCredito}" sortBy="#{rboDetalleDocumentos.debitoCredito}" >
+										 <f:facet name="header">
+										<h:outputText value="DebitoCredito"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.debitoCredito}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.estadoRegistro}" sortBy="#{rboDetalleDocumentos.estadoRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="EstadoRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.estadoRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.fechaCreacion}" sortBy="#{rboDetalleDocumentos.fechaCreacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaCreacion"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.fechaCreacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.fechaModificacion}" sortBy="#{rboDetalleDocumentos.fechaModificacion}" >
+										 <f:facet name="header">
+										<h:outputText value="FechaModificacion"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.fechaModificacion}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.lineaFamilia}" sortBy="#{rboDetalleDocumentos.lineaFamilia}" >
+										 <f:facet name="header">
+										<h:outputText value="LineaFamilia"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.lineaFamilia}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.montoAbonado}" sortBy="#{rboDetalleDocumentos.montoAbonado}" >
+										 <f:facet name="header">
+										<h:outputText value="MontoAbonado"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.montoAbonado}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.numeroAbono}" sortBy="#{rboDetalleDocumentos.numeroAbono}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroAbono"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.numeroAbono}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.numeroRegistro}" sortBy="#{rboDetalleDocumentos.numeroRegistro}" >
+										 <f:facet name="header">
+										<h:outputText value="NumeroRegistro"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.numeroRegistro}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.operCreador}" sortBy="#{rboDetalleDocumentos.operCreador}" >
+										 <f:facet name="header">
+										<h:outputText value="OperCreador"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.operCreador}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.operModifica}" sortBy="#{rboDetalleDocumentos.operModifica}" >
+										 <f:facet name="header">
+										<h:outputText value="OperModifica"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.operModifica}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.valorDescuento}" sortBy="#{rboDetalleDocumentos.valorDescuento}" >
+										 <f:facet name="header">
+										<h:outputText value="ValorDescuento"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.valorDescuento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idCart_Cartera}" sortBy="#{rboDetalleDocumentos.idCart_Cartera}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCart_Cartera"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idCart_Cartera}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idCpto_ConceptoRecibo}" sortBy="#{rboDetalleDocumentos.idCpto_ConceptoRecibo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdCpto_ConceptoRecibo"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idCpto_ConceptoRecibo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idDica_DistribucionCartera}" sortBy="#{rboDetalleDocumentos.idDica_DistribucionCartera}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDica_DistribucionCartera"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idDica_DistribucionCartera}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idDocu_Documento}" sortBy="#{rboDetalleDocumentos.idDocu_Documento}" >
+										 <f:facet name="header">
+										<h:outputText value="IdDocu_Documento"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idDocu_Documento}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idRcbo_Recibo}" sortBy="#{rboDetalleDocumentos.idRcbo_Recibo}" >
+										 <f:facet name="header">
+										<h:outputText value="IdRcbo_Recibo"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idRcbo_Recibo}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idSucu_Sucursal}" sortBy="#{rboDetalleDocumentos.idSucu_Sucursal}" >
+										 <f:facet name="header">
+										<h:outputText value="IdSucu_Sucursal"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idSucu_Sucursal}"/>
+										</p:column>   
+			                    									
+										<p:column filterBy="#{rboDetalleDocumentos.idUnve_UnidadVenta}" sortBy="#{rboDetalleDocumentos.idUnve_UnidadVenta}" >
+										 <f:facet name="header">
+										<h:outputText value="IdUnve_UnidadVenta"/>
+										</f:facet>
+										 <h:outputText value="#{rboDetalleDocumentos.idUnve_UnidadVenta}"/>
+										</p:column>   
+			                    			                    
+								<p:column headerText="Options">
+									<p:commandButton id="btnEdit" icon="ui-icon-pencil"
+										update=":dialogRboDetalleDocumentos"
+										actionListener="#{rboDetalleDocumentosView.action_edit}">
+										<f:attribute name="selectedRboDetalleDocumentos" value="#{rboDetalleDocumentos}" />
+									</p:commandButton>
+									<p:commandButton id="btnDelete"									
+										title="Delete" actionListener="#{rboDetalleDocumentosView.action_delete}"
+										onclick="if(!confirm('Do you really want to delete this Entry?')){return false;}"
+										icon="ui-icon-trash" update="@form">
+										<f:attribute name="selectedRboDetalleDocumentos" value="#{rboDetalleDocumentos}" />
+									</p:commandButton>
+								</p:column>									                    
+							</p:dataTable>	
+						</p:panel>
+						<p:panel id="panelBoton">
+							<div align="center">
+								<p:commandButton id="btnNew" value="New"
+									action="#{rboDetalleDocumentosView.action_new()}" update=":dialogRboDetalleDocumentos" />
+							</div>
+						</p:panel>						
+		   			</h:form>
+					<p:dialog id="dialogRboDetalleDocumentos" appendToBody="true" draggable="true"
+						closable="false" visible="#{rboDetalleDocumentosView.showDialog}" resizable="false"
+						modal="true" width="500">
+						<h:form id="formDialog">
+							<p:messages id="msg" showDetail="true"/>
+							<p:panel id="panelRboDetalleDocumentos" header="RboDetalleDocumentos">							
+							    <h:panelGrid columns="2" id="panelGrid" >
+																		 <h:outputText id="msgIdRddo" value="IdRddo"/>
+									 <p:inputText id="txtIdRddo" binding="#{rboDetalleDocumentosView.txtIdRddo}">
+									 <p:ajax update=":dialogRboDetalleDocumentos" listener="#{rboDetalleDocumentosView.listener_txtId}"/>
+									 </p:inputText>	
+																											
+																		<h:outputText id="msgDebitoCredito" value=" DebitoCredito"/>
+									<p:inputText id="txtDebitoCredito" disabled="true" binding="#{rboDetalleDocumentosView.txtDebitoCredito}"/>
+																		<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro"/>
+									<p:inputText id="txtEstadoRegistro" disabled="true" binding="#{rboDetalleDocumentosView.txtEstadoRegistro}"/>
+																		<h:outputText id="msgLineaFamilia" value=" LineaFamilia"/>
+									<p:inputText id="txtLineaFamilia" disabled="true" binding="#{rboDetalleDocumentosView.txtLineaFamilia}"/>
+																		<h:outputText id="msgMontoAbonado" value=" MontoAbonado"/>
+									<p:inputText id="txtMontoAbonado" disabled="true" binding="#{rboDetalleDocumentosView.txtMontoAbonado}"/>
+																		<h:outputText id="msgNumeroAbono" value=" NumeroAbono"/>
+									<p:inputText id="txtNumeroAbono" disabled="true" binding="#{rboDetalleDocumentosView.txtNumeroAbono}"/>
+																		<h:outputText id="msgNumeroRegistro" value=" NumeroRegistro"/>
+									<p:inputText id="txtNumeroRegistro" disabled="true" binding="#{rboDetalleDocumentosView.txtNumeroRegistro}"/>
+																		<h:outputText id="msgOperCreador" value=" OperCreador"/>
+									<p:inputText id="txtOperCreador" disabled="true" binding="#{rboDetalleDocumentosView.txtOperCreador}"/>
+																		<h:outputText id="msgOperModifica" value=" OperModifica"/>
+									<p:inputText id="txtOperModifica" disabled="true" binding="#{rboDetalleDocumentosView.txtOperModifica}"/>
+																		<h:outputText id="msgValorDescuento" value=" ValorDescuento"/>
+									<p:inputText id="txtValorDescuento" disabled="true" binding="#{rboDetalleDocumentosView.txtValorDescuento}"/>
+																		<h:outputText id="msgIdCart_Cartera" value=" IdCart_Cartera"/>
+									<p:inputText id="txtIdCart_Cartera" disabled="true" binding="#{rboDetalleDocumentosView.txtIdCart_Cartera}"/>
+																		<h:outputText id="msgIdCpto_ConceptoRecibo" value=" IdCpto_ConceptoRecibo"/>
+									<p:inputText id="txtIdCpto_ConceptoRecibo" disabled="true" binding="#{rboDetalleDocumentosView.txtIdCpto_ConceptoRecibo}"/>
+																		<h:outputText id="msgIdDica_DistribucionCartera" value=" IdDica_DistribucionCartera"/>
+									<p:inputText id="txtIdDica_DistribucionCartera" disabled="true" binding="#{rboDetalleDocumentosView.txtIdDica_DistribucionCartera}"/>
+																		<h:outputText id="msgIdDocu_Documento" value=" IdDocu_Documento"/>
+									<p:inputText id="txtIdDocu_Documento" disabled="true" binding="#{rboDetalleDocumentosView.txtIdDocu_Documento}"/>
+																		<h:outputText id="msgIdRcbo_Recibo" value=" IdRcbo_Recibo"/>
+									<p:inputText id="txtIdRcbo_Recibo" disabled="true" binding="#{rboDetalleDocumentosView.txtIdRcbo_Recibo}"/>
+																		<h:outputText id="msgIdSucu_Sucursal" value=" IdSucu_Sucursal"/>
+									<p:inputText id="txtIdSucu_Sucursal" disabled="true" binding="#{rboDetalleDocumentosView.txtIdSucu_Sucursal}"/>
+																		<h:outputText id="msgIdUnve_UnidadVenta" value=" IdUnve_UnidadVenta"/>
+									<p:inputText id="txtIdUnve_UnidadVenta" disabled="true" binding="#{rboDetalleDocumentosView.txtIdUnve_UnidadVenta}"/>
+																		
+																													<h:outputText id="msgFechaCreacion" value=" FechaCreacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{rboDetalleDocumentosView.txtFechaCreacion}" >
+										<p:ajax event="dateSelect" listener="#{rboDetalleDocumentosView.listener_txtFechaCreacion}" update="men" />
+										</p:calendar>
+																				<h:outputText id="msgFechaModificacion" value=" FechaModificacion"/>
+																				<p:calendar showOn="button" navigator="true" locale="en" 
+										binding="#{rboDetalleDocumentosView.txtFechaModificacion}" >
+										<p:ajax event="dateSelect" listener="#{rboDetalleDocumentosView.listener_txtFechaModificacion}" update="men" />
+										</p:calendar>
+																										    </h:panelGrid>
+							</p:panel>						   
+							<p:panel id="panelBotones">
+								<div align="center">					
+									<p:commandButton id="btnSave" binding="#{rboDetalleDocumentosView.btnSave}" value="Save" action="#{rboDetalleDocumentosView.action_save()}" update=":dialogRboDetalleDocumentos :frm:panelDataTableRboDetalleDocumentos" />
+									<p:commandButton id="btnClear" value="Clear" action="#{rboDetalleDocumentosView.action_clear()}" update=":dialogRboDetalleDocumentos" />
+									<p:commandButton id="btnExit" value="Exit" action="#{rboDetalleDocumentosView.action_closeDialog()}" update=":dialogRboDetalleDocumentos" />
+								</div>
+							</p:panel>					
+						</h:form>
+					</p:dialog>
+				</f:view>
+			</ui:define>	  
+			<ui:define name="footer">
+				<ui:include src="/WEB-INF/facelets/footer.jspx" />
+			</ui:define>	
+		</ui:composition>	
+	</h:body>	
+</html>	

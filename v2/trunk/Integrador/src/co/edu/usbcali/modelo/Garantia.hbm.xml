@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.Garantia" table="GARANTIA" >
+        <id name="idGar" type="java.lang.Long">
+            <column name="ID_GAR" precision="10" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="fallas" class="co.edu.usbcali.modelo.Fallas" fetch="select">
+            <column name="ID_CFAL" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="tipoGarantia" class="co.edu.usbcali.modelo.TipoGarantia" fetch="select">
+            <column name="ID_TIGA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="documento" class="co.edu.usbcali.modelo.Documento" fetch="select">
+            <column name="ID_DOCU" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="bateriologo" class="co.edu.usbcali.modelo.Bateriologo" fetch="select">
+            <column name="ID_BATE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="referencia" class="co.edu.usbcali.modelo.Referencia" fetch="select">
+            <column name="ID_REFE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="claveFabricacion" class="co.edu.usbcali.modelo.ClaveFabricacion" fetch="select">
+            <column name="ID_CLFA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fechaVenta" type="java.util.Date">
+            <column name="FECHA_VENTA" length="7" />
+        </property>
+        <property name="fechaCambio" type="java.util.Date">
+            <column name="FECHA_CAMBIO" length="7" />
+        </property>
+        <property name="numeroGarantia" type="java.lang.String">
+            <column name="NUMERO_GARANTIA" length="30" />
+        </property>
+        <property name="alineacionTrazabilidad" type="java.lang.String">
+            <column name="ALINEACION_TRAZABILIDAD" length="5" />
+        </property>
+        <property name="placaTrazabilidad" type="java.lang.String">
+            <column name="PLACA_TRAZABILIDAD" length="5" />
+        </property>
+        <property name="diaTrazabilidad" type="java.lang.Long">
+            <column name="DIA_TRAZABILIDAD" precision="3" scale="0" />
+        </property>
+        <property name="mesTrazabilidad" type="java.lang.String">
+            <column name="MES_TRAZABILIDAD" length="3" />
+        </property>
+        <property name="anoTrazabilidad" type="java.lang.Long">
+            <column name="ANO_TRAZABILIDAD" precision="5" scale="0" />
+        </property>
+        <property name="lineaTrazabilidad" type="java.lang.String">
+            <column name="LINEA_TRAZABILIDAD" length="3" />
+        </property>
+        <property name="turnoTrazabilidad" type="java.lang.String">
+            <column name="TURNO_TRAZABILIDAD" length="3" />
+        </property>
+        <property name="estado" type="java.lang.String">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="observacion" type="java.lang.String">
+            <column name="OBSERVACION" length="100" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

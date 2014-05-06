@@ -1,0 +1,266 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="TipoDocumentoData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{tipoDocumentoView.data}" var="tipoDocumento"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{tipoDocumentoView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{tipoDocumento.if(entity.getidTido()==null){throw new ZMessManager().new EmptyFieldException("idTido");}}" sortBy="#{tipoDocumento.if(entity.getidTido()==null){throw new ZMessManager().new EmptyFieldException("idTido");}}" 
+							headerText="if(entity.getidTido()==null){throw new ZMessManager().new EmptyFieldException("idTido");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.if(entity.getidTido()==null){throw new ZMessManager().new EmptyFieldException("idTido");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.if(entity.getidTido()==null){throw new ZMessManager().new EmptyFieldException("idTido");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{tipoDocumento.afectaCartea}" sortBy="#{tipoDocumento.afectaCartea}" 
+							headerText="afectaCartea">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.afectaCartea}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.afectaCartea}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.afectaInventario}" sortBy="#{tipoDocumento.afectaInventario}" 
+							headerText="afectaInventario">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.afectaInventario}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.afectaInventario}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.codigo}" sortBy="#{tipoDocumento.codigo}" 
+							headerText="codigo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.codigo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.codigo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.descripcion}" sortBy="#{tipoDocumento.descripcion}" 
+							headerText="descripcion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.descripcion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.descripcion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.estadoRegistro}" sortBy="#{tipoDocumento.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.operCreador}" sortBy="#{tipoDocumento.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.operModifica}" sortBy="#{tipoDocumento.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.signoCartera}" sortBy="#{tipoDocumento.signoCartera}" 
+							headerText="signoCartera">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.signoCartera}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.signoCartera}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{tipoDocumento.signoInventario}" sortBy="#{tipoDocumento.signoInventario}" 
+							headerText="signoInventario">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.signoInventario}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{tipoDocumento.signoInventario}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{tipoDocumento.fechaCreacion}" sortBy="#{tipoDocumento.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{tipoDocumento.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{tipoDocumentoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{tipoDocumento.fechaModificacion}" sortBy="#{tipoDocumento.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{tipoDocumento.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{tipoDocumento.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{tipoDocumentoView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{tipoDocumentoView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{tipoDocumento}"  target="#{tipoDocumentoView.selectedTipoDocumento}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

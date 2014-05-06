@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="co.edu.usbcali.modelo.TipoDocumento" table="TIPO_DOCUMENTO" >
+        <id name="idTido" type="java.lang.Long">
+            <column name="ID_TIDO" precision="10" scale="0" />
+            <generator class="sequence" >
+            <param name="sequence">TIDO_ID_TIDO_SEQ</param>
+           </generator>
+        </id>
+        <property name="codigo" type="java.lang.String">
+            <column name="CODIGO" length="2" />
+        </property>
+        <property name="descripcion" type="java.lang.String">
+            <column name="DESCRIPCION" length="100" />
+        </property>
+        <property name="afectaInventario" type="java.lang.String">
+            <column name="AFECTA_INVENTARIO" length="1" not-null="true" />
+        </property>
+        <property name="afectaCartea" type="java.lang.String">
+            <column name="AFECTA_CARTEA" length="1" not-null="true" />
+        </property>
+        <property name="signoInventario" type="java.lang.String">
+            <column name="SIGNO_INVENTARIO" length="1" />
+        </property>
+        <property name="signoCartera" type="java.lang.String">
+            <column name="SIGNO_CARTERA" length="1" />
+        </property>
+        <property name="fechaCreacion" type="java.util.Date">
+            <column name="FECHA_CREACION" length="7" not-null="true" />
+        </property>
+        <property name="operCreador" type="java.lang.String">
+            <column name="OPER_CREADOR" length="10" not-null="true" />
+        </property>
+        <property name="fechaModificacion" type="java.util.Date">
+            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
+        </property>
+        <property name="operModifica" type="java.lang.String">
+            <column name="OPER_MODIFICA" length="10" not-null="true" />
+        </property>
+        <property name="estadoRegistro" type="java.lang.String">
+            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
+        </property>
+        <set name="documentos" inverse="true" lazy="true" table="DOCUMENTO" fetch="select">
+            <key>
+                <column name="ID_TIDO" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.Documento" />
+        </set>
+        <set name="consecutivoDocumentos" inverse="true" lazy="true" table="CONSECUTIVO_DOCUMENTO" fetch="select">
+            <key>
+                <column name="ID_TIDO" precision="10" scale="0" />
+            </key>
+            <one-to-many class="co.edu.usbcali.modelo.ConsecutivoDocumento" />
+        </set>
+    </class>
+</hibernate-mapping>

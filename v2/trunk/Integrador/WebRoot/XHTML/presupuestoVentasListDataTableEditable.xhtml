@@ -1,0 +1,282 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="PresupuestoVentasData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{presupuestoVentasView.data}" var="presupuestoVentas"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{presupuestoVentasView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{presupuestoVentas.if(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}}" sortBy="#{presupuestoVentas.if(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}}" 
+							headerText="if(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.if(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.if(entity.getidPven()==null){throw new ZMessManager().new EmptyFieldException("idPven");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{presupuestoVentas.ano}" sortBy="#{presupuestoVentas.ano}" 
+							headerText="ano">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.ano}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.ano}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.canal}" sortBy="#{presupuestoVentas.canal}" 
+							headerText="canal">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.canal}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.canal}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.cantidadPresupuesto}" sortBy="#{presupuestoVentas.cantidadPresupuesto}" 
+							headerText="cantidadPresupuesto">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.cantidadPresupuesto}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.cantidadPresupuesto}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.estadoRegistro}" sortBy="#{presupuestoVentas.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.mes}" sortBy="#{presupuestoVentas.mes}" 
+							headerText="mes">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.mes}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.mes}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.operCreador}" sortBy="#{presupuestoVentas.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.operModifica}" sortBy="#{presupuestoVentas.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.valorPresupuesto}" sortBy="#{presupuestoVentas.valorPresupuesto}" 
+							headerText="valorPresupuesto">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.valorPresupuesto}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.valorPresupuesto}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.idFlia_Familia}" sortBy="#{presupuestoVentas.idFlia_Familia}" 
+							headerText="idFlia_Familia">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.idFlia_Familia}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.idFlia_Familia}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{presupuestoVentas.idUnve_UnidadVenta}" sortBy="#{presupuestoVentas.idUnve_UnidadVenta}" 
+							headerText="idUnve_UnidadVenta">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.idUnve_UnidadVenta}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{presupuestoVentas.idUnve_UnidadVenta}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{presupuestoVentas.fechaCreacion}" sortBy="#{presupuestoVentas.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{presupuestoVentas.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{presupuestoVentasView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{presupuestoVentas.fechaModificacion}" sortBy="#{presupuestoVentas.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{presupuestoVentas.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{presupuestoVentas.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{presupuestoVentasView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{presupuestoVentasView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{presupuestoVentas}"  target="#{presupuestoVentasView.selectedPresupuestoVentas}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	

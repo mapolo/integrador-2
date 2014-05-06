@@ -1,0 +1,346 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	</h:head>
+
+	<h:body>
+	    <ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+			<ui:define name="header">
+				<ui:include src="/WEB-INF/facelets/header.jspx" />
+			</ui:define>
+        	<br/>
+        	<br/> 
+		<ui:define name="body">	
+			<f:view>
+			<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();"/>               
+					<p:dialog modal="true" widgetVar="statusDialog" header="Loading"  draggable="false" closable="false">  
+   						<p:graphicImage value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />   
+					</p:dialog>
+		 
+		 <h:form id="form">
+			<div align="center">
+               <h:link id="cmdBack" outcome="goInitialMenu" value="Back" style="color:blue;" />
+			 </div>
+			 <br />
+			 
+			<p:panel id="msgProjectClientesTitle" header="EmpresaData">
+					<p:messages id="msg" showDetail="true"/>
+				<p:dataTable id ="tabla" value="#{empresaView.data}" var="empresa"
+					paginator="true" rows="5"  editable="true" >
+					 
+					 <p:ajax event ="rowEdit" update=":form:msg,:form:tabla" listener="#{empresaView.rowEventListener}" />
+					 
+										  <p:column filterBy="#{empresa.if(entity.getidEmpr()==null){throw new ZMessManager().new EmptyFieldException("idEmpr");}}" sortBy="#{empresa.if(entity.getidEmpr()==null){throw new ZMessManager().new EmptyFieldException("idEmpr");}}" 
+							headerText="if(entity.getidEmpr()==null){throw new ZMessManager().new EmptyFieldException("idEmpr");}">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.if(entity.getidEmpr()==null){throw new ZMessManager().new EmptyFieldException("idEmpr");}}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.if(entity.getidEmpr()==null){throw new ZMessManager().new EmptyFieldException("idEmpr");}}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+										
+										
+											
+						<p:column filterBy="#{empresa.apartadoAereo}" sortBy="#{empresa.apartadoAereo}" 
+							headerText="apartadoAereo">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.apartadoAereo}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.apartadoAereo}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.direccion}" sortBy="#{empresa.direccion}" 
+							headerText="direccion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.direccion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.direccion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.email}" sortBy="#{empresa.email}" 
+							headerText="email">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.email}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.email}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.estadoRegistro}" sortBy="#{empresa.estadoRegistro}" 
+							headerText="estadoRegistro">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.estadoRegistro}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.estadoRegistro}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.fax}" sortBy="#{empresa.fax}" 
+							headerText="fax">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.fax}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.fax}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.identificacion}" sortBy="#{empresa.identificacion}" 
+							headerText="identificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.identificacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.identificacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.nombre}" sortBy="#{empresa.nombre}" 
+							headerText="nombre">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.nombre}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.nombre}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.operCreador}" sortBy="#{empresa.operCreador}" 
+							headerText="operCreador">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.operCreador}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.operCreador}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.operModifica}" sortBy="#{empresa.operModifica}" 
+							headerText="operModifica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.operModifica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.operModifica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.telefono1}" sortBy="#{empresa.telefono1}" 
+							headerText="telefono1">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.telefono1}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.telefono1}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.telefono2}" sortBy="#{empresa.telefono2}" 
+							headerText="telefono2">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.telefono2}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.telefono2}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.idDipo_DivisionPolitica}" sortBy="#{empresa.idDipo_DivisionPolitica}" 
+							headerText="idDipo_DivisionPolitica">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.idDipo_DivisionPolitica}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.idDipo_DivisionPolitica}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.idPers_Persona}" sortBy="#{empresa.idPers_Persona}" 
+							headerText="idPers_Persona">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.idPers_Persona}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.idPers_Persona}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+											
+						<p:column filterBy="#{empresa.idTiid_TipoIdentificacion}" sortBy="#{empresa.idTiid_TipoIdentificacion}" 
+							headerText="idTiid_TipoIdentificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.idTiid_TipoIdentificacion}"/>
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:inputText value="#{empresa.idTiid_TipoIdentificacion}"/>
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+										
+										   						 
+						 <p:column filterBy="#{empresa.fechaCreacion}" sortBy="#{empresa.fechaCreacion}" 
+							headerText="fechaCreacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.fechaCreacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{empresa.fechaCreacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{empresaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   						 
+						 <p:column filterBy="#{empresa.fechaModificacion}" sortBy="#{empresa.fechaModificacion}" 
+							headerText="fechaModificacion">
+							
+								<p:cellEditor>
+								
+								<f:facet name="output">
+									<h:outputText value="#{empresa.fechaModificacion}">
+									  <f:convertDateTime  pattern="dd/MM/yyyy"/>
+									</h:outputText>		
+								</f:facet>
+							
+								<f:facet name="input">
+									<p:calendar value="#{empresa.fechaModificacion}" showOn="button" pattern="dd/MM/yyyy" navigator="true" >
+									  <f:convertDateTime  pattern="dd/MM/yyyy" timeZone="#{empresaView.timeZone}" />	
+								    </p:calendar>		
+								</f:facet>
+								</p:cellEditor>	
+							</p:column>
+						
+					   											
+					<p:column headerText="Options" >
+						<p:rowEditor id="row"/>
+						<p:tooltip for="row" value="Edit" showEffect="fade" hideEffect="fade" />
+						<p:tooltip for="btnDelete" value="Delete" showEffect="fade" hideEffect="fade" />
+						<p:commandButton id="btnDelete" action="#{empresaView.actionDeleteDataTableEditable}" title="Delete" onclick="return confirm('Do you really want to delete this Entry?')" icon="ui-icon-trash" update=":form:msg" >
+						<f:setPropertyActionListener value="#{empresa}"  target="#{empresaView.selectedEmpresa}" />  
+						</p:commandButton>
+						
+					</p:column>	
+				
+				</p:dataTable>	
+					
+				
+			</p:panel>
+				
+	   </h:form>
+		  </f:view>
+	 </ui:define>	
+	 
+	  <ui:define name="footer">
+		 <ui:include src="/WEB-INF/facelets/footer.jspx" />
+	   </ui:define>	
+	</ui:composition>
+	
+	</h:body>	
+	
+</html>	
