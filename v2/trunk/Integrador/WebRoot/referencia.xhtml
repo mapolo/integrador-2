@@ -163,8 +163,8 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Referencia" widgetVar="carDialog"
-								resizable="true" width="800" showEffect="clip"
-								hideEffect="fold">
+								resizable="true" width="800" height="400" showEffect="clip"
+								hideEffect="fold" modal="true">
 
 								<h:panelGrid columns="4" id="panel">
 
@@ -212,7 +212,7 @@ body {
 										binding="#{referenciaView.txtPorcentajeIva}" />
 
 									<h:outputText id="msgPideCantidad" value="Pide Cantidad:" />
-										<p:selectOneMenu binding="#{referenciaView.txtPideCantidad}"
+									<p:selectOneMenu binding="#{referenciaView.txtPideCantidad}"
 										value="#{referenciaView.pideCantidad}" disabled="false">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />
@@ -235,7 +235,7 @@ body {
 										binding="#{referenciaView.txtAplicacion}" />
 
 									<h:outputText id="msgEsGarantia" value="Es Garantia:" />
-										<p:selectOneMenu binding="#{referenciaView.txtEsGarantia}"
+									<p:selectOneMenu binding="#{referenciaView.txtEsGarantia}"
 										value="#{referenciaView.esGarantia}" disabled="false">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />

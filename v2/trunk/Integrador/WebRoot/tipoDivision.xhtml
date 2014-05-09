@@ -29,8 +29,7 @@
 
 				<p:megaMenu autoDisplay="false">
 
-					<p:menuitem value="Menú" icon="ui-icon-contact"
-						url="menu.xhtml" />
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -46,7 +45,7 @@ body {
 					<h:form id="form">
 
 						<p:panel id="panelTD" header="Tipo de División">
-						
+
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{tipoDivisionView.data}"
@@ -101,8 +100,9 @@ body {
 							<!--			Ventana emergente          -->
 
 							<p:dialog id="dialog" header="Tipo de División"
-								widgetVar="carDialog" resizable="false" width="500"
-								showEffect="clip" hideEffect="fold">
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold" modal="true">
+
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
@@ -130,7 +130,7 @@ body {
 										binding="#{tipoDivisionView.btnSave}"
 										update="listaTD,panel,panelBotones" />
 								</h:panelGrid>
-								
+
 							</p:dialog>
 						</p:panel>
 					</h:form>

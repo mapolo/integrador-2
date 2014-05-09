@@ -47,7 +47,7 @@ body {
 
 						<p:panel id="msgProjectFrecuenciaVisitaTitle"
 							header="Frecuencia de Visita">
-					
+
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{frecuenciaVisitaView.data}"
@@ -130,8 +130,9 @@ body {
 							<!--                   Ventana emergente           -->
 
 							<p:dialog id="dialog" header="Frecuencia de Visita"
-								widgetVar="carDialog" resizable="false" width="500"
-								showEffect="clip" hideEffect="fold">
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold" modal="true">
+
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
