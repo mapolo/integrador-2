@@ -47,7 +47,7 @@ body {
 
 						<p:panel id="msgProjectRutaDistribucionTitle"
 							header="Ruta de Distribución">
-					
+
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{rutaDistribucionView.data}"
@@ -141,8 +141,8 @@ body {
 							<!--                   Ventana emergente           -->
 
 							<p:dialog id="dialog" header="Ruta de Distribución"
-								widgetVar="carDialog" resizable="false" width="500"
-								showEffect="clip" hideEffect="fold">
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
 

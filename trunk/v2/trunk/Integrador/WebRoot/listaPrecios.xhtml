@@ -47,7 +47,7 @@ body {
 
 						<p:panel id="msgProjectListaPreciosTitle"
 							header="Lista de Precios">
-					
+
 							<p:growl id="men" />
 
 							<p:dataTable var="car" value="#{listaPreciosView.data}"
@@ -202,8 +202,8 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Lista de Precios"
-								widgetVar="carDialog" resizable="false" width="500"
-								showEffect="clip" hideEffect="fold">
+								widgetVar="carDialog" resizable="false" width="400"
+								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
 
