@@ -49,91 +49,56 @@ body {
 							header="Ruta de Distribución">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{rutaDistribucionView.data}"
 								id="tablaPrincipal" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{rutaDistribucionView.data}">
+								scrollHeight="300" filteredValue="#{rutaDistribucionView.data}"
+								rowKey="#{car.idRudi}"						
+								selection="#{rutaDistribucionView.selectedRutaDistribucion}">
 
-								<p:ajax event="rowEdit"
-									listener="#{rutaDistribucionView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{rutaDistribucionView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">
-									<p:cellEditor>
-										<f:facet name="output">
+									sortBy="codigo" filterBy="codigo">								
 											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" disabled="false"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+												style="text-transform:uppercase;" />										
 								</p:column>
 
-								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
+								<p:column headerText="Descripción" style="width: 100px">									
+											<h:outputLabel value="#{car.descripcion}" />										
 								</p:column>
 
 								<p:column headerText="Tiempo de Entrega" style="width: 100px"
 									sortBy="tiempoEntrega" filterBy="tiempoEntrega">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.tiempoEntrega}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.tiempoEntrega}" disabled="false" />
-										</f:facet>
-									</p:cellEditor>
+											<h:outputText value="#{car.tiempoEntrega}" />									
 								</p:column>
 
 								<p:column headerText="Tiempo de Transporte" style="width: 100px"
-									sortBy="tiempoTransporte" filterBy="tiempoTransporte">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.tiempoTransporte}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.tiempoTransporte}" disabled="false" />
-										</f:facet>
-									</p:cellEditor>
+									sortBy="tiempoTransporte" filterBy="tiempoTransporte">									
+											<h:outputText value="#{car.tiempoTransporte}" />									
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{rutaDistribucionView.manufacturerOptions}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{rutaDistribucionView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									filterMatchMode="exact">									
+											<h:outputText value="#{car.estadoRegistro}" />									
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{rutaDistribucionView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{rutaDistribucionView.action_modify2()}"
+										binding="#{rutaDistribucionView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -183,11 +148,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{rutaDistribucionView.action_create}"
 										binding="#{rutaDistribucionView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{rutaDistribucionView.action_modify()}"
+										binding="#{rutaDistribucionView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

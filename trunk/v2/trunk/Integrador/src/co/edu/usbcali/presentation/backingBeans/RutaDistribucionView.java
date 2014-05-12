@@ -55,6 +55,7 @@ public class RutaDistribucionView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<RutaDistribucionDTO> data;
@@ -130,6 +131,107 @@ public class RutaDistribucionView {
 		System.out.println("Cancelado"
 				+ ((RutaDistribucionDTO) event.getObject()).getIdRudi());
 	}
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+			
+			
+			try {
+				txtDescripcion.setValue(selectedRutaDistribucion.getDescripcion());				
+
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+			
+			try {
+				txtTiempoEntrega.setValue(selectedRutaDistribucion.getTiempoEntrega());				
+
+			} catch (Exception e) {
+				txtTiempoEntrega.setValue("");
+			}
+						
+			
+			try {
+				txtCodigo.setValue(selectedRutaDistribucion.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtTiempoTransporte.setValue(selectedRutaDistribucion.getTiempoTransporte());
+			} catch (Exception e) {
+				txtTiempoTransporte.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedRutaDistribucion.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}					
+			
+			txtIdRudi.setValue(selectedRutaDistribucion.getIdRudi());
+
+		} catch (Exception e) {
+			if (selectedRutaDistribucion == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Ruta de Distribución a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtDescripcion.setValue(null);				
+
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+		
+		try {
+			txtTiempoEntrega.setValue(null);				
+
+		} catch (Exception e) {
+			txtTiempoEntrega.setValue("");
+		}
+						
+		try {
+			txtTiempoTransporte.setValue(null);
+		} catch (Exception e) {
+			txtTiempoTransporte.setValue("");
+		}		
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -430,18 +532,31 @@ public class RutaDistribucionView {
 				entity = businessDelegatorView.getRutaDistribucion(idRudi);
 			}
 
+			Long idRudi = new Long(selectedRutaDistribucion.getIdRudi());
+			entity = businessDelegatorView.getRutaDistribucion(idRudi);
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");		
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setTiempoEntrega(FacesUtils.checkDouble(txtTiempoEntrega));
+			System.out.println("Tiempo entrega create "
+					+ FacesUtils.checkDouble(txtTiempoEntrega));
 			entity.setTiempoTransporte(FacesUtils
 					.checkDouble(txtTiempoTransporte));
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
+			
 			businessDelegatorView.updateRutaDistribucion(entity);
+			data = businessDelegatorView.getDataRutaDistribucion();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -771,6 +886,14 @@ public class RutaDistribucionView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }
