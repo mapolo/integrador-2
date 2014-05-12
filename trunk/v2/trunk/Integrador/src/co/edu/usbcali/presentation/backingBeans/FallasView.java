@@ -51,6 +51,7 @@ public class FallasView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<FallasDTO> data;
@@ -126,6 +127,83 @@ public class FallasView {
 		System.out.println("Cancelado"
 				+ ((FallasDTO) event.getObject()).getIdCfal());
 	}
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+			
+			
+			
+			
+			
+			try {
+				txtCodigo.setValue(selectedFallas.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedFallas.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedFallas.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			txtIdCfal.setValue(selectedFallas.getIdCfal());
+
+		} catch (Exception e) {
+			if (selectedFallas == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Falla a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		
+		
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -385,15 +463,28 @@ public class FallasView {
 				entity = businessDelegatorView.getFallas(idCfal);
 			}
 
+			Long idCfal = new Long(selectedFallas.getIdCfal());
+			entity = businessDelegatorView.getFallas(idCfal);
+			
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setEstadoRegistro(estadoRegistro);
+
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
+		
 			businessDelegatorView.updateFallas(entity);
+			data = businessDelegatorView.getDataFallas();
+			RequestContext.getCurrentInstance().reset("form:listaFA");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -687,6 +778,14 @@ public class FallasView {
 
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

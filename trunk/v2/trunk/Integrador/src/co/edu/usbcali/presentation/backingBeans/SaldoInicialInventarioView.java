@@ -59,6 +59,7 @@ public class SaldoInicialInventarioView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<SaldoInicialInventarioDTO> data;
@@ -136,6 +137,109 @@ public class SaldoInicialInventarioView {
 		System.out.println("Cancelado"
 				+ ((SaldoInicialInventarioDTO) event.getObject()).getIdSini());
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			
+			try {
+				txtAno.setValue(selectedSaldoInicialInventario.getAno());				
+
+			} catch (Exception e) {
+				txtAno.setValue("");
+			}
+			
+			try {
+				txtCostoInicial.setValue(selectedSaldoInicialInventario.getCostoInicial());				
+
+			} catch (Exception e) {
+				txtCostoInicial.setValue("");
+			}
+			
+			
+			
+			try {
+				txtSaldoInicial.setValue(selectedSaldoInicialInventario.getSaldoInicial());				
+
+			} catch (Exception e) {
+				txtSaldoInicial.setValue("");
+			}
+
+			try {
+				txtIdResu_ReferenciaSucursal.setValue(selectedSaldoInicialInventario.getIdResu_ReferenciaSucursal());
+			} catch (Exception e) {
+				txtIdResu_ReferenciaSucursal.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedSaldoInicialInventario.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			txtIdSini.setValue(selectedSaldoInicialInventario.getIdSini());
+
+		} catch (Exception e) {
+			if (selectedSaldoInicialInventario == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Saldo inicial del Inventario a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtAno.setValue(null);				
+
+		} catch (Exception e) {
+			txtAno.setValue("");
+		}
+		
+		try {
+			txtCostoInicial.setValue(null);				
+
+		} catch (Exception e) {
+			txtCostoInicial.setValue("");
+		}
+		
+		
+		
+		try {
+			txtSaldoInicial.setValue(null);				
+
+		} catch (Exception e) {
+			txtSaldoInicial.setValue("");
+		}
+
+		try {
+			txtIdResu_ReferenciaSucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdResu_ReferenciaSucursal.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -429,18 +533,32 @@ public class SaldoInicialInventarioView {
 						.getSaldoInicialInventario(idSini);
 			}
 
-			entity.setAno(FacesUtils.checkLong(txtAno));
+			Long idSini = new Long(selectedSaldoInicialInventario.getIdSini());
+			entity = businessDelegatorView.getSaldoInicialInventario(idSini);
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
 			entity.setCostoInicial(FacesUtils.checkDouble(txtCostoInicial));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setSaldoInicial(FacesUtils.checkDouble(txtSaldoInicial));
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			entity.setReferenciaSucursal(businessDelegatorView
 					.getReferenciaSucursal(FacesUtils
 							.checkLong(txtIdResu_ReferenciaSucursal)));
+			
 			businessDelegatorView.updateSaldoInicialInventario(entity);
+			data = businessDelegatorView.getDataSaldoInicialInventario();
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -794,5 +912,13 @@ public class SaldoInicialInventarioView {
 
 	public void setManufacturerOptions2(SelectItem[] manufacturerOptions2) {
 		this.manufacturerOptions2 = manufacturerOptions2;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 }

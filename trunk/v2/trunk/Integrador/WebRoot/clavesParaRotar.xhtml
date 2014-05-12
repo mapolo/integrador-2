@@ -49,133 +49,71 @@ body {
 							header="Claves para Rotar">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{clavesParaRotarView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{clavesParaRotarView.data}">
+								editable="true" filteredValue="#{clavesParaRotarView.data}"
+								rowKey="#{car.idClpr}"						
+								selection="#{clavesParaRotarView.selectedClavesParaRotar}">
 
-								<p:ajax event="rowEdit" listener="#{clavesParaRotarView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{clavesParaRotarView.onCancel}" />
-
-								<p:column headerText="Editar" style="width:40px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions3}"
 									filterMatchMode="exact" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.ano}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{clavesParaRotarView.ano}">
-												<f:selectItem itemLabel="2.000" itemValue="2000" />
-												<f:selectItem itemLabel="2.001" itemValue="2001" />
-												<f:selectItem itemLabel="2.002" itemValue="2002" />
-												<f:selectItem itemLabel="2.003" itemValue="2003" />
-												<f:selectItem itemLabel="2.004" itemValue="2004" />
-												<f:selectItem itemLabel="2.005" itemValue="2005" />
-												<f:selectItem itemLabel="2.006" itemValue="2006" />
-												<f:selectItem itemLabel="2.007" itemValue="2007" />
-												<f:selectItem itemLabel="2.008" itemValue="2008" />
-												<f:selectItem itemLabel="2.009" itemValue="2009" />
-												<f:selectItem itemLabel="2.010" itemValue="2010" />
-												<f:selectItem itemLabel="2.011" itemValue="2011" />
-												<f:selectItem itemLabel="2.012" itemValue="2012" />
-												<f:selectItem itemLabel="2.013" itemValue="2013" />
-												<f:selectItem itemLabel="2.014" itemValue="2014" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="mes" filterBy="mes" headerText="Mes"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions2}"
 									filterMatchMode="exact" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.mes}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{clavesParaRotarView.mes}">
-												<f:selectItem itemLabel="Enero" itemValue="1" />
-												<f:selectItem itemLabel="Febrero" itemValue="2" />
-												<f:selectItem itemLabel="Marzo" itemValue="3" />
-												<f:selectItem itemLabel="Abril" itemValue="4" />
-												<f:selectItem itemLabel="Mayo" itemValue="5" />
-												<f:selectItem itemLabel="Junio" itemValue="6" />
-												<f:selectItem itemLabel="Julio" itemValue="7" />
-												<f:selectItem itemLabel="Agosto" itemValue="8" />
-												<f:selectItem itemLabel="Septiembre" itemValue="9" />
-												<f:selectItem itemLabel="Octubre" itemValue="10" />
-												<f:selectItem itemLabel="Noviembre" itemValue="11" />
-												<f:selectItem itemLabel="Diciembre" itemValue="12" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Clave de Fabricación" style="width:20%"
 									filterBy="idClfa_ClaveFabricacion"
 									sortBy="idClfa_ClaveFabricacion">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idClfa_ClaveFabricacion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{clavesParaRotarView.idClfa_ClaveFabricacion}"
-												style="width:160px">
-												<f:selectItems
-													value="#{clavesParaRotarView.claveFabricacion}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Sucursal" style="width:20%"
 									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idSucu_Sucursal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{clavesParaRotarView.idSucu_Sucursal}"
-												style="width:160px">
-												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
-												<f:selectItems value="#{clavesParaRotarView.sucursal}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{clavesParaRotarView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{clavesParaRotarView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{clavesParaRotarView.action_modify2()}"
+										binding="#{clavesParaRotarView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+	
 							</p:dataTable>
 
 							<!--                          Tabla emergente           -->
@@ -252,11 +190,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{clavesParaRotarView.action_create}"
 										binding="#{clavesParaRotarView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{clavesParaRotarView.action_modify()}"
+										binding="#{clavesParaRotarView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />	
 								</h:panelGrid>
 
 							</p:dialog>

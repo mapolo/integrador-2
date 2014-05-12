@@ -57,6 +57,7 @@ public class PeriodoGarantiaView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<PeriodoGarantiaDTO> data;
@@ -126,6 +127,96 @@ public class PeriodoGarantiaView {
 		System.out.println("Cancelado"
 				+ ((PeriodoGarantiaDTO) event.getObject()).getIdPega());
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);			
+			
+			
+			try {
+				txtIdGrpo_Grupo.setValue(selectedPeriodoGarantia.getIdGrpo_Grupo());				
+
+			} catch (Exception e) {
+				txtIdGrpo_Grupo.setValue("");
+			}
+			
+			try {
+				txtMesesParticular.setValue(selectedPeriodoGarantia.getMesesParticular());				
+
+			} catch (Exception e) {
+				txtMesesParticular.setValue("");
+			}
+			
+			
+			
+			try {
+				txtMesesPublico.setValue(selectedPeriodoGarantia.getMesesPublico());				
+
+			} catch (Exception e) {
+				txtMesesPublico.setValue("");
+			}
+
+			
+			try {
+				estado.setValue(selectedPeriodoGarantia.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			
+			txtIdPega.setValue(selectedPeriodoGarantia.getIdPega());
+
+		} catch (Exception e) {
+			if (selectedPeriodoGarantia == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Periodo de Garantia a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtIdGrpo_Grupo.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdGrpo_Grupo.setValue("");
+		}
+		
+		try {
+			txtMesesParticular.setValue(null);				
+
+		} catch (Exception e) {
+			txtMesesParticular.setValue("");
+		}
+		
+		
+		
+		try {
+			txtMesesPublico.setValue(null);				
+
+		} catch (Exception e) {
+			txtMesesPublico.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -404,17 +495,29 @@ public class PeriodoGarantiaView {
 				entity = businessDelegatorView.getPeriodoGarantia(idPega);
 			}
 
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			Long idPega = new Long(selectedPeriodoGarantia.getIdPega());
+			entity = businessDelegatorView.getPeriodoGarantia(idPega);
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setMesesParticular(FacesUtils.checkLong(txtMesesParticular));
 			entity.setMesesPublico(FacesUtils.checkLong(txtMesesPublico));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
 					.checkLong(txtIdGrpo_Grupo)));
+			
+			
 			businessDelegatorView.updatePeriodoGarantia(entity);
+			data = businessDelegatorView.getDataPeriodoGarantia();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -744,6 +847,14 @@ public class PeriodoGarantiaView {
 
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

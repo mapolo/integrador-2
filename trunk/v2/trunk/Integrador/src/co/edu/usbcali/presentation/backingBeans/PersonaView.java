@@ -57,6 +57,7 @@ public class PersonaView {
 	private InputText txtIdPers;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
+	
 
 	private String apartadoAereo;
 	private String digitoVerificacion;
@@ -202,6 +203,26 @@ public class PersonaView {
 			
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
+
+			
+			try {
+				txtIdDipo_DivisionPolitica.setValue(selectedPersona.getIdDipo_DivisionPolitica());
+			} catch (Exception e) {
+				txtIdDipo_DivisionPolitica.setValue("");
+			}
+			
+			try {
+				txtIdTiid_TipoIdentificacion.setValue(selectedPersona.getIdTiid_TipoIdentificacion());
+			} catch (Exception e) {
+				txtIdTiid_TipoIdentificacion.setValue("");
+			}
+			
+			try {
+				estadoP.setValue(selectedPersona.getEstadoPersona());
+			} catch (Exception e) {
+				estadoP.setValue("");
+			}
+			
 			
 			
 			try {
@@ -270,11 +291,13 @@ public class PersonaView {
 				txtTelefono2.setValue("");
 			}
 			
-			if (selectedPersona.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedPersona.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedPersona.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
+			
+			
 			
 			txtIdPers.setValue(selectedPersona.getIdPers());
 			
@@ -296,7 +319,25 @@ public class PersonaView {
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
 		
-		System.out.println("Entro crear");
+		try {
+			txtIdDipo_DivisionPolitica.setValue(null);
+		} catch (Exception e) {
+			txtIdDipo_DivisionPolitica.setValue("");
+		}
+		
+		try {
+			txtIdTiid_TipoIdentificacion.setValue(null);
+		} catch (Exception e) {
+			txtIdTiid_TipoIdentificacion.setValue("");
+		}
+		
+		try {
+			estadoP.setValue(null);
+		} catch (Exception e) {
+			estadoP.setValue("");
+		}
+		
+
 		
 		try {
 			txtApartadoAereo.setValue(null);
@@ -866,6 +907,8 @@ public class PersonaView {
 				entity = businessDelegatorView.getPersona(idPers);
 			}
 
+			Long idPers = new Long(selectedPersona.getIdPers());
+			entity = businessDelegatorView.getPersona(idPers);
 			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()

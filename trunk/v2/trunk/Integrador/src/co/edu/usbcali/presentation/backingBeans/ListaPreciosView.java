@@ -73,6 +73,7 @@ public class ListaPreciosView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ListaPreciosDTO> data;
@@ -168,6 +169,145 @@ public class ListaPreciosView {
 		System.out.println("Cancelado"
 				+ ((ListaPreciosDTO) event.getObject()).getIdLipr());
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+		
+			try {
+				txtValor.setValue(selectedListaPrecios.getValor());				
+
+			} catch (Exception e) {
+				txtValor.setValue("");
+			}
+			
+			try {
+				txtMargen.setValue(selectedListaPrecios.getMargen());				
+
+			} catch (Exception e) {
+				txtMargen.setValue("");
+			}
+			
+			
+			
+			try {
+				txtEspacios.setValue(selectedListaPrecios.getEspacios());				
+
+			} catch (Exception e) {
+				txtEspacios.setValue("");
+			}
+
+			try {
+				txtIdTili_TipoLista.setValue(selectedListaPrecios.getIdTili_TipoLista());
+			} catch (Exception e) {
+				txtIdTili_TipoLista.setValue("");
+			}
+
+			try {
+				txtIdRefe_Referencia.setValue(selectedListaPrecios.getIdRefe_Referencia());
+			} catch (Exception e) {
+				txtIdRefe_Referencia.setValue("");
+			}
+
+			try {
+				txtIdSucu_Sucursal.setValue(selectedListaPrecios.getIdSucu_Sucursal());
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedListaPrecios.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			txtFechaInicial.setValue(selectedListaPrecios.getFechaInicial());
+			txtFechaFinal.setValue(selectedListaPrecios.getFechaFinal());
+			
+			txtIdLipr.setValue(selectedListaPrecios.getIdLipr());
+
+		} catch (Exception e) {
+			if (selectedListaPrecios == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione lista de precio a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtValor.setValue(null);				
+
+		} catch (Exception e) {
+			txtValor.setValue("");
+		}
+		
+		try {
+			txtMargen.setValue(null);				
+
+		} catch (Exception e) {
+			txtMargen.setValue("");
+		}
+		
+		
+		
+		try {
+			txtEspacios.setValue(null);				
+
+		} catch (Exception e) {
+			txtEspacios.setValue("");
+		}
+
+		try {
+			txtIdTili_TipoLista.setValue(null);
+		} catch (Exception e) {
+			txtIdTili_TipoLista.setValue("");
+		}
+
+		try {
+			txtIdRefe_Referencia.setValue(null);
+		} catch (Exception e) {
+			txtIdRefe_Referencia.setValue("");
+		}
+
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+		}
+		
+		try {
+			txtFechaInicial.setValue(null);
+		} catch (Exception e) {
+			txtFechaInicial.setValue("");
+		}
+		
+		try {
+			txtFechaFinal.setValue(null);
+		} catch (Exception e) {
+			txtFechaFinal.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -560,25 +700,47 @@ public class ListaPreciosView {
 				Long idLipr = new Long(selectedListaPrecios.getIdLipr());
 				entity = businessDelegatorView.getListaPrecios(idLipr);
 			}
+			
+			Long idLipr = new Long(selectedListaPrecios.getIdLipr());
+			entity = businessDelegatorView.getListaPrecios(idLipr);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
 			entity.setMargen(FacesUtils.checkDouble(txtMargen));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			entity.setValor(FacesUtils.checkDouble(txtValor));
+
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
+
 			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
 					.checkLong(txtIdRefe_Referencia)));
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
+
 			entity.setTipoLista(businessDelegatorView.getTipoLista(FacesUtils
 					.checkLong(txtIdTili_TipoLista)));
+
+			if (txtIdSucu_Sucursal.getValue() == "") {
+
+			} else {
+				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
+			}
+			
+			
+			
 			businessDelegatorView.updateListaPrecios(entity);
+			data = businessDelegatorView.getDataListaPrecios();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -1034,6 +1196,14 @@ public class ListaPreciosView {
 
 	public void setSucursal(Map<String, String> sucursal) {
 		this.sucursal = sucursal;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

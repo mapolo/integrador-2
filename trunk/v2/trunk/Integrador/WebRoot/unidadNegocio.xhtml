@@ -29,7 +29,7 @@
 
 				<p:megaMenu autoDisplay="false">
 
-					<p:menuitem value="Pagina Principal" icon="ui-icon-contact"
+					<p:menuitem value="Menu" icon="ui-icon-contact"
 						url="menu.xhtml" />
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
@@ -50,63 +50,50 @@ body {
 							header="Unidad del Negocio">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{unidadNegocioView.data}"
 								scrollable="true" scrollHeight="300" id="unidad" editable="true"
-								filteredValue="#{unidadNegocioView.data}">
+								filteredValue="#{unidadNegocioView.data}"
+								rowKey="#{car.idUnne}"						
+								selection="#{unidadNegocioView.selectedUnidadNegocio}">
 
-								<p:ajax event="rowEdit" listener="#{unidadNegocioView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{unidadNegocioView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.codigo}"
 												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{unidadNegocioView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{unidadNegocioView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{unidadNegocioView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{unidadNegocioView.action_modify2()}"
+										binding="#{unidadNegocioView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
@@ -144,11 +131,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{unidadNegocioView.action_create()}"
 										binding="#{unidadNegocioView.btnSave}"
+										update="unidad,panel,panelBotones" />
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{unidadNegocioView.action_modify()}"
+										binding="#{unidadNegocioView.btnModify}"
 										update="unidad,panel,panelBotones" />
 								</h:panelGrid>
 

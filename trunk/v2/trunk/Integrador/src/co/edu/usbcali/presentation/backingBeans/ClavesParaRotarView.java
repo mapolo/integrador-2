@@ -63,6 +63,7 @@ public class ClavesParaRotarView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ClavesParaRotarDTO> data;
@@ -166,6 +167,110 @@ public class ClavesParaRotarView {
 		System.out.println("Cancelado"
 				+ ((ClavesParaRotarDTO) event.getObject()).getIdClpr());
 	}
+	
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+		
+			try {
+				txtAno.setValue(selectedClavesParaRotar.getAno());				
+
+			} catch (Exception e) {
+				txtAno.setValue("");
+			}
+			
+			try {
+				txtMes.setValue(selectedClavesParaRotar.getMes());				
+
+			} catch (Exception e) {
+				txtMes.setValue("");
+			}
+			
+			
+			
+			try {
+				txtIdClfa_ClaveFabricacion.setValue(selectedClavesParaRotar.getIdClfa_ClaveFabricacion());				
+
+			} catch (Exception e) {
+				txtIdClfa_ClaveFabricacion.setValue("");
+			}
+
+			try {
+				txtIdSucu_Sucursal.setValue(selectedClavesParaRotar.getIdSucu_Sucursal());
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedClavesParaRotar.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+						
+			
+			txtIdClpr.setValue(selectedClavesParaRotar.getIdClpr());
+
+		} catch (Exception e) {
+			if (selectedClavesParaRotar == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Clave para Rotar a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtAno.setValue(null);				
+
+		} catch (Exception e) {
+			txtAno.setValue("");
+		}
+		
+		try {
+			txtMes.setValue(null);				
+
+		} catch (Exception e) {
+			txtMes.setValue("");
+		}
+		
+		
+		
+		try {
+			txtIdClfa_ClaveFabricacion.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdClfa_ClaveFabricacion.setValue("");
+		}
+
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -472,21 +577,41 @@ public class ClavesParaRotarView {
 				Long idClpr = new Long(selectedClavesParaRotar.getIdClpr());
 				entity = businessDelegatorView.getClavesParaRotar(idClpr);
 			}
+			
+			Long idClpr = new Long(selectedClavesParaRotar.getIdClpr());
+			entity = businessDelegatorView.getClavesParaRotar(idClpr);
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			entity.setAno(FacesUtils.checkLong(txtAno));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setMes(FacesUtils.checkLong(txtMes));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setClaveFabricacion(businessDelegatorView
-					.getClaveFabricacion(FacesUtils
-							.checkLong(txtIdClfa_ClaveFabricacion)));
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
+			String usuario = (String) session.getAttribute("Usuario");
+
+			Long ano = new Long(txtAno.getValue().toString());
+			entity.setAno(ano);
+
+			Long mes = new Long(txtMes.getValue().toString());
+			entity.setMes(mes);
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
+			ClaveFabricacion entity2 = businessDelegatorView
+					.getClaveFabricacion(getIdClfa_ClaveFabricacion());
+			entity.setClaveFabricacion(entity2);
+
+			if (txtIdSucu_Sucursal.getValue() == "") {
+
+			} else {
+				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_Sucursal)));
+			}
+			
+			
 			businessDelegatorView.updateClavesParaRotar(entity);
+			data = businessDelegatorView.getDataClavesParaRotar();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -871,6 +996,14 @@ public class ClavesParaRotarView {
 
 	public void setManufacturerOptions3(SelectItem[] manufacturerOptions3) {
 		this.manufacturerOptions3 = manufacturerOptions3;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

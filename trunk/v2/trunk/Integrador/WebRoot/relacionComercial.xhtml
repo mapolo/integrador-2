@@ -49,130 +49,67 @@ body {
 							header="Relación Comercial">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{relacionComercialView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{relacionComercialView.data}">
+								editable="true" filteredValue="#{relacionComercialView.data}"
+								rowKey="#{car.idReco}"						
+								selection="#{relacionComercialView.selectedRelacionComercial}">
 
-								<p:ajax event="rowEdit"
-									listener="#{relacionComercialView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{relacionComercialView.onCancel}" />
-
-								<p:column headerText="Editar" style="width:40px">
-									<p:rowEditor />
-								</p:column>
-
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="ID Sucursal Padre" style="width:100px"
 									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idSucu_Sucursal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{relacionComercialView.idSucu_Sucursal}"
-												style="width:100px">
-												<f:selectItems value="#{relacionComercialView.sucursal}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Sucursal Hija" style="width:100px"
 									filterBy="idSucu_SucursalH" sortBy="idSucu_SucursalH">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idSucu_SucursalH}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{relacionComercialView.idSucu_SucursalH}"
-												style="width:100px">
-												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
-												<f:selectItems value="#{relacionComercialView.sucursal2}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Empresa Hija" style="width:100px"
 									filterBy="idEmpr_Empresa" sortBy="idEmpr_Empresa">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idEmpr_Empresa}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{relacionComercialView.idEmpr_Empresa}"
-												style="width:100px">
-												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
-												<f:selectItems value="#{relacionComercialView.empresa}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Liquida IVA" style="width:100px"
 									filterBy="liquidaIva"
 									filterOptions="#{relacionComercialView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.liquidaIva}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{relacionComercialView.liquidaIva}">
-												<f:selectItem itemLabel="S" itemValue="S" />
-												<f:selectItem itemLabel="N" itemValue="N" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Persona" style="width:100px"
 									filterBy="idPers_Persona" sortBy="idPers_Persona">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idPers_Persona}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{relacionComercialView.idPers_Persona}"
-												style="width:100px">
-												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
-												<f:selectItems value="#{relacionComercialView.persona}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="limiteCredito" filterBy="limiteCredito"
 									headerText="Limite Credito" sortBy="limiteCredito"
 									filterMatchMode="contains" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.limiteCredito}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.limiteCredito}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="observacion" filterBy="observacion"
 									headerText="Observación" sortBy="observacion"
 									filterMatchMode="contains" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.observacion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.observacion}"
-												style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 
@@ -181,22 +118,23 @@ body {
 									filterBy="estadoRegistro"
 									filterOptions="#{relacionComercialView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{relacionComercialView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{relacionComercialView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{relacionComercialView.action_modify2()}"
+										binding="#{relacionComercialView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
@@ -276,11 +214,18 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{relacionComercialView.action_create}"
 										binding="#{relacionComercialView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{relacionComercialView.action_modify()}"
+										binding="#{relacionComercialView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

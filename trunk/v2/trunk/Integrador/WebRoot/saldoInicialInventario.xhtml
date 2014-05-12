@@ -49,114 +49,69 @@ body {
 							header="Saldo Inicial del Inventario">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{saldoInicialInventarioView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true"
-								filteredValue="#{saldoInicialInventarioView.data}">
+								filteredValue="#{saldoInicialInventarioView.data}"
+								rowKey="#{car.idSini}"						
+								selection="#{saldoInicialInventarioView.selectedSaldoInicialInventario}">
 
-								<p:ajax event="rowEdit"
-									listener="#{saldoInicialInventarioView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{saldoInicialInventarioView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{saldoInicialInventarioView.manufacturerOptions2}"
 									filterMatchMode="exact" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.ano}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{saldoInicialInventarioView.ano}">
-												<f:selectItem itemLabel="2.000" itemValue="2000" />
-												<f:selectItem itemLabel="2.001" itemValue="2001" />
-												<f:selectItem itemLabel="2.002" itemValue="2002" />
-												<f:selectItem itemLabel="2.003" itemValue="2003" />
-												<f:selectItem itemLabel="2.004" itemValue="2004" />
-												<f:selectItem itemLabel="2.005" itemValue="2005" />
-												<f:selectItem itemLabel="2.006" itemValue="2006" />
-												<f:selectItem itemLabel="2.007" itemValue="2007" />
-												<f:selectItem itemLabel="2.008" itemValue="2008" />
-												<f:selectItem itemLabel="2.009" itemValue="2009" />
-												<f:selectItem itemLabel="2.010" itemValue="2010" />
-												<f:selectItem itemLabel="2.011" itemValue="2011" />
-												<f:selectItem itemLabel="2.012" itemValue="2012" />
-												<f:selectItem itemLabel="2.013" itemValue="2013" />
-												<f:selectItem itemLabel="2.014" itemValue="2014" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="saldoInicial" filterBy="saldoInicial"
 									headerText="Saldo Inicial" sortBy="saldoInicial"
 									filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.saldoInicial}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.saldoInicial}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="costoInicial" filterBy="costoInicial"
 									headerText="Costo Inicial" sortBy="costoInicial"
 									filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.costoInicial}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.costoInicial}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{saldoInicialInventarioView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{saldoInicialInventarioView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Referencia Sucursal"
 									style="width:100px" filterBy="idResu_ReferenciaSucursal"
 									sortBy="idResu_ReferenciaSucursal">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idResu_ReferenciaSucursal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{saldoInicialInventarioView.idResu_ReferenciaSucursal}"
-												style="width:160px">
-												<f:selectItems
-													value="#{saldoInicialInventarioView.referencia}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{saldoInicialInventarioView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{saldoInicialInventarioView.action_modify2()}"
+										binding="#{saldoInicialInventarioView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
@@ -224,10 +179,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{saldoInicialInventarioView.action_create}"
 										binding="#{saldoInicialInventarioView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{saldoInicialInventarioView.action_modify()}"
+										binding="#{saldoInicialInventarioView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

@@ -58,6 +58,7 @@ public class BateriologoView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<BateriologoDTO> data;
@@ -130,6 +131,75 @@ public class BateriologoView {
 		System.out.println("Cancelado"
 				+ ((BateriologoDTO) event.getObject()).getIdBate());
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+		
+			try {
+				txtCodigo.setValue(selectedBateriologo.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtNombreCompleto.setValue(selectedBateriologo.getNombreCompleto());
+			} catch (Exception e) {
+				txtNombreCompleto.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedBateriologo.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+					
+			
+			txtIdBate.setValue(selectedBateriologo.getIdBate());
+
+			//btnSave.setDisabled(false);
+			//btnModify2.setDisabled(false);
+
+		} catch (Exception e) {
+			if (selectedBateriologo == null) {
+				//btnCrear.setDisabled(true);
+				//btnModify2.setDisabled(true);
+				//action_cerrar();
+				FacesUtils
+						.addErrorMessage("Seleccione Bateriologo a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtNombreCompleto.setValue(null);
+		} catch (Exception e) {
+			txtNombreCompleto.setValue("");
+		}
+	
+		return "";
+	}
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -434,17 +504,35 @@ public class BateriologoView {
 				entity = businessDelegatorView.getBateriologo(idBate);
 			}
 
+			
+			Long idBate = new Long(selectedBateriologo.getIdBate());
+			entity = businessDelegatorView.getBateriologo(idBate);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			entity.setEstadoRegistro(estadoRegistro);
+
+			entity.setFechaCreacion(new Date());
+			entity.setFechaModificacion(new Date());
+			entity.setOperCreador(usuario);
+			entity.setOperModifica(usuario);
+
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
+
+
+			Sucursal entity2 = businessDelegatorView
+					.getSucursal(getIdSucu_Sucursal());
+
+			entity.setSucursal(entity2);
+			
 			businessDelegatorView.updateBateriologo(entity);
+			data = businessDelegatorView.getDataBateriologo();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -773,6 +861,14 @@ public class BateriologoView {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

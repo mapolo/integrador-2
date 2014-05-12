@@ -300,6 +300,50 @@ public class DescuentoComercialView {
 
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
+			
+			
+			try {
+				txtEstadoPlano.setValue(selectedDescuentoComercial
+						.getEstadoPlano());
+			} catch (Exception e) {
+				txtEstadoPlano.setValue("");
+			}
+			
+			try {
+				txtIdEmpr_Empresa.setValue(selectedDescuentoComercial
+						.getIdEmpr_Empresa());
+			} catch (Exception e) {
+				txtIdEmpr_Empresa.setValue("");
+			}
+			
+			try {
+				txtIdGrpo_Grupo.setValue(selectedDescuentoComercial
+						.getIdGrpo_Grupo());
+			} catch (Exception e) {
+				txtIdGrpo_Grupo.setValue("");
+			}
+			
+			try {
+				txtIdPers_Persona.setValue(selectedDescuentoComercial
+						.getIdPers_Persona());
+			} catch (Exception e) {
+				txtIdPers_Persona.setValue("");
+			}
+			
+			try {
+				txtIdSucu_Sucursal.setValue(selectedDescuentoComercial
+						.getIdSucu_Sucursal());
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+			}
+			
+			try {
+				txtIdSucu_SucursalH.setValue(selectedDescuentoComercial
+						.getIdSucu_SucursalH());
+			} catch (Exception e) {
+				txtIdSucu_SucursalH.setValue("");
+			}
+			
 
 			try {
 				txtAsocGrupoItem.setValue(selectedDescuentoComercial
@@ -356,11 +400,10 @@ public class DescuentoComercialView {
 				txtTodasSucursales.setValue("");
 			}
 
-			if (selectedDescuentoComercial.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedDescuentoComercial.getEstadoRegistro().equals(
-					"R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedDescuentoComercial.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
 
 			txtFechaInicial.setValue(selectedDescuentoComercial
@@ -386,6 +429,43 @@ public class DescuentoComercialView {
 
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		try {
+			txtEstadoPlano.setValue(null);
+		} catch (Exception e) {
+			txtEstadoPlano.setValue("");
+		}
+		
+		try {
+			txtIdEmpr_Empresa.setValue(null);
+		} catch (Exception e) {
+			txtIdEmpr_Empresa.setValue("");
+		}
+		
+		try {
+			txtIdGrpo_Grupo.setValue(null);
+		} catch (Exception e) {
+			txtIdGrpo_Grupo.setValue("");
+		}
+		
+		try {
+			txtIdPers_Persona.setValue(null);
+		} catch (Exception e) {
+			txtIdPers_Persona.setValue("");
+		}
+		
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+		}
+		
+		try {
+			txtIdSucu_SucursalH.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_SucursalH.setValue("");
+		}
+		
 		
 		try {
 			txtAsocGrupoItem.setValue(null);
@@ -986,6 +1066,9 @@ public class DescuentoComercialView {
 				entity = businessDelegatorView.getDescuentoComercial(idDeco);
 			}
 
+			Long idDeco = new Long(selectedDescuentoComercial.getIdDeco());
+			entity = businessDelegatorView.getDescuentoComercial(idDeco);
+			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);

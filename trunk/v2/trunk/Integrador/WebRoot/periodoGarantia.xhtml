@@ -49,80 +49,59 @@ body {
 							header="Periodo de Garantía">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{periodoGarantiaView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{periodoGarantiaView.data}">
+								editable="true" filteredValue="#{periodoGarantiaView.data}"
+								rowKey="#{car.idPega}"						
+								selection="#{periodoGarantiaView.selectedPeriodoGarantia}">
 
-								<p:ajax event="rowEdit" listener="#{periodoGarantiaView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{periodoGarantiaView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="mesesParticular" filterBy="mesesParticular"
 									headerText="Meses Particulares" sortBy="mesesParticular"
 									filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.mesesParticular}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.mesesParticular}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="mesesPublico" filterBy="mesesPublico"
 									headerText="Meses Publicos" sortBy="mesesPublico"
 									filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.mesesPublico}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.mesesPublico}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Grupo" style="width:100px"
 									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idGrpo_Grupo}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
-												style="width:160px">
-												<f:selectItems value="#{periodoGarantiaView.grupo}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{periodoGarantiaView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{periodoGarantiaView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{periodoGarantiaView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{periodoGarantiaView.action_modify2()}"
+										binding="#{periodoGarantiaView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
@@ -167,10 +146,16 @@ body {
 								</h:panelGrid>
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{periodoGarantiaView.action_create}"
 										binding="#{periodoGarantiaView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{periodoGarantiaView.action_modify()}"
+										binding="#{periodoGarantiaView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

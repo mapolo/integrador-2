@@ -60,6 +60,7 @@ public class DivisionPoliticaView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<DivisionPoliticaDTO> data;
@@ -160,6 +161,113 @@ public class DivisionPoliticaView {
 		reload();
 
 	}
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+		
+			
+			try {
+				txtCodigoDian.setValue(selectedDivisionPolitica.getCodigoDian());				
+
+			} catch (Exception e) {
+				txtCodigoDian.setValue("");
+			}
+			
+			try {
+				txtIdTidi_TipoDivision.setValue(selectedDivisionPolitica.getIdTidi_TipoDivision());				
+
+			} catch (Exception e) {
+				txtIdTidi_TipoDivision.setValue("");
+			}
+			
+			
+			
+			try {
+				txtIdDipo_DivisionPolitica.setValue(selectedDivisionPolitica.getIdDipo_DivisionPolitica());				
+
+			} catch (Exception e) {
+				txtIdDipo_DivisionPolitica.setValue("");
+			}
+
+			try {
+				txtNombre.setValue(selectedDivisionPolitica.getNombre());
+			} catch (Exception e) {
+				txtNombre.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedDivisionPolitica.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			txtIdDipo.setValue(selectedDivisionPolitica.getIdDipo());
+
+		} catch (Exception e) {
+			if (selectedDivisionPolitica == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Division Politica a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtCodigoDian.setValue(null);				
+
+		} catch (Exception e) {
+			txtCodigoDian.setValue("");
+		}
+		
+		try {
+			txtIdTidi_TipoDivision.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdTidi_TipoDivision.setValue("");
+		}
+		
+		
+		
+		try {
+			txtIdDipo_DivisionPolitica.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdDipo_DivisionPolitica.setValue("");
+		}
+
+		
+
+		try {
+			txtNombre.setValue(null);
+		} catch (Exception e) {
+			txtNombre.setValue("");
+		}
+
+		
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
 
 	public String reload() {
 		System.out.println("Entro a reload");
@@ -487,22 +595,41 @@ public class DivisionPoliticaView {
 				Long idDipo = new Long(selectedDivisionPolitica.getIdDipo());
 				entity = businessDelegatorView.getDivisionPolitica(idDipo);
 			}
+			
+			Long idDipo = new Long(selectedDivisionPolitica.getIdDipo());
+			entity = businessDelegatorView.getDivisionPolitica(idDipo);
+
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setCodigoDian(FacesUtils.checkString(txtCodigoDian));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setDivisionPolitica(businessDelegatorView
-					.getDivisionPolitica(FacesUtils
-							.checkLong(txtIdDipo_DivisionPolitica)));
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			entity.setTipoDivision(businessDelegatorView
 					.getTipoDivision(FacesUtils
 							.checkLong(txtIdTidi_TipoDivision)));
+
+			if (txtIdDipo_DivisionPolitica.getValue() == "") {
+
+			} else {
+
+				entity.setDivisionPolitica(businessDelegatorView
+						.getDivisionPolitica(FacesUtils
+								.checkLong(txtIdDipo_DivisionPolitica)));
+			}
+			
+			
 			businessDelegatorView.updateDivisionPolitica(entity);
+			data = businessDelegatorView.getDataDivisionPolitica();
+			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -874,6 +1001,14 @@ public class DivisionPoliticaView {
 
 	public void setTipoDivision(Map<String, String> tipoDivision) {
 		this.tipoDivision = tipoDivision;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

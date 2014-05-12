@@ -183,8 +183,36 @@ public class EmpresaView {
 
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
+			
+			
+			
+			
 
+			
+			try {
+				txtIdTiid_TipoIdentificacion.setValue(selectedEmpresa.getIdTiid_TipoIdentificacion());
 
+			} catch (Exception e) {
+				txtIdTiid_TipoIdentificacion.setValue("");
+			}
+
+			
+			try {
+				txtIdDipo_DivisionPolitica.setValue(selectedEmpresa.getIdDipo_DivisionPolitica());
+
+			} catch (Exception e) {
+				txtIdDipo_DivisionPolitica.setValue("");
+			}
+
+			
+			try {
+				txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
+
+			} catch (Exception e) {
+				txtIdPers_Persona.setValue("");
+			}
+
+			
 			try {
 				txtApartadoAereo.setValue(selectedEmpresa.getApartadoAereo());
 
@@ -241,14 +269,12 @@ public class EmpresaView {
 				txtTelefono2.setValue("");
 			}
 			
-			
-
-			/*if (selectedEmpresa.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedEmpresa.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedEmpresa.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
-*/
+			
 			txtIdEmpr.setValue(selectedEmpresa.getIdEmpr());
 
 			// btnSave.setDisabled(false);
@@ -270,6 +296,31 @@ public class EmpresaView {
 		
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		
+		try {
+			txtIdTiid_TipoIdentificacion.setValue(null);
+
+		} catch (Exception e) {
+			txtIdTiid_TipoIdentificacion.setValue("");
+		}
+
+		
+		try {
+			txtIdDipo_DivisionPolitica.setValue(null);
+
+		} catch (Exception e) {
+			txtIdDipo_DivisionPolitica.setValue("");
+		}
+
+		
+		try {
+			txtIdPers_Persona.setValue(null);
+
+		} catch (Exception e) {
+			txtIdPers_Persona.setValue("");
+		}
+		
 		
 		try {
 			txtApartadoAereo.setValue(null);
@@ -741,6 +792,9 @@ public class EmpresaView {
 				Long idEmpr = new Long(selectedEmpresa.getIdEmpr());
 				entity = businessDelegatorView.getEmpresa(idEmpr);
 			}
+			
+			Long idEmpr = new Long(selectedEmpresa.getIdEmpr());
+			entity = businessDelegatorView.getEmpresa(idEmpr);
 
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()

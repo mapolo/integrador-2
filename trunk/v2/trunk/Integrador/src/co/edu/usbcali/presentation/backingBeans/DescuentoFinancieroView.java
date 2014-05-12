@@ -185,13 +185,24 @@ public class DescuentoFinancieroView {
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 			
-			System.out.println("entro modificar");
-	
+			try {
+				txtIdGrpo_Grupo.setValue(selectedDescuentoFinanciero.getIdGrpo_Grupo());				
+
+			} catch (Exception e) {
+				txtIdGrpo_Grupo.setValue("");
+			}
 			
 			try {
-				txtCodigo.setValue(selectedDescuentoFinanciero.getCodigo());
-				
-				
+				txtIdTfpa_TipoFormaPago.setValue(selectedDescuentoFinanciero.getIdTfpa_TipoFormaPago());				
+
+			} catch (Exception e) {
+				txtIdTfpa_TipoFormaPago.setValue("");
+			}
+			
+			
+			
+			try {
+				txtCodigo.setValue(selectedDescuentoFinanciero.getCodigo());				
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
@@ -222,10 +233,10 @@ public class DescuentoFinancieroView {
 				txtDiaHasta.setValue("");
 			}
 			
-			if (selectedDescuentoFinanciero.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedDescuentoFinanciero.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedDescuentoFinanciero.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
 			
 			txtFechaInicio.setValue(selectedDescuentoFinanciero.getFechaInicio());
@@ -233,14 +244,8 @@ public class DescuentoFinancieroView {
 			
 			txtIdDefi.setValue(selectedDescuentoFinanciero.getIdDefi());
 
-			//btnSave.setDisabled(false);
-			//btnModify2.setDisabled(false);
-
 		} catch (Exception e) {
-			if (selectedDescuentoFinanciero == null) {
-				//btnCrear.setDisabled(true);
-				//btnModify2.setDisabled(true);
-				//action_cerrar();
+			if (selectedDescuentoFinanciero == null) {				
 				FacesUtils
 						.addErrorMessage("Seleccione Descuento Financiero a modificar");
 			}
@@ -254,6 +259,20 @@ public class DescuentoFinancieroView {
 		
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		try {
+			txtIdGrpo_Grupo.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdGrpo_Grupo.setValue("");
+		}
+		
+		try {
+			txtIdTfpa_TipoFormaPago.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdTfpa_TipoFormaPago.setValue("");
+		}
 		
 		try {
 			txtCodigo.setValue(null);
@@ -289,16 +308,20 @@ public class DescuentoFinancieroView {
 		try {
 			txtFechaInicio.setValue(null);
 		} catch (Exception e) {
-			txtDiaHasta.setValue("");
+			txtFechaInicio.setValue("");
 		}
 		
 		try {
 			txtFechaFinal.setValue(null);
 		} catch (Exception e) {
-			txtDiaHasta.setValue("");
+			txtFechaFinal.setValue("");
 		}
 		
-		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
 		
 		return "";
 	}
@@ -730,6 +753,9 @@ public class DescuentoFinancieroView {
 				Long idDefi = new Long(selectedDescuentoFinanciero.getIdDefi());
 				entity = businessDelegatorView.getDescuentoFinanciero(idDefi);
 			}
+			
+			Long idDefi = new Long(selectedDescuentoFinanciero.getIdDefi());
+			entity = businessDelegatorView.getDescuentoFinanciero(idDefi);
 			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()

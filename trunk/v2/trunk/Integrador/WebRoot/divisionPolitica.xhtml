@@ -49,103 +49,70 @@ body {
 							header="División Politica">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{divisionPoliticaView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{divisionPoliticaView.data}">
+								editable="true" filteredValue="#{divisionPoliticaView.data}"
+								rowKey="#{car.idDipo}"						
+								selection="#{divisionPoliticaView.selectedDivisionPolitica}">
 
-								<p:ajax event="rowEdit"
-									listener="#{divisionPoliticaView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{divisionPoliticaView.onCancel}" />
-
-								<p:column headerText="Editar" style="width:40px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
 									sortBy="nombre" filterMatchMode="contains" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.nombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.nombre}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID División Politica" style="width:20%"
 									filterBy="idDipo_DivisionPolitica"
 									sortBy="idDipo_DivisionPolitica">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{divisionPoliticaView.idDipo_DivisionPolitica}"
-												style="width:160px">
-												<f:selectItem itemLabel="Seleccionar" itemValue="999" />
-												<f:selectItems
-													value="#{divisionPoliticaView.divisionPolitica}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Tipo División" style="width:20%"
 									filterBy="idTidi_TipoDivision" sortBy="idTidi_TipoDivision">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idTidi_TipoDivision}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu
-												value="#{divisionPoliticaView.idTidi_TipoDivision}"
-												style="width:160px">
-												<f:selectItems value="#{divisionPoliticaView.tipoDivision}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column id="codigoDian" filterBy="codigoDian"
 									headerText="Codigo Dian" sortBy="codigoDian"
 									filterMatchMode="contains" style="width:100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.codigoDian}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigoDian}" style="width:100%" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
 									filterOptions="#{divisionPoliticaView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{divisionPoliticaView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{divisionPoliticaView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{divisionPoliticaView.action_modify2()}"
+										binding="#{divisionPoliticaView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
 
 							</p:dataTable>
 
@@ -199,10 +166,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{divisionPoliticaView.action_create}"
 										binding="#{divisionPoliticaView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{divisionPoliticaView.action_modify()}"
+										binding="#{divisionPoliticaView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

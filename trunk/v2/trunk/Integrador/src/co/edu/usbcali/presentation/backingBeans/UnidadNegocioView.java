@@ -51,6 +51,7 @@ public class UnidadNegocioView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<UnidadNegocioDTO> data;
@@ -116,6 +117,79 @@ public class UnidadNegocioView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((UnidadNegocioDTO) event.getObject()).getIdUnne());
+	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+
+		
+			try {
+				txtCodigo.setValue(selectedUnidadNegocio.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedUnidadNegocio.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedUnidadNegocio.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			
+			txtIdUnne.setValue(selectedUnidadNegocio.getIdUnne());
+
+		} catch (Exception e) {
+			if (selectedUnidadNegocio == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Unidad de Negocio a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -361,15 +435,24 @@ public class UnidadNegocioView {
 				entity = businessDelegatorView.getUnidadNegocio(idUnne);
 			}
 
+			Long idUnne = new Long(selectedUnidadNegocio.getIdUnne());
+			entity = businessDelegatorView.getUnidadNegocio(idUnne);
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
 			businessDelegatorView.updateUnidadNegocio(entity);
+			data = businessDelegatorView.getDataUnidadNegocio();
+			RequestContext.getCurrentInstance().reset("form:unidad");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -656,6 +739,14 @@ public class UnidadNegocioView {
 
 	public void setIdUnne(String idUnne) {
 		this.idUnne = idUnne;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

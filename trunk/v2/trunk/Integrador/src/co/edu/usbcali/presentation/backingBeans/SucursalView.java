@@ -242,6 +242,58 @@ public class SucursalView {
 			btnModify.setDisabled(false);
 			
 			
+			
+			try {
+				txtIdDipo_DivisionPolitica.setValue(selectedSucursal.getIdDipo_DivisionPolitica());
+			} catch (Exception e) {
+				txtIdDipo_DivisionPolitica.setValue("");
+				
+			}
+			
+			try {
+				txtIdEmpr_Empresa.setValue(selectedSucursal.getIdEmpr_Empresa());
+			} catch (Exception e) {
+				txtIdEmpr_Empresa.setValue("");
+				
+			}
+			
+			try {
+				txtIdPers_Persona.setValue(selectedSucursal.getIdPers_Persona());
+			} catch (Exception e) {
+				txtIdPers_Persona.setValue("");
+				
+			}
+			
+			try {
+				txtIdRege_RegionalGeografica.setValue(selectedSucursal.getIdRege_RegionalGeografica());
+			} catch (Exception e) {
+				txtIdRege_RegionalGeografica.setValue("");
+				
+			}
+			
+			try {
+				txtIdSucu_Sucursal.setValue(selectedSucursal.getIdSucu_Sucursal());
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+				
+			}
+			
+			try {
+				txtIdTisu_TipoSucursal.setValue(selectedSucursal.getIdTisu_TipoSucursal());
+			} catch (Exception e) {
+				txtIdTisu_TipoSucursal.setValue("");
+				
+			}
+			
+			try {
+				txtEstadoSucursal.setValue(selectedSucursal.getEstadoSucursal());
+			} catch (Exception e) {
+				txtEstadoSucursal.setValue("");
+				
+			}
+			
+			
+			
 			try {
 				txtCodigo.setValue(selectedSucursal.getCodigo());
 			} catch (Exception e) {
@@ -288,10 +340,12 @@ public class SucursalView {
 				
 			}
 			
-			if (selectedSucursal.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedSucursal.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			
+			
+			try {
+				estado.setValue(selectedSucursal.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
 			
 			txtIdSucu.setValue(selectedSucursal.getIdSucu());
@@ -315,6 +369,56 @@ public class SucursalView {
 		
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		try {
+			txtIdDipo_DivisionPolitica.setValue(null);
+		} catch (Exception e) {
+			txtIdDipo_DivisionPolitica.setValue("");
+			
+		}
+		
+		try {
+			txtIdEmpr_Empresa.setValue(null);
+		} catch (Exception e) {
+			txtIdEmpr_Empresa.setValue("");
+			
+		}
+		
+		try {
+			txtIdPers_Persona.setValue(null);
+		} catch (Exception e) {
+			txtIdPers_Persona.setValue("");
+			
+		}
+		
+		try {
+			txtIdRege_RegionalGeografica.setValue(null);
+		} catch (Exception e) {
+			txtIdRege_RegionalGeografica.setValue("");
+			
+		}
+		
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+			
+		}
+		
+		try {
+			txtIdTisu_TipoSucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdTisu_TipoSucursal.setValue("");
+			
+		}
+		
+		try {
+			txtEstadoSucursal.setValue(null);
+		} catch (Exception e) {
+			txtEstadoSucursal.setValue("");
+			
+		}
+		
 		
 		try {
 			txtCodigo.setValue(null);
@@ -843,6 +947,9 @@ public class SucursalView {
 				entity = businessDelegatorView.getSucursal(idSucu);
 			}
 
+			
+			Long idSucu = new Long(selectedSucursal.getIdSucu());
+			entity = businessDelegatorView.getSucursal(idSucu);
 			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
