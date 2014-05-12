@@ -74,6 +74,7 @@ public class RelacionComercialView {
 	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<RelacionComercialDTO> data;
@@ -243,6 +244,141 @@ public class RelacionComercialView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((RelacionComercialDTO) event.getObject()).getIdReco());
+	}
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+		
+			
+			try {
+				txtLimiteCredito.setValue(selectedRelacionComercial.getLimiteCredito());				
+
+			} catch (Exception e) {
+				txtLimiteCredito.setValue("");
+			}
+			
+			try {
+				txtLiquidaIva.setValue(selectedRelacionComercial.getLiquidaIva());				
+
+			} catch (Exception e) {
+				txtLiquidaIva.setValue("");
+			}
+			
+			
+			
+			try {
+				txtObservacion.setValue(selectedRelacionComercial.getObservacion());				
+
+			} catch (Exception e) {
+				txtObservacion.setValue("");
+			}
+
+			try {
+				txtIdEmpr_Empresa.setValue(selectedRelacionComercial.getIdEmpr_Empresa());
+			} catch (Exception e) {
+				txtIdEmpr_Empresa.setValue("");
+			}
+
+			try {
+				txtIdPers_Persona.setValue(selectedRelacionComercial.getIdPers_Persona());
+			} catch (Exception e) {
+				txtIdPers_Persona.setValue("");
+			}
+
+			try {
+				txtIdSucu_Sucursal.setValue(selectedRelacionComercial.getIdSucu_Sucursal());
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+			}
+
+			try {
+				txtIdSucu_SucursalH.setValue(selectedRelacionComercial.getIdSucu_SucursalH());
+			} catch (Exception e) {
+				txtIdSucu_SucursalH.setValue("");
+			}
+			
+			try {
+				estado.setValue(selectedRelacionComercial.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			txtIdReco.setValue(selectedRelacionComercial.getIdReco());
+
+		} catch (Exception e) {
+			if (selectedRelacionComercial == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Relacion Comercial a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtLimiteCredito.setValue(null);				
+
+		} catch (Exception e) {
+			txtLimiteCredito.setValue("");
+		}
+		
+		try {
+			txtLiquidaIva.setValue(null);				
+
+		} catch (Exception e) {
+			txtLiquidaIva.setValue("");
+		}
+				
+		
+		try {
+			txtObservacion.setValue(null);				
+
+		} catch (Exception e) {
+			txtObservacion.setValue("");
+		}
+
+		try {
+			txtIdEmpr_Empresa.setValue(null);
+		} catch (Exception e) {
+			txtIdEmpr_Empresa.setValue("");
+		}
+
+		try {
+			txtIdPers_Persona.setValue(null);
+		} catch (Exception e) {
+			txtIdPers_Persona.setValue("");
+		}
+
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+		}
+
+		try {
+			txtIdSucu_SucursalH.setValue(null);
+		} catch (Exception e) {
+			txtIdSucu_SucursalH.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
 	}
 	
 	
@@ -611,23 +747,61 @@ public class RelacionComercialView {
 				Long idReco = new Long(selectedRelacionComercial.getIdReco());
 				entity = businessDelegatorView.getRelacionComercial(idReco);
 			}
+			Long idReco = new Long(selectedRelacionComercial.getIdReco());
+			entity = businessDelegatorView.getRelacionComercial(idReco);
+			
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			String usuario = (String) session.getAttribute("Usuario");
+
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			entity.setEstadoRegistro(estadoRegistro);
+			
+			
+			String liquidaIva = new String(txtLiquidaIva.getValue().toString());
+			entity.setLiquidaIva(liquidaIva);
+			
+			
 			entity.setLimiteCredito(FacesUtils.checkDouble(txtLimiteCredito));
-			entity.setLiquidaIva(FacesUtils.checkString(txtLiquidaIva));
-			entity.setObservacion(FacesUtils.checkString(txtObservacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-					.checkLong(txtIdEmpr_Empresa)));
-			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));
+			entity.setObservacion(FacesUtils.checkString(txtObservacion));						
+			
+			//Llaves foraneas
+			
+			if (txtIdEmpr_Empresa.getValue() == "") {
+				
+			}else {
+				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+						.checkLong(txtIdEmpr_Empresa)));
+			}
+			
+			
+			if (txtIdPers_Persona.getValue() == "") {
+				
+			}else {
+				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+						.checkLong(txtIdPers_Persona)));
+			}
+			
+			
+			if (txtIdSucu_SucursalH.getValue() == "") {
+				
+			}else {
+				entity.setSucursalBySucursalHija(businessDelegatorView.getSucursal(FacesUtils
+						.checkLong(txtIdSucu_SucursalH)));
+			}
+			
+			
+			entity.setSucursalBySucursalPadre(businessDelegatorView.getSucursal(FacesUtils
+					.checkLong(txtIdSucu_Sucursal)));
+			
 
 			businessDelegatorView.updateRelacionComercial(entity);
 			data = businessDelegatorView.getDataRelacionComercial();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -1119,6 +1293,16 @@ public class RelacionComercialView {
 
 	public void setSucursal2(Map<String, String> sucursal2) {
 		this.sucursal2 = sucursal2;
+	}
+
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 	
 	

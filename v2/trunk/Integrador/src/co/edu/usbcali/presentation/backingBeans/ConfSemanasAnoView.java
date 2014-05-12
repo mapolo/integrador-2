@@ -58,6 +58,7 @@ public class ConfSemanasAnoView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ConfSemanasAnoDTO> data;
@@ -134,6 +135,80 @@ public class ConfSemanasAnoView {
 		System.out.println("Cancelado"
 				+ ((ConfSemanasAnoDTO) event.getObject()).getIdCfsa());
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+		
+			try {
+				txtIdSema_Semana.setValue(selectedConfSemanasAno.getIdSema_Semana());				
+
+			} catch (Exception e) {
+				txtIdSema_Semana.setValue("");
+			}
+					
+			
+			try {
+				estado.setValue(selectedConfSemanasAno.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			txtFechaFinal.setValue(selectedConfSemanasAno.getFechaFinal());
+			txtFechaInicial.setValue(selectedConfSemanasAno.getFechaInicial());
+			
+			txtIdCfsa.setValue(selectedConfSemanasAno.getIdCfsa());
+
+		} catch (Exception e) {
+			if (selectedConfSemanasAno == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Semana Año a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtIdSema_Semana.setValue(null);				
+
+		} catch (Exception e) {
+			txtIdSema_Semana.setValue("");
+		}
+		
+		
+		
+		try {
+			txtFechaInicial.setValue(null);
+		} catch (Exception e) {
+			txtFechaInicial.setValue("");
+		}
+		
+		try {
+			txtFechaFinal.setValue(null);
+		} catch (Exception e) {
+			txtFechaFinal.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
+	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -459,17 +534,33 @@ public class ConfSemanasAnoView {
 				entity = businessDelegatorView.getConfSemanasAno(idCfsa);
 			}
 
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+
+			Long idCfsa = new Long(selectedConfSemanasAno.getIdCfsa());
+			entity = businessDelegatorView.getConfSemanasAno(idCfsa);
+			
+			
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			entity.setEstadoRegistro(estadoRegistr);
+			entity.setOperModifica(usuario);
+			entity.setFechaModificacion(new Date());
+
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setSemana(businessDelegatorView.getSemana(FacesUtils
-					.checkLong(txtIdSema_Semana)));
+
+
+			Semana entity2 = businessDelegatorView
+					.getSemana(getIdSema_Semana());
+			entity.setSemana(entity2);
+			
+			
 			businessDelegatorView.updateConfSemanasAno(entity);
+			data = businessDelegatorView.getDataConfSemanasAno();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -798,6 +889,14 @@ public class ConfSemanasAnoView {
 
 	public void setEstadoRegistr(String estadoRegistr) {
 		this.estadoRegistr = estadoRegistr;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

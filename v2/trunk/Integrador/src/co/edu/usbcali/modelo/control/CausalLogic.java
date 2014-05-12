@@ -162,7 +162,7 @@ public class CausalLogic implements ICausalLogic {
 						"operModifica");
 			}
 
-			if (entity.getTipoCausal().getIdTcau() == null) {
+			/*if (entity.getTipoCausal().getIdTcau() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idTcau_TipoCausal");
 			}
@@ -172,7 +172,7 @@ public class CausalLogic implements ICausalLogic {
 							+ entity.getTipoCausal().getIdTcau(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTcau_TipoCausal");
-			}
+			}*/
 
 			
 
@@ -290,7 +290,7 @@ public class CausalLogic implements ICausalLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCusa() == null) {
+			/*if (entity.getIdCusa() == null) {
 				throw new ZMessManager().new EmptyFieldException("idCusa");
 			}
 
@@ -298,7 +298,7 @@ public class CausalLogic implements ICausalLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdCusa(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idCusa");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -327,12 +327,12 @@ public class CausalLogic implements ICausalLogic {
 						"idTcau_TipoCausal");
 			}
 
-			if ((entity.getTipoCausal().getIdTcau() != null)
+			/*if ((entity.getTipoCausal().getIdTcau() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getTipoCausal().getIdTcau(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTcau_TipoCausal");
-			}
+			}*/
 
 			causalDAO.update(entity);
 		} catch (Exception e) {

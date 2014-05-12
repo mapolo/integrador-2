@@ -49,156 +49,97 @@ body {
 						<p:panel id="msgProjectBancoTitle" header="Banco">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{bancoView.data}" id="b"
 								editable="true" scrollable="true" scrollHeight="300"
-								filteredValue="#{bancoView.data}">
+								filteredValue="#{bancoView.data}" rowKey="#{car.idBanc}"
+								selection="#{bancoView.selectedBanco}">
 
-								<p:ajax event="rowEdit" listener="#{bancoView.onEdit}" />
-								<p:ajax event="rowEditCancel" listener="#{bancoView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">
-									<p:cellEditor>
-										<f:facet name="output">
+									sortBy="codigo" filterBy="codigo">										
 											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+												style="text-transform:uppercase;" />									
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Consigna" style="width: 100px"
 									filterBy="consigna"
 									filterOptions="#{bancoView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.consigna}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{bancoView.consigna}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Confirma Cheque" style="width: 100px"
 									filterBy="confirmaCheque"
 									filterOptions="#{bancoView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.confirmaCheque}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{bancoView.confirmaCheque}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Cuenta Banco" style="width: 100px"
 									sortBy="cuentaBanco" filterBy="cuentaBanco">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.cuentaBanco}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.cuentaBanco}" disabled="false" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Cuenta Descuento" style="width: 100px"
 									sortBy="cuentaDescuento" filterBy="cuentaDescuento">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.cuentaDescuento}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.cuentaDescuento}" disabled="false" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Maneja Beneficiario" style="width: 100px"
 									filterBy="manejaBeneficiario"
 									filterOptions="#{bancoView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.manejaBeneficiario}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{bancoView.manejaBeneficiario}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Importa PDA" style="width: 100px"
 									filterBy="importaPda"
 									filterOptions="#{bancoView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.importaPda}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{bancoView.importaPda}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{bancoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{bancoView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+									action="#{bancoView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{bancoView.action_modify2()}"
+										binding="#{bancoView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -218,6 +159,14 @@ body {
 										value="#{bancoView.codigo}"
 										onkeyup="javascript:this.value=this.value.toUpperCase();"
 										binding="#{bancoView.txtCodigo}" />
+										
+											<h:outputText id="msgConsigna" value="Consigna:" />
+									<p:selectOneMenu binding="#{bancoView.txtConsigna}"
+										value="#{bancoView.consigna}" disabled="false">
+										<f:selectItem itemLabel="1" itemValue="1" />
+										<f:selectItem itemLabel="0" itemValue="0" />
+									</p:selectOneMenu>
+										
 
 									<h:outputText id="msgConfirmaCheque" value="Confirma Cheque:" />
 									<p:selectOneMenu binding="#{bancoView.txtConfirmaCheque}"
@@ -225,14 +174,7 @@ body {
 										<f:selectItem itemLabel="1" itemValue="1" />
 										<f:selectItem itemLabel="0" itemValue="0" />
 									</p:selectOneMenu>
-
-									<h:outputText id="msgConsigna" value="Consigna:" />
-									<p:selectOneMenu binding="#{bancoView.txtConsigna}"
-										value="#{bancoView.consigna}" disabled="false">
-										<f:selectItem itemLabel="1" itemValue="1" />
-										<f:selectItem itemLabel="0" itemValue="0" />
-									</p:selectOneMenu>
-
+								
 									<h:outputText id="msgCuentaBanco" value="Cuenta Banco:" />
 									<p:inputText id="txtCuentaBanco" disabled="false"
 										value="#{bancoView.cuentaBanco}"
@@ -275,11 +217,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{bancoView.action_create}"
 										binding="#{bancoView.btnSave}" update="b,panel,panelBotones" />
+										
+										<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{bancoView.action_modify()}"
+										binding="#{bancoView.btnModify}"
+										update="b,panel,panelBotones" />
 								</h:panelGrid>
 
 							</p:dialog>

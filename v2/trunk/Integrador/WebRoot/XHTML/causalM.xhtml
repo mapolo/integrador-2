@@ -28,7 +28,6 @@
 				</div>
 
 				<p:megaMenu autoDisplay="false">
-				
 
 					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
 
@@ -46,118 +45,131 @@ body {
 
 					<h:form id="form">
 
-						<p:panel id="msgProjectFrecuenciaVisitaTitle"
-							header="Frecuencia de Visita">
+						<p:panel id="msgProjectCausalTitle" header="Causal">
 
 							<p:growl id="men" />
-							<p:growl id="growl" />
 
-							<p:dataTable var="car" value="#{frecuenciaVisitaView.data}"
-								id="listaFV" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{frecuenciaVisitaView.data}"
-								rowKey="#{car.idFrvi}" selection="#{frecuenciaVisitaView.selectedFrecuenciaVisita}">
+							<p:dataTable var="car" value="#{causalView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								editable="true" filteredValue="#{causalView.data}">
 
-								<p:column selectionMode="single" style="width:20px" />
+								<p:ajax event="rowEdit" listener="#{causalView.onEdit}" />
+								<p:ajax event="rowEditCancel" listener="#{causalView.onCancel}" />
+
+								<p:column headerText="Editar" style="width: 30px">
+									<p:rowEditor />
+								</p:column>
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
+									<p:cellEditor>
+										<f:facet name="output">
 											<h:outputText value="#{car.codigo}"
 												style="text-transform:uppercase;" />
-										
+										</f:facet>
+										<f:facet name="input">
+											<p:inputText value="#{car.codigo}"
+												onkeyup="javascript:this.value=this.value.toUpperCase();" />
+										</f:facet>
+									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									
+									<p:cellEditor>
+										<f:facet name="output">
 											<h:outputLabel value="#{car.descripcion}" />
-										
+										</f:facet>
+										<f:facet name="input">
+											<p:inputTextarea value="#{car.descripcion}" />
+										</f:facet>
+									</p:cellEditor>
 								</p:column>
 
-								<p:column id="frecuencia" filterBy="frecuencia"
-									headerText="Frecuencia" sortBy="frecuencia"
-									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.frecuencia}" />
-										
+								<p:column headerText="ID Tipo Causal" style="width: 100px"
+									filterBy="idTcau_TipoCausal" sortBy="idTcau_TipoCausal">
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:outputText value="#{car.idTcau_TipoCausal}" />
+										</f:facet>
+										<f:facet name="input">
+											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
+												style="width: 100px">
+												<f:selectItems value="#{causalView.tipoCausales}" />
+											</p:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
-									filterOptions="#{frecuenciaVisitaView.manufacturerOptions}"
+									filterOptions="#{causalView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
+									<p:cellEditor>
+										<f:facet name="output">
 											<h:outputText value="#{car.estadoRegistro}" />
-										
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu value="#{causalView.estadoRegistro}">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-										action="#{frecuenciaVisitaView.action_VCrear()}"
-										icon="ui-icon-documen" update=":form"
-										oncomplete="PF('carDialog').show()" />
-								</f:facet>
-								
-								<f:facet name="footer">
-									<p:commandButton id="modifyButton" value="Modificar"
-										action="#{frecuenciaVisitaView.action_modify2()}"
-										binding="#{frecuenciaVisitaView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
 
-							<!--                   Ventana emergente           -->
+							<!--                          Tabla emergente           -->
 
-							<p:dialog id="dialog" header="Frecuencia de Visita"
-								widgetVar="carDialog" resizable="false" width="400"
-								showEffect="clip" hideEffect="fold" modal="true">
+							<p:dialog id="dialog" header="Causal" widgetVar="carDialog"
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold" modal ="true">
 
 								<p:messages id="messages" autoUpdate="true" />
-
 								<h:panelGrid columns="2" id="panel">
 
 									<h:outputText id="msgCodigo" value="*Codigo:" />
-									<p:inputText id="txtCodigo"
-										value="#{frecuenciaVisitaView.codigo}"
+									<p:inputText id="txtCodigo" value="#{causalView.codigo}"
 										onkeyup="javascript:this.value=this.value.toUpperCase();"
-										binding="#{frecuenciaVisitaView.txtCodigo}" />
+										binding="#{causalView.txtCodigo}" />
 
-									<h:outputText id="msgFrecuencia" value="Frecuencia:" />
-									<p:inputText id="txtFrecuencia"
-										value="#{frecuenciaVisitaView.frecuencia}"
-										binding="#{frecuenciaVisitaView.txtFrecuencia}" />
+									<h:outputText id="msgIdTcau_TipoCausal"
+										value="*ID Tipo Causal:" />
+									<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
+										binding="#{causalView.txtIdTcau_TipoCausal}">
+										<f:selectItems value="#{causalView.tipoCausales}" />
+									</p:selectOneMenu>
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
-									<p:selectOneMenu binding="#{frecuenciaVisitaView.estado}"
-										value="#{frecuenciaVisitaView.estadoRegistro}">
+									<p:selectOneMenu binding="#{causalView.estado}"
+										value="#{causalView.estadoRegistro}">
 										<f:selectItem itemLabel="Activo" itemValue="A" />
 										<f:selectItem itemLabel="Retirado" itemValue="R" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgDescripcion" value="Descripción:" />
+									<h:outputText id="msgDescripcion" value="*Descripción:" />
 									<p:inputTextarea rows="6" cols="33" id="txtDescripcion"
-										value="#{frecuenciaVisitaView.descripcion}"
-										binding="#{frecuenciaVisitaView.txtDescripcion}" />
+										value="#{causalView.descripcion}"
+										binding="#{causalView.txtDescripcion}" />
 
 								</h:panelGrid>
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="2">
+								<h:panelGrid id="panelBotones" columns="1">
+
 									<p:commandButton id="btnGuardar" value="Guardar"
-										action="#{frecuenciaVisitaView.action_create}"
-										binding="#{frecuenciaVisitaView.btnSave}"
-										update="listaFV,panel,panelBotones" />
-										
-									<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{frecuenciaVisitaView.action_modify()}"
-										binding="#{frecuenciaVisitaView.btnModify}"
-										update="listaFV,panel,panelBotones" />
+										action="#{causalView.action_create}"
+										binding="#{causalView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
-								
 
 							</p:dialog>
 						</p:panel>

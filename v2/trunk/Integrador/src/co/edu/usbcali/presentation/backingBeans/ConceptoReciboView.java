@@ -54,6 +54,7 @@ public class ConceptoReciboView {
 	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ConceptoReciboDTO> data;
@@ -126,6 +127,102 @@ public class ConceptoReciboView {
 		System.out.println("Cancelado"
 				+ ((ConceptoReciboDTO) event.getObject()).getIdCpto());
 	}
+	
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+		
+			
+			try {
+				txtDescripcion.setValue(selectedConceptoRecibo.getDescripcion());				
+
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+			
+			try {
+				aaplicaCartea.setValue(selectedConceptoRecibo.getAplicaCartera());				
+
+			} catch (Exception e) {
+				aaplicaCartea.setValue("");
+			}
+			
+			
+			
+			try {
+				txtCodigo.setValue(selectedConceptoRecibo.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedConceptoRecibo.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			
+			txtIdCpto.setValue(selectedConceptoRecibo.getIdCpto());
+
+		} catch (Exception e) {
+			if (selectedConceptoRecibo == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Concepto Recibo a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtDescripcion.setValue(null);				
+
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+		
+		try {
+			aaplicaCartea.setValue(null);				
+
+		} catch (Exception e) {
+			aaplicaCartea.setValue("");
+		}
+		
+		
+		
+		try {
+			txtCodigo.setValue(null);				
+
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
+	}
+	
+	
 	
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -404,17 +501,28 @@ public class ConceptoReciboView {
 				Long idCpto = new Long(selectedConceptoRecibo.getIdCpto());
 				entity = businessDelegatorView.getConceptoRecibo(idCpto);
 			}
+			
+			Long idCpto = new Long(selectedConceptoRecibo.getIdCpto());
+			entity = businessDelegatorView.getConceptoRecibo(idCpto);
+			
 
-			entity.setAplicaCartera(FacesUtils.checkString(txtAplicaCartera));
+			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+					.getExternalContext().getSession(false);
+			
+			String usuario =(String) session.getAttribute("Usuario");
+
+			entity.setAplicaCartera(aplicaCartera);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			entity.setEstadoRegistro(estadoRegistro);		
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
+			
 			businessDelegatorView.updateConceptoRecibo(entity);
+			data = businessDelegatorView.getDataConceptoRecibo();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -742,6 +850,14 @@ public class ConceptoReciboView {
 
 	public void setAaplicaCartea(SelectOneMenu aaplicaCartea) {
 		this.aaplicaCartea = aaplicaCartea;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 	

@@ -52,11 +52,16 @@ body {
 
 							<p:dataTable var="car" value="#{descuentoFinancieroView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" rowKey="#{car.idDefi}"
-								filteredValue="#{descuentoFinancieroView.data}"
+								editable="true" filteredValue="#{descuentoFinancieroView.data}"
+								rowKey="#{car.idDefi}"						
 								selection="#{descuentoFinancieroView.selectedDescuentoFinanciero}">
 
 								<p:column selectionMode="single" style="width:20px" />
+								
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width:100px">
+									<h:outputText value="#{car.codigo}" />
+								</p:column>
 
 								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
 									sortBy="nombre" filterMatchMode="contains" style="width:100px">

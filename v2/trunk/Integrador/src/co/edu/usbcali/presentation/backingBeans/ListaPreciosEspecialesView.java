@@ -60,6 +60,7 @@ public class ListaPreciosEspecialesView {
 	private InputText txtFechaModificacion;
 	private Calendar txtFechaVencimiento;
 	
+	
 	private String concepto;
 	private String espacios;
 	private String estadoRegistro;
@@ -270,7 +271,43 @@ public class ListaPreciosEspecialesView {
 			
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-		
+			
+			try {
+				txtIdEmpr_Empresa.setValue(selectedListaPreciosEspeciales.getIdEmpr_Empresa());
+				
+			} catch (Exception e) {
+				txtIdEmpr_Empresa.setValue("");
+			}
+			
+			try {
+				txtIdPers_Persona.setValue(selectedListaPreciosEspeciales.getIdPers_Persona());
+				
+			} catch (Exception e) {
+				txtIdPers_Persona.setValue("");
+			}
+			
+			try {
+				txtIdRefe_Referencia.setValue(selectedListaPreciosEspeciales.getIdRefe_Referencia());
+				
+			} catch (Exception e) {
+				txtIdRefe_Referencia.setValue("");
+			}
+			
+			try {
+				txtIdSucu_Sucursal.setValue(selectedListaPreciosEspeciales.getIdSucu_Sucursal());
+				
+			} catch (Exception e) {
+				txtIdSucu_Sucursal.setValue("");
+			}
+			
+			try {
+				txtIdSucu_Sucursal2.setValue(selectedListaPreciosEspeciales.getIdSucu_Sucursal2());
+				
+			} catch (Exception e) {
+				txtIdSucu_Sucursal2.setValue("");
+			}
+			
+			
 			
 			
 			try {
@@ -303,10 +340,10 @@ public class ListaPreciosEspecialesView {
 			
 			
 			
-			if (selectedListaPreciosEspeciales.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedListaPreciosEspeciales.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedListaPreciosEspeciales.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
 			
 			txtFechaInicial.setValue(selectedListaPreciosEspeciales.getFechaInicial());
@@ -330,6 +367,42 @@ public class ListaPreciosEspecialesView {
 		
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		try {
+			txtIdEmpr_Empresa.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdEmpr_Empresa.setValue("");
+		}
+		
+		try {
+			txtIdPers_Persona.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdPers_Persona.setValue("");
+		}
+		
+		try {
+			txtIdRefe_Referencia.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdRefe_Referencia.setValue("");
+		}
+		
+		try {
+			txtIdSucu_Sucursal.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdSucu_Sucursal.setValue("");
+		}
+		
+		try {
+			txtIdSucu_Sucursal2.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdSucu_Sucursal2.setValue("");
+		}
+		
 		
 		try {
 			txtConcepto.setValue(null);
@@ -835,6 +908,8 @@ public class ListaPreciosEspecialesView {
 						.getListaPreciosEspeciales(idLipe);
 			}
 
+			Long idLipe = new Long(selectedListaPreciosEspeciales.getIdLipe());
+			entity = businessDelegatorView.getListaPreciosEspeciales(idLipe);
 			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()

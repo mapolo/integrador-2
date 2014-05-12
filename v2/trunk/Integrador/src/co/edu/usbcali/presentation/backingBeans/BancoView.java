@@ -63,6 +63,7 @@ public class BancoView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<BancoDTO> data;
@@ -150,6 +151,162 @@ public class BancoView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((BancoDTO) event.getObject()).getIdBanc());
+	}
+	
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+			
+			System.out.println("entro modificar");
+			
+			try {
+				txtCodigo.setValue(selectedBanco.getCodigo());
+				
+				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedBanco.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				txtConsigna.setValue(selectedBanco
+						.getConsigna());
+			} catch (Exception e) {
+				txtConsigna.setValue("");
+			}
+
+			try {
+				txtConfirmaCheque.setValue(selectedBanco.getConfirmaCheque());
+			} catch (Exception e) {
+				txtConfirmaCheque.setValue("");
+			}
+
+			try {
+				txtManejaBeneficiario.setValue(selectedBanco.getManejaBeneficiario());
+			} catch (Exception e) {
+				txtManejaBeneficiario.setValue("");
+			}
+			
+			try {
+				txtImportaPda.setValue(selectedBanco.getImportaPda());
+			} catch (Exception e) {
+				txtImportaPda.setValue("");
+			}
+			
+			try {
+				txtCuentaBanco.setValue(selectedBanco.getCuentaBanco());
+			} catch (Exception e) {
+				txtCuentaBanco.setValue("");
+			}
+			
+			try {
+				txtCuentaDescuento.setValue(selectedBanco.getCuentaDescuento());
+			} catch (Exception e) {
+				txtCuentaDescuento.setValue("");
+			}
+			
+			try {
+				txtEstadoRegistro.setValue(selectedBanco.getEstadoRegistro());
+			} catch (Exception e) {
+				txtEstadoRegistro.setValue("");
+			}
+			
+			/*
+			if (selectedBanco.getEstadoRegistro().equals("A")) {
+				estadoRegistro = "a";
+			} else if (selectedBanco.getEstadoRegistro().equals("R")) {
+				estadoRegistro = "r";
+			}*/
+			
+			
+			
+			txtIdBanc.setValue(selectedBanco.getIdBanc());
+
+			//btnSave.setDisabled(false);
+			//btnModify2.setDisabled(false);
+
+		} catch (Exception e) {
+			if (selectedBanco == null) {
+				//btnCrear.setDisabled(true);
+				//btnModify2.setDisabled(true);
+				//action_cerrar();
+				FacesUtils
+						.addErrorMessage("Seleccione Banco a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtCodigo.setValue(null);
+			
+			
+
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtConsigna.setValue(null);
+		} catch (Exception e) {
+			txtConsigna.setValue("");
+		}
+
+		try {
+			txtConfirmaCheque.setValue(null);
+		} catch (Exception e) {
+			txtConfirmaCheque.setValue("");
+		}
+
+		try {
+			txtManejaBeneficiario.setValue(null);
+		} catch (Exception e) {
+			txtManejaBeneficiario.setValue("");
+		}
+		
+		try {
+			txtImportaPda.setValue(null);
+		} catch (Exception e) {
+			txtImportaPda.setValue("");
+		}
+		
+		try {
+			txtCuentaBanco.setValue(null);
+		} catch (Exception e) {
+			txtCuentaBanco.setValue("");
+		}
+		
+		try {
+			txtCuentaDescuento.setValue(null);
+		} catch (Exception e) {
+			txtCuentaDescuento.setValue("");
+		}
+		
+		
+		
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -482,24 +639,40 @@ public class BancoView {
 				Long idBanc = new Long(selectedBanco.getIdBanc());
 				entity = businessDelegatorView.getBanco(idBanc);
 			}
+			
+			Long idBanc = new Long(selectedBanco.getIdBanc());
+			entity = businessDelegatorView.getBanco(idBanc);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			entity.setConfirmaCheque(FacesUtils.checkLong(txtConfirmaCheque));
-			entity.setConsigna(FacesUtils.checkLong(txtConsigna));
+			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setCuentaBanco(FacesUtils.checkString(txtCuentaBanco));
 			entity.setCuentaDescuento(FacesUtils
 					.checkString(txtCuentaDescuento));
-			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setImportaPda(FacesUtils.checkLong(txtImportaPda));
-			entity.setManejaBeneficiario(FacesUtils
-					.checkLong(txtManejaBeneficiario));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			Long consigna = new Long(txtConsigna.getValue().toString());
+			entity.setConsigna(consigna);
+			Long confirmaCheque = new Long(txtConfirmaCheque.getValue()
+					.toString());
+			entity.setConfirmaCheque(confirmaCheque);
+			Long manejaBeneficiario = new Long(txtManejaBeneficiario.getValue()
+					.toString());
+			entity.setManejaBeneficiario(manejaBeneficiario);
+			Long importaPda = new Long(txtImportaPda.getValue().toString());
+			entity.setImportaPda(importaPda);
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+						
 			businessDelegatorView.updateBanco(entity);
+			data = businessDelegatorView.getDataBanco();
+			RequestContext.getCurrentInstance().reset("form:b");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -899,5 +1072,13 @@ public class BancoView {
 
 	public void setTxtManejaBeneficiario(SelectOneMenu txtManejaBeneficiario) {
 		this.txtManejaBeneficiario = txtManejaBeneficiario;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 }

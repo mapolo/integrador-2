@@ -208,8 +208,65 @@ try {
 			
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
+
 			
-			System.out.println("entro modificar");
+			try {
+				txtEspecial.setValue(selectedGrupo.getEspecial());
+				
+			} catch (Exception e) {
+				txtEspecial.setValue("");
+				
+			}
+			
+			try {
+				txtManejaOrdenCompra.setValue(selectedGrupo.getManejaOrdenCompra());
+				
+			} catch (Exception e) {
+				txtManejaOrdenCompra.setValue("");
+				
+			}
+			
+			try {
+				txtModificaReferencia.setValue(selectedGrupo.getModificaReferencia());
+				
+			} catch (Exception e) {
+				txtModificaReferencia.setValue("");
+				
+			}
+			
+			try {
+				txtPideGalones.setValue(selectedGrupo.getPideGalones());
+				
+			} catch (Exception e) {
+				txtPideGalones.setValue("");
+				
+			}
+			
+			try {
+				txtSugeridoPedido.setValue(selectedGrupo.getSugeridoPedido());
+				
+			} catch (Exception e) {
+				txtSugeridoPedido.setValue("");
+				
+			}
+			
+			try {
+				txtIdFlia_Familia.setValue(selectedGrupo.getIdFlia_Familia());
+				
+			} catch (Exception e) {
+				txtIdFlia_Familia.setValue("");
+				
+			}
+			
+			try {
+				txtIdGrpo_Grupo.setValue(selectedGrupo.getIdGrpo_Grupo());
+				
+			} catch (Exception e) {
+				txtIdGrpo_Grupo.setValue("");
+				
+			}
+			
+			
 		
 			try {
 				txtAsociado.setValue(selectedGrupo.getAsociado());
@@ -269,10 +326,10 @@ try {
 			}
 			
 		
-			if (selectedGrupo.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedGrupo.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
+			try {
+				estado.setValue(selectedGrupo.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
 			}
 			
 			
@@ -299,6 +356,65 @@ public String action_VCrear(){
 		
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		try {
+			txtEspecial.setValue(null);
+			
+		} catch (Exception e) {
+			txtEspecial.setValue("");
+			
+		}
+		
+		try {
+			txtManejaOrdenCompra.setValue(null);
+			
+		} catch (Exception e) {
+			txtManejaOrdenCompra.setValue("");
+			
+		}
+		
+		try {
+			txtModificaReferencia.setValue(null);
+			
+		} catch (Exception e) {
+			txtModificaReferencia.setValue("");
+			
+		}
+		
+		try {
+			txtPideGalones.setValue(null);
+			
+		} catch (Exception e) {
+			txtPideGalones.setValue("");
+			
+		}
+		
+		try {
+			txtSugeridoPedido.setValue(null);
+			
+		} catch (Exception e) {
+			txtSugeridoPedido.setValue("");
+			
+		}
+		
+		try {
+			txtIdFlia_Familia.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdFlia_Familia.setValue("");
+			
+		}
+		
+		try {
+			txtIdGrpo_Grupo.setValue(null);
+			
+		} catch (Exception e) {
+			txtIdGrpo_Grupo.setValue("");
+			
+		}
+		
+		
+		
 		
 		try {
 			txtAsociado.setValue(null);
@@ -821,6 +937,9 @@ public String action_VCrear(){
 				Long idGrpo = new Long(selectedGrupo.getIdGrpo());
 				entity = businessDelegatorView.getGrupo(idGrpo);
 			}
+			
+			Long idGrpo = new Long(selectedGrupo.getIdGrpo());
+			entity = businessDelegatorView.getGrupo(idGrpo);
 
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()

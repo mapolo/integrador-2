@@ -48,77 +48,55 @@ body {
 						<p:panel id="msgProjectCausalTitle" header="Causal">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{causalView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{causalView.data}">
+								editable="true" filteredValue="#{causalView.data}"
+								rowKey="#{car.idCusa}" selection="#{causalView.selectedCausal}">
 
-								<p:ajax event="rowEdit" listener="#{causalView.onEdit}" />
-								<p:ajax event="rowEditCancel" listener="#{causalView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+									
+											<h:outputText value="#{car.codigo}" />
+										
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="ID Tipo Causal" style="width: 100px"
 									filterBy="idTcau_TipoCausal" sortBy="idTcau_TipoCausal">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idTcau_TipoCausal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{causalView.idTcau_TipoCausal}"
-												style="width: 100px">
-												<f:selectItems value="#{causalView.tipoCausales}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{causalView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{causalView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+									action="#{causalView.action_VCrear}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{causalView.action_modify2}"
+										binding="#{causalView.btnModify2}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
@@ -163,11 +141,18 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{causalView.action_create}"
 										binding="#{causalView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+										
+										<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{causalView.action_modify()}"
+										binding="#{causalView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

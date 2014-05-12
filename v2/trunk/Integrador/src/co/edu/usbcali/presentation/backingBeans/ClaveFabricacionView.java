@@ -24,6 +24,7 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ClaveFabricacion;
+import co.edu.usbcali.modelo.DescuentoFinanciero;
 import co.edu.usbcali.modelo.dto.ClaveFabricacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
@@ -53,6 +54,7 @@ public class ClaveFabricacionView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ClaveFabricacionDTO> data;
@@ -118,6 +120,83 @@ public class ClaveFabricacionView {
 		}
 
 	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+			
+			try {
+				txtCodigo.setValue(selectedClaveFabricacion.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedClaveFabricacion.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			
+			txtFechaInicial.setValue(selectedClaveFabricacion.getFechaInicial());
+			txtFechaFinal.setValue(selectedClaveFabricacion.getFechaFinal());
+			
+			txtIdClfa.setValue(selectedClaveFabricacion.getIdClfa());
+			
+			entity = new ClaveFabricacion();
+
+			//btnSave.setDisabled(false);
+			//btnModify2.setDisabled(false);
+
+		} catch (Exception e) {
+			if (selectedClaveFabricacion == null) {
+				//btnCrear.setDisabled(true);
+				//btnModify2.setDisabled(true);
+				//action_cerrar();
+				FacesUtils
+						.addErrorMessage("Seleccione Clave de Fabricacion a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		
+		
+		try {
+			txtFechaInicial.setValue(null);
+		} catch (Exception e) {
+			txtFechaInicial.setValue("");
+		}
+		
+		try {
+			txtFechaFinal.setValue(null);
+		} catch (Exception e) {
+			txtFechaFinal.setValue("");
+		}
+		
+		
+		
+		return "";
+	}
+	
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("Cancelled",
@@ -425,22 +504,33 @@ public class ClaveFabricacionView {
 				Long idClfa = new Long(selectedClaveFabricacion.getIdClfa());
 				entity = businessDelegatorView.getClaveFabricacion(idClfa);
 			}
+			
+			Long idClfa = new Long(selectedClaveFabricacion.getIdClfa());
+			entity = businessDelegatorView.getClaveFabricacion(idClfa);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+			
 			businessDelegatorView.updateClaveFabricacion(entity);
+			data = businessDelegatorView.getDataClaveFabricacion();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
+		
 
 		return "";
 	}
@@ -748,6 +838,14 @@ public class ClaveFabricacionView {
 
 	public void setFechaInicial(String fechaInicial) {
 		this.fechaInicial = fechaInicial;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

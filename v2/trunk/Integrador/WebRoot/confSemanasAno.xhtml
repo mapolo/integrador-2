@@ -50,84 +50,61 @@ body {
 							header="Configuración Semanas - Año">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{confSemanasAnoView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{confSemanasAnoView.data}">
+								editable="true" filteredValue="#{confSemanasAnoView.data}"
+								rowKey="#{car.idCfsa}"						
+								selection="#{confSemanasAnoView.selectedConfSemanasAno}">
 
-								<p:ajax event="rowEdit" listener="#{confSemanasAnoView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{confSemanasAnoView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="ID Semana" style="width: 100px"
 									filterBy="idSema_Semana" sortBy="idSema_Semana">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.idSema_Semana}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:selectOneMenu value="#{confSemanasAnoView.idSema_Semana}"
-												style="width: 100px">
-												<f:selectItems value="#{confSemanasAnoView.semana}" />
-											</p:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Fecha Inicial" style="width: 100px"
 									filterBy="fechaInicial" sortBy="fechaInicial">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.fechaInicial}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{car.fechaInicial}" showOn="button"
-												pattern="yyyy-MM-dd" navigator="true">
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Fecha Final" style="width: 100px"
 									filterBy="fechaFinal" sortBy="fechaFinal">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.fechaFinal}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:calendar value="#{car.fechaFinal}" showOn="button"
-												pattern="yyyy-MM-dd" navigator="true">
-											</p:calendar>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{confSemanasAnoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
+									
 											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{confSemanasAnoView.estadoRegistr}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+										
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{confSemanasAnoView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
+								
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{confSemanasAnoView.action_modify2()}"
+										binding="#{confSemanasAnoView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+								
 
 							</p:dataTable>
 
@@ -174,10 +151,16 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{confSemanasAnoView.action_create}"
 										binding="#{confSemanasAnoView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+										
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{confSemanasAnoView.action_modify()}"
+										binding="#{confSemanasAnoView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

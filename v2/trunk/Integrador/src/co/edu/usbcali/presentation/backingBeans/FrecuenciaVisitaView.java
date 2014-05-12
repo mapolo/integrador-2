@@ -53,6 +53,7 @@ public class FrecuenciaVisitaView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<FrecuenciaVisitaDTO> data;
@@ -128,6 +129,88 @@ public class FrecuenciaVisitaView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((FrecuenciaVisitaDTO) event.getObject()).getIdFrvi());
+	}
+	
+	public String action_modify2() {
+		try {
+			
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);		
+			
+			try {
+				txtCodigo.setValue(selectedFrecuenciaVisita.getCodigo());				
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedFrecuenciaVisita.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				txtFrecuencia.setValue(selectedFrecuenciaVisita.getFrecuencia());
+			} catch (Exception e) {
+				txtFrecuencia.setValue("");
+			}
+
+			
+			
+			try {
+				estado.setValue(selectedFrecuenciaVisita.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+			
+			
+			txtFrecuencia.setValue(selectedFrecuenciaVisita.getIdFrvi());
+
+		} catch (Exception e) {
+			if (selectedFrecuenciaVisita == null) {				
+				FacesUtils
+						.addErrorMessage("Seleccione Frecuencia visita a modificar");
+			}
+		}
+		return "";
+
+	}
+	
+	
+	public String action_VCrear(){
+		
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+		
+		
+		
+		try {
+			txtCodigo.setValue(null);
+			
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtFrecuencia.setValue(null);
+		} catch (Exception e) {
+			txtFrecuencia.setValue("");
+		}
+		
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+		
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -413,16 +496,28 @@ public class FrecuenciaVisitaView {
 				entity = businessDelegatorView.getFrecuenciaVisita(idFrvi);
 			}
 
+
+			Long idFrvi = new Long(selectedFrecuenciaVisita.getIdFrvi());
+			entity = businessDelegatorView.getFrecuenciaVisita(idFrvi);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+
+			entity.setEstadoRegistro(estadoRegistro);
+
+			entity.setFechaModificacion(new Date());
 			entity.setFrecuencia(FacesUtils.checkLong(txtFrecuencia));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setOperModifica(usuario);
+			
 			businessDelegatorView.updateFrecuenciaVisita(entity);
+			data = businessDelegatorView.getDataFrecuenciaVisita();
+			RequestContext.getCurrentInstance().reset("form:listaFV");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -735,6 +830,14 @@ public class FrecuenciaVisitaView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }
