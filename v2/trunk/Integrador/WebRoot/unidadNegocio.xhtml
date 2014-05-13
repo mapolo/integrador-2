@@ -29,8 +29,7 @@
 
 				<p:megaMenu autoDisplay="false">
 
-					<p:menuitem value="Menu" icon="ui-icon-contact"
-						url="menu.xhtml" />
+					<p:menuitem value="Menu" icon="ui-icon-contact" url="menu.xhtml" />
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
 						icon="ui-icon-close" />
@@ -54,33 +53,26 @@ body {
 
 							<p:dataTable var="car" value="#{unidadNegocioView.data}"
 								scrollable="true" scrollHeight="300" id="unidad" editable="true"
-								filteredValue="#{unidadNegocioView.data}"
-								rowKey="#{car.idUnne}"						
+								filteredValue="#{unidadNegocioView.data}" rowKey="#{car.idUnne}"
 								selection="#{unidadNegocioView.selectedUnidadNegocio}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									
-											<h:outputLabel value="#{car.descripcion}" />
-										
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{unidadNegocioView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -89,7 +81,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{unidadNegocioView.action_modify2()}"
@@ -137,10 +129,9 @@ body {
 										action="#{unidadNegocioView.action_create()}"
 										binding="#{unidadNegocioView.btnSave}"
 										update="unidad,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{unidadNegocioView.action_modify()}"
+										disabled="false" action="#{unidadNegocioView.action_modify()}"
 										binding="#{unidadNegocioView.btnModify}"
 										update="unidad,panel,panelBotones" />
 								</h:panelGrid>

@@ -41,7 +41,7 @@ public class ConceptoReciboView {
 	private InputText txtIdCpto;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
-	
+
 	private String aplicaCartera;
 	private String codigo;
 	private String descripcion;
@@ -51,7 +51,7 @@ public class ConceptoReciboView {
 	private String idCpto;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnModify2;
@@ -69,10 +69,10 @@ public class ConceptoReciboView {
 
 	String manufacturers[] = { "A", "R" };
 	String manufacturers2[] = { "S", "N" };
-	
+
 	public ConceptoReciboView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
 	}
@@ -87,26 +87,27 @@ public class ConceptoReciboView {
 
 		return options;
 	}
-	
+
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
-	
+
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getConceptoRecibo(((ConceptoReciboDTO) event
-							.getObject()).getIdCpto());
+			entity = businessDelegatorView
+					.getConceptoRecibo(((ConceptoReciboDTO) event.getObject())
+							.getIdCpto());
 
-			descripcion = ((ConceptoReciboDTO) event.getObject()).getDescripcion();
+			descripcion = ((ConceptoReciboDTO) event.getObject())
+					.getDescripcion();
 			entity.setDescripcion(descripcion);
 			codigo = ((ConceptoReciboDTO) event.getObject()).getCodigo();
 			entity.setCodigo(codigo);
-			
+
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setAplicaCartera(aplicaCartera);
-			
-			String usuario =(String) FacesUtils.getfromSession("Usuario");
+
+			String usuario = (String) FacesUtils.getfromSession("Usuario");
 			entity.setOperModifica(usuario);
-			
 
 			businessDelegatorView.updateConceptoRecibo(entity);
 			data = businessDelegatorView.getDataConceptoRecibo();
@@ -127,103 +128,89 @@ public class ConceptoReciboView {
 		System.out.println("Cancelado"
 				+ ((ConceptoReciboDTO) event.getObject()).getIdCpto());
 	}
-	
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-		
-			
+
 			try {
-				txtDescripcion.setValue(selectedConceptoRecibo.getDescripcion());				
+				txtDescripcion
+						.setValue(selectedConceptoRecibo.getDescripcion());
 
 			} catch (Exception e) {
 				txtDescripcion.setValue("");
 			}
-			
+
 			try {
-				aaplicaCartea.setValue(selectedConceptoRecibo.getAplicaCartera());				
+				aaplicaCartea.setValue(selectedConceptoRecibo
+						.getAplicaCartera());
 
 			} catch (Exception e) {
 				aaplicaCartea.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtCodigo.setValue(selectedConceptoRecibo.getCodigo());				
+				txtCodigo.setValue(selectedConceptoRecibo.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedConceptoRecibo.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
-			
+
 			txtIdCpto.setValue(selectedConceptoRecibo.getIdCpto());
 
 		} catch (Exception e) {
-			if (selectedConceptoRecibo == null) {				
+			if (selectedConceptoRecibo == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Concepto Recibo a modificar");
+						.addErrorMessage("Seleccione el Concepto del Recibo a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtDescripcion.setValue(null);				
+			txtDescripcion.setValue(null);
 
 		} catch (Exception e) {
 			txtDescripcion.setValue("");
 		}
-		
+
 		try {
-			aaplicaCartea.setValue(null);				
+			aaplicaCartea.setValue(null);
 
 		} catch (Exception e) {
 			aaplicaCartea.setValue("");
 		}
-		
-		
-		
+
 		try {
-			txtCodigo.setValue(null);				
+			txtCodigo.setValue(null);
 
 		} catch (Exception e) {
 			txtCodigo.setValue("");
 		}
 
-		
-		
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
-	
-	
+
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			ConceptoReciboDTO conceptoReciboDTO = (ConceptoReciboDTO) e
@@ -247,11 +234,12 @@ public class ConceptoReciboView {
 
 			txtDescripcion.setValue(conceptoReciboDTO.getDescripcion());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(conceptoReciboDTO.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(conceptoReciboDTO.getEstadoRegistro());
+			 */
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -303,47 +291,47 @@ public class ConceptoReciboView {
 
 		if (txtAplicaCartera != null) {
 			txtAplicaCartera.setValue(null);
-			//txtAplicaCartera.setDisabled(true);
+			// txtAplicaCartera.setDisabled(true);
 		}
 
 		if (txtCodigo != null) {
 			txtCodigo.setValue(null);
-		//	txtCodigo.setDisabled(true);
+			// txtCodigo.setDisabled(true);
 		}
 
 		if (txtDescripcion != null) {
 			txtDescripcion.setValue(null);
-			//txtDescripcion.setDisabled(true);
+			// txtDescripcion.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtIdCpto != null) {
 			txtIdCpto.setValue(null);
-			//txtIdCpto.setDisabled(false);
+			// txtIdCpto.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -376,7 +364,7 @@ public class ConceptoReciboView {
 			Long idCpto = new Long(txtIdCpto.getValue().toString());
 			entity = businessDelegatorView.getConceptoRecibo(idCpto);
 		} catch (Exception e) {
-		
+
 		}
 
 		if (entity == null) {
@@ -396,8 +384,8 @@ public class ConceptoReciboView {
 			txtCodigo.setDisabled(false);
 			txtDescripcion.setValue(entity.getDescripcion());
 			txtDescripcion.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaModificacion.setValue(entity.getFechaModificacion());
@@ -421,8 +409,8 @@ public class ConceptoReciboView {
 		txtCodigo.setDisabled(false);
 		txtDescripcion.setValue(selectedConceptoRecibo.getDescripcion());
 		txtDescripcion.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedConceptoRecibo.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedConceptoRecibo.getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedConceptoRecibo.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
 		txtFechaModificacion.setValue(selectedConceptoRecibo
@@ -459,31 +447,32 @@ public class ConceptoReciboView {
 	public String action_create() {
 		try {
 			entity = new ConceptoRecibo();
-			
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
 
-			//Long idCpto = new Long(txtIdCpto.getValue().toString());
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
 
-			//entity.setAplicaCartera(FacesUtils.checkString(txtAplicaCartera));
+			String usuario = (String) session.getAttribute("Usuario");
+
+			// Long idCpto = new Long(txtIdCpto.getValue().toString());
+
+			// entity.setAplicaCartera(FacesUtils.checkString(txtAplicaCartera));
 			entity.setAplicaCartera(aplicaCartera);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			//entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setEstadoRegistro(estadoRegistro);		
+			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			//entity.setIdCpto(idCpto);
+			// entity.setIdCpto(idCpto);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
-			//txtOperCreador.setValue(usuario);
-			//txtOperModifica.setValue(usuario);
-			//entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			//entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			
+
+			// txtOperCreador.setValue(usuario);
+			// txtOperModifica.setValue(usuario);
+			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
 			businessDelegatorView.saveConceptoRecibo(entity);
 			data = businessDelegatorView.getDataConceptoRecibo();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -501,25 +490,24 @@ public class ConceptoReciboView {
 				Long idCpto = new Long(selectedConceptoRecibo.getIdCpto());
 				entity = businessDelegatorView.getConceptoRecibo(idCpto);
 			}
-			
+
 			Long idCpto = new Long(selectedConceptoRecibo.getIdCpto());
 			entity = businessDelegatorView.getConceptoRecibo(idCpto);
-			
 
-			HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
-					.getExternalContext().getSession(false);
-			
-			String usuario =(String) session.getAttribute("Usuario");
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setAplicaCartera(aplicaCartera);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 
-			entity.setEstadoRegistro(estadoRegistro);		
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
-			
+
 			businessDelegatorView.updateConceptoRecibo(entity);
 			data = businessDelegatorView.getDataConceptoRecibo();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -623,13 +611,12 @@ public class ConceptoReciboView {
 		this.txtDescripcion = txtDescripcion;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -860,7 +847,4 @@ public class ConceptoReciboView {
 		this.btnModify2 = btnModify2;
 	}
 
-	
-	
-	
 }

@@ -60,7 +60,7 @@ public class TipoGarantiaLogic implements ITipoGarantiaLogic {
 			if (entity.getCodigo() == null) {
 				throw new ZMessManager().new EmptyFieldException("codigo");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {
@@ -105,7 +105,6 @@ public class TipoGarantiaLogic implements ITipoGarantiaLogic {
 						"fechaModificacion");
 			}
 
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -127,8 +126,6 @@ public class TipoGarantiaLogic implements ITipoGarantiaLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoGarantiaDAO.save(entity);
 		} catch (Exception e) {

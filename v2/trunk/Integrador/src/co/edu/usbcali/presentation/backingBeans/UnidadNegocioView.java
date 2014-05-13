@@ -118,17 +118,15 @@ public class UnidadNegocioView {
 		System.out.println("Cancelado"
 				+ ((UnidadNegocioDTO) event.getObject()).getIdUnne());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
-
-		
 			try {
-				txtCodigo.setValue(selectedUnidadNegocio.getCodigo());				
+				txtCodigo.setValue(selectedUnidadNegocio.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
@@ -140,38 +138,32 @@ public class UnidadNegocioView {
 				txtDescripcion.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedUnidadNegocio.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
 
-			
 			txtIdUnne.setValue(selectedUnidadNegocio.getIdUnne());
 
 		} catch (Exception e) {
-			if (selectedUnidadNegocio == null) {				
+			if (selectedUnidadNegocio == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Unidad de Negocio a modificar");
+						.addErrorMessage("Seleccione Unidad de Negocio a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
 
-		
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue(null);
 		}
@@ -182,13 +174,12 @@ public class UnidadNegocioView {
 			txtDescripcion.setValue("");
 		}
 
-		
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
 
@@ -437,7 +428,7 @@ public class UnidadNegocioView {
 
 			Long idUnne = new Long(selectedUnidadNegocio.getIdUnne());
 			entity = businessDelegatorView.getUnidadNegocio(idUnne);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
@@ -449,7 +440,7 @@ public class UnidadNegocioView {
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.updateUnidadNegocio(entity);
 			data = businessDelegatorView.getDataUnidadNegocio();
 			RequestContext.getCurrentInstance().reset("form:unidad");

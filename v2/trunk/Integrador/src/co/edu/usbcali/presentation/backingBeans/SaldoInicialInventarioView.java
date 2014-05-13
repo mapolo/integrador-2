@@ -137,88 +137,84 @@ public class SaldoInicialInventarioView {
 		System.out.println("Cancelado"
 				+ ((SaldoInicialInventarioDTO) event.getObject()).getIdSini());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
-			
 			try {
-				txtAno.setValue(selectedSaldoInicialInventario.getAno());				
+				txtAno.setValue(selectedSaldoInicialInventario.getAno());
 
 			} catch (Exception e) {
 				txtAno.setValue("");
 			}
-			
+
 			try {
-				txtCostoInicial.setValue(selectedSaldoInicialInventario.getCostoInicial());				
+				txtCostoInicial.setValue(selectedSaldoInicialInventario
+						.getCostoInicial());
 
 			} catch (Exception e) {
 				txtCostoInicial.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtSaldoInicial.setValue(selectedSaldoInicialInventario.getSaldoInicial());				
+				txtSaldoInicial.setValue(selectedSaldoInicialInventario
+						.getSaldoInicial());
 
 			} catch (Exception e) {
 				txtSaldoInicial.setValue("");
 			}
 
 			try {
-				txtIdResu_ReferenciaSucursal.setValue(selectedSaldoInicialInventario.getIdResu_ReferenciaSucursal());
+				txtIdResu_ReferenciaSucursal
+						.setValue(selectedSaldoInicialInventario
+								.getIdResu_ReferenciaSucursal());
 			} catch (Exception e) {
 				txtIdResu_ReferenciaSucursal.setValue("");
 			}
 
-			
-			
 			try {
-				estado.setValue(selectedSaldoInicialInventario.getEstadoRegistro());
+				estado.setValue(selectedSaldoInicialInventario
+						.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
+
 			txtIdSini.setValue(selectedSaldoInicialInventario.getIdSini());
 
 		} catch (Exception e) {
-			if (selectedSaldoInicialInventario == null) {				
+			if (selectedSaldoInicialInventario == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Saldo inicial del Inventario a modificar");
+						.addErrorMessage("Seleccione Saldo Inicial del Inventario a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtAno.setValue(null);				
+			txtAno.setValue(null);
 
 		} catch (Exception e) {
 			txtAno.setValue("");
 		}
-		
+
 		try {
-			txtCostoInicial.setValue(null);				
+			txtCostoInicial.setValue(null);
 
 		} catch (Exception e) {
 			txtCostoInicial.setValue("");
 		}
-		
-		
-		
+
 		try {
-			txtSaldoInicial.setValue(null);				
+			txtSaldoInicial.setValue(null);
 
 		} catch (Exception e) {
 			txtSaldoInicial.setValue("");
@@ -229,17 +225,15 @@ public class SaldoInicialInventarioView {
 		} catch (Exception e) {
 			txtIdResu_ReferenciaSucursal.setValue("");
 		}
-		
+
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -535,7 +529,7 @@ public class SaldoInicialInventarioView {
 
 			Long idSini = new Long(selectedSaldoInicialInventario.getIdSini());
 			entity = businessDelegatorView.getSaldoInicialInventario(idSini);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
@@ -555,7 +549,7 @@ public class SaldoInicialInventarioView {
 			entity.setReferenciaSucursal(businessDelegatorView
 					.getReferenciaSucursal(FacesUtils
 							.checkLong(txtIdResu_ReferenciaSucursal)));
-			
+
 			businessDelegatorView.updateSaldoInicialInventario(entity);
 			data = businessDelegatorView.getDataSaldoInicialInventario();
 			RequestContext.getCurrentInstance().update("form:tablaPrincipal");

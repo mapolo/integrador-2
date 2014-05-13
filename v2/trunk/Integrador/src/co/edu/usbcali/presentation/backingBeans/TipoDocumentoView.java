@@ -48,6 +48,7 @@ public class TipoDocumentoView {
 	private InputText txtIdTido;
 	private InputText txtFechaCreacion;
 	private InputText txtFechaModificacion;
+
 	private String afectaCartea;
 	private String afectaInventario;
 	private String codigo;
@@ -60,8 +61,10 @@ public class TipoDocumentoView {
 	private String idTido;
 	private String creacion;
 	private String fechaModificacion;
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private CommandButton btnCrear;
@@ -242,6 +245,108 @@ public class TipoDocumentoView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoDocumentoDTO) event.getObject()).getIdTido());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtCodigo.setValue(selectedTipoDocumento.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedTipoDocumento.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				zignoCartera.setValue(selectedTipoDocumento.getSignoCartera());
+			} catch (Exception e) {
+				zignoCartera.setValue("");
+			}
+
+			try {
+				aafectaCartea.setValue(selectedTipoDocumento.getAfectaCartea());
+			} catch (Exception e) {
+				aafectaCartea.setValue("");
+			}
+
+			try {
+				aafectaInventario.setValue(selectedTipoDocumento
+						.getAfectaInventario());
+			} catch (Exception e) {
+				aafectaInventario.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoDocumento.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTido.setValue(selectedTipoDocumento.getIdTido());
+
+		} catch (Exception e) {
+			if (selectedTipoDocumento == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Documento a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			zignoCartera.setValue(null);
+		} catch (Exception e) {
+			zignoCartera.setValue("");
+		}
+
+		try {
+			aafectaCartea.setValue(null);
+		} catch (Exception e) {
+			aafectaCartea.setValue("");
+		}
+
+		try {
+			aafectaInventario.setValue(selectedTipoDocumento
+					.getAfectaInventario());
+		} catch (Exception e) {
+			aafectaInventario.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public String actualizar() {
@@ -566,8 +671,6 @@ public class TipoDocumentoView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTido = new Long(txtIdTido.getValue().toString());
-
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
@@ -577,20 +680,13 @@ public class TipoDocumentoView {
 			entity.setSignoInventario(signoInventario);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTido(idTido);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoDocumento(entity);
 			data = businessDelegatorView.getDataTipoDocumento();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			// actualizar();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -602,40 +698,34 @@ public class TipoDocumentoView {
 
 	public String action_modify() {
 		try {
-
-			if (!btnCrear.isDisabled() && btnModify.isDisabled()) {
-				action_create();
-				data = businessDelegatorView.getDataTipoDocumento();
-				RequestContext.getCurrentInstance().update(
-						"form:tablaPrincipal");
-				return "";
-			}
-
 			if (entity == null) {
-				entity = businessDelegatorView.getTipoDocumento(Long
-						.parseLong(idTido));
+				Long idTido = new Long(selectedTipoDocumento.getIdTido());
+				entity = businessDelegatorView.getTipoDocumento(idTido);
 			}
 
-			entity.setAfectaCartea(FacesUtils.checkString(txtAfectaCartea));
-			entity.setAfectaInventario(FacesUtils
-					.checkString(txtAfectaInventario));
+			Long idTido = new Long(selectedTipoDocumento.getIdTido());
+			entity = businessDelegatorView.getTipoDocumento(idTido);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			entity.setAfectaCartea(afectaCartea);
+			entity.setAfectaInventario(afectaInventario);
+			entity.setSignoCartera(signoCartera);
+			entity.setSignoInventario(signoInventario);
 			entity.setFechaModificacion(new Date());
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setSignoCartera(FacesUtils.checkString(txtSignoCartera));
-			entity.setSignoInventario(FacesUtils
-					.checkString(txtSignoInventario));
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoDocumento(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
-
-			btnSave.setDisabled(false);
-
 			data = businessDelegatorView.getDataTipoDocumento();
-			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().reset("form:listaTDo");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -1053,6 +1143,14 @@ public class TipoDocumentoView {
 
 	public void setAafectaInventario(SelectOneMenu aafectaInventario) {
 		this.aafectaInventario = aafectaInventario;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

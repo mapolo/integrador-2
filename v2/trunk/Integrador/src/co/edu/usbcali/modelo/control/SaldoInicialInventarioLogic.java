@@ -82,16 +82,15 @@ public class SaldoInicialInventarioLogic implements
 				throw new ZMessManager().new NotValidFormatException("ano");
 			}
 
-			/*if (entity.getCostoInicial() == null) {
-				throw new ZMessManager().new EmptyFieldException("costoInicial");
-			}
-
-			if ((entity.getCostoInicial() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getCostoInicial(), 14, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"costoInicial");
-			}*/
+			/*
+			 * if (entity.getCostoInicial() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("costoInicial"); }
+			 * 
+			 * if ((entity.getCostoInicial() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getCostoInicial(), 14, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "costoInicial"); }
+			 */
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -137,30 +136,27 @@ public class SaldoInicialInventarioLogic implements
 						"operModifica");
 			}
 
-			/*if (entity.getSaldoInicial() == null) {
-				throw new ZMessManager().new EmptyFieldException("saldoInicial");
-			}
+			/*
+			 * if (entity.getSaldoInicial() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("saldoInicial"); }
+			 * 
+			 * if ((entity.getSaldoInicial() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getSaldoInicial(), 12, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "saldoInicial"); }
+			 */
 
-			if ((entity.getSaldoInicial() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getSaldoInicial(), 12, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"saldoInicial");
-			}*/
-
-			/*if (entity.getReferenciaSucursal().getIdResu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idResu_ReferenciaSucursal");
-			}
-
-			if ((entity.getReferenciaSucursal().getIdResu() != null)
-					&& (Utilities
-							.checkNumberAndCheckWithPrecisionAndScale(""
-									+ entity.getReferenciaSucursal()
-											.getIdResu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idResu_ReferenciaSucursal");
-			}*/
+			/*
+			 * if (entity.getReferenciaSucursal().getIdResu() == null) { throw
+			 * new ZMessManager().new EmptyFieldException(
+			 * "idResu_ReferenciaSucursal"); }
+			 * 
+			 * if ((entity.getReferenciaSucursal().getIdResu() != null) &&
+			 * (Utilities .checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getReferenciaSucursal() .getIdResu(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idResu_ReferenciaSucursal"); }
+			 */
 
 			saldoInicialInventarioDAO.save(entity);
 		} catch (Exception e) {
@@ -223,16 +219,15 @@ public class SaldoInicialInventarioLogic implements
 				throw new ZMessManager().new NotValidFormatException("ano");
 			}
 
-			/*if (entity.getCostoInicial() == null) {
-				throw new ZMessManager().new EmptyFieldException("costoInicial");
-			}
-
-			if ((entity.getCostoInicial() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getCostoInicial(), 14, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"costoInicial");
-			}*/
+			/*
+			 * if (entity.getCostoInicial() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("costoInicial"); }
+			 * 
+			 * if ((entity.getCostoInicial() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getCostoInicial(), 14, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "costoInicial"); }
+			 */
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -278,30 +273,27 @@ public class SaldoInicialInventarioLogic implements
 						"operModifica");
 			}
 
-			/*if (entity.getSaldoInicial() == null) {
-				throw new ZMessManager().new EmptyFieldException("saldoInicial");
-			}
+			/*
+			 * if (entity.getSaldoInicial() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("saldoInicial"); }
+			 * 
+			 * if ((entity.getSaldoInicial() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getSaldoInicial(), 12, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "saldoInicial"); }
+			 */
 
-			if ((entity.getSaldoInicial() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getSaldoInicial(), 12, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"saldoInicial");
-			}*/
-
-/*			if (entity.getReferenciaSucursal().getIdResu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idResu_ReferenciaSucursal");
-			}
-
-			if ((entity.getReferenciaSucursal().getIdResu() != null)
-					&& (Utilities
-							.checkNumberAndCheckWithPrecisionAndScale(""
-									+ entity.getReferenciaSucursal()
-											.getIdResu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idResu_ReferenciaSucursal");
-			}*/
+			/*
+			 * if (entity.getReferenciaSucursal().getIdResu() == null) { throw
+			 * new ZMessManager().new EmptyFieldException(
+			 * "idResu_ReferenciaSucursal"); }
+			 * 
+			 * if ((entity.getReferenciaSucursal().getIdResu() != null) &&
+			 * (Utilities .checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getReferenciaSucursal() .getIdResu(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idResu_ReferenciaSucursal"); }
+			 */
 
 			saldoInicialInventarioDAO.update(entity);
 		} catch (Exception e) {

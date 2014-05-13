@@ -59,8 +59,7 @@ public class ListaPreciosEspecialesView {
 	private Calendar txtFechaInicial;
 	private InputText txtFechaModificacion;
 	private Calendar txtFechaVencimiento;
-	
-	
+
 	private String concepto;
 	private String espacios;
 	private String estadoRegistro;
@@ -78,13 +77,13 @@ public class ListaPreciosEspecialesView {
 	private String fechaInicial;
 	private String fechaModificacion;
 	private String fechaVencimiento;
-	
+
 	private Map<String, String> persona = new HashMap<String, String>();
 	private Map<String, String> empresa = new HashMap<String, String>();
 	private Map<String, String> sucursal = new HashMap<String, String>();
 	private Map<String, String> sucursal2 = new HashMap<String, String>();
 	private Map<String, String> referencia = new HashMap<String, String>();
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnModify2;
@@ -99,12 +98,12 @@ public class ListaPreciosEspecialesView {
 	private SelectItem[] manufacturerOptions;
 
 	String manufacturers[] = { "A", "R" };
+
 	public ListaPreciosEspecialesView() {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 
@@ -121,8 +120,9 @@ public class ListaPreciosEspecialesView {
 		try {
 
 			entity = null;
-			entity = businessDelegatorView.getListaPreciosEspeciales(((ListaPreciosEspecialesDTO) event
-					.getObject()).getIdLipe());
+			entity = businessDelegatorView
+					.getListaPreciosEspeciales(((ListaPreciosEspecialesDTO) event
+							.getObject()).getIdLipe());
 
 			entity.setEstadoRegistro(estadoRegistro);
 			String usuario = (String) FacesUtils.getfromSession("Usuario");
@@ -132,120 +132,138 @@ public class ListaPreciosEspecialesView {
 			Date fechaInicial = ((ListaPreciosEspecialesDTO) event.getObject())
 					.getFechaInicial();
 			entity.setFechaInicial(fechaInicial);
-			Date fechaVencimiento = ((ListaPreciosEspecialesDTO) event.getObject())
-					.getFechaVencimiento();
+			Date fechaVencimiento = ((ListaPreciosEspecialesDTO) event
+					.getObject()).getFechaVencimiento();
 			entity.setFechaVencimiento(fechaVencimiento);
-			
+
 			entity.setPrecio(((ListaPreciosEspecialesDTO) event.getObject())
-					.getPrecio());			
-			entity.setTipoGrabado(((ListaPreciosEspecialesDTO) event.getObject())
-					.getTipoGrabado());			
+					.getPrecio());
+			entity.setTipoGrabado(((ListaPreciosEspecialesDTO) event
+					.getObject()).getTipoGrabado());
 			entity.setConcepto(((ListaPreciosEspecialesDTO) event.getObject())
-					.getConcepto());			
+					.getConcepto());
 			entity.setEspacios(((ListaPreciosEspecialesDTO) event.getObject())
 					.getEspacios());
-			
-			
-			
-//							Llaves foraneas	
-			Empresa entity2 =  businessDelegatorView.getEmpresa(Long.parseLong(idEmpr_Empresa));
-			System.out.println("antes Empresa: " + entity2 + "; " + txtIdEmpr_Empresa.getValue());
-			
+
+			// Llaves foraneas
+			Empresa entity2 = businessDelegatorView.getEmpresa(Long
+					.parseLong(idEmpr_Empresa));
+			System.out.println("antes Empresa: " + entity2 + "; "
+					+ txtIdEmpr_Empresa.getValue());
+
 			if (entity2 == null) {
 				System.out.println("Entro null Empresa");
-				
+
 				entity.setEmpresa(null);
-				
-			}else {
+
+			} else {
 				System.out.println("Entro con: " + entity2);
-				
+
 				entity.setEmpresa(entity2);
-				/*entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-						.checkLong(txtIdEmpr_Empresa)));*/
+				/*
+				 * entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+				 * .checkLong(txtIdEmpr_Empresa)));
+				 */
 			}
-			
-			Persona entity3 = businessDelegatorView.getPersona(Long.parseLong(idPers_Persona));
-			System.out.println("\nantes Persona: " + entity3  + "; " + txtIdPers_Persona.getValue());
-			
+
+			Persona entity3 = businessDelegatorView.getPersona(Long
+					.parseLong(idPers_Persona));
+			System.out.println("\nantes Persona: " + entity3 + "; "
+					+ txtIdPers_Persona.getValue());
+
 			if (entity3 == null) {
 				System.out.println("Entro null Persona");
-				
+
 				entity.setPersona(null);
-			}else {
+			} else {
 				System.out.println("Entro con: " + entity3);
-				
+
 				entity.setPersona(entity3);
-				/*entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-						.checkLong(txtIdPers_Persona)));*/
+				/*
+				 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+				 * .checkLong(txtIdPers_Persona)));
+				 */
 			}
-			
-			Referencia entity4 = businessDelegatorView.getReferencia(Long.parseLong(idRefe_Referencia));
-			//System.out.println("\nantes referenci: " + entity4  + "; " + txtIdRefe_Referencia.getValue());
-			
+
+			Referencia entity4 = businessDelegatorView.getReferencia(Long
+					.parseLong(idRefe_Referencia));
+			// System.out.println("\nantes referenci: " + entity4 + "; " +
+			// txtIdRefe_Referencia.getValue());
+
 			if (entity4 == null) {
-				//System.out.println("Entro null Referencia");
-				
+				// System.out.println("Entro null Referencia");
+
 				entity.setReferencia(null);
-			}else {
-				//System.out.println("Entro con: " + entity4);
-				
+			} else {
+				// System.out.println("Entro con: " + entity4);
+
 				entity.setReferencia(entity4);
-				/*entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
-						.checkLong(txtIdRefe_Referencia)));*/
+				/*
+				 * entity.setReferencia(businessDelegatorView.getReferencia(
+				 * FacesUtils .checkLong(txtIdRefe_Referencia)));
+				 */
 			}
-			
-			Sucursal entity5 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal2));
-			System.out.println("\nantes Sucursal: " + entity5  + "; " + txtIdSucu_Sucursal2.getValue());
-			
+
+			Sucursal entity5 = businessDelegatorView.getSucursal(Long
+					.parseLong(idSucu_Sucursal2));
+			System.out.println("\nantes Sucursal: " + entity5 + "; "
+					+ txtIdSucu_Sucursal2.getValue());
+
 			if (entity5 == null) {
 				System.out.println("Entro null Sucursal");
-				
+
 				entity.setSucursalByIdSucu(null);
-			}else {
+			} else {
 				System.out.println("Entro con: " + entity5);
-				
+
 				entity.setSucursalByIdSucu(entity5);
-				/*entity.setSucursalByIdSucu(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal2)));*/
+				/*
+				 * entity.setSucursalByIdSucu(businessDelegatorView.getSucursal(
+				 * FacesUtils .checkLong(txtIdSucu_Sucursal2)));
+				 */
 			}
-			
-			/*System.out.println("reload");
-			sucursal = new HashMap<String, String>();
-			try {
-				
-				sucursal2 = new HashMap<String, String>();
-				List<SucursalDTO> data6 = businessDelegatorView
-						.getDataSucursal();
 
-				for (int i = 0; i < data6.size(); i++) {
-					sucursal2.put(data6.get(i).getNombre(), data6.get(i)
-							.getIdSucu()+ "");
+			/*
+			 * System.out.println("reload"); sucursal = new HashMap<String,
+			 * String>(); try {
+			 * 
+			 * sucursal2 = new HashMap<String, String>(); List<SucursalDTO>
+			 * data6 = businessDelegatorView .getDataSucursal();
+			 * 
+			 * for (int i = 0; i < data6.size(); i++) {
+			 * sucursal2.put(data6.get(i).getNombre(), data6.get(i)
+			 * .getIdSucu()+ "");
+			 * 
+			 * } } catch (Exception e) { e.printStackTrace(); }
+			 */
 
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}*/
-			
-			System.out.println("\nSucursalPadre: " + businessDelegatorView.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)) +
-					 "; " + txtIdSucu_Sucursal.getValue());
-			Sucursal entity6 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
-			System.out.println("\nSucursalPadre: " + businessDelegatorView.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)) +
-					"; " + entity6 + "; " + txtIdSucu_Sucursal.getValue());
-			/*entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));*/
-			
-			
+			System.out.println("\nSucursalPadre: "
+					+ businessDelegatorView.getSucursal(FacesUtils
+							.checkLong(txtIdSucu_Sucursal)) + "; "
+					+ txtIdSucu_Sucursal.getValue());
+			Sucursal entity6 = businessDelegatorView.getSucursal(Long
+					.parseLong(idSucu_Sucursal));
+			System.out.println("\nSucursalPadre: "
+					+ businessDelegatorView.getSucursal(FacesUtils
+							.checkLong(txtIdSucu_Sucursal)) + "; " + entity6
+					+ "; " + txtIdSucu_Sucursal.getValue());
+			/*
+			 * entity.setSucursalBySucursal(businessDelegatorView.getSucursal(
+			 * FacesUtils .checkLong(txtIdSucu_Sucursal)));
+			 */
+
 			if (entity6 == null) {
 				System.out.println("Entro en null");
-				
-				entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
-			}else {
+
+				entity.setSucursalBySucursal(businessDelegatorView
+						.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
+			} else {
 				System.out.println("entro con algo");
-				
+
 				entity.setSucursalBySucursal(entity6);
-				
+
 			}
-			
+
 			businessDelegatorView.updateListaPreciosEspeciales(entity);
 			data = businessDelegatorView.getDataListaPreciosEspeciales();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
@@ -259,187 +277,186 @@ public class ListaPreciosEspecialesView {
 
 	public void onCancel(org.primefaces.event.RowEditEvent event) {
 		FacesMessage msg = new FacesMessage("TipoEstado Cancelled",
-				((ListaPreciosEspecialesDTO) event.getObject()).getIdLipe() + "");
+				((ListaPreciosEspecialesDTO) event.getObject()).getIdLipe()
+						+ "");
 
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((ListaPreciosEspecialesDTO) event.getObject()).getIdLipe());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
+
 			try {
-				txtIdEmpr_Empresa.setValue(selectedListaPreciosEspeciales.getIdEmpr_Empresa());
-				
+				txtIdEmpr_Empresa.setValue(selectedListaPreciosEspeciales
+						.getIdEmpr_Empresa());
+
 			} catch (Exception e) {
 				txtIdEmpr_Empresa.setValue("");
 			}
-			
+
 			try {
-				txtIdPers_Persona.setValue(selectedListaPreciosEspeciales.getIdPers_Persona());
-				
+				txtIdPers_Persona.setValue(selectedListaPreciosEspeciales
+						.getIdPers_Persona());
+
 			} catch (Exception e) {
 				txtIdPers_Persona.setValue("");
 			}
-			
+
 			try {
-				txtIdRefe_Referencia.setValue(selectedListaPreciosEspeciales.getIdRefe_Referencia());
-				
+				txtIdRefe_Referencia.setValue(selectedListaPreciosEspeciales
+						.getIdRefe_Referencia());
+
 			} catch (Exception e) {
 				txtIdRefe_Referencia.setValue("");
 			}
-			
+
 			try {
-				txtIdSucu_Sucursal.setValue(selectedListaPreciosEspeciales.getIdSucu_Sucursal());
-				
+				txtIdSucu_Sucursal.setValue(selectedListaPreciosEspeciales
+						.getIdSucu_Sucursal());
+
 			} catch (Exception e) {
 				txtIdSucu_Sucursal.setValue("");
 			}
-			
+
 			try {
-				txtIdSucu_Sucursal2.setValue(selectedListaPreciosEspeciales.getIdSucu_Sucursal2());
-				
+				txtIdSucu_Sucursal2.setValue(selectedListaPreciosEspeciales
+						.getIdSucu_Sucursal2());
+
 			} catch (Exception e) {
 				txtIdSucu_Sucursal2.setValue("");
 			}
-			
-			
-			
-			
+
 			try {
-				txtConcepto.setValue(selectedListaPreciosEspeciales.getConcepto());
-				
+				txtConcepto.setValue(selectedListaPreciosEspeciales
+						.getConcepto());
+
 			} catch (Exception e) {
 				txtConcepto.setValue("");
 			}
-			
+
 			try {
-				txtEspacios.setValue(selectedListaPreciosEspeciales.getEspacios());
-				
+				txtEspacios.setValue(selectedListaPreciosEspeciales
+						.getEspacios());
+
 			} catch (Exception e) {
 				txtEspacios.setValue("");
 			}
-			
+
 			try {
 				txtPrecio.setValue(selectedListaPreciosEspeciales.getPrecio());
-				
+
 			} catch (Exception e) {
 				txtPrecio.setValue("");
 			}
-			
+
 			try {
-				txtTipoGrabado.setValue(selectedListaPreciosEspeciales.getTipoGrabado());
-				
+				txtTipoGrabado.setValue(selectedListaPreciosEspeciales
+						.getTipoGrabado());
+
 			} catch (Exception e) {
 				txtTipoGrabado.setValue("");
 			}
-			
-			
-			
+
 			try {
-				estado.setValue(selectedListaPreciosEspeciales.getEstadoRegistro());
+				estado.setValue(selectedListaPreciosEspeciales
+						.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			txtFechaInicial.setValue(selectedListaPreciosEspeciales.getFechaInicial());
-			txtFechaVencimiento.setValue(selectedListaPreciosEspeciales.getFechaVencimiento());
-			
-			
+
+			txtFechaInicial.setValue(selectedListaPreciosEspeciales
+					.getFechaInicial());
+			txtFechaVencimiento.setValue(selectedListaPreciosEspeciales
+					.getFechaVencimiento());
+
 		} catch (Exception e) {
 			if (selectedListaPreciosEspeciales == null) {
-				//btnCrear.setDisabled(true);
-				//btnModify2.setDisabled(true);
-				//action_cerrar();
 				FacesUtils
-						.addErrorMessage("Seleccione Precio Especial a modificar");
+						.addErrorMessage("Seleccione la Lista de Precios Especiales a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
 			txtIdEmpr_Empresa.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdEmpr_Empresa.setValue("");
 		}
-		
+
 		try {
 			txtIdPers_Persona.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdPers_Persona.setValue("");
 		}
-		
+
 		try {
 			txtIdRefe_Referencia.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdRefe_Referencia.setValue("");
 		}
-		
+
 		try {
 			txtIdSucu_Sucursal.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdSucu_Sucursal.setValue("");
 		}
-		
+
 		try {
 			txtIdSucu_Sucursal2.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdSucu_Sucursal2.setValue("");
 		}
-		
-		
+
 		try {
 			txtConcepto.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtConcepto.setValue("");
 		}
-		
+
 		try {
 			txtEspacios.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtEspacios.setValue("");
 		}
-		
+
 		try {
 			txtPrecio.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtPrecio.setValue("");
 		}
-		
+
 		try {
 			txtTipoGrabado.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtTipoGrabado.setValue("");
 		}
-		
+
 		txtFechaInicial.setValue(null);
 		txtFechaVencimiento.setValue(null);
-		
+
 		return "";
 	}
-	
-	
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -458,12 +475,13 @@ public class ListaPreciosEspecialesView {
 
 			txtEspacios.setValue(listaPreciosEspecialesDTO.getEspacios());
 
-			/*if (txtEstadoRegistro == null) {
-				txtEstadoRegistro = new InputText();
-			}
-
-			txtEstadoRegistro.setValue(listaPreciosEspecialesDTO
-					.getEstadoRegistro());*/
+			/*
+			 * if (txtEstadoRegistro == null) { txtEstadoRegistro = new
+			 * InputText(); }
+			 * 
+			 * txtEstadoRegistro.setValue(listaPreciosEspecialesDTO
+			 * .getEstadoRegistro());
+			 */
 
 			if (txtOperCreador == null) {
 				txtOperCreador = new InputText();
@@ -535,7 +553,6 @@ public class ListaPreciosEspecialesView {
 			txtFechaInicial.setValue(listaPreciosEspecialesDTO
 					.getFechaInicial());
 
-			
 			if (txtFechaModificacion == null) {
 				txtFechaModificacion = new InputText();
 			}
@@ -569,82 +586,82 @@ public class ListaPreciosEspecialesView {
 
 		if (txtConcepto != null) {
 			txtConcepto.setValue(null);
-			//txtConcepto.setDisabled(true);
+			// txtConcepto.setDisabled(true);
 		}
 
 		if (txtEspacios != null) {
 			txtEspacios.setValue(null);
-			//txtEspacios.setDisabled(true);
+			// txtEspacios.setDisabled(true);
 		}
 
-		/*if (txtEstadoRegistro != null) {
-			txtEstadoRegistro.setValue(null);
-			txtEstadoRegistro.setDisabled(true);
-		}*/
+		/*
+		 * if (txtEstadoRegistro != null) { txtEstadoRegistro.setValue(null);
+		 * txtEstadoRegistro.setDisabled(true); }
+		 */
 
 		if (txtOperCreador != null) {
 			txtOperCreador.setValue(null);
-			//txtOperCreador.setDisabled(true);
+			// txtOperCreador.setDisabled(true);
 		}
 
 		if (txtOperModifica != null) {
 			txtOperModifica.setValue(null);
-			//txtOperModifica.setDisabled(true);
+			// txtOperModifica.setDisabled(true);
 		}
 
 		if (txtPrecio != null) {
 			txtPrecio.setValue(null);
-			//txtPrecio.setDisabled(true);
+			// txtPrecio.setDisabled(true);
 		}
 
 		if (txtTipoGrabado != null) {
 			txtTipoGrabado.setValue(null);
-			//txtTipoGrabado.setDisabled(true);
+			// txtTipoGrabado.setDisabled(true);
 		}
 
 		if (txtIdEmpr_Empresa != null) {
 			txtIdEmpr_Empresa.setValue(null);
-			//txtIdEmpr_Empresa.setDisabled(true);
+			// txtIdEmpr_Empresa.setDisabled(true);
 		}
 
 		if (txtIdPers_Persona != null) {
 			txtIdPers_Persona.setValue(null);
-			//txtIdPers_Persona.setDisabled(true);
+			// txtIdPers_Persona.setDisabled(true);
 		}
 
 		if (txtIdRefe_Referencia != null) {
 			txtIdRefe_Referencia.setValue(null);
-			//txtIdRefe_Referencia.setDisabled(true);
+			// txtIdRefe_Referencia.setDisabled(true);
 		}
 
 		if (txtIdSucu_Sucursal != null) {
 			txtIdSucu_Sucursal.setValue(null);
-			//txtIdSucu_Sucursal.setDisabled(true);
+			// txtIdSucu_Sucursal.setDisabled(true);
 		}
 
 		if (txtFechaCreacion != null) {
 			txtFechaCreacion.setValue(null);
-			//txtFechaCreacion.setDisabled(true);
+			// txtFechaCreacion.setDisabled(true);
 		}
 
 		if (txtFechaInicial != null) {
 			txtFechaInicial.setValue(null);
-			//txtFechaInicial.setDisabled(true);
+			// txtFechaInicial.setDisabled(true);
 		}
 
 		if (txtFechaModificacion != null) {
 			txtFechaModificacion.setValue(null);
-			//txtFechaModificacion.setDisabled(true);
+			// txtFechaModificacion.setDisabled(true);
 		}
 
 		if (txtFechaVencimiento != null) {
 			txtFechaVencimiento.setValue(null);
-			//txtFechaVencimiento.setDisabled(true);
+			// txtFechaVencimiento.setDisabled(true);
 		}
 
 		if (txtIdLipe != null) {
 			txtIdLipe.setValue(null);
-			//txtIdLipe.setDisabled(false);
+			// txtIdLipe.setDisabled(false);
 		}
 
 		if (btnSave != null) {
@@ -695,7 +712,7 @@ public class ListaPreciosEspecialesView {
 			Long idLipe = new Long(txtIdLipe.getValue().toString());
 			entity = businessDelegatorView.getListaPreciosEspeciales(idLipe);
 		} catch (Exception e) {
-			
+
 		}
 
 		if (entity == null) {
@@ -720,8 +737,8 @@ public class ListaPreciosEspecialesView {
 			txtConcepto.setDisabled(false);
 			txtEspacios.setValue(entity.getEspacios());
 			txtEspacios.setDisabled(false);
-			//txtEstadoRegistro.setValue(entity.getEstadoRegistro());
-			//txtEstadoRegistro.setDisabled(false);
+			// txtEstadoRegistro.setValue(entity.getEstadoRegistro());
+			// txtEstadoRegistro.setDisabled(false);
 			txtFechaCreacion.setValue(entity.getFechaCreacion());
 			txtFechaCreacion.setDisabled(false);
 			txtFechaInicial.setValue(entity.getFechaInicial());
@@ -760,9 +777,9 @@ public class ListaPreciosEspecialesView {
 		txtConcepto.setDisabled(false);
 		txtEspacios.setValue(selectedListaPreciosEspeciales.getEspacios());
 		txtEspacios.setDisabled(false);
-		//txtEstadoRegistro.setValue(selectedListaPreciosEspeciales
-		//		.getEstadoRegistro());
-		//txtEstadoRegistro.setDisabled(false);
+		// txtEstadoRegistro.setValue(selectedListaPreciosEspeciales
+		// .getEstadoRegistro());
+		// txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedListaPreciosEspeciales
 				.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
@@ -824,66 +841,61 @@ public class ListaPreciosEspecialesView {
 	public String action_create() {
 		try {
 			entity = new ListaPreciosEspeciales();
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idLipe = new Long(txtIdLipe.getValue().toString());
+			// Long idLipe = new Long(txtIdLipe.getValue().toString());
 
 			entity.setConcepto(FacesUtils.checkString(txtConcepto));
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
-			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));			
+			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
 			entity.setFechaVencimiento(FacesUtils
-					.checkDate(txtFechaVencimiento));			
-			//entity.setIdLipe(idLipe);
+					.checkDate(txtFechaVencimiento));
+			// entity.setIdLipe(idLipe);
 			entity.setPrecio(FacesUtils.checkDouble(txtPrecio));
 			entity.setTipoGrabado(FacesUtils.checkString(txtTipoGrabado));
-			
-			
+
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			
+
 			if (txtIdEmpr_Empresa.getValue() == "") {
-				
-			}else {
+
+			} else {
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
 						.checkLong(txtIdEmpr_Empresa)));
 			}
-			
+
 			if (txtIdPers_Persona.getValue() == "") {
-				
-			}else {
+
+			} else {
 				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 						.checkLong(txtIdPers_Persona)));
 			}
-			
-			
+
 			if (txtIdRefe_Referencia.getValue() == "") {
-				
-			}else {
-				entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
-						.checkLong(txtIdRefe_Referencia)));
+
+			} else {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(FacesUtils
+								.checkLong(txtIdRefe_Referencia)));
 			}
-			
-			
+
 			if (txtIdSucu_Sucursal2.getValue() == "") {
-				
-			}else {
-				entity.setSucursalByIdSucu(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal2)));
+
+			} else {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal2)));
 			}
-			
-			entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
-			
-			
+
+			entity.setSucursalBySucursal(businessDelegatorView
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
 
 			businessDelegatorView.saveListaPreciosEspeciales(entity);
 			data = businessDelegatorView.getDataListaPreciosEspeciales();
@@ -896,8 +908,6 @@ public class ListaPreciosEspecialesView {
 
 		return "";
 	}
-	
-	
 
 	public String action_modify() {
 		try {
@@ -910,67 +920,62 @@ public class ListaPreciosEspecialesView {
 
 			Long idLipe = new Long(selectedListaPreciosEspeciales.getIdLipe());
 			entity = businessDelegatorView.getListaPreciosEspeciales(idLipe);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			//Long idLipe = new Long(txtIdLipe.getValue().toString());
+			// Long idLipe = new Long(txtIdLipe.getValue().toString());
 
 			entity.setConcepto(FacesUtils.checkString(txtConcepto));
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
-			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));			
+			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
 			entity.setFechaVencimiento(FacesUtils
-					.checkDate(txtFechaVencimiento));			
+					.checkDate(txtFechaVencimiento));
 			entity.setPrecio(FacesUtils.checkDouble(txtPrecio));
 			entity.setTipoGrabado(FacesUtils.checkString(txtTipoGrabado));
-			
 
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
-			
-			
+
 			if (txtIdEmpr_Empresa.getValue() == "") {
 				System.out.println("entro null empresa");
 				entity.setEmpresa(null);
-			}else {
+			} else {
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
 						.checkLong(txtIdEmpr_Empresa)));
 			}
-			
+
 			if (txtIdPers_Persona.getValue() == "") {
 				System.out.println("entro null persona");
 				entity.setPersona(null);
-			}else {
+			} else {
 				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 						.checkLong(txtIdPers_Persona)));
 			}
-			
-			
+
 			if (txtIdRefe_Referencia.getValue() == "") {
 				System.out.println("entro null referencia");
 				entity.setReferencia(null);
-			}else {
-				entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
-						.checkLong(txtIdRefe_Referencia)));
+			} else {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(FacesUtils
+								.checkLong(txtIdRefe_Referencia)));
 			}
-			
-			
+
 			if (txtIdSucu_Sucursal2.getValue() == "") {
 				System.out.println("entro null sucursal2");
 				entity.setSucursalByIdSucu(null);
-			}else {
-				entity.setSucursalByIdSucu(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal2)));
+			} else {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal2)));
 			}
-			
-			entity.setSucursalBySucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
-			
-			
+
+			entity.setSucursalBySucursal(businessDelegatorView
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
 
 			businessDelegatorView.updateListaPreciosEspeciales(entity);
 			data = businessDelegatorView.getDataListaPreciosEspeciales();
@@ -1075,13 +1080,12 @@ public class ListaPreciosEspecialesView {
 		this.txtEspacios = txtEspacios;
 	}
 
-	/*public InputText getTxtEstadoRegistro() {
-		return txtEstadoRegistro;
-	}
-
-	public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
-		this.txtEstadoRegistro = txtEstadoRegistro;
-	}*/
+	/*
+	 * public InputText getTxtEstadoRegistro() { return txtEstadoRegistro; }
+	 * 
+	 * public void setTxtEstadoRegistro(InputText txtEstadoRegistro) {
+	 * this.txtEstadoRegistro = txtEstadoRegistro; }
+	 */
 
 	public InputText getTxtOperCreador() {
 		return txtOperCreador;
@@ -1402,24 +1406,17 @@ public class ListaPreciosEspecialesView {
 		this.manufacturerOptions = manufacturerOptions;
 	}
 
-
 	public SelectOneMenu getEstado() {
 		return estado;
 	}
 
-
 	public void setEstado(SelectOneMenu estado) {
 		this.estado = estado;
 	}
-	
-	
-	
-
 
 	public Map<String, String> getPersona() {
 		try {
-			List<PersonaDTO> data2 = businessDelegatorView
-					.getDataPersona();
+			List<PersonaDTO> data2 = businessDelegatorView.getDataPersona();
 
 			for (int i = 0; i < data2.size(); i++) {
 				persona.put(data2.get(i).getPrimerNombre(), data2.get(i)
@@ -1429,71 +1426,53 @@ public class ListaPreciosEspecialesView {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return persona;
 	}
-
 
 	public void setPersona(Map<String, String> persona) {
 		this.persona = persona;
 	}
 
-	
-	
-	
-
-
 	public Map<String, String> getSucursal() {
 		try {
-			List<SucursalDTO> data3 = businessDelegatorView
-					.getDataSucursal();
+			List<SucursalDTO> data3 = businessDelegatorView.getDataSucursal();
 
 			for (int i = 0; i < data3.size(); i++) {
-				sucursal.put(data3.get(i).getCodigo(), data3.get(i)
-						.getIdSucu() + "");
+				sucursal.put(data3.get(i).getCodigo(), data3.get(i).getIdSucu()
+						+ "");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return sucursal;
 	}
-
 
 	public void setSucursal(Map<String, String> sucursal) {
 		this.sucursal = sucursal;
 	}
-	
-	
-	
-	
-
 
 	public Map<String, String> getEmpresa() {
 		try {
-			List<EmpresaDTO> data4 = businessDelegatorView
-					.getDataEmpresa();
+			List<EmpresaDTO> data4 = businessDelegatorView.getDataEmpresa();
 
 			for (int i = 0; i < data4.size(); i++) {
-				empresa.put(data4.get(i).getNombre(), data4.get(i)
-						.getIdEmpr() + "");
+				empresa.put(data4.get(i).getNombre(), data4.get(i).getIdEmpr()
+						+ "");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return empresa;
 	}
-	
 
 	public void setEmpresa(Map<String, String> empresa) {
 		this.empresa = empresa;
 	}
-	
-	
-
 
 	public Map<String, String> getReferencia() {
 		try {
@@ -1502,77 +1481,63 @@ public class ListaPreciosEspecialesView {
 
 			for (int i = 0; i < data5.size(); i++) {
 				referencia.put(data5.get(i).getCodigo(), data5.get(i)
-						.getIdRefe()+ "");
+						.getIdRefe() + "");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return referencia;
 	}
-
 
 	public void setReferencia(Map<String, String> referencia) {
 		this.referencia = referencia;
 	}
 
-
 	public SelectOneMenu getTxtIdSucu_Sucursal2() {
 		return txtIdSucu_Sucursal2;
 	}
-
 
 	public void setTxtIdSucu_Sucursal2(SelectOneMenu txtIdSucu_Sucursal2) {
 		this.txtIdSucu_Sucursal2 = txtIdSucu_Sucursal2;
 	}
 
-
 	public String getIdSucu_Sucursal2() {
 		return idSucu_Sucursal2;
 	}
-
 
 	public void setIdSucu_Sucursal2(String idSucu_Sucursal2) {
 		this.idSucu_Sucursal2 = idSucu_Sucursal2;
 	}
 
-
 	public Map<String, String> getSucursal2() {
-		
+
 		try {
-			List<SucursalDTO> data6 = businessDelegatorView
-					.getDataSucursal();
+			List<SucursalDTO> data6 = businessDelegatorView.getDataSucursal();
 
 			for (int i = 0; i < data6.size(); i++) {
 				sucursal2.put(data6.get(i).getNombre(), data6.get(i)
-						.getIdSucu()+ "");
+						.getIdSucu() + "");
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return sucursal2;
 	}
-
 
 	public void setSucursal2(Map<String, String> sucursal2) {
 		this.sucursal2 = sucursal2;
 	}
 
-
 	public CommandButton getBtnModify2() {
 		return btnModify2;
 	}
 
-
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
 	}
-	
-	
-	
-	
+
 }

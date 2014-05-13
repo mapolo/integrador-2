@@ -116,53 +116,40 @@ public class ContactoView {
 			entity.setOperModifica(usuario);
 			entity.setFechaModificacion(new Date());
 
-			
 			entity.setNombreCompleto(((ContactoDTO) event.getObject())
 					.getNombreCompleto());
 			entity.setTelefono1(((ContactoDTO) event.getObject())
 					.getTelefono1());
 			entity.setTelefono2(((ContactoDTO) event.getObject())
 					.getTelefono2());
-			entity.setEmail(((ContactoDTO) event.getObject())
-					.getEmail());
-			
-			
-			
-			
-
-			
+			entity.setEmail(((ContactoDTO) event.getObject()).getEmail());
 
 			// Llaves foraneas
-			
-			
-			AtencionVendedor entity1 = businessDelegatorView.getAtencionVendedor(Long.parseLong(idAtve_AtencionVendedor));
+
+			AtencionVendedor entity1 = businessDelegatorView
+					.getAtencionVendedor(Long
+							.parseLong(idAtve_AtencionVendedor));
 			if (entity1 == null) {
 				entity.setAtencionVendedor(null);
 			} else {
 				entity.setAtencionVendedor(entity1);
 			}
-			
-			
-			
-			
-			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
+
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long
+					.parseLong(idSucu_Sucursal));
 			if (entity2 == null) {
 				entity.setSucursal(null);
 			} else {
 				entity.setSucursal(entity2);
 			}
 
-			
-			
-			
-			
-			TipoContacto entity3 = businessDelegatorView.getTipoContacto(Long.parseLong(idTico_TipoContacto));
+			TipoContacto entity3 = businessDelegatorView.getTipoContacto(Long
+					.parseLong(idTico_TipoContacto));
 			if (entity3 == null) {
 				entity.setTipoContacto(null);
 			} else {
 				entity.setTipoContacto(entity3);
 			}
-			
 
 			businessDelegatorView.updateContacto(entity);
 			data = businessDelegatorView.getDataContacto();
@@ -380,7 +367,7 @@ public class ContactoView {
 			Long idCont = new Long(txtIdCont.getValue().toString());
 			entity = businessDelegatorView.getContacto(idCont);
 		} catch (Exception e) {
-			
+
 		}
 
 		if (entity == null) {
@@ -511,14 +498,13 @@ public class ContactoView {
 			entity.setEstadoRegistro(estadoRegistro);
 
 			if (txtIdAtve_AtencionVendedor.getValue() == "") {
-				//System.out.println("Entro null atencion vendedor");
-				//entity.setAtencionVendedor(null);
+				// System.out.println("Entro null atencion vendedor");
+				// entity.setAtencionVendedor(null);
 			} else {
 				entity.setAtencionVendedor(businessDelegatorView
 						.getAtencionVendedor(FacesUtils
 								.checkLong(txtIdAtve_AtencionVendedor)));
 			}
-			
 
 			if (txtIdSucu_Sucursal.getValue() == "") {
 
@@ -526,7 +512,6 @@ public class ContactoView {
 				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
 						.checkLong(txtIdSucu_Sucursal)));
 			}
-			
 
 			if (txtIdTico_TipoContacto.getValue() == "") {
 

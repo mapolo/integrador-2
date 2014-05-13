@@ -111,15 +111,17 @@ public class DivisionPoliticaView {
 
 			entity.setTipoDivision(businessDelegatorView
 					.getTipoDivision(getIdTidi_TipoDivision()));
-			
-			DivisionPolitica entity2 = businessDelegatorView.getDivisionPolitica(Long.parseLong(idDipo_DivisionPolitica));
-			
+
+			DivisionPolitica entity2 = businessDelegatorView
+					.getDivisionPolitica(Long
+							.parseLong(idDipo_DivisionPolitica));
+
 			if (txtIdDipo_DivisionPolitica.getValue() == "999") {
-				
+
 				entity.setDivisionPolitica(null);
 			} else {
 				System.out.println("entro else");
-				
+
 				entity.setDivisionPolitica(entity2);
 			}
 
@@ -161,33 +163,32 @@ public class DivisionPoliticaView {
 		reload();
 
 	}
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-		
-			
+
 			try {
-				txtCodigoDian.setValue(selectedDivisionPolitica.getCodigoDian());				
+				txtCodigoDian
+						.setValue(selectedDivisionPolitica.getCodigoDian());
 
 			} catch (Exception e) {
 				txtCodigoDian.setValue("");
 			}
-			
+
 			try {
-				txtIdTidi_TipoDivision.setValue(selectedDivisionPolitica.getIdTidi_TipoDivision());				
+				txtIdTidi_TipoDivision.setValue(selectedDivisionPolitica
+						.getIdTidi_TipoDivision());
 
 			} catch (Exception e) {
 				txtIdTidi_TipoDivision.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtIdDipo_DivisionPolitica.setValue(selectedDivisionPolitica.getIdDipo_DivisionPolitica());				
+				txtIdDipo_DivisionPolitica.setValue(selectedDivisionPolitica
+						.getIdDipo_DivisionPolitica());
 
 			} catch (Exception e) {
 				txtIdDipo_DivisionPolitica.setValue("");
@@ -199,57 +200,49 @@ public class DivisionPoliticaView {
 				txtNombre.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedDivisionPolitica.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
+
 			txtIdDipo.setValue(selectedDivisionPolitica.getIdDipo());
 
 		} catch (Exception e) {
-			if (selectedDivisionPolitica == null) {				
+			if (selectedDivisionPolitica == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Division Politica a modificar");
+						.addErrorMessage("Seleccione División Politica a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtCodigoDian.setValue(null);				
+			txtCodigoDian.setValue(null);
 
 		} catch (Exception e) {
 			txtCodigoDian.setValue("");
 		}
-		
+
 		try {
-			txtIdTidi_TipoDivision.setValue(null);				
+			txtIdTidi_TipoDivision.setValue(null);
 
 		} catch (Exception e) {
 			txtIdTidi_TipoDivision.setValue("");
 		}
-		
-		
-		
+
 		try {
-			txtIdDipo_DivisionPolitica.setValue(null);				
+			txtIdDipo_DivisionPolitica.setValue(null);
 
 		} catch (Exception e) {
 			txtIdDipo_DivisionPolitica.setValue("");
 		}
-
-		
 
 		try {
 			txtNombre.setValue(null);
@@ -257,17 +250,14 @@ public class DivisionPoliticaView {
 			txtNombre.setValue("");
 		}
 
-		
-		
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
 
 	public String reload() {
 		System.out.println("Entro a reload");
@@ -595,11 +585,10 @@ public class DivisionPoliticaView {
 				Long idDipo = new Long(selectedDivisionPolitica.getIdDipo());
 				entity = businessDelegatorView.getDivisionPolitica(idDipo);
 			}
-			
+
 			Long idDipo = new Long(selectedDivisionPolitica.getIdDipo());
 			entity = businessDelegatorView.getDivisionPolitica(idDipo);
 
-			
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
@@ -625,8 +614,7 @@ public class DivisionPoliticaView {
 						.getDivisionPolitica(FacesUtils
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
-			
-			
+
 			businessDelegatorView.updateDivisionPolitica(entity);
 			data = businessDelegatorView.getDataDivisionPolitica();
 			RequestContext.getCurrentInstance().update("form:tablaPrincipal");

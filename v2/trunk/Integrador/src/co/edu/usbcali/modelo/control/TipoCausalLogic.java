@@ -61,7 +61,7 @@ public class TipoCausalLogic implements ITipoCausalLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"estadoRegistro");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {
@@ -87,8 +87,6 @@ public class TipoCausalLogic implements ITipoCausalLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
-			
 
 			if (entity.getNombre() == null) {
 				throw new ZMessManager().new EmptyFieldException("nombre");
@@ -121,8 +119,6 @@ public class TipoCausalLogic implements ITipoCausalLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoCausalDAO.save(entity);
 		} catch (Exception e) {
@@ -164,7 +160,7 @@ public class TipoCausalLogic implements ITipoCausalLogic {
 			if (entity == null) {
 				throw new ZMessManager().new NullEntityExcepcion("TipoCausal");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {
@@ -173,7 +169,7 @@ public class TipoCausalLogic implements ITipoCausalLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"Estado registro solo recibe A o R");
 			}
-			
+
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"estadoRegistro");

@@ -118,37 +118,31 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null
-					
-					&& entity.getSucursalBySucursalHija() != null) {
+
+			&& entity.getSucursalBySucursalHija() != null) {
 
 				throw new Exception(
 						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
-			
-			
+
 			int cont = 0;
-			
-			if(entity.getPersona()!=null){
+
+			if (entity.getPersona() != null) {
 				cont++;
 			}
-			
-			if(entity.getSucursalBySucursalHija()!=null){
+
+			if (entity.getSucursalBySucursalHija() != null) {
 				cont++;
 			}
-			
-			if(entity.getEmpresa()!=null){
+
+			if (entity.getEmpresa() != null) {
 				cont++;
 			}
-			
-				
-			
-				
-			if(cont==2){
-				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
+
+			if (cont == 2) {
+				throw new Exception(
+						"solo puede estar llena empresa, sucursal hija o persona");
 			}
-				
-			
-			
 
 			if (entity.getSucursalBySucursalPadre() == null) {
 				throw new ZMessManager().new ForeignException(
@@ -328,7 +322,6 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			 * if (entity.getSucursalBySucursalHija() == null) { throw new
 			 * ZMessManager().new ForeignException( "sucursalBySucursalHija"); }
 			 */
-			
 
 			if (entity.getEmpresa() == null && entity.getPersona() == null
 					&& entity.getSucursalBySucursalHija() == null) {
@@ -338,46 +331,43 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null
-					
-					&& entity.getSucursalBySucursalHija() != null) {
+
+			&& entity.getSucursalBySucursalHija() != null) {
 
 				throw new Exception(
 						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
-			
-			
-			int cont = 0;
-			
-			if(entity.getPersona()!=null){
-				cont++;
-			}
-			
-			if(entity.getSucursalBySucursalHija()!=null){
-				cont++;
-			}
-			
-			if(entity.getEmpresa()!=null){
-				cont++;
-			}
-			
-				
-			
-				
-			if(cont==2){
-				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
-				
-				/*throw new
-				  ZMessManager().new ForeignException( "solo puede estar llena empresa, sucursal hija o persona");*/
-				
-			}
-			
-			
-			
 
-			/*if (entity.getSucursalBySucursalPadre() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalBySucursalPadre");
-			}*/
+			int cont = 0;
+
+			if (entity.getPersona() != null) {
+				cont++;
+			}
+
+			if (entity.getSucursalBySucursalHija() != null) {
+				cont++;
+			}
+
+			if (entity.getEmpresa() != null) {
+				cont++;
+			}
+
+			if (cont == 2) {
+				throw new Exception(
+						"solo puede estar llena empresa, sucursal hija o persona");
+
+				/*
+				 * throw new ZMessManager().new ForeignException(
+				 * "solo puede estar llena empresa, sucursal hija o persona");
+				 */
+
+			}
+
+			/*
+			 * if (entity.getSucursalBySucursalPadre() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalBySucursalPadre");
+			 * }
+			 */
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -413,19 +403,19 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			 * ZMessManager().new NotValidFormatException("idReco"); }
 			 */
 
-			/*if ((entity.getLimiteCredito() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getLimiteCredito(), 14, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"limiteCredito");
-			}*/
+			/*
+			 * if ((entity.getLimiteCredito() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getLimiteCredito(), 14, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "limiteCredito"); }
+			 */
 
-			/*if ((entity.getLiquidaIva() != null)
-					&& (Utilities.checkWordAndCheckWithlength(
-							entity.getLiquidaIva(), 1) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"liquidaIva");
-			}*/
+			/*
+			 * if ((entity.getLiquidaIva() != null) &&
+			 * (Utilities.checkWordAndCheckWithlength( entity.getLiquidaIva(),
+			 * 1) == false)) { throw new ZMessManager().new
+			 * NotValidFormatException( "liquidaIva"); }
+			 */
 
 			if ((entity.getObservacion() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -461,24 +451,24 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
 			 */
 
-			/*if ((entity.getEmpresa() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idEmpr_Empresa");
-			}*/
+			/*
+			 * if ((entity.getEmpresa() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getEmpresa().getIdEmpr(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idEmpr_Empresa"); }
+			 */
 
 			/*
 			 * if (entity.getPersona().getIdPers() == null) { throw new
 			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
 			 */
 
-			/*if ((entity.getPersona() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idPers_Persona");
-			}*/
+			/*
+			 * if ((entity.getPersona() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getPersona().getIdPers(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idPers_Persona"); }
+			 */
 
 			relacionComercialDAO.update(entity);
 		} catch (Exception e) {
@@ -559,7 +549,6 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 					relacionComercialDTO2.setIdSucu_Sucursal(null);
 
 				}
-				
 
 				if (relacionComercialTmp.getSucursalBySucursalHija() != null) {
 					relacionComercialDTO2
@@ -568,8 +557,6 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 				} else {
 					relacionComercialDTO2.setIdSucu_SucursalH(null);
 				}
-				
-				
 
 				relacionComercialDTO.add(relacionComercialDTO2);
 			}

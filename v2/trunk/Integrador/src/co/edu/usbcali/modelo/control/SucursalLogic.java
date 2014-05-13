@@ -259,46 +259,36 @@ public class SucursalLogic implements ISucursalLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveSucursal(Sucursal entity) throws Exception {
 		try {
-			
-			if (entity.getEmpresa() == null
-					&& entity.getPersona() == null) {
 
-				throw new Exception(
-						"Empresa y Persona, no pueden estar vacios");
+			if (entity.getEmpresa() == null && entity.getPersona() == null) {
+
+				throw new Exception("Empresa y Persona, no pueden estar vacios");
 			}
 
-			if (entity.getPersona() != null
-					&& entity.getEmpresa() != null) {
+			if (entity.getPersona() != null && entity.getEmpresa() != null) {
 
-				throw new Exception(
-						"Empresa y persona, no pueden estar llenas");
-			}
-			
-			/*if (entity.getDivisionPolitica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"divisionPolitica");
+				throw new Exception("Empresa y persona, no pueden estar llenas");
 			}
 
-			if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
-			}
-
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
-
-			if (entity.getRegionalGeografica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"regionalGeografica");
-			}
-
-			if (entity.getSucursal() == null) {
-				throw new ZMessManager().new ForeignException("sucursal");
-			}
-
-			if (entity.getTipoSucursal() == null) {
-				throw new ZMessManager().new ForeignException("tipoSucursal");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica() == null) { throw new
+			 * ZMessManager().new ForeignException( "divisionPolitica"); }
+			 * 
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 * 
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 * 
+			 * if (entity.getRegionalGeografica() == null) { throw new
+			 * ZMessManager().new ForeignException( "regionalGeografica"); }
+			 * 
+			 * if (entity.getSucursal() == null) { throw new ZMessManager().new
+			 * ForeignException("sucursal"); }
+			 * 
+			 * if (entity.getTipoSucursal() == null) { throw new
+			 * ZMessManager().new ForeignException("tipoSucursal"); }
+			 */
 
 			if ((entity.getCodigo() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -353,15 +343,15 @@ public class SucursalLogic implements ISucursalLogic {
 						"fechaModificacion");
 			}
 
-			/*if (entity.getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException("idSucu");
-			}
-
-			if ((entity.getIdSucu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdSucu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idSucu");
-			}*/
+			/*
+			 * if (entity.getIdSucu() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idSucu"); }
+			 * 
+			 * if ((entity.getIdSucu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdSucu(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idSucu"); }
+			 */
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -403,83 +393,67 @@ public class SucursalLogic implements ISucursalLogic {
 				throw new ZMessManager().new NotValidFormatException("zipCode");
 			}
 
-			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idDipo_DivisionPolitica");
-			}
+			/*
+			 * if (entity.getDivisionPolitica().getIdDipo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException(
+			 * "idDipo_DivisionPolitica"); }
+			 * 
+			 * if ((entity.getDivisionPolitica().getIdDipo() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idDipo_DivisionPolitica"); }
+			 * 
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 * 
+			 * if ((entity.getEmpresa().getIdEmpr() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getEmpresa().getIdEmpr(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idEmpr_Empresa"); }
+			 * 
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 */
 
-			if ((entity.getDivisionPolitica().getIdDipo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idDipo_DivisionPolitica");
-			}
+			/*
+			 * if ((entity.getPersona().getIdPers() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getPersona().getIdPers(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idPers_Persona"); }
+			 * 
+			 * if (entity.getRegionalGeografica().getIdRege() == null) { throw
+			 * new ZMessManager().new EmptyFieldException(
+			 * "idRege_RegionalGeografica"); }
+			 * 
+			 * if ((entity.getRegionalGeografica().getIdRege() != null) &&
+			 * (Utilities .checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getRegionalGeografica() .getIdRege(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idRege_RegionalGeografica"); }
+			 * 
+			 * if (entity.getSucursal().getIdSucu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idSucu_Sucursal"); }
+			 * 
+			 * if ((entity.getSucursal().getIdSucu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getSucursal().getIdSucu(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idSucu_Sucursal"); }
+			 * 
+			 * if (entity.getTipoSucursal().getIdTisu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idTisu_TipoSucursal"); }
+			 * 
+			 * if ((entity.getTipoSucursal().getIdTisu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getTipoSucursal().getIdTisu(), 10, 0) == false)) { throw
+			 * new ZMessManager().new NotValidFormatException(
+			 * "idTisu_TipoSucursal"); }
+			 */
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
-
-			if ((entity.getEmpresa().getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idEmpr_Empresa");
-			}
-
-			if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}*/
-
-			/*if ((entity.getPersona().getIdPers() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idPers_Persona");
-			}
-
-			if (entity.getRegionalGeografica().getIdRege() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idRege_RegionalGeografica");
-			}
-
-			if ((entity.getRegionalGeografica().getIdRege() != null)
-					&& (Utilities
-							.checkNumberAndCheckWithPrecisionAndScale(""
-									+ entity.getRegionalGeografica()
-											.getIdRege(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idRege_RegionalGeografica");
-			}
-
-			if (entity.getSucursal().getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idSucu_Sucursal");
-			}
-
-			if ((entity.getSucursal().getIdSucu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idSucu_Sucursal");
-			}
-
-			if (entity.getTipoSucursal().getIdTisu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idTisu_TipoSucursal");
-			}
-
-			if ((entity.getTipoSucursal().getIdTisu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getTipoSucursal().getIdTisu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idTisu_TipoSucursal");
-			}*/
-
-			/*if (getSucursal(entity.getIdSucu()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}*/
+			/*
+			 * if (getSucursal(entity.getIdSucu()) != null) { throw new
+			 * ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY); }
+			 */
 
 			sucursalDAO.save(entity);
 		} catch (Exception e) {
@@ -698,31 +672,25 @@ public class SucursalLogic implements ISucursalLogic {
 				throw new ZMessManager().new NullEntityExcepcion("Sucursal");
 			}
 
-			/*if (entity.getDivisionPolitica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"divisionPolitica");
-			}
-
-			if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
-			}
-
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
-
-			if (entity.getRegionalGeografica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"regionalGeografica");
-			}
-
-			if (entity.getSucursal() == null) {
-				throw new ZMessManager().new ForeignException("sucursal");
-			}
-
-			if (entity.getTipoSucursal() == null) {
-				throw new ZMessManager().new ForeignException("tipoSucursal");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica() == null) { throw new
+			 * ZMessManager().new ForeignException( "divisionPolitica"); }
+			 * 
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 * 
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 * 
+			 * if (entity.getRegionalGeografica() == null) { throw new
+			 * ZMessManager().new ForeignException( "regionalGeografica"); }
+			 * 
+			 * if (entity.getSucursal() == null) { throw new ZMessManager().new
+			 * ForeignException("sucursal"); }
+			 * 
+			 * if (entity.getTipoSucursal() == null) { throw new
+			 * ZMessManager().new ForeignException("tipoSucursal"); }
+			 */
 
 			if ((entity.getCodigo() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -777,15 +745,15 @@ public class SucursalLogic implements ISucursalLogic {
 						"fechaModificacion");
 			}
 
-			/*if (entity.getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException("idSucu");
-			}
-
-			if ((entity.getIdSucu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdSucu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idSucu");
-			}*/
+			/*
+			 * if (entity.getIdSucu() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idSucu"); }
+			 * 
+			 * if ((entity.getIdSucu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdSucu(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idSucu"); }
+			 */
 
 			if ((entity.getNombre() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -827,79 +795,60 @@ public class SucursalLogic implements ISucursalLogic {
 				throw new ZMessManager().new NotValidFormatException("zipCode");
 			}
 
-			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idDipo_DivisionPolitica");
-			}
-
-			if ((entity.getDivisionPolitica().getIdDipo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idDipo_DivisionPolitica");
-			}
-
-			if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
-
-			if ((entity.getEmpresa().getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idEmpr_Empresa");
-			}
-
-			if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}
-
-			if ((entity.getPersona().getIdPers() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idPers_Persona");
-			}
-
-			if (entity.getRegionalGeografica().getIdRege() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idRege_RegionalGeografica");
-			}
-
-			if ((entity.getRegionalGeografica().getIdRege() != null)
-					&& (Utilities
-							.checkNumberAndCheckWithPrecisionAndScale(""
-									+ entity.getRegionalGeografica()
-											.getIdRege(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idRege_RegionalGeografica");
-			}
-
-			if (entity.getSucursal().getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idSucu_Sucursal");
-			}
-
-			if ((entity.getSucursal().getIdSucu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getSucursal().getIdSucu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idSucu_Sucursal");
-			}
-
-			if (entity.getTipoSucursal().getIdTisu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idTisu_TipoSucursal");
-			}
-
-			if ((entity.getTipoSucursal().getIdTisu() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getTipoSucursal().getIdTisu(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idTisu_TipoSucursal");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica().getIdDipo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException(
+			 * "idDipo_DivisionPolitica"); }
+			 * 
+			 * if ((entity.getDivisionPolitica().getIdDipo() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getDivisionPolitica().getIdDipo(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idDipo_DivisionPolitica"); }
+			 * 
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 * 
+			 * if ((entity.getEmpresa().getIdEmpr() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getEmpresa().getIdEmpr(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idEmpr_Empresa"); }
+			 * 
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 * 
+			 * if ((entity.getPersona().getIdPers() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getPersona().getIdPers(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idPers_Persona"); }
+			 * 
+			 * if (entity.getRegionalGeografica().getIdRege() == null) { throw
+			 * new ZMessManager().new EmptyFieldException(
+			 * "idRege_RegionalGeografica"); }
+			 * 
+			 * if ((entity.getRegionalGeografica().getIdRege() != null) &&
+			 * (Utilities .checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getRegionalGeografica() .getIdRege(), 10, 0) == false)) {
+			 * throw new ZMessManager().new NotValidFormatException(
+			 * "idRege_RegionalGeografica"); }
+			 * 
+			 * if (entity.getSucursal().getIdSucu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idSucu_Sucursal"); }
+			 * 
+			 * if ((entity.getSucursal().getIdSucu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getSucursal().getIdSucu(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idSucu_Sucursal"); }
+			 * 
+			 * if (entity.getTipoSucursal().getIdTisu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idTisu_TipoSucursal"); }
+			 * 
+			 * if ((entity.getTipoSucursal().getIdTisu() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getTipoSucursal().getIdTisu(), 10, 0) == false)) { throw
+			 * new ZMessManager().new NotValidFormatException(
+			 * "idTisu_TipoSucursal"); }
+			 */
 
 			sucursalDAO.update(entity);
 		} catch (Exception e) {
@@ -952,33 +901,33 @@ public class SucursalLogic implements ISucursalLogic {
 				sucursalDTO2
 						.setZipCode((sucursalTmp.getZipCode() != null) ? sucursalTmp
 								.getZipCode() : null);
-				
-				
-			// fks null	
-				
-				//DivisionPolitica
-				
+
+				// fks null
+
+				// DivisionPolitica
+
 				if (sucursalTmp.getDivisionPolitica() != null) {
-					sucursalDTO2.setIdDipo_DivisionPolitica(sucursalTmp.getDivisionPolitica()
-							.getIdDipo());
+					sucursalDTO2.setIdDipo_DivisionPolitica(sucursalTmp
+							.getDivisionPolitica().getIdDipo());
 				} else {
 					sucursalDTO2.setIdDipo_DivisionPolitica(null);
 				}
-				/*sucursalDTO2
-						.setIdDipo_DivisionPolitica((sucursalTmp
-								.getDivisionPolitica().getIdDipo() != null) ? sucursalTmp
-								.getDivisionPolitica().getIdDipo() : null);*/
-			
-				//Empresa
-				
+				/*
+				 * sucursalDTO2 .setIdDipo_DivisionPolitica((sucursalTmp
+				 * .getDivisionPolitica().getIdDipo() != null) ? sucursalTmp
+				 * .getDivisionPolitica().getIdDipo() : null);
+				 */
+
+				// Empresa
+
 				if (sucursalTmp.getEmpresa() != null) {
 					sucursalDTO2.setIdEmpr_Empresa(sucursalTmp.getEmpresa()
 							.getIdEmpr());
 				} else {
 					sucursalDTO2.setIdEmpr_Empresa(null);
 				}
-				
-				//Persona
+
+				// Persona
 
 				if (sucursalTmp.getPersona() != null) {
 					sucursalDTO2.setIdPers_Persona(sucursalTmp.getPersona()
@@ -986,49 +935,45 @@ public class SucursalLogic implements ISucursalLogic {
 				} else {
 					sucursalDTO2.setIdPers_Persona(null);
 				}
-				
-				
-				//regionalGrafica
-				
+
+				// regionalGrafica
+
 				if (sucursalTmp.getRegionalGeografica() != null) {
-					sucursalDTO2.setIdRege_RegionalGeografica(sucursalTmp.getRegionalGeografica()
-							.getIdRege());
+					sucursalDTO2.setIdRege_RegionalGeografica(sucursalTmp
+							.getRegionalGeografica().getIdRege());
 				} else {
 					sucursalDTO2.setIdRege_RegionalGeografica(null);
 				}
-				/*sucursalDTO2
-						.setIdRege_RegionalGeografica((sucursalTmp
-								.getRegionalGeografica().getIdRege() != null) ? sucursalTmp
-								.getRegionalGeografica().getIdRege() : null);*/
+				/*
+				 * sucursalDTO2 .setIdRege_RegionalGeografica((sucursalTmp
+				 * .getRegionalGeografica().getIdRege() != null) ? sucursalTmp
+				 * .getRegionalGeografica().getIdRege() : null);
+				 */
 
-				
-				//SucursalPadre 
-				
+				// SucursalPadre
+
 				if (sucursalTmp.getSucursal() != null) {
 					sucursalDTO2.setIdSucu_Sucursal(sucursalTmp.getSucursal()
 							.getIdSucu());
 				} else {
 					sucursalDTO2.setIdSucu_Sucursal(null);
 				}
-				
-				
-				
-				
-				//tipoSucursal
-				
-				if (sucursalTmp.getTipoSucursal() != null) {
-					sucursalDTO2.setIdTisu_TipoSucursal(sucursalTmp.getTipoSucursal()
-							.getIdTisu());
-				} else {
-					sucursalDTO2.setIdTisu_TipoSucursal(null);;
-				}
-				
 
-				
-				/*sucursalDTO2.setIdTisu_TipoSucursal((sucursalTmp
-						.getTipoSucursal().getIdTisu() != null) ? sucursalTmp
-						.getTipoSucursal().getIdTisu() : null);
-				*/
+				// tipoSucursal
+
+				if (sucursalTmp.getTipoSucursal() != null) {
+					sucursalDTO2.setIdTisu_TipoSucursal(sucursalTmp
+							.getTipoSucursal().getIdTisu());
+				} else {
+					sucursalDTO2.setIdTisu_TipoSucursal(null);
+					;
+				}
+
+				/*
+				 * sucursalDTO2.setIdTisu_TipoSucursal((sucursalTmp
+				 * .getTipoSucursal().getIdTisu() != null) ? sucursalTmp
+				 * .getTipoSucursal().getIdTisu() : null);
+				 */
 				sucursalDTO.add(sucursalDTO2);
 			}
 

@@ -131,13 +131,13 @@ public class BateriologoView {
 		System.out.println("Cancelado"
 				+ ((BateriologoDTO) event.getObject()).getIdBate());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-		
+
 			try {
 				txtCodigo.setValue(selectedBateriologo.getCodigo());
 
@@ -146,47 +146,38 @@ public class BateriologoView {
 			}
 
 			try {
-				txtNombreCompleto.setValue(selectedBateriologo.getNombreCompleto());
+				txtNombreCompleto.setValue(selectedBateriologo
+						.getNombreCompleto());
 			} catch (Exception e) {
 				txtNombreCompleto.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedBateriologo.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-					
-			
-			txtIdBate.setValue(selectedBateriologo.getIdBate());
 
-			//btnSave.setDisabled(false);
-			//btnModify2.setDisabled(false);
+			txtIdBate.setValue(selectedBateriologo.getIdBate());
 
 		} catch (Exception e) {
 			if (selectedBateriologo == null) {
-				//btnCrear.setDisabled(true);
-				//btnModify2.setDisabled(true);
-				//action_cerrar();
 				FacesUtils
-						.addErrorMessage("Seleccione Bateriologo a modificar");
+						.addErrorMessage("Seleccione Bateriologo a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue(null);
 		}
@@ -196,10 +187,9 @@ public class BateriologoView {
 		} catch (Exception e) {
 			txtNombreCompleto.setValue("");
 		}
-	
+
 		return "";
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -504,7 +494,6 @@ public class BateriologoView {
 				entity = businessDelegatorView.getBateriologo(idBate);
 			}
 
-			
 			Long idBate = new Long(selectedBateriologo.getIdBate());
 			entity = businessDelegatorView.getBateriologo(idBate);
 
@@ -524,12 +513,11 @@ public class BateriologoView {
 
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
 
-
 			Sucursal entity2 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());
 
 			entity.setSucursal(entity2);
-			
+
 			businessDelegatorView.updateBateriologo(entity);
 			data = businessDelegatorView.getDataBateriologo();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

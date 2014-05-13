@@ -100,8 +100,6 @@ public class BateriologoLogic implements IBateriologoLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if ((entity.getNombreCompleto() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
 							entity.getNombreCompleto(), 100) == false)) {
@@ -142,8 +140,6 @@ public class BateriologoLogic implements IBateriologoLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"idSucu_Sucursal");
 			}
-
-		
 
 			bateriologoDAO.save(entity);
 		} catch (Exception e) {

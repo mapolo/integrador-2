@@ -48,52 +48,40 @@ body {
 						<p:panel id="msgProjectTipoCausalTitle" header="Tipo de Causal">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{tipoCausalView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{tipoCausalView.data}">
+								editable="true" filteredValue="#{tipoCausalView.data}"
+								rowKey="#{car.idTcau}"
+								selection="#{tipoCausalView.selectedTipoCausal}">
 
-								<p:ajax event="rowEdit" listener="#{tipoCausalView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoCausalView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Nombre" style="width: 100px"
 									filterBy="nombre" sortBy="nombre">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.nombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.nombre}" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.nombre}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoCausalView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoCausalView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoCausalView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoCausalView.action_modify2()}"
+										binding="#{tipoCausalView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -123,10 +111,15 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{tipoCausalView.action_create()}"
 										binding="#{tipoCausalView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{tipoCausalView.action_modify()}"
+										binding="#{tipoCausalView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

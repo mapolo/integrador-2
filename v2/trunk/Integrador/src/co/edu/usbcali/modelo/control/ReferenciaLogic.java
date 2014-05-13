@@ -554,11 +554,12 @@ public class ReferenciaLogic implements IReferenciaLogic {
 						"codigoBarras");
 			}
 
-			/*if ((entity.getCosto() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getCosto(), 14, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("costo");
-			}*/
+			/*
+			 * if ((entity.getCosto() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getCosto(), 14, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("costo"); }
+			 */
 
 			if ((entity.getDescripcion() != null)
 					&& (Utilities.checkWordAndCheckWithlength(

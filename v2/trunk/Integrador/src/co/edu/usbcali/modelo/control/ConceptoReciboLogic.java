@@ -63,7 +63,7 @@ public class ConceptoReciboLogic implements IConceptoReciboLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"aplicaCartera");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {
@@ -116,8 +116,6 @@ public class ConceptoReciboLogic implements IConceptoReciboLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -139,8 +137,6 @@ public class ConceptoReciboLogic implements IConceptoReciboLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			conceptoReciboDAO.save(entity);
 		} catch (Exception e) {
@@ -184,7 +180,7 @@ public class ConceptoReciboLogic implements IConceptoReciboLogic {
 				throw new ZMessManager().new NullEntityExcepcion(
 						"ConceptoRecibo");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {

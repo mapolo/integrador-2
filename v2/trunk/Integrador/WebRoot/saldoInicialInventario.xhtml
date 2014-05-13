@@ -55,7 +55,7 @@ body {
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true"
 								filteredValue="#{saldoInicialInventarioView.data}"
-								rowKey="#{car.idSini}"						
+								rowKey="#{car.idSini}"
 								selection="#{saldoInicialInventarioView.selectedSaldoInicialInventario}">
 
 								<p:column selectionMode="single" style="width:20px" />
@@ -63,42 +63,26 @@ body {
 								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{saldoInicialInventarioView.manufacturerOptions2}"
 									filterMatchMode="exact" style="width:100px">
-									
-											<h:outputText value="#{car.ano}" />
-										
+									<h:outputText value="#{car.ano}" />
 								</p:column>
 
 								<p:column id="saldoInicial" filterBy="saldoInicial"
 									headerText="Saldo Inicial" sortBy="saldoInicial"
 									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.saldoInicial}" />
-										
+									<h:outputText value="#{car.saldoInicial}" />
 								</p:column>
 
 								<p:column id="costoInicial" filterBy="costoInicial"
 									headerText="Costo Inicial" sortBy="costoInicial"
 									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.costoInicial}" />
-										
+									<h:outputText value="#{car.costoInicial}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{saldoInicialInventarioView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Referencia Sucursal"
-									style="width:100px" filterBy="idResu_ReferenciaSucursal"
-									sortBy="idResu_ReferenciaSucursal">
-									
-											<h:outputText value="#{car.idResu_ReferenciaSucursal}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -107,7 +91,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{saldoInicialInventarioView.action_modify2()}"
@@ -184,8 +168,7 @@ body {
 										action="#{saldoInicialInventarioView.action_create}"
 										binding="#{saldoInicialInventarioView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{saldoInicialInventarioView.action_modify()}"

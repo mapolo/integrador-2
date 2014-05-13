@@ -52,6 +52,7 @@ public class TipoIdentificacionView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private CommandButton btnCrear;
@@ -133,6 +134,73 @@ public class TipoIdentificacionView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoIdentificacionDTO) event.getObject()).getIdTiid());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtDescripcion.setValue(selectedTipoIdentificacion
+						.getDescripcion());
+
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				txtCodigo.setValue(selectedTipoIdentificacion.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoIdentificacion.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTiid.setValue(selectedTipoIdentificacion.getIdTiid());
+
+		} catch (Exception e) {
+			if (selectedTipoIdentificacion == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Identificación a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtDescripcion.setValue(null);
+
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -400,24 +468,14 @@ public class TipoIdentificacionView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTiid = new Long(txtIdTiid.getValue().toString());
-
-			entity.setEstadoRegistro(estadoRegistro);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTiid(idTiid);
-
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+
 			businessDelegatorView.saveTipoIdentificacion(entity);
 			data = businessDelegatorView.getDataTipoIdentificacion();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
@@ -473,36 +531,30 @@ public class TipoIdentificacionView {
 
 	public String action_modify() {
 		try {
-			if (!btnCrear.isDisabled() && btnModify.isDisabled()) {
-				action_create();
-				data = businessDelegatorView.getDataTipoIdentificacion();
-				RequestContext.getCurrentInstance().update(
-						"form:tablaPrincipal");
-				return "";
-			}
-
 			if (entity == null) {
-				// Long idTiid = new
-				// Long(selectedTipoIdentificacion.getIdTiid());
-				// entity = businessDelegatorView.getTipoIdentificacion(idTiid);
-				entity = businessDelegatorView.getTipoIdentificacion(Long
-						.parseLong(idTiid));
+				Long idTiid = new Long(selectedTipoIdentificacion.getIdTiid());
+				entity = businessDelegatorView.getTipoIdentificacion(idTiid);
 			}
 
-			entity.setEstadoRegistro(estadoRegistro);
+			Long idTiid = new Long(selectedTipoIdentificacion.getIdTiid());
+			entity = businessDelegatorView.getTipoIdentificacion(idTiid);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-
+			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			businessDelegatorView.updateTipoIdentificacion(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
+			entity.setOperModifica(usuario);
 
-			btnSave.setDisabled(false);
+			businessDelegatorView.updateTipoIdentificacion(entity);
 			data = businessDelegatorView.getDataTipoIdentificacion();
-			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -806,6 +858,14 @@ public class TipoIdentificacionView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

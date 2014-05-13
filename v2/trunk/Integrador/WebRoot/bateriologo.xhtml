@@ -51,39 +51,29 @@ body {
 
 							<p:dataTable var="car" value="#{bateriologoView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								rowKey="#{car.idBate}" selection="#{bateriologoView.selectedBateriologo}"
+								rowKey="#{car.idBate}"
+								selection="#{bateriologoView.selectedBateriologo}"
 								editable="true" filteredValue="#{bateriologoView.data}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Nombre Completo" style="width: 100px">
-									
-											<h:outputLabel value="#{car.nombreCompleto}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Sucursal" filterBy="idSucu_Sucursal"
-									sortBy="idSucu_Sucursal" style="width: 100px">
-									
-											<h:outputText value="#{car.idSucu_Sucursal}" />
-										
+									<h:outputLabel value="#{car.nombreCompleto}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{bateriologoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+
+									<h:outputText value="#{car.estadoRegistro}" />
+
 								</p:column>
 
 								<f:facet name="footer">
@@ -92,13 +82,12 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{bateriologoView.action_modify2()}"
-										binding="#{bateriologoView.btnModify2}"
-										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
-										update=":form" />
+										binding="#{bateriologoView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -146,12 +135,11 @@ body {
 										action="#{bateriologoView.action_create}"
 										binding="#{bateriologoView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{bateriologoView.action_modify()}"
+										disabled="false" action="#{bateriologoView.action_modify()}"
 										binding="#{bateriologoView.btnModify}"
-										update="tablaPrincipal,panel,panelBotones" />	
+										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 
 							</p:dialog>

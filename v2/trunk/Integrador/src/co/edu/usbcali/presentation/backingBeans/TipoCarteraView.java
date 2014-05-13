@@ -51,6 +51,7 @@ public class TipoCarteraView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<TipoCarteraDTO> data;
@@ -120,6 +121,72 @@ public class TipoCarteraView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoCarteraDTO) event.getObject()).getIdTica());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtDescripcion.setValue(selectedTipoCartera.getDescripcion());
+
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				txtCodigo.setValue(selectedTipoCartera.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoCartera.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTica.setValue(selectedTipoCartera.getIdTica());
+
+		} catch (Exception e) {
+			if (selectedTipoCartera == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Cartera a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtDescripcion.setValue(null);
+
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -348,22 +415,13 @@ public class TipoCarteraView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTica = new Long(txtIdTica.getValue().toString());
-
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTica(idTica);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoCartera(entity);
 			data = businessDelegatorView.getDataTipoCartera();
@@ -384,15 +442,24 @@ public class TipoCarteraView {
 				entity = businessDelegatorView.getTipoCartera(idTica);
 			}
 
+			Long idTica = new Long(selectedTipoCartera.getIdTica());
+			entity = businessDelegatorView.getTipoCartera(idTica);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoCartera(entity);
+			data = businessDelegatorView.getDataTipoCartera();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -686,6 +753,14 @@ public class TipoCarteraView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

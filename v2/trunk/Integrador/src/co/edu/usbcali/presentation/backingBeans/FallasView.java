@@ -127,20 +127,15 @@ public class FallasView {
 		System.out.println("Cancelado"
 				+ ((FallasDTO) event.getObject()).getIdCfal());
 	}
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
-			
-			
-			
-			
+
 			try {
-				txtCodigo.setValue(selectedFallas.getCodigo());				
+				txtCodigo.setValue(selectedFallas.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
@@ -152,37 +147,31 @@ public class FallasView {
 				txtDescripcion.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedFallas.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
+
 			txtIdCfal.setValue(selectedFallas.getIdCfal());
 
 		} catch (Exception e) {
-			if (selectedFallas == null) {				
-				FacesUtils
-						.addErrorMessage("Seleccione Falla a modificar");
+			if (selectedFallas == null) {
+				FacesUtils.addErrorMessage("Seleccione la Falla a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
 
-		
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue(null);
 		}
@@ -198,12 +187,9 @@ public class FallasView {
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
-		
-		
+
 		return "";
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -465,14 +451,12 @@ public class FallasView {
 
 			Long idCfal = new Long(selectedFallas.getIdCfal());
 			entity = businessDelegatorView.getFallas(idCfal);
-			
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
-
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -480,8 +464,7 @@ public class FallasView {
 
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
-		
+
 			businessDelegatorView.updateFallas(entity);
 			data = businessDelegatorView.getDataFallas();
 			RequestContext.getCurrentInstance().reset("form:listaFA");

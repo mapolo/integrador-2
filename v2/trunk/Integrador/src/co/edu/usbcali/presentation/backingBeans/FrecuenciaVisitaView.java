@@ -130,64 +130,60 @@ public class FrecuenciaVisitaView {
 		System.out.println("Cancelado"
 				+ ((FrecuenciaVisitaDTO) event.getObject()).getIdFrvi());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
-			btnModify.setDisabled(false);		
-			
+			btnModify.setDisabled(false);
+
 			try {
-				txtCodigo.setValue(selectedFrecuenciaVisita.getCodigo());				
+				txtCodigo.setValue(selectedFrecuenciaVisita.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
 			}
 
 			try {
-				txtDescripcion.setValue(selectedFrecuenciaVisita.getDescripcion());
+				txtDescripcion.setValue(selectedFrecuenciaVisita
+						.getDescripcion());
 			} catch (Exception e) {
 				txtDescripcion.setValue("");
 			}
 
 			try {
-				txtFrecuencia.setValue(selectedFrecuenciaVisita.getFrecuencia());
+				txtFrecuencia
+						.setValue(selectedFrecuenciaVisita.getFrecuencia());
 			} catch (Exception e) {
 				txtFrecuencia.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedFrecuenciaVisita.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
+
 			txtFrecuencia.setValue(selectedFrecuenciaVisita.getIdFrvi());
 
 		} catch (Exception e) {
-			if (selectedFrecuenciaVisita == null) {				
+			if (selectedFrecuenciaVisita == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Frecuencia visita a modificar");
+						.addErrorMessage("Seleccione la Frecuencia Visita a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
-		
-		
+
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue(null);
 		}
@@ -203,13 +199,13 @@ public class FrecuenciaVisitaView {
 		} catch (Exception e) {
 			txtFrecuencia.setValue("");
 		}
-		
+
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
 
@@ -496,7 +492,6 @@ public class FrecuenciaVisitaView {
 				entity = businessDelegatorView.getFrecuenciaVisita(idFrvi);
 			}
 
-
 			Long idFrvi = new Long(selectedFrecuenciaVisita.getIdFrvi());
 			entity = businessDelegatorView.getFrecuenciaVisita(idFrvi);
 
@@ -514,7 +509,7 @@ public class FrecuenciaVisitaView {
 			entity.setFechaModificacion(new Date());
 			entity.setFrecuencia(FacesUtils.checkLong(txtFrecuencia));
 			entity.setOperModifica(usuario);
-			
+
 			businessDelegatorView.updateFrecuenciaVisita(entity);
 			data = businessDelegatorView.getDataFrecuenciaVisita();
 			RequestContext.getCurrentInstance().reset("form:listaFV");

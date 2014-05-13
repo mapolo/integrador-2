@@ -85,7 +85,6 @@ public class ConfSemanasAnoLogic implements IConfSemanasAnoLogic {
 						"fechaModificacion");
 			}
 
-			
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -119,8 +118,6 @@ public class ConfSemanasAnoLogic implements IConfSemanasAnoLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"idSema_Semana");
 			}
-
-			
 
 			confSemanasAnoDAO.save(entity);
 		} catch (Exception e) {

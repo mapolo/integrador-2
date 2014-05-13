@@ -190,8 +190,6 @@ public class TipoFormaPagoLogic implements ITipoFormaPagoLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if ((entity.getImportaPda() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getImportaPda(), 1, 0) == false)) {
@@ -234,8 +232,6 @@ public class TipoFormaPagoLogic implements ITipoFormaPagoLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoFormaPagoDAO.save(entity);
 		} catch (Exception e) {

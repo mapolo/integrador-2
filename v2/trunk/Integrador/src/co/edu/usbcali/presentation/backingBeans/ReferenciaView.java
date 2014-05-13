@@ -112,6 +112,7 @@ public class ReferenciaView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<ReferenciaDTO> data;
@@ -284,6 +285,439 @@ public class ReferenciaView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((ReferenciaDTO) event.getObject()).getIdRefe());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtQPorCaja.setValue(selectedReferencia.getQPorCaja());
+
+			} catch (Exception e) {
+				txtQPorCaja.setValue("");
+			}
+
+			try {
+				txtAplicacion.setValue(selectedReferencia.getAplicacion());
+
+			} catch (Exception e) {
+				txtAplicacion.setValue("");
+			}
+
+			try {
+				txtCodigo.setValue(selectedReferencia.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtCodigoBarras.setValue(selectedReferencia.getCodigoBarras());
+			} catch (Exception e) {
+				txtCodigoBarras.setValue("");
+			}
+
+			try {
+				txtCosto.setValue(selectedReferencia.getCosto());
+			} catch (Exception e) {
+				txtCosto.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedReferencia.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				txtDescripcionCorta.setValue(selectedReferencia
+						.getDescripcionCorta());
+			} catch (Exception e) {
+				txtDescripcionCorta.setValue("");
+			}
+
+			try {
+				txtDescripcionTecnica.setValue(selectedReferencia
+						.getDescripcionTecnica());
+			} catch (Exception e) {
+				txtDescripcionTecnica.setValue("");
+			}
+
+			try {
+				txtEquivalente1.setValue(selectedReferencia.getEquivalente1());
+			} catch (Exception e) {
+				txtEquivalente1.setValue("");
+			}
+
+			try {
+				txtEquivalente2.setValue(selectedReferencia.getEquivalente2());
+			} catch (Exception e) {
+				txtEquivalente2.setValue("");
+			}
+
+			try {
+				txtEsGarantia.setValue(selectedReferencia.getEsGarantia());
+			} catch (Exception e) {
+				txtEsGarantia.setValue("");
+			}
+
+			try {
+				txtGalones.setValue(selectedReferencia.getGalones());
+			} catch (Exception e) {
+				txtGalones.setValue("");
+			}
+
+			try {
+				txtManejaDecimales.setValue(selectedReferencia
+						.getManejaDecimales());
+			} catch (Exception e) {
+				txtManejaDecimales.setValue("");
+			}
+
+			try {
+				txtManejaLote.setValue(selectedReferencia.getManejaLote());
+			} catch (Exception e) {
+				txtManejaLote.setValue("");
+			}
+
+			try {
+				txtMarca.setValue(selectedReferencia.getMarca());
+			} catch (Exception e) {
+				txtMarca.setValue("");
+			}
+
+			try {
+				txtMargenMinimoGBodega.setValue(selectedReferencia
+						.getMargenMinimoGBodega());
+			} catch (Exception e) {
+				txtMargenMinimoGBodega.setValue("");
+			}
+
+			try {
+				txtMargenMinimoGEne.setValue(selectedReferencia
+						.getMargenMinimoGEne());
+			} catch (Exception e) {
+				txtMargenMinimoGEne.setValue("");
+			}
+
+			try {
+				txtMargenMinimoPBodega.setValue(selectedReferencia
+						.getMargenMinimoPBodega());
+			} catch (Exception e) {
+				txtMargenMinimoPBodega.setValue("");
+			}
+
+			try {
+				txtMargenMinimoPEne.setValue(selectedReferencia
+						.getMargenMinimoPEne());
+			} catch (Exception e) {
+				txtMargenMinimoPEne.setValue("");
+			}
+
+			try {
+				txtMargenMinimoRefBodega.setValue(selectedReferencia
+						.getMargenMinimoRefBodega());
+			} catch (Exception e) {
+				txtMargenMinimoRefBodega.setValue("");
+			}
+
+			try {
+				txtMargenMinimoRefEne.setValue(selectedReferencia
+						.getMargenMinimoRefEne());
+			} catch (Exception e) {
+				txtMargenMinimoRefEne.setValue("");
+			}
+
+			try {
+				txtPeso.setValue(selectedReferencia.getPeso());
+			} catch (Exception e) {
+				txtPeso.setValue("");
+			}
+
+			try {
+				txtPideCantidad.setValue(selectedReferencia.getPideCantidad());
+			} catch (Exception e) {
+				txtPideCantidad.setValue("");
+			}
+
+			try {
+				txtPideValor.setValue(selectedReferencia.getPideValor());
+			} catch (Exception e) {
+				txtPideValor.setValue("");
+			}
+
+			try {
+				txtPorcentajeIva
+						.setValue(selectedReferencia.getPorcentajeIva());
+			} catch (Exception e) {
+				txtPorcentajeIva.setValue("");
+			}
+
+			try {
+				txtProductoConsumo.setValue(selectedReferencia
+						.getProductoConsumo());
+			} catch (Exception e) {
+				txtProductoConsumo.setValue("");
+			}
+
+			try {
+				txtProductoEspecial.setValue(selectedReferencia
+						.getProductoEspecial());
+			} catch (Exception e) {
+				txtProductoEspecial.setValue("");
+			}
+
+			try {
+				txtUnidadMedida.setValue(selectedReferencia.getUnidadMedida());
+			} catch (Exception e) {
+				txtUnidadMedida.setValue("");
+			}
+
+			try {
+				txtUnidadMedidaProvisional.setValue(selectedReferencia
+						.getUnidadMedidaProvisional());
+			} catch (Exception e) {
+				txtUnidadMedidaProvisional.setValue("");
+			}
+
+			try {
+				txtVolumen.setValue(selectedReferencia.getVolumen());
+			} catch (Exception e) {
+				txtVolumen.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedReferencia.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtFechaVigentePBodega.setValue(selectedReferencia
+					.getFechaVigentePBodega());
+			txtFechaVigentePEne.setValue(selectedReferencia
+					.getFechaVigentePEne());
+
+			txtIdRefe.setValue(selectedReferencia.getIdRefe());
+
+		} catch (Exception e) {
+			if (selectedReferencia == null) {
+				FacesUtils.addErrorMessage("Seleccione la Referencia a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtQPorCaja.setValue(null);
+
+		} catch (Exception e) {
+			txtQPorCaja.setValue("");
+		}
+
+		try {
+			txtAplicacion.setValue(null);
+
+		} catch (Exception e) {
+			txtAplicacion.setValue("");
+		}
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		try {
+			txtCodigoBarras.setValue(null);
+		} catch (Exception e) {
+			txtCodigoBarras.setValue("");
+		}
+
+		try {
+			txtCosto.setValue(null);
+		} catch (Exception e) {
+			txtCosto.setValue("");
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtDescripcionCorta.setValue(null);
+		} catch (Exception e) {
+			txtDescripcionCorta.setValue("");
+		}
+
+		try {
+			txtDescripcionTecnica.setValue(null);
+		} catch (Exception e) {
+			txtDescripcionTecnica.setValue("");
+		}
+
+		try {
+			txtEquivalente1.setValue(null);
+		} catch (Exception e) {
+			txtEquivalente1.setValue("");
+		}
+
+		try {
+			txtEquivalente2.setValue(null);
+		} catch (Exception e) {
+			txtEquivalente2.setValue("");
+		}
+
+		try {
+			txtEsGarantia.setValue(null);
+		} catch (Exception e) {
+			txtEsGarantia.setValue("");
+		}
+
+		try {
+			txtGalones.setValue(null);
+		} catch (Exception e) {
+			txtGalones.setValue("");
+		}
+
+		try {
+			txtManejaDecimales.setValue(null);
+		} catch (Exception e) {
+			txtManejaDecimales.setValue("");
+		}
+
+		try {
+			txtManejaLote.setValue(null);
+		} catch (Exception e) {
+			txtManejaLote.setValue("");
+		}
+
+		try {
+			txtMarca.setValue(null);
+		} catch (Exception e) {
+			txtMarca.setValue("");
+		}
+
+		try {
+			txtMargenMinimoGBodega.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoGBodega.setValue("");
+		}
+
+		try {
+			txtMargenMinimoGEne.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoGEne.setValue("");
+		}
+
+		try {
+			txtMargenMinimoPBodega.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoPBodega.setValue("");
+		}
+
+		try {
+			txtMargenMinimoPEne.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoPEne.setValue("");
+		}
+
+		try {
+			txtMargenMinimoRefBodega.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoRefBodega.setValue("");
+		}
+
+		try {
+			txtMargenMinimoRefEne.setValue(null);
+		} catch (Exception e) {
+			txtMargenMinimoRefEne.setValue("");
+		}
+
+		try {
+			txtPeso.setValue(null);
+		} catch (Exception e) {
+			txtPeso.setValue("");
+		}
+
+		try {
+			txtPideCantidad.setValue(null);
+		} catch (Exception e) {
+			txtPideCantidad.setValue("");
+		}
+
+		try {
+			txtPideValor.setValue(null);
+		} catch (Exception e) {
+			txtPideValor.setValue("");
+		}
+
+		try {
+			txtPorcentajeIva.setValue(null);
+		} catch (Exception e) {
+			txtPorcentajeIva.setValue("");
+		}
+
+		try {
+			txtProductoConsumo.setValue(null);
+		} catch (Exception e) {
+			txtProductoConsumo.setValue("");
+		}
+
+		try {
+			txtProductoEspecial.setValue(null);
+		} catch (Exception e) {
+			txtProductoEspecial.setValue("");
+		}
+
+		try {
+			txtUnidadMedida.setValue(null);
+		} catch (Exception e) {
+			txtUnidadMedida.setValue("");
+		}
+
+		try {
+			txtUnidadMedidaProvisional.setValue(null);
+		} catch (Exception e) {
+			txtUnidadMedidaProvisional.setValue("");
+		}
+
+		try {
+			txtVolumen.setValue(null);
+		} catch (Exception e) {
+			txtVolumen.setValue("");
+		}
+
+		try {
+			txtFechaVigentePBodega.setValue(null);
+		} catch (Exception e) {
+			txtFechaVigentePBodega.setValue("");
+		}
+
+		try {
+			txtFechaVigentePEne.setValue(null);
+		} catch (Exception e) {
+			txtFechaVigentePEne.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -1038,36 +1472,16 @@ public class ReferenciaView {
 			entity.setUnidadMedida(FacesUtils.checkString(txtUnidadMedida));
 			entity.setUnidadMedidaProvisional(FacesUtils
 					.checkString(txtUnidadMedidaProvisional));
-
 			entity.setVolumen(FacesUtils.checkDouble(txtVolumen));
-			// Double volumen = new Double(txtVolumen.getValue().toString());
-			// entity.setVolumen(volumen);
-
 			entity.setGalones(FacesUtils.checkDouble(txtGalones));
-			// Double galones = new Double(txtGalones.getValue().toString());
-			// entity.setGalones(galones);
-
 			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
-			// Double porcentajeIva = new
-			// Double(txtPorcentajeIva.getValue().toString());
-			// entity.setPorcentajeIva(porcentajeIva);
-
 			entity.setCosto(FacesUtils.checkDouble(txtCosto));
-			System.out.println("costo: " + costo + "; " + entity.getCosto());
-			// Double costo = new Double(txtCosto.getValue().toString());
-			// entity.setCosto(costo);
-
 			entity.setPeso(FacesUtils.checkDouble(txtPeso));
-			// Double peso = new Double(txtPeso.getValue().toString());
-			// entity.setPeso(peso);
-
 			Long QPorCaja = new Long(txtQPorCaja.getValue().toString());
 			entity.setQPorCaja(QPorCaja);
-
 			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
 					.getValue().toString());
 			entity.setMargenMinimoGBodega(margenMinimoGBodega);
-
 			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
 					.toString());
 			entity.setMargenMinimoGEne(margenMinimoGEne);
@@ -1075,31 +1489,24 @@ public class ReferenciaView {
 			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
 					.getValue().toString());
 			entity.setMargenMinimoPBodega(margenMinimoPBodega);
-
 			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
 					.toString());
 			entity.setMargenMinimoPEne(margenMinimoPEne);
-
 			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
 					.getValue().toString());
 			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
-
 			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
 					.toString());
 			entity.setMargenMinimoRefEne(margenMinimoRefEne);
-
 			Long productoConsumo = new Long(txtProductoConsumo.getValue()
 					.toString());
 			entity.setProductoConsumo(productoConsumo);
-
 			Long productoEspecial = new Long(txtProductoEspecial.getValue()
 					.toString());
 			entity.setProductoEspecial(productoEspecial);
-
 			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
 					.toString());
 			entity.setManejaDecimales(manejaDecimales);
-
 			Long manejaLote = new Long(txtManejaLote.getValue().toString());
 			entity.setManejaLote(manejaLote);
 
@@ -1127,11 +1534,18 @@ public class ReferenciaView {
 				entity = businessDelegatorView.getReferencia(idRefe);
 			}
 
-			entity.setQPorCaja(FacesUtils.checkLong(txtQPorCaja));
+			Long idRefe = new Long(selectedReferencia.getIdRefe());
+			entity = businessDelegatorView.getReferencia(idRefe);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setAplicacion(FacesUtils.checkString(txtAplicacion));
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setCodigoBarras(FacesUtils.checkString(txtCodigoBarras));
-			entity.setCosto(FacesUtils.checkDouble(txtCosto));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setDescripcionCorta(FacesUtils
 					.checkString(txtDescripcionCorta));
@@ -1139,8 +1553,7 @@ public class ReferenciaView {
 					.checkString(txtDescripcionTecnica));
 			entity.setEquivalente1(FacesUtils.checkString(txtEquivalente1));
 			entity.setEquivalente2(FacesUtils.checkString(txtEquivalente2));
-			entity.setEsGarantia(FacesUtils.checkString(txtEsGarantia));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
+			entity.setEsGarantia(esGarantia);
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
@@ -1148,36 +1561,57 @@ public class ReferenciaView {
 					.checkDate(txtFechaVigentePBodega));
 			entity.setFechaVigentePEne(FacesUtils
 					.checkDate(txtFechaVigentePEne));
-			entity.setGalones(FacesUtils.checkDouble(txtGalones));
-			entity.setManejaDecimales(FacesUtils.checkLong(txtManejaDecimales));
-			entity.setManejaLote(FacesUtils.checkLong(txtManejaLote));
 			entity.setMarca(FacesUtils.checkString(txtMarca));
-			entity.setMargenMinimoGBodega(FacesUtils
-					.checkLong(txtMargenMinimoGBodega));
-			entity.setMargenMinimoGEne(FacesUtils
-					.checkLong(txtMargenMinimoGEne));
-			entity.setMargenMinimoPBodega(FacesUtils
-					.checkLong(txtMargenMinimoPBodega));
-			entity.setMargenMinimoPEne(FacesUtils
-					.checkLong(txtMargenMinimoPEne));
-			entity.setMargenMinimoRefBodega(FacesUtils
-					.checkLong(txtMargenMinimoRefBodega));
-			entity.setMargenMinimoRefEne(FacesUtils
-					.checkLong(txtMargenMinimoRefEne));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setPeso(FacesUtils.checkDouble(txtPeso));
-			entity.setPideCantidad(FacesUtils.checkString(txtPideCantidad));
-			entity.setPideValor(FacesUtils.checkString(txtPideValor));
-			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
-			entity.setProductoConsumo(FacesUtils.checkLong(txtProductoConsumo));
-			entity.setProductoEspecial(FacesUtils
-					.checkLong(txtProductoEspecial));
+			entity.setPideCantidad(pideCantidad);
+			entity.setPideValor(pideValor);
 			entity.setUnidadMedida(FacesUtils.checkString(txtUnidadMedida));
 			entity.setUnidadMedidaProvisional(FacesUtils
 					.checkString(txtUnidadMedidaProvisional));
 			entity.setVolumen(FacesUtils.checkDouble(txtVolumen));
+			entity.setGalones(FacesUtils.checkDouble(txtGalones));
+			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
+			entity.setCosto(FacesUtils.checkDouble(txtCosto));
+			entity.setPeso(FacesUtils.checkDouble(txtPeso));
+			Long QPorCaja = new Long(txtQPorCaja.getValue().toString());
+			entity.setQPorCaja(QPorCaja);
+			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
+					.getValue().toString());
+			entity.setMargenMinimoGBodega(margenMinimoGBodega);
+			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
+					.toString());
+			entity.setMargenMinimoGEne(margenMinimoGEne);
+
+			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
+					.getValue().toString());
+			entity.setMargenMinimoPBodega(margenMinimoPBodega);
+			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
+					.toString());
+			entity.setMargenMinimoPEne(margenMinimoPEne);
+			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
+					.getValue().toString());
+			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
+			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
+					.toString());
+			entity.setMargenMinimoRefEne(margenMinimoRefEne);
+			Long productoConsumo = new Long(txtProductoConsumo.getValue()
+					.toString());
+			entity.setProductoConsumo(productoConsumo);
+			Long productoEspecial = new Long(txtProductoEspecial.getValue()
+					.toString());
+			entity.setProductoEspecial(productoEspecial);
+			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
+					.toString());
+			entity.setManejaDecimales(manejaDecimales);
+			Long manejaLote = new Long(txtManejaLote.getValue().toString());
+			entity.setManejaLote(manejaLote);
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateReferencia(entity);
+			data = businessDelegatorView.getDataReferencia();
+			RequestContext.getCurrentInstance().reset("form:refe");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -2009,5 +2443,13 @@ public class ReferenciaView {
 
 	public void setManufacturerOptions3(SelectItem[] manufacturerOptions3) {
 		this.manufacturerOptions3 = manufacturerOptions3;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 }

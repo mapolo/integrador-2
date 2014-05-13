@@ -60,7 +60,7 @@ public class TipoCarteraLogic implements ITipoCarteraLogic {
 			if (entity.getCodigo() == null) {
 				throw new ZMessManager().new EmptyFieldException("codigo");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {
@@ -105,8 +105,6 @@ public class TipoCarteraLogic implements ITipoCarteraLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -128,8 +126,6 @@ public class TipoCarteraLogic implements ITipoCarteraLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoCarteraDAO.save(entity);
 		} catch (Exception e) {
@@ -171,7 +167,7 @@ public class TipoCarteraLogic implements ITipoCarteraLogic {
 			if (entity == null) {
 				throw new ZMessManager().new NullEntityExcepcion("TipoCartera");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {

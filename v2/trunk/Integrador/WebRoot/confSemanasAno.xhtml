@@ -55,39 +55,26 @@ body {
 							<p:dataTable var="car" value="#{confSemanasAnoView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{confSemanasAnoView.data}"
-								rowKey="#{car.idCfsa}"						
+								rowKey="#{car.idCfsa}"
 								selection="#{confSemanasAnoView.selectedConfSemanasAno}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
-								<p:column headerText="ID Semana" style="width: 100px"
-									filterBy="idSema_Semana" sortBy="idSema_Semana">
-									
-											<h:outputText value="#{car.idSema_Semana}" />
-										
-								</p:column>
-
 								<p:column headerText="Fecha Inicial" style="width: 100px"
 									filterBy="fechaInicial" sortBy="fechaInicial">
-									
-											<h:outputText value="#{car.fechaInicial}" />
-										
+									<h:outputText value="#{car.fechaInicial}" />
 								</p:column>
 
 								<p:column headerText="Fecha Final" style="width: 100px"
 									filterBy="fechaFinal" sortBy="fechaFinal">
-									
-											<h:outputText value="#{car.fechaFinal}" />
-										
+									<h:outputText value="#{car.fechaFinal}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{confSemanasAnoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -96,7 +83,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{confSemanasAnoView.action_modify2()}"
@@ -104,7 +91,6 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
 
 							</p:dataTable>
 
@@ -156,7 +142,7 @@ body {
 										action="#{confSemanasAnoView.action_create}"
 										binding="#{confSemanasAnoView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{confSemanasAnoView.action_modify()}"

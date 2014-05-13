@@ -54,7 +54,7 @@ body {
 							<p:dataTable var="car" value="#{clavesParaRotarView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{clavesParaRotarView.data}"
-								rowKey="#{car.idClpr}"						
+								rowKey="#{car.idClpr}"
 								selection="#{clavesParaRotarView.selectedClavesParaRotar}">
 
 								<p:column selectionMode="single" style="width:20px" />
@@ -62,41 +62,20 @@ body {
 								<p:column id="ano" filterBy="ano" headerText="Año"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions3}"
 									filterMatchMode="exact" style="width:100px">
-									
-											<h:outputText value="#{car.ano}" />
-										
+									<h:outputText value="#{car.ano}" />
 								</p:column>
 
 								<p:column id="mes" filterBy="mes" headerText="Mes"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions2}"
 									filterMatchMode="exact" style="width:100px">
-									
-											<h:outputText value="#{car.mes}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Clave de Fabricación" style="width:20%"
-									filterBy="idClfa_ClaveFabricacion"
-									sortBy="idClfa_ClaveFabricacion">
-									
-											<h:outputText value="#{car.idClfa_ClaveFabricacion}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Sucursal" style="width:20%"
-									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									
-											<h:outputText value="#{car.idSucu_Sucursal}" />
-										
+									<h:outputText value="#{car.mes}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
 									filterOptions="#{clavesParaRotarView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -105,7 +84,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{clavesParaRotarView.action_modify2()}"
@@ -113,7 +92,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-	
+
 							</p:dataTable>
 
 							<!--                          Tabla emergente           -->
@@ -195,12 +174,12 @@ body {
 										action="#{clavesParaRotarView.action_create}"
 										binding="#{clavesParaRotarView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{clavesParaRotarView.action_modify()}"
 										binding="#{clavesParaRotarView.btnModify}"
-										update="tablaPrincipal,panel,panelBotones" />	
+										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 
 							</p:dialog>

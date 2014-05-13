@@ -118,7 +118,6 @@ public class UnidadNegocioLogic implements IUnidadNegocioLogic {
 						"operModifica");
 			}
 
-
 			unidadNegocioDAO.save(entity);
 		} catch (Exception e) {
 			throw e;

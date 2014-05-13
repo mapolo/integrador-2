@@ -49,67 +49,46 @@ body {
 						<p:panel id="ti" header="Tipo de Identificación">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{tipoIdentificacionView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{tipoIdentificacionView.data}">
+								editable="true" filteredValue="#{tipoIdentificacionView.data}"
+								rowKey="#{car.idTiid}"
+								selection="#{tipoIdentificacionView.selectedTipoIdentificacion}">
 
-								<p:ajax event="rowEdit"
-									listener="#{tipoIdentificacionView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoIdentificacionView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoIdentificacionView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{tipoIdentificacionView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoIdentificacionView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoIdentificacionView.action_modify2()}"
+										binding="#{tipoIdentificacionView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -146,11 +125,17 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{tipoIdentificacionView.action_create}"
 										binding="#{tipoIdentificacionView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false"
+										action="#{tipoIdentificacionView.action_modify()}"
+										binding="#{tipoIdentificacionView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

@@ -48,6 +48,7 @@ public class TipoCausalView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<TipoCausalDTO> data;
@@ -112,6 +113,56 @@ public class TipoCausalView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoCausalDTO) event.getObject()).getIdTcau());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtNombre.setValue(selectedTipoCausal.getNombre());
+			} catch (Exception e) {
+				txtNombre.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoCausal.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTcau.setValue(selectedTipoCausal.getIdTcau());
+
+		} catch (Exception e) {
+			if (selectedTipoCausal == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Causal a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtNombre.setValue(null);
+		} catch (Exception e) {
+			txtNombre.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -320,21 +371,12 @@ public class TipoCausalView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTcau = new Long(txtIdTcau.getValue().toString());
-
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTcau(idTcau);
 			entity.setNombre(FacesUtils.checkString(txtNombre));
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoCausal(entity);
 			data = businessDelegatorView.getDataTipoCausal();
@@ -354,14 +396,23 @@ public class TipoCausalView {
 				entity = businessDelegatorView.getTipoCausal(idTcau);
 			}
 
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			Long idTcau = new Long(selectedTipoCausal.getIdTcau());
+			entity = businessDelegatorView.getTipoCausal(idTcau);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoCausal(entity);
+			data = businessDelegatorView.getDataTipoCausal();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -638,6 +689,14 @@ public class TipoCausalView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

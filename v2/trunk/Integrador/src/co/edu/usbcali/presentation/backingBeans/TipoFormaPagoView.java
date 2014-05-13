@@ -70,6 +70,7 @@ public class TipoFormaPagoView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private CommandButton btnCrear;
@@ -322,6 +323,153 @@ public class TipoFormaPagoView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoFormaPagoDTO) event.getObject()).getIdTfpa());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtDescripcion.setValue(selectedTipoFormaPago.getDescripcion());
+
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				manejaCh.setValue(selectedTipoFormaPago.getManejaCheque());
+
+			} catch (Exception e) {
+				manejaCh.setValue("");
+			}
+
+			try {
+				txtCodigo.setValue(selectedTipoFormaPago.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				manejaTc.setValue(selectedTipoFormaPago.getManejaTarjeta());
+			} catch (Exception e) {
+				manejaTc.setValue("");
+			}
+
+			try {
+				exige.setValue(selectedTipoFormaPago.getExijeNumeroDocumento());
+			} catch (Exception e) {
+				exige.setValue("");
+			}
+
+			try {
+				es.setValue(selectedTipoFormaPago.getEsPosfechado());
+			} catch (Exception e) {
+				es.setValue("");
+			}
+
+			try {
+				importa.setValue(selectedTipoFormaPago.getImportaPda());
+			} catch (Exception e) {
+				importa.setValue("");
+			}
+
+			try {
+				descuento.setValue(selectedTipoFormaPago.getDsctoFechaDoc());
+			} catch (Exception e) {
+				descuento.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoFormaPago.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTfpa.setValue(selectedTipoFormaPago.getIdTfpa());
+
+		} catch (Exception e) {
+			if (selectedTipoFormaPago == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Forma de Pago a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(null);
+
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			manejaCh.setValue(null);
+
+		} catch (Exception e) {
+			manejaCh.setValue("");
+		}
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue("");
+		}
+
+		try {
+			manejaTc.setValue(null);
+		} catch (Exception e) {
+			manejaTc.setValue("");
+		}
+
+		try {
+			exige.setValue(null);
+		} catch (Exception e) {
+			exige.setValue("");
+		}
+
+		try {
+			es.setValue(null);
+		} catch (Exception e) {
+			es.setValue("");
+		}
+
+		try {
+			importa.setValue(null);
+		} catch (Exception e) {
+			importa.setValue("");
+		}
+
+		try {
+			descuento.setValue(null);
+		} catch (Exception e) {
+			descuento.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public String action_buscar() {
@@ -581,9 +729,6 @@ public class TipoFormaPagoView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTfpa = new Long(txtIdTfpa.getValue().toString());
-
-			// entity.setIdTfpa(idTfpa);
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 
@@ -611,16 +756,10 @@ public class TipoFormaPagoView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-
 			businessDelegatorView.saveTipoFormaPago(entity);
 			data = businessDelegatorView.getDataTipoFormaPago();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			// actualizar();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
@@ -688,44 +827,49 @@ public class TipoFormaPagoView {
 
 	public String action_modify() {
 		try {
-			if (!btnCrear.isDisabled() && btnModify.isDisabled()) {
-				System.out.println("entrocrear");
-
-				action_create();
-				data = businessDelegatorView.getDataTipoFormaPago();
-				RequestContext.getCurrentInstance().update(
-						"form:tablaPrincipal");
-				return "";
-			}
-
 			if (entity == null) {
 				Long idTfpa = new Long(selectedTipoFormaPago.getIdTfpa());
 				entity = businessDelegatorView.getTipoFormaPago(idTfpa);
 			}
 
-			System.out.println("entro modif");
+			Long idTfpa = new Long(selectedTipoFormaPago.getIdTfpa());
+			entity = businessDelegatorView.getTipoFormaPago(idTfpa);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			entity.setDsctoFechaDoc(FacesUtils.checkLong(txtDsctoFechaDoc));
-			entity.setEsPosfechado(FacesUtils.checkLong(txtEsPosfechado));
+
+			Long manejaCheque = new Long(manejaCh.getValue().toString());
+			entity.setManejaCheque(manejaCheque);
+
+			Long manejaTarjeta = new Long(manejaTc.getValue().toString());
+			entity.setManejaTarjeta(manejaTarjeta);
+
+			Long exijeNumeroDocumento = new Long(exige.getValue().toString());
+			entity.setExijeNumeroDocumento(exijeNumeroDocumento);
+
+			Long esPosfechado = new Long(es.getValue().toString());
+			entity.setEsPosfechado(esPosfechado);
+
+			Long importaPda = new Long(importa.getValue().toString());
+			entity.setImportaPda(importaPda);
+
+			Long dsctoFechaDoc = new Long(descuento.getValue().toString());
+			entity.setDsctoFechaDoc(dsctoFechaDoc);
+
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setExijeNumeroDocumento(FacesUtils
-					.checkLong(txtExijeNumeroDocumento));
-
 			entity.setFechaModificacion(new Date());
-			entity.setImportaPda(FacesUtils.checkLong(txtImportaPda));
-			entity.setManejaCheque(FacesUtils.checkLong(txtManejaCheque));
-			entity.setManejaTarjeta(FacesUtils.checkLong(txtManejaTarjeta));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoFormaPago(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
-
-			btnSave.setDisabled(false);
-
 			data = businessDelegatorView.getDataTipoFormaPago();
-			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().reset("form:tfp");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -1139,5 +1283,13 @@ public class TipoFormaPagoView {
 
 	public void setDescuento(SelectOneMenu descuento) {
 		this.descuento = descuento;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 }

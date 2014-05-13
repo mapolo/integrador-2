@@ -62,12 +62,6 @@ body {
 									<h:outputText value="#{car.nombre}" />
 								</p:column>
 
-								<p:column headerText="ID Tipo Identificación"
-									style="width:100px" filterBy="idTiid_TipoIdentificacion"
-									sortBy="idTiid_TipoIdentificacion">
-									<h:outputText value="#{car.idTiid_TipoIdentificacion}" />
-								</p:column>
-
 								<p:column id="identificacion" filterBy="identificacion"
 									headerText="NIT" sortBy="identificacion"
 									filterMatchMode="contains" style="width: 100px">
@@ -89,11 +83,6 @@ body {
 								<p:column id="email" filterBy="email" headerText="Email"
 									sortBy="email" filterMatchMode="contains" style="width: 100px">
 									<h:outputText value="#{car.email}" />
-								</p:column>
-
-								<p:column headerText="Representate Legal" style="width:100px"
-									filterBy="idPers_Persona" sortBy="idPers_Persona">
-									<h:outputText value="#{car.idPers_Persona}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
