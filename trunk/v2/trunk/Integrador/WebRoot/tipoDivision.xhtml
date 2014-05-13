@@ -47,52 +47,41 @@ body {
 						<p:panel id="panelTD" header="Tipo de División">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{tipoDivisionView.data}"
 								id="listaTD" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{tipoDivisionView.data}">
+								scrollHeight="300" filteredValue="#{tipoDivisionView.data}"
+								rowKey="#{car.idTidi}"
+								selection="#{tipoDivisionView.selectedTipoDivision}">
 
-								<p:ajax event="rowEdit" listener="#{tipoDivisionView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoDivisionView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Nombre" style="width: 100px"
 									filterBy="nombre" sortBy="nombre">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.nombre}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.nombre}" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.nombre}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoDivisionView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoDivisionView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoDivisionView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoDivisionView.action_modify2()}"
+										binding="#{tipoDivisionView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -123,11 +112,16 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										disabled="false" action="#{tipoDivisionView.action_create}"
 										binding="#{tipoDivisionView.btnSave}"
+										update="listaTD,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{tipoDivisionView.action_modify()}"
+										binding="#{tipoDivisionView.btnModify}"
 										update="listaTD,panel,panelBotones" />
 								</h:panelGrid>
 

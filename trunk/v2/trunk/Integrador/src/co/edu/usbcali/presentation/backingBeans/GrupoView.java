@@ -141,34 +141,35 @@ public class GrupoView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			/*Familia entity2 = businessDelegatorView
-					.getFamilia(getIdFlia_Familia());
-			entity.setFamilia(entity2);
+			/*
+			 * Familia entity2 = businessDelegatorView
+			 * .getFamilia(getIdFlia_Familia()); entity.setFamilia(entity2);
+			 * 
+			 * Grupo entity3 =
+			 * businessDelegatorView.getGrupo(getIdGrpo_Grupo());
+			 * entity.setGrupo(entity3);
+			 */
 
-			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
-			entity.setGrupo(entity3);*/
-			
-			
-			entity.setGrupo(businessDelegatorView
-					.getGrupo(getIdGrpo_Grupo()));
-			
-			Familia entity3 = businessDelegatorView
-					.getFamilia(Long.parseLong(getIdFlia_Familia()));
-			
-			System.out.println("entity3: " + entity3 + "; " + txtIdFlia_Familia.getValue());
-			
-			if(txtIdFlia_Familia.getValue()=="0"){
+			entity.setGrupo(businessDelegatorView.getGrupo(getIdGrpo_Grupo()));
+
+			Familia entity3 = businessDelegatorView.getFamilia(Long
+					.parseLong(getIdFlia_Familia()));
+
+			System.out.println("entity3: " + entity3 + "; "
+					+ txtIdFlia_Familia.getValue());
+
+			if (txtIdFlia_Familia.getValue() == "0") {
 				System.out.println("entro if");
 				entity.setFamilia(null);
-			}else{
-			System.out.println("entro else " + txtIdFlia_Familia.getValue()+ ";" + entity3);
-				entity.setFamilia(entity3);				
-				/*entity.setFamilia(businessDelegatorView
-						.getFamilia(FacesUtils
-							.checkLong(txtIdFlia_Familia)));*/
+			} else {
+				System.out.println("entro else " + txtIdFlia_Familia.getValue()
+						+ ";" + entity3);
+				entity.setFamilia(entity3);
+				/*
+				 * entity.setFamilia(businessDelegatorView
+				 * .getFamilia(FacesUtils .checkLong(txtIdFlia_Familia)));
+				 */
 			}
-			
-			
 
 			businessDelegatorView.updateGrupo(entity);
 
@@ -202,280 +203,271 @@ public class GrupoView {
 		System.out.println("Cancelado"
 				+ ((GrupoDTO) event.getObject()).getIdGrpo());
 	}
-	
-	public String action_modify2(){
-try {
-			
+
+	public String action_modify2() {
+		try {
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
-			
 			try {
 				txtEspecial.setValue(selectedGrupo.getEspecial());
-				
+
 			} catch (Exception e) {
 				txtEspecial.setValue("");
-				
+
 			}
-			
+
 			try {
-				txtManejaOrdenCompra.setValue(selectedGrupo.getManejaOrdenCompra());
-				
+				txtManejaOrdenCompra.setValue(selectedGrupo
+						.getManejaOrdenCompra());
+
 			} catch (Exception e) {
 				txtManejaOrdenCompra.setValue("");
-				
+
 			}
-			
+
 			try {
-				txtModificaReferencia.setValue(selectedGrupo.getModificaReferencia());
-				
+				txtModificaReferencia.setValue(selectedGrupo
+						.getModificaReferencia());
+
 			} catch (Exception e) {
 				txtModificaReferencia.setValue("");
-				
+
 			}
-			
+
 			try {
 				txtPideGalones.setValue(selectedGrupo.getPideGalones());
-				
+
 			} catch (Exception e) {
 				txtPideGalones.setValue("");
-				
+
 			}
-			
+
 			try {
 				txtSugeridoPedido.setValue(selectedGrupo.getSugeridoPedido());
-				
+
 			} catch (Exception e) {
 				txtSugeridoPedido.setValue("");
-				
+
 			}
-			
+
 			try {
 				txtIdFlia_Familia.setValue(selectedGrupo.getIdFlia_Familia());
-				
+
 			} catch (Exception e) {
 				txtIdFlia_Familia.setValue("");
-				
+
 			}
-			
+
 			try {
 				txtIdGrpo_Grupo.setValue(selectedGrupo.getIdGrpo_Grupo());
-				
+
 			} catch (Exception e) {
 				txtIdGrpo_Grupo.setValue("");
-				
+
 			}
-			
-			
-		
+
 			try {
 				txtAsociado.setValue(selectedGrupo.getAsociado());
-				
+
 			} catch (Exception e) {
 				txtAsociado.setValue("");
-				
+
 			}
 
 			try {
 				txtDivision.setValue(selectedGrupo.getDivision());
-				
+
 			} catch (Exception e) {
 				txtDivision.setValue("");
-				
+
 			}
 
 			try {
 				txtGrupo_1.setValue(selectedGrupo.getGrupo_1());
-				
+
 			} catch (Exception e) {
 				txtGrupo_1.setValue("");
-				
+
 			}
-			
+
 			try {
-				txtMargenMinimoBodega.setValue(selectedGrupo.getMargenMinimoBodega());
-				
+				txtMargenMinimoBodega.setValue(selectedGrupo
+						.getMargenMinimoBodega());
+
 			} catch (Exception e) {
 				txtMargenMinimoBodega.setValue("");
-				
+
 			}
-			
+
 			try {
-				txtMargenMinimoEnergiteca.setValue(selectedGrupo.getMargenMinimoEnergiteca());
-				
+				txtMargenMinimoEnergiteca.setValue(selectedGrupo
+						.getMargenMinimoEnergiteca());
+
 			} catch (Exception e) {
 				txtMargenMinimoEnergiteca.setValue("");
-				
+
 			}
-			
-			
+
 			try {
 				txtNombre.setValue(selectedGrupo.getNombre());
-				
+
 			} catch (Exception e) {
 				txtNombre.setValue("");
-				
+
 			}
-			
+
 			try {
 				txtTipoNivel.setValue(selectedGrupo.getTipoNivel());
-				
+
 			} catch (Exception e) {
 				txtTipoNivel.setValue("");
-				
+
 			}
-			
-		
+
 			try {
 				estado.setValue(selectedGrupo.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
-			
+
 			txtIdGrpo.setValue(selectedGrupo.getIdGrpo());
 
-			//btnSave.setDisabled(false);
-			//btnModify2.setDisabled(false);
+			// btnSave.setDisabled(false);
+			// btnModify2.setDisabled(false);
 
 		} catch (Exception e) {
 			if (selectedGrupo == null) {
-				//btnCrear.setDisabled(true);
-				//btnModify2.setDisabled(true);
-				//action_cerrar();
-				FacesUtils
-						.addErrorMessage("Seleccione Grupo a modificar");
+				// btnCrear.setDisabled(true);
+				// btnModify2.setDisabled(true);
+				// action_cerrar();
+				FacesUtils.addErrorMessage("Seleccione el Grupo a Modificar");
 			}
 		}
-		
+
 		return "";
 	}
-	
-public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
 			txtEspecial.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtEspecial.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtManejaOrdenCompra.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtManejaOrdenCompra.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtModificaReferencia.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtModificaReferencia.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtPideGalones.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtPideGalones.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtSugeridoPedido.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtSugeridoPedido.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtIdFlia_Familia.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdFlia_Familia.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtIdGrpo_Grupo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdGrpo_Grupo.setValue("");
-			
+
 		}
-		
-		
-		
-		
+
 		try {
 			txtAsociado.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtAsociado.setValue("");
-			
+
 		}
 
 		try {
 			txtDivision.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtDivision.setValue("");
-			
+
 		}
 
 		try {
 			txtGrupo_1.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtGrupo_1.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtMargenMinimoBodega.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtMargenMinimoBodega.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtMargenMinimoEnergiteca.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtMargenMinimoEnergiteca.setValue("");
-			
+
 		}
-		
-		
+
 		try {
 			txtNombre.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtNombre.setValue("");
-			
+
 		}
-		
+
 		try {
 			txtTipoNivel.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtTipoNivel.setValue("");
-			
+
 		}
-		
-		
+
 		return "";
-}
+	}
 
 	public void rowEventListener(RowEditEvent e) {
 
@@ -902,23 +894,21 @@ public String action_VCrear(){
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			/*Familia entity2 = businessDelegatorView
-					.getFamilia(getIdFlia_Familia());
-			entity.setFamilia(entity2);*/
-			
-			if(txtIdFlia_Familia.getValue()==""){
-				
-			}else{
+			/*
+			 * Familia entity2 = businessDelegatorView
+			 * .getFamilia(getIdFlia_Familia()); entity.setFamilia(entity2);
+			 */
 
-				
-				entity.setFamilia(businessDelegatorView
-						.getFamilia(FacesUtils
-							.checkLong(txtIdFlia_Familia)));
+			if (txtIdFlia_Familia.getValue() == "") {
+
+			} else {
+
+				entity.setFamilia(businessDelegatorView.getFamilia(FacesUtils
+						.checkLong(txtIdFlia_Familia)));
 			}
 
 			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
 			entity.setGrupo(entity3);
-			
 
 			businessDelegatorView.saveGrupo(entity);
 			data = businessDelegatorView.getDataGrupo();
@@ -937,7 +927,7 @@ public String action_VCrear(){
 				Long idGrpo = new Long(selectedGrupo.getIdGrpo());
 				entity = businessDelegatorView.getGrupo(idGrpo);
 			}
-			
+
 			Long idGrpo = new Long(selectedGrupo.getIdGrpo());
 			entity = businessDelegatorView.getGrupo(idGrpo);
 
@@ -967,20 +957,17 @@ public String action_VCrear(){
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
 
-			
-			if(txtIdFlia_Familia.getValue()==""){
+			if (txtIdFlia_Familia.getValue() == "") {
 				entity.setFamilia(null);
-			}else{
-				
-				entity.setFamilia(businessDelegatorView
-						.getFamilia(FacesUtils
-							.checkLong(txtIdFlia_Familia)));
+			} else {
+
+				entity.setFamilia(businessDelegatorView.getFamilia(FacesUtils
+						.checkLong(txtIdFlia_Familia)));
 			}
 
 			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
 			entity.setGrupo(entity3);
-			
-			
+
 			businessDelegatorView.updateGrupo(entity);
 			data = businessDelegatorView.getDataGrupo();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

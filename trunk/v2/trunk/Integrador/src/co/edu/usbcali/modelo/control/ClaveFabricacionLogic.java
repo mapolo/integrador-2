@@ -74,15 +74,13 @@ public class ClaveFabricacionLogic implements IClaveFabricacionLogic {
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveClaveFabricacion(ClaveFabricacion entity) throws Exception {
-		try {	
-					
-			
+		try {
+
 			if ((entity.getCodigo() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
 							entity.getCodigo(), 5) == false)) {
 				throw new ZMessManager().new NotValidFormatException("codigo");
 			}
-			
 
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
@@ -123,8 +121,6 @@ public class ClaveFabricacionLogic implements IClaveFabricacionLogic {
 						"fechaModificacion");
 			}
 
-		
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -146,8 +142,6 @@ public class ClaveFabricacionLogic implements IClaveFabricacionLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			claveFabricacionDAO.save(entity);
 		} catch (Exception e) {
@@ -209,7 +203,7 @@ public class ClaveFabricacionLogic implements IClaveFabricacionLogic {
 				throw new ZMessManager().new NullEntityExcepcion(
 						"ClaveFabricacion");
 			}
-			
+
 			// Validacion de Estado registro
 			if (entity.getEstadoRegistro().equals("A")
 					|| entity.getEstadoRegistro().equals("R")) {

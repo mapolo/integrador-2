@@ -10,38 +10,33 @@ import org.primefaces.component.inputtext.InputText;
 
 import co.edu.usbcali.modelo.dto.TipoDivisionDTO;
 
-
 @ManagedBean
 @ViewScoped
-
-
-
 public class LoginIntroView {
-	
-private InputText txtLogin;
-private List<TipoDivisionDTO> data;
 
-private String login;
-private String password;
+	private InputText txtLogin;
+	private List<TipoDivisionDTO> data;
 
+	private String login;
+	private String password;
 
-	
-/*	public void introLogin(org.primefaces.event.RowEditEvent event) {
-		
-		System.out.println("entro login" + login);
-		
-		login = ((LoginDTO)event.getObject()).getLogin();
-		
-		
-	}*/
-	
-	public String pgMenu(){
-		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", login);
+	/*
+	 * public void introLogin(org.primefaces.event.RowEditEvent event) {
+	 * 
+	 * System.out.println("entro login" + login);
+	 * 
+	 * login = ((LoginDTO)event.getObject()).getLogin();
+	 * 
+	 * 
+	 * }
+	 */
+
+	public String pgMenu() {
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+				.put("Usuario", login);
 		System.out.println("Login User " + login);
 		return "menu.xhtml";
 	}
-	
-	
 
 	public String getLogin() {
 		return login;
@@ -74,7 +69,5 @@ private String password;
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

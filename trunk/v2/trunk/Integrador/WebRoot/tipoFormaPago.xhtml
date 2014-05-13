@@ -45,172 +45,42 @@ body {
 				<div id="logo" align="center">
 					<h:form id="form">
 
-						<p:panel id="tfp" header="Tipo de Forma de Pago">
+						<p:panel id="tipofdp" header="Tipo de Forma de Pago">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
-							<p:dataTable var="car" value="#{tipoFormaPagoView.data}"
-								id="listaTF" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{tipoFormaPagoView.data}">
+							<p:dataTable var="car" value="#{tipoFormaPagoView.data}" id="tfp"
+								editable="true" scrollable="true" scrollHeight="300"
+								filteredValue="#{tipoFormaPagoView.data}" rowKey="#{car.idTfpa}"
+								selection="#{tipoFormaPagoView.selectedTipoFormaPago}">
 
-								<p:ajax event="rowEdit" listener="#{tipoFormaPagoView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoFormaPagoView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
-
-								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" disabled="false"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Maneja Cheque" style="width: 100px"
-									filterBy="manejaCheque"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.manejaCheque}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.manejaCheque}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Maneja Tarjeta" style="width: 100px"
-									filterBy="manejaTarjeta"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.manejaTarjeta}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.manejaTarjeta}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Exige Numero de Documento"
-									style="width: 100px" filterBy="exijeNumeroDocumento"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.exijeNumeroDocumento}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{tipoFormaPagoView.exijeNumeroDocumento}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Es PosFechado" style="width: 100px"
-									filterBy="esPosfechado"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.esPosfechado}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.esPosfechado}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Importa PDA" style="width: 100px"
-									filterBy="importaPda"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.importaPda}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.importaPda}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Descuento Fecha Documento"
-									style="width: 100px" filterBy="dsctoFechaDoc"
-									filterOptions="#{tipoFormaPagoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.dsctoFechaDoc}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.dsctoFechaDoc}">
-												<f:selectItem itemLabel="1" itemValue="1" />
-												<f:selectItem itemLabel="0" itemValue="0" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoFormaPagoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoFormaPagoView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoFormaPagoView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoFormaPagoView.action_modify2()}"
+										binding="#{tipoFormaPagoView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -292,11 +162,16 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{tipoFormaPagoView.action_create}"
 										binding="#{tipoFormaPagoView.btnSave}"
+										update="tfp,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{tipoFormaPagoView.action_modify()}"
+										binding="#{tipoFormaPagoView.btnModify}"
 										update="tfp,panel,panelBotones" />
 								</h:panelGrid>
 

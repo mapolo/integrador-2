@@ -54,36 +54,36 @@ body {
 							<p:dataTable var="car" value="#{rutaDistribucionView.data}"
 								id="tablaPrincipal" editable="true" scrollable="true"
 								scrollHeight="300" filteredValue="#{rutaDistribucionView.data}"
-								rowKey="#{car.idRudi}"						
+								rowKey="#{car.idRudi}"
 								selection="#{rutaDistribucionView.selectedRutaDistribucion}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">								
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />										
+									sortBy="codigo" filterBy="codigo">
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
-								<p:column headerText="Descripción" style="width: 100px">									
-											<h:outputLabel value="#{car.descripcion}" />										
+								<p:column headerText="Descripción" style="width: 100px">
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Tiempo de Entrega" style="width: 100px"
 									sortBy="tiempoEntrega" filterBy="tiempoEntrega">
-											<h:outputText value="#{car.tiempoEntrega}" />									
+									<h:outputText value="#{car.tiempoEntrega}" />
 								</p:column>
 
 								<p:column headerText="Tiempo de Transporte" style="width: 100px"
-									sortBy="tiempoTransporte" filterBy="tiempoTransporte">									
-											<h:outputText value="#{car.tiempoTransporte}" />									
+									sortBy="tiempoTransporte" filterBy="tiempoTransporte">
+									<h:outputText value="#{car.tiempoTransporte}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{rutaDistribucionView.manufacturerOptions}"
-									filterMatchMode="exact">									
-											<h:outputText value="#{car.estadoRegistro}" />									
+									filterMatchMode="exact">
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -92,7 +92,7 @@ body {
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{rutaDistribucionView.action_modify2()}"
@@ -154,7 +154,7 @@ body {
 										action="#{rutaDistribucionView.action_create}"
 										binding="#{rutaDistribucionView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{rutaDistribucionView.action_modify()}"

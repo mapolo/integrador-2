@@ -134,19 +134,19 @@ public class ListaPreciosView {
 
 			entity.setReferencia(businessDelegatorView
 					.getReferencia(getIdRefe_Referencia()));
-			
-			
-			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
-			System.out.println("antes: " + entity2 + "; " + txtIdSucu_Sucursal.getValue());
-			
+
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long
+					.parseLong(idSucu_Sucursal));
+			System.out.println("antes: " + entity2 + "; "
+					+ txtIdSucu_Sucursal.getValue());
+
 			if (entity2 == null) {
 				System.out.println("Entro null");
 				entity.setSucursal(null);
 			} else {
-				System.out.println("Entro con: " + entity2 + "; " + txtIdSucu_Sucursal.getValue());
-				
-				
-				
+				System.out.println("Entro con: " + entity2 + "; "
+						+ txtIdSucu_Sucursal.getValue());
+
 				entity.setSucursal(entity2);
 			}
 
@@ -169,101 +169,97 @@ public class ListaPreciosView {
 		System.out.println("Cancelado"
 				+ ((ListaPreciosDTO) event.getObject()).getIdLipr());
 	}
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-		
+
 			try {
-				txtValor.setValue(selectedListaPrecios.getValor());				
+				txtValor.setValue(selectedListaPrecios.getValor());
 
 			} catch (Exception e) {
 				txtValor.setValue("");
 			}
-			
+
 			try {
-				txtMargen.setValue(selectedListaPrecios.getMargen());				
+				txtMargen.setValue(selectedListaPrecios.getMargen());
 
 			} catch (Exception e) {
 				txtMargen.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtEspacios.setValue(selectedListaPrecios.getEspacios());				
+				txtEspacios.setValue(selectedListaPrecios.getEspacios());
 
 			} catch (Exception e) {
 				txtEspacios.setValue("");
 			}
 
 			try {
-				txtIdTili_TipoLista.setValue(selectedListaPrecios.getIdTili_TipoLista());
+				txtIdTili_TipoLista.setValue(selectedListaPrecios
+						.getIdTili_TipoLista());
 			} catch (Exception e) {
 				txtIdTili_TipoLista.setValue("");
 			}
 
 			try {
-				txtIdRefe_Referencia.setValue(selectedListaPrecios.getIdRefe_Referencia());
+				txtIdRefe_Referencia.setValue(selectedListaPrecios
+						.getIdRefe_Referencia());
 			} catch (Exception e) {
 				txtIdRefe_Referencia.setValue("");
 			}
 
 			try {
-				txtIdSucu_Sucursal.setValue(selectedListaPrecios.getIdSucu_Sucursal());
+				txtIdSucu_Sucursal.setValue(selectedListaPrecios
+						.getIdSucu_Sucursal());
 			} catch (Exception e) {
 				txtIdSucu_Sucursal.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedListaPrecios.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
+
 			txtFechaInicial.setValue(selectedListaPrecios.getFechaInicial());
 			txtFechaFinal.setValue(selectedListaPrecios.getFechaFinal());
-			
+
 			txtIdLipr.setValue(selectedListaPrecios.getIdLipr());
 
 		} catch (Exception e) {
-			if (selectedListaPrecios == null) {				
+			if (selectedListaPrecios == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione lista de precio a modificar");
+						.addErrorMessage("Seleccione la Lista de Precios a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtValor.setValue(null);				
+			txtValor.setValue(null);
 
 		} catch (Exception e) {
 			txtValor.setValue("");
 		}
-		
+
 		try {
-			txtMargen.setValue(null);				
+			txtMargen.setValue(null);
 
 		} catch (Exception e) {
 			txtMargen.setValue("");
 		}
-		
-		
-		
+
 		try {
-			txtEspacios.setValue(null);				
+			txtEspacios.setValue(null);
 
 		} catch (Exception e) {
 			txtEspacios.setValue("");
@@ -286,28 +282,27 @@ public class ListaPreciosView {
 		} catch (Exception e) {
 			txtIdSucu_Sucursal.setValue("");
 		}
-		
+
 		try {
 			txtFechaInicial.setValue(null);
 		} catch (Exception e) {
 			txtFechaInicial.setValue("");
 		}
-		
+
 		try {
 			txtFechaFinal.setValue(null);
 		} catch (Exception e) {
 			txtFechaFinal.setValue("");
 		}
-		
+
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -667,7 +662,6 @@ public class ListaPreciosView {
 			entity.setFechaModificacion(new Date());
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			
 
 			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
 					.checkLong(txtIdRefe_Referencia)));
@@ -700,7 +694,7 @@ public class ListaPreciosView {
 				Long idLipr = new Long(selectedListaPrecios.getIdLipr());
 				entity = businessDelegatorView.getListaPrecios(idLipr);
 			}
-			
+
 			Long idLipr = new Long(selectedListaPrecios.getIdLipr());
 			entity = businessDelegatorView.getListaPrecios(idLipr);
 
@@ -709,7 +703,6 @@ public class ListaPreciosView {
 					.getSession(false);
 
 			String usuario = (String) session.getAttribute("Usuario");
-
 
 			entity.setEspacios(FacesUtils.checkString(txtEspacios));
 
@@ -721,7 +714,6 @@ public class ListaPreciosView {
 
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
 
 			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
 					.checkLong(txtIdRefe_Referencia)));
@@ -735,9 +727,7 @@ public class ListaPreciosView {
 				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
 						.checkLong(txtIdSucu_Sucursal)));
 			}
-			
-			
-			
+
 			businessDelegatorView.updateListaPrecios(entity);
 			data = businessDelegatorView.getDataListaPrecios();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

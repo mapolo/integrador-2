@@ -127,7 +127,6 @@ public class BancoLogic implements IBancoLogic {
 						"fechaModificacion");
 			}
 
-
 			if ((entity.getImportaPda() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getImportaPda(), 1, 0) == false)) {
@@ -163,7 +162,6 @@ public class BancoLogic implements IBancoLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
 
 			bancoDAO.save(entity);
 		} catch (Exception e) {
@@ -276,7 +274,6 @@ public class BancoLogic implements IBancoLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
 
 			if ((entity.getImportaPda() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""

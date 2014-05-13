@@ -67,7 +67,7 @@ public class DescuentoFinancieroView {
 	private String fechaFinal;
 	private String fechaInicio;
 	private String fechaModificacion;
-	
+
 	private DescuentoFinancieroDataModel descuentoFinancieroDataModel;
 
 	private Map<String, String> grupo = new HashMap<String, String>();
@@ -181,28 +181,28 @@ public class DescuentoFinancieroView {
 
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
+
 			try {
-				txtIdGrpo_Grupo.setValue(selectedDescuentoFinanciero.getIdGrpo_Grupo());				
+				txtIdGrpo_Grupo.setValue(selectedDescuentoFinanciero
+						.getIdGrpo_Grupo());
 
 			} catch (Exception e) {
 				txtIdGrpo_Grupo.setValue("");
 			}
-			
+
 			try {
-				txtIdTfpa_TipoFormaPago.setValue(selectedDescuentoFinanciero.getIdTfpa_TipoFormaPago());				
+				txtIdTfpa_TipoFormaPago.setValue(selectedDescuentoFinanciero
+						.getIdTfpa_TipoFormaPago());
 
 			} catch (Exception e) {
 				txtIdTfpa_TipoFormaPago.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtCodigo.setValue(selectedDescuentoFinanciero.getCodigo());				
+				txtCodigo.setValue(selectedDescuentoFinanciero.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
@@ -232,51 +232,51 @@ public class DescuentoFinancieroView {
 			} catch (Exception e) {
 				txtDiaHasta.setValue("");
 			}
-			
+
 			try {
 				estado.setValue(selectedDescuentoFinanciero.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			txtFechaInicio.setValue(selectedDescuentoFinanciero.getFechaInicio());
+
+			txtFechaInicio.setValue(selectedDescuentoFinanciero
+					.getFechaInicio());
 			txtFechaFinal.setValue(selectedDescuentoFinanciero.getFechaFinal());
-			
+
 			txtIdDefi.setValue(selectedDescuentoFinanciero.getIdDefi());
 
 		} catch (Exception e) {
-			if (selectedDescuentoFinanciero == null) {				
+			if (selectedDescuentoFinanciero == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Descuento Financiero a modificar");
+						.addErrorMessage("Seleccione el Descuento Financiero a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtIdGrpo_Grupo.setValue(null);				
+			txtIdGrpo_Grupo.setValue(null);
 
 		} catch (Exception e) {
 			txtIdGrpo_Grupo.setValue("");
 		}
-		
+
 		try {
-			txtIdTfpa_TipoFormaPago.setValue(null);				
+			txtIdTfpa_TipoFormaPago.setValue(null);
 
 		} catch (Exception e) {
 			txtIdTfpa_TipoFormaPago.setValue("");
 		}
-		
+
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue(null);
 		}
@@ -304,25 +304,25 @@ public class DescuentoFinancieroView {
 		} catch (Exception e) {
 			txtDiaHasta.setValue("");
 		}
-		
+
 		try {
 			txtFechaInicio.setValue(null);
 		} catch (Exception e) {
 			txtFechaInicio.setValue("");
 		}
-		
+
 		try {
 			txtFechaFinal.setValue(null);
 		} catch (Exception e) {
 			txtFechaFinal.setValue("");
 		}
-		
+
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
 
@@ -739,24 +739,15 @@ public class DescuentoFinancieroView {
 
 	public String action_modify() {
 		try {
-			/*if (btnModify2.isDisabled()) {
-				action_create();
-				
-				data = businessDelegatorView.getDataDescuentoFinanciero();
-				descuentoFinancieroDataModel = new DescuentoFinancieroDataModel(data);
-				RequestContext.getCurrentInstance().update("form:tablaPrincipal");
-				return "";
-			}*/
-			
-			
+
 			if (entity == null) {
 				Long idDefi = new Long(selectedDescuentoFinanciero.getIdDefi());
 				entity = businessDelegatorView.getDescuentoFinanciero(idDefi);
 			}
-			
+
 			Long idDefi = new Long(selectedDescuentoFinanciero.getIdDefi());
 			entity = businessDelegatorView.getDescuentoFinanciero(idDefi);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
@@ -770,10 +761,10 @@ public class DescuentoFinancieroView {
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-			
+
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
+
 			entity.setPorcentajeDescuento(FacesUtils
 					.checkDouble(txtPorcentajeDescuento));
 
@@ -788,25 +779,26 @@ public class DescuentoFinancieroView {
 						.getTipoFormaPago(FacesUtils
 								.checkLong(txtIdTfpa_TipoFormaPago)));
 			}
-			
+
 			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			/*entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
-			entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-			entity.setPorcentajeDescuento(FacesUtils
-					.checkDouble(txtPorcentajeDescuento));
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
-			entity.setTipoFormaPago(businessDelegatorView
-					.getTipoFormaPago(FacesUtils
-							.checkLong(txtIdTfpa_TipoFormaPago)));*/
-			
-			
+			/*
+			 * entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			 * entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
+			 * entity.setFechaInicio(FacesUtils.checkDate(txtFechaInicio));
+			 * entity.setFechaModificacion(FacesUtils
+			 * .checkDate(txtFechaModificacion));
+			 * entity.setNombre(FacesUtils.checkString(txtNombre));
+			 * entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
+			 * entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			 * entity.setPorcentajeDescuento(FacesUtils
+			 * .checkDouble(txtPorcentajeDescuento));
+			 * entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+			 * .checkLong(txtIdGrpo_Grupo)));
+			 * entity.setTipoFormaPago(businessDelegatorView
+			 * .getTipoFormaPago(FacesUtils
+			 * .checkLong(txtIdTfpa_TipoFormaPago)));
+			 */
+
 			businessDelegatorView.updateDescuentoFinanciero(entity);
 			data = businessDelegatorView.getDataDescuentoFinanciero();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

@@ -53,6 +53,7 @@ public class TipoSucursalView {
 	private CommandButton btnCrear;
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<TipoSucursalDTO> data;
@@ -184,6 +185,70 @@ public class TipoSucursalView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoSucursalDTO) event.getObject()).getIdTisu());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtCodigo.setValue(selectedTipoSucursal.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedTipoSucursal.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoSucursal.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTisu.setValue(selectedTipoSucursal.getIdTisu());
+
+		} catch (Exception e) {
+			if (selectedTipoSucursal == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Sucursal a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			txtDescripcion.setValue(selectedTipoSucursal.getDescripcion());
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public String actualizar() {
@@ -388,27 +453,17 @@ public class TipoSucursalView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTisu = new Long(txtIdTisu.getValue().toString());
-
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-
-			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTisu(idTisu);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 			businessDelegatorView.saveTipoSucursal(entity);
 			data = businessDelegatorView.getDataTipoSucursal();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			// actualizar();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
@@ -458,35 +513,30 @@ public class TipoSucursalView {
 
 	public String action_modify() {
 		try {
-
-			if (!btnCrear.isDisabled() && btnModify.isDisabled()) {
-				action_create();
-				data = businessDelegatorView.getDataTipoSucursal();
-				RequestContext.getCurrentInstance().update(
-						"form:tablaPrincipal");
-				return "";
-			}
-
 			if (entity == null) {
 				Long idTisu = new Long(selectedTipoSucursal.getIdTisu());
 				entity = businessDelegatorView.getTipoSucursal(idTisu);
 			}
 
+			Long idTisu = new Long(selectedTipoSucursal.getIdTisu());
+			entity = businessDelegatorView.getTipoSucursal(idTisu);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
-			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-
+			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setFechaModificacion(new Date());
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoSucursal(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
-
-			btnSave.setDisabled(false);
-
 			data = businessDelegatorView.getDataTipoSucursal();
-			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().reset("form:listaTS");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -787,6 +837,14 @@ public class TipoSucursalView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

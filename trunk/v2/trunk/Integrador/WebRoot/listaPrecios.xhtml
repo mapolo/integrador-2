@@ -54,84 +54,45 @@ body {
 							<p:dataTable var="car" value="#{listaPreciosView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{listaPreciosView.data}"
-								rowKey="#{car.idLipr}"						
+								rowKey="#{car.idLipr}"
 								selection="#{listaPreciosView.selectedListaPrecios}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="valor" filterBy="valor" headerText="Valor"
 									sortBy="valor" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.valor}" />
-										
+									<h:outputText value="#{car.valor}" />
 								</p:column>
 
 								<p:column id="margen" filterBy="margen" headerText="Margen"
 									sortBy="margen" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.margen}" />
-										
+									<h:outputText value="#{car.margen}" />
 								</p:column>
 
 								<p:column id="fechaInicial" headerText="Fecha Inicial"
 									style="width: 100px">
-									
-											<h:outputText value="#{car.fechaInicial}" />
-										
+									<h:outputText value="#{car.fechaInicial}" />
 								</p:column>
 
 								<p:column id="fechaFinal" headerText="Fecha Final"
 									style="width: 100px">
-									
-											<h:outputText value="#{car.fechaFinal}" />
-										
-								</p:column>
-
-								<p:column id="espacios" filterBy="espacios"
-									headerText="Espacios" sortBy="espacios"
-									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.espacios}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Tipo Lista" style="width:100px"
-									filterBy="idTili_TipoLista" sortBy="idTili_TipoLista">
-									
-											<h:outputText value="#{car.idTili_TipoLista}" />
-										
+									<h:outputText value="#{car.fechaFinal}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{listaPreciosView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Referencia" style="width:100px"
-									filterBy="idRefe_Referencia" sortBy="idRefe_Referencia">
-									
-											<h:outputText value="#{car.idRefe_Referencia}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Sucursal" style="width:100px"
-									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									
-											<h:outputText value="#{car.idSucu_Sucursal}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-									action="#{listaPreciosView.action_VCrear()}"
+										action="#{listaPreciosView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{listaPreciosView.action_modify2()}"
@@ -218,10 +179,9 @@ body {
 										action="#{listaPreciosView.action_create}"
 										binding="#{listaPreciosView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{listaPreciosView.action_modify()}"
+										disabled="false" action="#{listaPreciosView.action_modify()}"
 										binding="#{listaPreciosView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>

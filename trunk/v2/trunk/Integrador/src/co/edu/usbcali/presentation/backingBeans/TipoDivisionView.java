@@ -48,6 +48,7 @@ public class TipoDivisionView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private CommandButton btnCrear;
@@ -178,6 +179,57 @@ public class TipoDivisionView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoDivisionDTO) event.getObject()).getIdTidi());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtNombre.setValue(selectedTipoDivision.getNombre());
+			} catch (Exception e) {
+				txtNombre.setValue("");
+			}
+
+			try {
+				txtEstadoRegistro.setValue(selectedTipoDivision
+						.getEstadoRegistro());
+			} catch (Exception e) {
+				txtEstadoRegistro.setValue("");
+			}
+
+			txtIdTidi.setValue(selectedTipoDivision.getIdTidi());
+
+		} catch (Exception e) {
+			if (selectedTipoDivision == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de División a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtNombre.setValue(null);
+		} catch (Exception e) {
+			txtNombre.setValue("");
+		}
+
+		try {
+			txtEstadoRegistro.setValue(null);
+		} catch (Exception e) {
+			txtEstadoRegistro.setValue("");
+		}
+
+		return "";
 	}
 
 	public String actualizar() {
@@ -356,35 +408,17 @@ public class TipoDivisionView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			System.out.println("Usuario= " + usuario);
-
-			// Long idTidi = new Long(txtIdTidi.getValue().toString());
-
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTidi(idTidi);
 			entity.setNombre(FacesUtils.checkString(txtNombre));
-
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-
-			System.out.println("id " + idTidi + "; estadoRegistro "
-					+ estadoRegistro + ";nombre " + nombre + "");
 
 			businessDelegatorView.saveTipoDivision(entity);
 			data = businessDelegatorView.getDataTipoDivision();
-			// RequestContext.getCurrentInstance().reset("form:listaTD");
-			// RequestContext.getCurrentInstance().update("form:panel");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
-			// actualizar();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -438,31 +472,29 @@ public class TipoDivisionView {
 	public String action_modify() {
 		try {
 
-			/*
-			 * if (!btnCrear.isDisabled() && btnModify.isDisabled()) {
-			 * System.out.println("Entro fif modificar"); action_create(); data
-			 * = businessDelegatorView.getDataTipoDivision();
-			 * RequestContext.getCurrentInstance().update(
-			 * "form:tablaPrincipal"); return ""; }
-			 * 
-			 * if (entity == null) { entity =
-			 * businessDelegatorView.getTipoDivision(Long .parseLong(idTidi)); }
-			 */
+			if (entity == null) {
+				Long idTidi = new Long(selectedTipoDivision.getIdTidi());
+				entity = businessDelegatorView.getTipoDivision(idTidi);
+			}
 
-			System.out.println("entro modificar");
+			Long idTidi = new Long(selectedTipoDivision.getIdTidi());
+			entity = businessDelegatorView.getTipoDivision(idTidi);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			// entity.setFechaModificacion(FacesUtils.checkDate(txtFechaModificacion));
-			// entity.setFechaModificacion(new Date());
-			// entity.setNombre(FacesUtils.checkString(txtNombre));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setFechaModificacion(new Date());
+			entity.setNombre(FacesUtils.checkString(txtNombre));
+			entity.setOperModifica(usuario);
 
 			businessDelegatorView.updateTipoDivision(entity);
-			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
-			btnSave.setDisabled(false);
 			data = businessDelegatorView.getDataTipoDivision();
-			RequestContext.getCurrentInstance().update("form:tablaPrincipal");
+			RequestContext.getCurrentInstance().reset("form:listaTD");
+			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
 			FacesUtils.addErrorMessage(e.getMessage());
@@ -760,6 +792,14 @@ public class TipoDivisionView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

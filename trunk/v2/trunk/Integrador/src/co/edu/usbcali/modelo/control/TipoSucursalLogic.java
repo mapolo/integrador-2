@@ -114,8 +114,6 @@ public class TipoSucursalLogic implements ITipoSucursalLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -137,8 +135,6 @@ public class TipoSucursalLogic implements ITipoSucursalLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoSucursalDAO.save(entity);
 		} catch (Exception e) {

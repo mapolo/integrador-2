@@ -84,7 +84,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 	public void saveDescuentoComercial(DescuentoComercial entity)
 			throws Exception {
 		try {
-			
+
 			if (entity.getEmpresa() == null && entity.getPersona() == null
 					&& entity.getSucursalByIdSucu() == null) {
 
@@ -93,57 +93,48 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null
-					
-					&& entity.getSucursalByIdSucu() != null) {
+
+			&& entity.getSucursalByIdSucu() != null) {
 
 				throw new Exception(
 						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
-			
-			
+
 			int cont = 0;
-			
-			if(entity.getPersona()!=null){
+
+			if (entity.getPersona() != null) {
 				cont++;
 			}
-			
-			if(entity.getSucursalByIdSucu()!=null){
+
+			if (entity.getSucursalByIdSucu() != null) {
 				cont++;
 			}
-			
-			if(entity.getEmpresa()!=null){
+
+			if (entity.getEmpresa() != null) {
 				cont++;
 			}
-			
-				
-			
-				
-			if(cont==2){
-				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
-			}
-			
-			
-			/*if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
+
+			if (cont == 2) {
+				throw new Exception(
+						"solo puede estar llena empresa, sucursal hija o persona");
 			}
 
-			if (entity.getGrupo() == null) {
-				throw new ZMessManager().new ForeignException("grupo");
-			}
-
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
-
-			if (entity.getSucursalByIdSucu() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalByIdSucu");
-			}
-
-			if (entity.getSucursalBySucursal() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalBySucursal");
-			}*/
+			/*
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 * 
+			 * if (entity.getGrupo() == null) { throw new ZMessManager().new
+			 * ForeignException("grupo"); }
+			 * 
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 * 
+			 * if (entity.getSucursalByIdSucu() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalByIdSucu"); }
+			 * 
+			 * if (entity.getSucursalBySucursal() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalBySucursal"); }
+			 */
 
 			if ((entity.getAsocGrupoItem() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -202,15 +193,17 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"fechaModificacion");
 			}
 
-			/*if (entity.getIdDeco() == null) {
-				throw new ZMessManager().new EmptyFieldException("idDeco");
-			}*/
+			/*
+			 * if (entity.getIdDeco() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idDeco"); }
+			 */
 
-			/*if ((entity.getIdDeco() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdDeco(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idDeco");
-			}*/
+			/*
+			 * if ((entity.getIdDeco() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdDeco(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idDeco"); }
+			 */
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -269,44 +262,40 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"todasSucursales");
 			}
 
-			/*if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
+			/*
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 * 
+			 * if ((entity.getEmpresa().getIdEmpr() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getEmpresa().getIdEmpr(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idEmpr_Empresa"); }
+			 */
 
-			if ((entity.getEmpresa().getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idEmpr_Empresa");
-			}*/
+			/*
+			 * if (entity.getGrupo().getIdGrpo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("idGrpo_Grupo"); }
+			 * 
+			 * if ((entity.getGrupo().getIdGrpo() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getGrupo().getIdGrpo(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idGrpo_Grupo"); }
+			 */
 
-			/*if (entity.getGrupo().getIdGrpo() == null) {
-				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");
-			}
+			/*
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 * 
+			 * if ((entity.getPersona().getIdPers() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getPersona().getIdPers(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idPers_Persona"); }
+			 */
 
-			if ((entity.getGrupo().getIdGrpo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getGrupo().getIdGrpo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idGrpo_Grupo");
-			}*/
-
-			/*if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}
-
-			if ((entity.getPersona().getIdPers() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idPers_Persona");
-			}*/
-
-			/*if (getDescuentoComercial(entity.getIdDeco()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}*/
+			/*
+			 * if (getDescuentoComercial(entity.getIdDeco()) != null) { throw
+			 * new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY); }
+			 */
 
 			descuentoComercialDAO.save(entity);
 		} catch (Exception e) {
@@ -343,8 +332,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 				throw new ZMessManager().new NullEntityExcepcion(
 						"DescuentoComercial");
 			}
-			
-			
+
 			if (entity.getEmpresa() == null && entity.getPersona() == null
 					&& entity.getSucursalByIdSucu() == null) {
 
@@ -353,57 +341,48 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null
-					
-					&& entity.getSucursalByIdSucu() != null) {
+
+			&& entity.getSucursalByIdSucu() != null) {
 
 				throw new Exception(
 						"Empresa, Persona y sucursal hija no pueden estar llenas");
 			}
-			
-			
+
 			int cont = 0;
-			
-			if(entity.getPersona()!=null){
+
+			if (entity.getPersona() != null) {
 				cont++;
 			}
-			
-			if(entity.getSucursalByIdSucu()!=null){
+
+			if (entity.getSucursalByIdSucu() != null) {
 				cont++;
 			}
-			
-			if(entity.getEmpresa()!=null){
+
+			if (entity.getEmpresa() != null) {
 				cont++;
 			}
-			
-				
-			
-				
-			if(cont==2){
-				throw new Exception("solo puede estar llena empresa, sucursal hija o persona");
-			}
-			
 
-			/*if (entity.getEmpresa() == null) {
-				throw new ZMessManager().new ForeignException("empresa");
+			if (cont == 2) {
+				throw new Exception(
+						"solo puede estar llena empresa, sucursal hija o persona");
 			}
 
-			if (entity.getGrupo() == null) {
-				throw new ZMessManager().new ForeignException("grupo");
-			}
-
-			if (entity.getPersona() == null) {
-				throw new ZMessManager().new ForeignException("persona");
-			}
-
-			if (entity.getSucursalByIdSucu() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalByIdSucu");
-			}
-
-			if (entity.getSucursalBySucursal() == null) {
-				throw new ZMessManager().new ForeignException(
-						"sucursalBySucursal");
-			}*/
+			/*
+			 * if (entity.getEmpresa() == null) { throw new ZMessManager().new
+			 * ForeignException("empresa"); }
+			 * 
+			 * if (entity.getGrupo() == null) { throw new ZMessManager().new
+			 * ForeignException("grupo"); }
+			 * 
+			 * if (entity.getPersona() == null) { throw new ZMessManager().new
+			 * ForeignException("persona"); }
+			 * 
+			 * if (entity.getSucursalByIdSucu() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalByIdSucu"); }
+			 * 
+			 * if (entity.getSucursalBySucursal() == null) { throw new
+			 * ZMessManager().new ForeignException( "sucursalBySucursal"); }
+			 */
 
 			if ((entity.getAsocGrupoItem() != null)
 					&& (Utilities.checkWordAndCheckWithlength(
@@ -462,15 +441,15 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"fechaModificacion");
 			}
 
-			/*if (entity.getIdDeco() == null) {
-				throw new ZMessManager().new EmptyFieldException("idDeco");
-			}
-
-			if ((entity.getIdDeco() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdDeco(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idDeco");
-			}*/
+			/*
+			 * if (entity.getIdDeco() == null) { throw new ZMessManager().new
+			 * EmptyFieldException("idDeco"); }
+			 * 
+			 * if ((entity.getIdDeco() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getIdDeco(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException("idDeco"); }
+			 */
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -529,40 +508,37 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						"todasSucursales");
 			}
 
-			/*if (entity.getEmpresa().getIdEmpr() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idEmpr_Empresa");
-			}
+			/*
+			 * if (entity.getEmpresa().getIdEmpr() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idEmpr_Empresa"); }
+			 * 
+			 * if ((entity.getEmpresa().getIdEmpr() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getEmpresa().getIdEmpr(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idEmpr_Empresa"); }
+			 */
 
-			if ((entity.getEmpresa().getIdEmpr() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idEmpr_Empresa");
-			}*/
+			/*
+			 * if (entity.getGrupo().getIdGrpo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException("idGrpo_Grupo"); }
+			 * 
+			 * if ((entity.getGrupo().getIdGrpo() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getGrupo().getIdGrpo(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idGrpo_Grupo"); }
+			 */
 
-			/*if (entity.getGrupo().getIdGrpo() == null) {
-				throw new ZMessManager().new EmptyFieldException("idGrpo_Grupo");
-			}
+			/*
+			 * if (entity.getPersona().getIdPers() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idPers_Persona"); }
+			 */
 
-			if ((entity.getGrupo().getIdGrpo() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getGrupo().getIdGrpo(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idGrpo_Grupo");
-			}*/
-
-			/*if (entity.getPersona().getIdPers() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idPers_Persona");
-			}*/
-
-			/*if ((entity.getPersona().getIdPers() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException(
-						"idPers_Persona");
-			}*/
+			/*
+			 * if ((entity.getPersona().getIdPers() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getPersona().getIdPers(), 10, 0) == false)) { throw new
+			 * ZMessManager().new NotValidFormatException( "idPers_Persona"); }
+			 */
 
 			descuentoComercialDAO.update(entity);
 		} catch (Exception e) {
@@ -627,7 +603,7 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 						.setPorcDescMinItem((descuentoComercialTmp
 								.getPorcDescMinItem() != null) ? descuentoComercialTmp
 								.getPorcDescMinItem() : null);
-				
+
 				descuentoComercialDTO2
 						.setTipoAsocGrupoItem((descuentoComercialTmp
 								.getTipoAsocGrupoItem() != null) ? descuentoComercialTmp
@@ -637,54 +613,45 @@ public class DescuentoComercialLogic implements IDescuentoComercialLogic {
 								.getTodasSucursales() != null) ? descuentoComercialTmp
 								.getTodasSucursales() : null);
 
-				
-				
 				// fks null
-				
 
 				descuentoComercialDTO2
 						.setIdGrpo_Grupo((descuentoComercialTmp.getGrupo()
 								.getIdGrpo() != null) ? descuentoComercialTmp
 								.getGrupo().getIdGrpo() : null);
-				
+
 				descuentoComercialDTO2
-				.setIdSucu_Sucursal((descuentoComercialTmp.getSucursalBySucursal()
-						.getIdSucu() != null) ? descuentoComercialTmp
-						.getSucursalBySucursal().getIdSucu() : null);
-				
-				
+						.setIdSucu_Sucursal((descuentoComercialTmp
+								.getSucursalBySucursal().getIdSucu() != null) ? descuentoComercialTmp
+								.getSucursalBySucursal().getIdSucu() : null);
 
 				if (descuentoComercialTmp.getPersona() != null) {
 					descuentoComercialDTO2
 							.setIdPers_Persona(descuentoComercialTmp
 									.getPersona().getIdPers());
-					
+
 				} else {
 					descuentoComercialDTO2.setIdPers_Persona(null);
 				}
 
-				
-				
 				if (descuentoComercialTmp.getEmpresa() != null) {
 					descuentoComercialDTO2
 							.setIdEmpr_Empresa(descuentoComercialTmp
 									.getEmpresa().getIdEmpr());
-					
+
 				} else {
 					descuentoComercialDTO2.setIdEmpr_Empresa(null);
 				}
-				
-				
+
 				if (descuentoComercialTmp.getSucursalByIdSucu() != null) {
 					descuentoComercialDTO2
 							.setIdSucu_SucursalH(descuentoComercialTmp
 									.getSucursalByIdSucu().getIdSucu());
-					
+
 				} else {
 					descuentoComercialDTO2.setIdSucu_SucursalH(null);
 				}
-				
-				
+
 				descuentoComercialDTO.add(descuentoComercialDTO2);
 			}
 

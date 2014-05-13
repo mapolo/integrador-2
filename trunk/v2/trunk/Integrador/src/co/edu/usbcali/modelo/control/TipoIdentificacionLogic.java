@@ -116,8 +116,6 @@ public class TipoIdentificacionLogic implements ITipoIdentificacionLogic {
 						"fechaModificacion");
 			}
 
-		
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -139,8 +137,6 @@ public class TipoIdentificacionLogic implements ITipoIdentificacionLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			tipoIdentificacionDAO.save(entity);
 		} catch (Exception e) {

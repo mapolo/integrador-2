@@ -54,7 +54,7 @@ body {
 							<p:dataTable var="car" value="#{periodoGarantiaView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{periodoGarantiaView.data}"
-								rowKey="#{car.idPega}"						
+								rowKey="#{car.idPega}"
 								selection="#{periodoGarantiaView.selectedPeriodoGarantia}">
 
 								<p:column selectionMode="single" style="width:20px" />
@@ -62,33 +62,20 @@ body {
 								<p:column id="mesesParticular" filterBy="mesesParticular"
 									headerText="Meses Particulares" sortBy="mesesParticular"
 									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.mesesParticular}" />
-										
+									<h:outputText value="#{car.mesesParticular}" />
 								</p:column>
 
 								<p:column id="mesesPublico" filterBy="mesesPublico"
 									headerText="Meses Publicos" sortBy="mesesPublico"
 									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.mesesPublico}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Grupo" style="width:100px"
-									filterBy="idGrpo_Grupo" sortBy="idGrpo_Grupo">
-									
-											<h:outputText value="#{car.idGrpo_Grupo}" />
-										
+									<h:outputText value="#{car.mesesPublico}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{periodoGarantiaView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -97,7 +84,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{periodoGarantiaView.action_modify2()}"
@@ -151,7 +138,7 @@ body {
 										action="#{periodoGarantiaView.action_create}"
 										binding="#{periodoGarantiaView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{periodoGarantiaView.action_modify()}"

@@ -54,73 +54,35 @@ body {
 							<p:dataTable var="car" value="#{relacionComercialView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{relacionComercialView.data}"
-								rowKey="#{car.idReco}"						
+								rowKey="#{car.idReco}"
 								selection="#{relacionComercialView.selectedRelacionComercial}">
 
 								<p:column selectionMode="single" style="width:20px" />
-
-								<p:column headerText="ID Sucursal Padre" style="width:100px"
-									filterBy="idSucu_Sucursal" sortBy="idSucu_Sucursal">
-									
-											<h:outputText value="#{car.idSucu_Sucursal}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Sucursal Hija" style="width:100px"
-									filterBy="idSucu_SucursalH" sortBy="idSucu_SucursalH">
-									
-											<h:outputText value="#{car.idSucu_SucursalH}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Empresa Hija" style="width:100px"
-									filterBy="idEmpr_Empresa" sortBy="idEmpr_Empresa">
-									
-											<h:outputText value="#{car.idEmpr_Empresa}" />
-										
-								</p:column>
 
 								<p:column headerText="Liquida IVA" style="width:100px"
 									filterBy="liquidaIva"
 									filterOptions="#{relacionComercialView.manufacturerOptions2}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.liquidaIva}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Persona" style="width:100px"
-									filterBy="idPers_Persona" sortBy="idPers_Persona">
-									
-											<h:outputText value="#{car.idPers_Persona}" />
-										
+									<h:outputText value="#{car.liquidaIva}" />
 								</p:column>
 
 								<p:column id="limiteCredito" filterBy="limiteCredito"
 									headerText="Limite Credito" sortBy="limiteCredito"
 									filterMatchMode="contains" style="width:100px">
-									
-											<h:outputText value="#{car.limiteCredito}" />
-										
+									<h:outputText value="#{car.limiteCredito}" />
 								</p:column>
 
 								<p:column id="observacion" filterBy="observacion"
 									headerText="Observación" sortBy="observacion"
 									filterMatchMode="contains" style="width:100px">
-									
-											<h:outputText value="#{car.observacion}" />
-										
+									<h:outputText value="#{car.observacion}" />
 								</p:column>
-
-
 
 								<p:column headerText="Estado del Registro" style="width:100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{relacionComercialView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -129,8 +91,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{relacionComercialView.action_modify2()}"
@@ -220,8 +181,7 @@ body {
 										action="#{relacionComercialView.action_create}"
 										binding="#{relacionComercialView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{relacionComercialView.action_modify()}"

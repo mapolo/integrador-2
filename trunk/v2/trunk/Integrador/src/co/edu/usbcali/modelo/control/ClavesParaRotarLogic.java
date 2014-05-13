@@ -67,9 +67,10 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"claveFabricacion");
 			}
 
-			/*if (entity.getSucursal() == null) {
-				throw new ZMessManager().new ForeignException("sucursal");
-			}*/
+			/*
+			 * if (entity.getSucursal() == null) { throw new ZMessManager().new
+			 * ForeignException("sucursal"); }
+			 */
 
 			if ((entity.getAno() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -98,8 +99,6 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
-			
 
 			if ((entity.getMes() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -141,10 +140,10 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"idClfa_ClaveFabricacion");
 			}
 
-			/*if (entity.getSucursal().getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idSucu_Sucursal");
-			}*/
+			/*
+			 * if (entity.getSucursal().getIdSucu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idSucu_Sucursal"); }
+			 */
 
 			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -152,8 +151,6 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"idSucu_Sucursal");
 			}
-
-			
 
 			clavesParaRotarDAO.save(entity);
 		} catch (Exception e) {
@@ -193,15 +190,17 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"claveFabricacion");
 			}
 
-			/*if (entity.getSucursal() == null) {
-				throw new ZMessManager().new ForeignException("sucursal");
-			}*/
+			/*
+			 * if (entity.getSucursal() == null) { throw new ZMessManager().new
+			 * ForeignException("sucursal"); }
+			 */
 
-			/*if ((entity.getAno() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getAno(), 22, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("ano");
-			}*/
+			/*
+			 * if ((entity.getAno() != null) &&
+			 * (Utilities.checkNumberAndCheckWithPrecisionAndScale("" +
+			 * entity.getAno(), 22, 0) == false)) { throw new ZMessManager().new
+			 * NotValidFormatException("ano"); }
+			 */
 
 			if (entity.getEstadoRegistro() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -275,10 +274,10 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 						"idClfa_ClaveFabricacion");
 			}
 
-			/*if (entity.getSucursal().getIdSucu() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idSucu_Sucursal");
-			}*/
+			/*
+			 * if (entity.getSucursal().getIdSucu() == null) { throw new
+			 * ZMessManager().new EmptyFieldException( "idSucu_Sucursal"); }
+			 */
 
 			if ((entity.getSucursal() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -330,8 +329,6 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 								.getClaveFabricacion().getIdClfa() != null) ? clavesParaRotarTmp
 								.getClaveFabricacion().getIdClfa() : null);
 
-				
-				
 				if (clavesParaRotarTmp.getSucursal() != null) {
 					clavesParaRotarDTO2.setIdSucu_Sucursal(clavesParaRotarTmp
 							.getSucursal().getIdSucu());
@@ -339,9 +336,6 @@ public class ClavesParaRotarLogic implements IClavesParaRotarLogic {
 					clavesParaRotarDTO2.setIdSucu_Sucursal(null);
 				}
 
-				
-				
-				
 				clavesParaRotarDTO.add(clavesParaRotarDTO2);
 			}
 

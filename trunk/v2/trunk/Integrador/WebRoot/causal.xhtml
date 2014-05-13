@@ -59,46 +59,31 @@ body {
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}" />
-										
+									<h:outputText value="#{car.codigo}" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									
-											<h:outputLabel value="#{car.descripcion}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Tipo Causal" style="width: 100px"
-									filterBy="idTcau_TipoCausal" sortBy="idTcau_TipoCausal">
-									
-											<h:outputText value="#{car.idTcau_TipoCausal}" />
-										
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{causalView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-									action="#{causalView.action_VCrear}"
-										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
-										update=":form" />
+										action="#{causalView.action_VCrear}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{causalView.action_modify2}"
-										binding="#{causalView.btnModify2}"
-										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
-										update=":form" />
+										binding="#{causalView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -107,7 +92,7 @@ body {
 
 							<p:dialog id="dialog" header="Causal" widgetVar="carDialog"
 								resizable="false" width="400" showEffect="clip"
-								hideEffect="fold" modal ="true">
+								hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
@@ -147,11 +132,9 @@ body {
 										action="#{causalView.action_create}"
 										binding="#{causalView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
-										
-										<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{causalView.action_modify()}"
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{causalView.action_modify()}"
 										binding="#{causalView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>

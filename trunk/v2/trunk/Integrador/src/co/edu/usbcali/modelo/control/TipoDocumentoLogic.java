@@ -170,8 +170,6 @@ public class TipoDocumentoLogic implements ITipoDocumentoLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -208,7 +206,6 @@ public class TipoDocumentoLogic implements ITipoDocumentoLogic {
 						"signoInventario");
 			}
 
-			
 			tipoDocumentoDAO.save(entity);
 		} catch (Exception e) {
 			throw e;

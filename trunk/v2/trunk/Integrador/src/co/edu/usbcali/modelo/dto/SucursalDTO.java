@@ -23,7 +23,7 @@ public class SucursalDTO implements Serializable {
 	private String operModifica;
 	private String telefono;
 	private String zipCode;
-	
+
 	private Long idDipo_DivisionPolitica;
 	private Long idEmpr_Empresa;
 	private Long idPers_Persona;

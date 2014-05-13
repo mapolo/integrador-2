@@ -152,20 +152,15 @@ public class BancoView {
 		System.out.println("Cancelado"
 				+ ((BancoDTO) event.getObject()).getIdBanc());
 	}
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
-			System.out.println("entro modificar");
-			
+
 			try {
 				txtCodigo.setValue(selectedBanco.getCodigo());
-				
-				
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
@@ -178,8 +173,7 @@ public class BancoView {
 			}
 
 			try {
-				txtConsigna.setValue(selectedBanco
-						.getConsigna());
+				txtConsigna.setValue(selectedBanco.getConsigna());
 			} catch (Exception e) {
 				txtConsigna.setValue("");
 			}
@@ -191,72 +185,61 @@ public class BancoView {
 			}
 
 			try {
-				txtManejaBeneficiario.setValue(selectedBanco.getManejaBeneficiario());
+				txtManejaBeneficiario.setValue(selectedBanco
+						.getManejaBeneficiario());
 			} catch (Exception e) {
 				txtManejaBeneficiario.setValue("");
 			}
-			
+
 			try {
 				txtImportaPda.setValue(selectedBanco.getImportaPda());
 			} catch (Exception e) {
 				txtImportaPda.setValue("");
 			}
-			
+
 			try {
 				txtCuentaBanco.setValue(selectedBanco.getCuentaBanco());
 			} catch (Exception e) {
 				txtCuentaBanco.setValue("");
 			}
-			
+
 			try {
 				txtCuentaDescuento.setValue(selectedBanco.getCuentaDescuento());
 			} catch (Exception e) {
 				txtCuentaDescuento.setValue("");
 			}
-			
+
 			try {
 				txtEstadoRegistro.setValue(selectedBanco.getEstadoRegistro());
 			} catch (Exception e) {
 				txtEstadoRegistro.setValue("");
 			}
-			
-			/*
-			if (selectedBanco.getEstadoRegistro().equals("A")) {
-				estadoRegistro = "a";
-			} else if (selectedBanco.getEstadoRegistro().equals("R")) {
-				estadoRegistro = "r";
-			}*/
-			
-			
-			
-			txtIdBanc.setValue(selectedBanco.getIdBanc());
 
-			//btnSave.setDisabled(false);
-			//btnModify2.setDisabled(false);
+			/*
+			 * if (selectedBanco.getEstadoRegistro().equals("A")) {
+			 * estadoRegistro = "a"; } else if
+			 * (selectedBanco.getEstadoRegistro().equals("R")) { estadoRegistro
+			 * = "r"; }
+			 */
+
+			txtIdBanc.setValue(selectedBanco.getIdBanc());
 
 		} catch (Exception e) {
 			if (selectedBanco == null) {
-				//btnCrear.setDisabled(true);
-				//btnModify2.setDisabled(true);
-				//action_cerrar();
-				FacesUtils
-						.addErrorMessage("Seleccione Banco a modificar");
+				FacesUtils.addErrorMessage("Seleccione un Banco a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
 			txtCodigo.setValue(null);
-			
-			
 
 		} catch (Exception e) {
 			txtCodigo.setValue("");
@@ -285,27 +268,25 @@ public class BancoView {
 		} catch (Exception e) {
 			txtManejaBeneficiario.setValue("");
 		}
-		
+
 		try {
 			txtImportaPda.setValue(null);
 		} catch (Exception e) {
 			txtImportaPda.setValue("");
 		}
-		
+
 		try {
 			txtCuentaBanco.setValue(null);
 		} catch (Exception e) {
 			txtCuentaBanco.setValue("");
 		}
-		
+
 		try {
 			txtCuentaDescuento.setValue(null);
 		} catch (Exception e) {
 			txtCuentaDescuento.setValue("");
 		}
-		
-		
-		
+
 		return "";
 	}
 
@@ -639,7 +620,7 @@ public class BancoView {
 				Long idBanc = new Long(selectedBanco.getIdBanc());
 				entity = businessDelegatorView.getBanco(idBanc);
 			}
-			
+
 			Long idBanc = new Long(selectedBanco.getIdBanc());
 			entity = businessDelegatorView.getBanco(idBanc);
 
@@ -669,7 +650,7 @@ public class BancoView {
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-						
+
 			businessDelegatorView.updateBanco(entity);
 			data = businessDelegatorView.getDataBanco();
 			RequestContext.getCurrentInstance().reset("form:b");

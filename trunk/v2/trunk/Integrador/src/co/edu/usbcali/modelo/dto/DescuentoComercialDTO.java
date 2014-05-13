@@ -209,6 +209,4 @@ public class DescuentoComercialDTO implements Serializable {
 		this.idSucu_SucursalH = idSucu_SucursalH;
 	}
 
-
-
 }

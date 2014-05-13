@@ -51,6 +51,7 @@ public class TipoGarantiaView {
 
 	private CommandButton btnSave;
 	private CommandButton btnModify;
+	private CommandButton btnModify2;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<TipoGarantiaDTO> data;
@@ -118,6 +119,70 @@ public class TipoGarantiaView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((TipoGarantiaDTO) event.getObject()).getIdTiga());
+	}
+
+	public String action_modify2() {
+		try {
+
+			btnSave.setDisabled(true);
+			btnModify.setDisabled(false);
+
+			try {
+				txtCodigo.setValue(selectedTipoGarantia.getCodigo());
+
+			} catch (Exception e) {
+				txtCodigo.setValue("");
+			}
+
+			try {
+				txtDescripcion.setValue(selectedTipoGarantia.getDescripcion());
+			} catch (Exception e) {
+				txtDescripcion.setValue("");
+			}
+
+			try {
+				estado.setValue(selectedTipoGarantia.getEstadoRegistro());
+			} catch (Exception e) {
+				estado.setValue("");
+			}
+
+			txtIdTiga.setValue(selectedTipoGarantia.getIdTiga());
+
+		} catch (Exception e) {
+			if (selectedTipoGarantia == null) {
+				FacesUtils
+						.addErrorMessage("Seleccione Tipo de Garantía a Modificar");
+			}
+		}
+		return "";
+
+	}
+
+	public String action_VCrear() {
+
+		btnModify.setDisabled(true);
+		btnSave.setDisabled(false);
+
+		try {
+			txtDescripcion.setValue(null);
+		} catch (Exception e) {
+			txtDescripcion.setValue("");
+		}
+
+		try {
+			txtCodigo.setValue(null);
+
+		} catch (Exception e) {
+			txtCodigo.setValue(null);
+		}
+
+		try {
+			estado.setValue(null);
+		} catch (Exception e) {
+			estado.setValue("");
+		}
+
+		return "";
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -343,22 +408,13 @@ public class TipoGarantiaView {
 
 			String usuario = (String) session.getAttribute("Usuario");
 
-			// Long idTiga = new Long(txtIdTiga.getValue().toString());
-
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setEstadoRegistro(estadoRegistro);
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(new Date());
 			entity.setFechaModificacion(new Date());
-			// entity.setIdTiga(idTiga);
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
-
-			// txtOperCreador.setValue(usuario);
-			// txtOperModifica.setValue(usuario);
-			// entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			// entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
 
 			businessDelegatorView.saveTipoGarantia(entity);
 			data = businessDelegatorView.getDataTipoGarantia();
@@ -378,15 +434,24 @@ public class TipoGarantiaView {
 				entity = businessDelegatorView.getTipoGarantia(idTiga);
 			}
 
+			Long idTiga = new Long(selectedTipoGarantia.getIdTiga());
+			entity = businessDelegatorView.getTipoGarantia(idTiga);
+
+			HttpSession session = (HttpSession) FacesContext
+					.getCurrentInstance().getExternalContext()
+					.getSession(false);
+
+			String usuario = (String) session.getAttribute("Usuario");
+
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
-			// entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
-			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
-			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
+			entity.setEstadoRegistro(estadoRegistro);
+			entity.setFechaModificacion(new Date());
+			entity.setOperModifica(usuario);
+
 			businessDelegatorView.updateTipoGarantia(entity);
+			data = businessDelegatorView.getDataTipoGarantia();
+			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
@@ -680,6 +745,14 @@ public class TipoGarantiaView {
 
 	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
 		this.manufacturerOptions = manufacturerOptions;
+	}
+
+	public CommandButton getBtnModify2() {
+		return btnModify2;
+	}
+
+	public void setBtnModify2(CommandButton btnModify2) {
+		this.btnModify2 = btnModify2;
 	}
 
 }

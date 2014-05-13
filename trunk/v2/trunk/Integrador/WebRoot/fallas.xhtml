@@ -52,47 +52,39 @@ body {
 
 							<p:dataTable var="car" value="#{fallasView.data}" id="listaFA"
 								editable="true" scrollable="true" scrollHeight="300"
-								filteredValue="#{fallasView.data}"
-								rowKey="#{car.idCfal}" selection="#{fallasView.selectedFallas}">
+								filteredValue="#{fallasView.data}" rowKey="#{car.idCfal}"
+								selection="#{fallasView.selectedFallas}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									
-											<h:outputLabel value="#{car.descripcion}" />
-										
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{fallasView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
-									action="#{fallasView.action_VCrear()}"
-										icon="ui-icon-documen" update=":form"
-										oncomplete="PF('carDialog').show()" />
+										action="#{fallasView.action_VCrear()}" icon="ui-icon-documen"
+										update=":form" oncomplete="PF('carDialog').show()" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{fallasView.action_modify2()}"
-										binding="#{fallasView.btnModify2}"
-										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
-										update=":form" />
+										binding="#{fallasView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -134,12 +126,11 @@ body {
 										action="#{fallasView.action_create}"
 										binding="#{fallasView.btnSave}"
 										update="listaFA,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
-										disabled="false"
-										action="#{fallasView.action_modify()}"
+										disabled="false" action="#{fallasView.action_modify()}"
 										binding="#{fallasView.btnModify}"
-										update="listaFA,panel,panelBotones" />	
+										update="listaFA,panel,panelBotones" />
 								</h:panelGrid>
 
 							</p:dialog>

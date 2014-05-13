@@ -131,107 +131,101 @@ public class RutaDistribucionView {
 		System.out.println("Cancelado"
 				+ ((RutaDistribucionDTO) event.getObject()).getIdRudi());
 	}
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
-			
+
 			try {
-				txtDescripcion.setValue(selectedRutaDistribucion.getDescripcion());				
+				txtDescripcion.setValue(selectedRutaDistribucion
+						.getDescripcion());
 
 			} catch (Exception e) {
 				txtDescripcion.setValue("");
 			}
-			
+
 			try {
-				txtTiempoEntrega.setValue(selectedRutaDistribucion.getTiempoEntrega());				
+				txtTiempoEntrega.setValue(selectedRutaDistribucion
+						.getTiempoEntrega());
 
 			} catch (Exception e) {
 				txtTiempoEntrega.setValue("");
 			}
-						
-			
+
 			try {
-				txtCodigo.setValue(selectedRutaDistribucion.getCodigo());				
+				txtCodigo.setValue(selectedRutaDistribucion.getCodigo());
 
 			} catch (Exception e) {
 				txtCodigo.setValue("");
 			}
 
 			try {
-				txtTiempoTransporte.setValue(selectedRutaDistribucion.getTiempoTransporte());
+				txtTiempoTransporte.setValue(selectedRutaDistribucion
+						.getTiempoTransporte());
 			} catch (Exception e) {
 				txtTiempoTransporte.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedRutaDistribucion.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
-			}					
-			
+			}
+
 			txtIdRudi.setValue(selectedRutaDistribucion.getIdRudi());
 
 		} catch (Exception e) {
-			if (selectedRutaDistribucion == null) {				
+			if (selectedRutaDistribucion == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Ruta de Distribución a modificar");
+						.addErrorMessage("Seleccione la Ruta de Distribución a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtDescripcion.setValue(null);				
+			txtDescripcion.setValue(null);
 
 		} catch (Exception e) {
 			txtDescripcion.setValue("");
 		}
-		
+
 		try {
-			txtTiempoEntrega.setValue(null);				
+			txtTiempoEntrega.setValue(null);
 
 		} catch (Exception e) {
 			txtTiempoEntrega.setValue("");
 		}
-						
+
 		try {
 			txtTiempoTransporte.setValue(null);
 		} catch (Exception e) {
 			txtTiempoTransporte.setValue("");
-		}		
-		
+		}
+
 		try {
 			txtCodigo.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtCodigo.setValue("");
 		}
 
-		
-		
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -534,12 +528,12 @@ public class RutaDistribucionView {
 
 			Long idRudi = new Long(selectedRutaDistribucion.getIdRudi());
 			entity = businessDelegatorView.getRutaDistribucion(idRudi);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
 
-			String usuario = (String) session.getAttribute("Usuario");		
+			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setCodigo(FacesUtils.checkString(txtCodigo));
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
@@ -552,8 +546,7 @@ public class RutaDistribucionView {
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-			
-			
+
 			businessDelegatorView.updateRutaDistribucion(entity);
 			data = businessDelegatorView.getDataRutaDistribucion();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

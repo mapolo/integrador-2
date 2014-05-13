@@ -94,10 +94,10 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveDivisionPolitica(DivisionPolitica entity) throws Exception {
 		try {
-			/*if (entity.getDivisionPolitica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"divisionPolitica");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica() == null) { throw new
+			 * ZMessManager().new ForeignException( "divisionPolitica"); }
+			 */
 
 			if (entity.getTipoDivision() == null) {
 				throw new ZMessManager().new ForeignException("tipoDivision");
@@ -132,8 +132,6 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getNombre() == null) {
 				throw new ZMessManager().new EmptyFieldException("nombre");
 			}
@@ -166,10 +164,11 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"operModifica");
 			}
 
-			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idDipo_DivisionPolitica");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica().getIdDipo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException(
+			 * "idDipo_DivisionPolitica"); }
+			 */
 
 			if ((entity.getDivisionPolitica() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -189,8 +188,6 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTidi_TipoDivision");
 			}
-
-			
 
 			divisionPoliticaDAO.save(entity);
 		} catch (Exception e) {
@@ -261,10 +258,10 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"DivisionPolitica");
 			}
 
-			/*if (entity.getDivisionPolitica() == null) {
-				throw new ZMessManager().new ForeignException(
-						"divisionPolitica");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica() == null) { throw new
+			 * ZMessManager().new ForeignException( "divisionPolitica"); }
+			 */
 
 			if (entity.getTipoDivision() == null) {
 				throw new ZMessManager().new ForeignException("tipoDivision");
@@ -341,10 +338,11 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 						"operModifica");
 			}
 
-			/*if (entity.getDivisionPolitica().getIdDipo() == null) {
-				throw new ZMessManager().new EmptyFieldException(
-						"idDipo_DivisionPolitica");
-			}*/
+			/*
+			 * if (entity.getDivisionPolitica().getIdDipo() == null) { throw new
+			 * ZMessManager().new EmptyFieldException(
+			 * "idDipo_DivisionPolitica"); }
+			 */
 
 			if ((entity.getDivisionPolitica() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -403,29 +401,29 @@ public class DivisionPoliticaLogic implements IDivisionPoliticaLogic {
 				divisionPoliticaDTO2.setOperModifica((divisionPoliticaTmp
 						.getOperModifica() != null) ? divisionPoliticaTmp
 						.getOperModifica() : null);
-				
-				/*if (divisionPoliticaTmp.getDivisionPolitica() != null) {
-					divisionPoliticaDTO2
-					.setIdDipo_DivisionPolitica((divisionPoliticaTmp
-							.getDivisionPolitica().getIdDipo() != null) ? divisionPoliticaTmp
-							.getDivisionPolitica().getIdDipo() : null);
-				}*/
-				
+
+				/*
+				 * if (divisionPoliticaTmp.getDivisionPolitica() != null) {
+				 * divisionPoliticaDTO2
+				 * .setIdDipo_DivisionPolitica((divisionPoliticaTmp
+				 * .getDivisionPolitica().getIdDipo() != null) ?
+				 * divisionPoliticaTmp .getDivisionPolitica().getIdDipo() :
+				 * null); }
+				 */
+
 				if (divisionPoliticaTmp.getDivisionPolitica() != null) {
-					divisionPoliticaDTO2.setIdDipo_DivisionPolitica(divisionPoliticaTmp.getDivisionPolitica()
-							.getIdDipo());
-				}else {
+					divisionPoliticaDTO2
+							.setIdDipo_DivisionPolitica(divisionPoliticaTmp
+									.getDivisionPolitica().getIdDipo());
+				} else {
 					divisionPoliticaDTO2.setIdDipo_DivisionPolitica(null);
 				}
-				
-				
-			
+
 				divisionPoliticaDTO2
 						.setIdTidi_TipoDivision((divisionPoliticaTmp
 								.getTipoDivision().getIdTidi() != null) ? divisionPoliticaTmp
 								.getTipoDivision().getIdTidi() : null);
-				
-				
+
 				divisionPoliticaDTO.add(divisionPoliticaDTO2);
 			}
 

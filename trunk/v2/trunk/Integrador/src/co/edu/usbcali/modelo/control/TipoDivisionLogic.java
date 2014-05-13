@@ -89,8 +89,6 @@ public class TipoDivisionLogic implements ITipoDivisionLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getNombre() == null) {
 				throw new ZMessManager().new EmptyFieldException("nombre");
 			}
@@ -122,7 +120,6 @@ public class TipoDivisionLogic implements ITipoDivisionLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
 
 			tipoDivisionDAO.save(entity);
 		} catch (Exception e) {

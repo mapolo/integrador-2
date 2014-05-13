@@ -87,7 +87,6 @@ public class SemanaLogic implements ISemanaLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-			
 
 			if ((entity.getNumeroSemana() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -117,8 +116,6 @@ public class SemanaLogic implements ISemanaLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			semanaDAO.save(entity);
 		} catch (Exception e) {

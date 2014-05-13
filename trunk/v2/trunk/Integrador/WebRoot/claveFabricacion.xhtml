@@ -54,39 +54,32 @@ body {
 							<p:dataTable var="car" value="#{claveFabricacionView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{claveFabricacionView.data}"
-								rowKey="#{car.idClfa}" selection="#{claveFabricacionView.selectedClaveFabricacion}">
+								rowKey="#{car.idClfa}"
+								selection="#{claveFabricacionView.selectedClaveFabricacion}">
 
 								<p:column selectionMode="single" style="width:20px" />
-								
+
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column id="fechaInicial" headerText="Fecha Inicial"
 									style="width: 100px">
-									
-											<h:outputText value="#{car.fechaInicial}" />
-										
+									<h:outputText value="#{car.fechaInicial}" />
 								</p:column>
 
 								<p:column id="fechaFinal" headerText="Fecha Final"
 									style="width: 100px">
-									
-											<h:outputText value="#{car.fechaFinal}" />
-										
+									<h:outputText value="#{car.fechaFinal}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{claveFabricacionView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -95,7 +88,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{claveFabricacionView.action_modify2()}"
@@ -155,13 +148,12 @@ body {
 										action="#{claveFabricacionView.action_create}"
 										binding="#{claveFabricacionView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{claveFabricacionView.action_modify()}"
 										binding="#{claveFabricacionView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
 								</h:panelGrid>
 
 							</p:dialog>

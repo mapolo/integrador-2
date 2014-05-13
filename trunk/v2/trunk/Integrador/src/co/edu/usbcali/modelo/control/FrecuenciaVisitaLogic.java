@@ -112,8 +112,6 @@ public class FrecuenciaVisitaLogic implements IFrecuenciaVisitaLogic {
 						"frecuencia");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -136,7 +134,6 @@ public class FrecuenciaVisitaLogic implements IFrecuenciaVisitaLogic {
 						"operModifica");
 			}
 
-			
 			frecuenciaVisitaDAO.save(entity);
 		} catch (Exception e) {
 			throw e;

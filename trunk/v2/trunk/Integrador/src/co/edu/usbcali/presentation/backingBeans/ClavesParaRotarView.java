@@ -111,11 +111,11 @@ public class ClavesParaRotarView {
 					.getClavesParaRotar(((ClavesParaRotarDTO) event.getObject())
 							.getIdClpr());
 
-			//Long ano = new Long(txtAno.getValue().toString());
+			// Long ano = new Long(txtAno.getValue().toString());
 			System.out.println("Año: " + ano + "txtAño: " + txtAno);
 			entity.setAno(ano);
 
-			//Long mes = new Long(txtMes.getValue().toString());
+			// Long mes = new Long(txtMes.getValue().toString());
 			System.out.println("Mes: " + mes + "txtM: " + txtMes);
 			entity.setMes(mes);
 
@@ -127,20 +127,22 @@ public class ClavesParaRotarView {
 			entity.setClaveFabricacion(businessDelegatorView
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion()));
 
-			Sucursal entity2 = businessDelegatorView.getSucursal(Long.parseLong(idSucu_Sucursal));
-			
-			
+			Sucursal entity2 = businessDelegatorView.getSucursal(Long
+					.parseLong(idSucu_Sucursal));
+
 			if (txtIdSucu_Sucursal.getValue() == "999") {
-				
+
 				entity.setSucursal(null);
-				
+
 			} else {
 				System.out.println("entro else");
-				
+
 				entity.setSucursal(entity2);
 
-				/*entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));*/
+				/*
+				 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+				 * .checkLong(txtIdSucu_Sucursal)));
+				 */
 			}
 
 			/*
@@ -167,90 +169,81 @@ public class ClavesParaRotarView {
 		System.out.println("Cancelado"
 				+ ((ClavesParaRotarDTO) event.getObject()).getIdClpr());
 	}
-	
-	
-	
+
 	public String action_modify2() {
 		try {
-			
+
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
-		
 			try {
-				txtAno.setValue(selectedClavesParaRotar.getAno());				
+				txtAno.setValue(selectedClavesParaRotar.getAno());
 
 			} catch (Exception e) {
 				txtAno.setValue("");
 			}
-			
+
 			try {
-				txtMes.setValue(selectedClavesParaRotar.getMes());				
+				txtMes.setValue(selectedClavesParaRotar.getMes());
 
 			} catch (Exception e) {
 				txtMes.setValue("");
 			}
-			
-			
-			
+
 			try {
-				txtIdClfa_ClaveFabricacion.setValue(selectedClavesParaRotar.getIdClfa_ClaveFabricacion());				
+				txtIdClfa_ClaveFabricacion.setValue(selectedClavesParaRotar
+						.getIdClfa_ClaveFabricacion());
 
 			} catch (Exception e) {
 				txtIdClfa_ClaveFabricacion.setValue("");
 			}
 
 			try {
-				txtIdSucu_Sucursal.setValue(selectedClavesParaRotar.getIdSucu_Sucursal());
+				txtIdSucu_Sucursal.setValue(selectedClavesParaRotar
+						.getIdSucu_Sucursal());
 			} catch (Exception e) {
 				txtIdSucu_Sucursal.setValue("");
 			}
 
-			
-			
 			try {
 				estado.setValue(selectedClavesParaRotar.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-						
-			
+
 			txtIdClpr.setValue(selectedClavesParaRotar.getIdClpr());
 
 		} catch (Exception e) {
-			if (selectedClavesParaRotar == null) {				
+			if (selectedClavesParaRotar == null) {
 				FacesUtils
-						.addErrorMessage("Seleccione Clave para Rotar a modificar");
+						.addErrorMessage("Seleccione Claves para Rotar a Modificar");
 			}
 		}
 		return "";
 
 	}
-	
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
-			txtAno.setValue(null);				
+			txtAno.setValue(null);
 
 		} catch (Exception e) {
 			txtAno.setValue("");
 		}
-		
+
 		try {
-			txtMes.setValue(null);				
+			txtMes.setValue(null);
 
 		} catch (Exception e) {
 			txtMes.setValue("");
 		}
-		
-		
-		
+
 		try {
-			txtIdClfa_ClaveFabricacion.setValue(null);				
+			txtIdClfa_ClaveFabricacion.setValue(null);
 
 		} catch (Exception e) {
 			txtIdClfa_ClaveFabricacion.setValue("");
@@ -261,16 +254,15 @@ public class ClavesParaRotarView {
 		} catch (Exception e) {
 			txtIdSucu_Sucursal.setValue("");
 		}
-		
+
 		try {
 			estado.setValue(null);
 		} catch (Exception e) {
 			estado.setValue("");
 		}
-		
+
 		return "";
 	}
-	
 
 	public void rowEventListener(RowEditEvent e) {
 		try {
@@ -577,10 +569,10 @@ public class ClavesParaRotarView {
 				Long idClpr = new Long(selectedClavesParaRotar.getIdClpr());
 				entity = businessDelegatorView.getClavesParaRotar(idClpr);
 			}
-			
+
 			Long idClpr = new Long(selectedClavesParaRotar.getIdClpr());
 			entity = businessDelegatorView.getClavesParaRotar(idClpr);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);
@@ -607,8 +599,7 @@ public class ClavesParaRotarView {
 				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
 						.checkLong(txtIdSucu_Sucursal)));
 			}
-			
-			
+
 			businessDelegatorView.updateClavesParaRotar(entity);
 			data = businessDelegatorView.getDataClavesParaRotar();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

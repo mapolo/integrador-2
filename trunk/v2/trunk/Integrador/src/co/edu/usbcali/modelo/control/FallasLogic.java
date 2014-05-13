@@ -96,8 +96,6 @@ public class FallasLogic implements IFallasLogic {
 						"fechaModificacion");
 			}
 
-			
-
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
 			}
@@ -119,8 +117,6 @@ public class FallasLogic implements IFallasLogic {
 				throw new ZMessManager().new NotValidFormatException(
 						"operModifica");
 			}
-
-			
 
 			fallasDAO.save(entity);
 		} catch (Exception e) {
@@ -201,8 +197,6 @@ public class FallasLogic implements IFallasLogic {
 				throw new ZMessManager().new EmptyFieldException(
 						"fechaModificacion");
 			}
-
-			
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");

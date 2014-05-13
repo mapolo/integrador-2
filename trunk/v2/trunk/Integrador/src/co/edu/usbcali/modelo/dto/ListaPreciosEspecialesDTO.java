@@ -164,6 +164,4 @@ public class ListaPreciosEspecialesDTO implements Serializable {
 		this.idSucu_Sucursal2 = idSucu_Sucursal2;
 	}
 
-	
-
 }

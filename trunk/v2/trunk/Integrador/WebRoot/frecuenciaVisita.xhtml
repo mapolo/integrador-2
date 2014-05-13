@@ -28,7 +28,7 @@
 				</div>
 
 				<p:megaMenu autoDisplay="false">
-				
+
 
 					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
 
@@ -55,39 +55,32 @@ body {
 							<p:dataTable var="car" value="#{frecuenciaVisitaView.data}"
 								id="listaFV" editable="true" scrollable="true"
 								scrollHeight="300" filteredValue="#{frecuenciaVisitaView.data}"
-								rowKey="#{car.idFrvi}" selection="#{frecuenciaVisitaView.selectedFrecuenciaVisita}">
+								rowKey="#{car.idFrvi}"
+								selection="#{frecuenciaVisitaView.selectedFrecuenciaVisita}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									
-											<h:outputLabel value="#{car.descripcion}" />
-										
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column id="frecuencia" filterBy="frecuencia"
 									headerText="Frecuencia" sortBy="frecuencia"
 									filterMatchMode="contains" style="width: 100px">
-									
-											<h:outputText value="#{car.frecuencia}" />
-										
+									<h:outputText value="#{car.frecuencia}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{frecuenciaVisitaView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -96,7 +89,7 @@ body {
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{frecuenciaVisitaView.action_modify2()}"
@@ -150,14 +143,13 @@ body {
 										action="#{frecuenciaVisitaView.action_create}"
 										binding="#{frecuenciaVisitaView.btnSave}"
 										update="listaFV,panel,panelBotones" />
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{frecuenciaVisitaView.action_modify()}"
 										binding="#{frecuenciaVisitaView.btnModify}"
 										update="listaFV,panel,panelBotones" />
 								</h:panelGrid>
-								
 
 							</p:dialog>
 						</p:panel>

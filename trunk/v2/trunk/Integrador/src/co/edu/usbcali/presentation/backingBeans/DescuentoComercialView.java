@@ -300,50 +300,48 @@ public class DescuentoComercialView {
 
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
-			
+
 			try {
 				txtEstadoPlano.setValue(selectedDescuentoComercial
 						.getEstadoPlano());
 			} catch (Exception e) {
 				txtEstadoPlano.setValue("");
 			}
-			
+
 			try {
 				txtIdEmpr_Empresa.setValue(selectedDescuentoComercial
 						.getIdEmpr_Empresa());
 			} catch (Exception e) {
 				txtIdEmpr_Empresa.setValue("");
 			}
-			
+
 			try {
 				txtIdGrpo_Grupo.setValue(selectedDescuentoComercial
 						.getIdGrpo_Grupo());
 			} catch (Exception e) {
 				txtIdGrpo_Grupo.setValue("");
 			}
-			
+
 			try {
 				txtIdPers_Persona.setValue(selectedDescuentoComercial
 						.getIdPers_Persona());
 			} catch (Exception e) {
 				txtIdPers_Persona.setValue("");
 			}
-			
+
 			try {
 				txtIdSucu_Sucursal.setValue(selectedDescuentoComercial
 						.getIdSucu_Sucursal());
 			} catch (Exception e) {
 				txtIdSucu_Sucursal.setValue("");
 			}
-			
+
 			try {
 				txtIdSucu_SucursalH.setValue(selectedDescuentoComercial
 						.getIdSucu_SucursalH());
 			} catch (Exception e) {
 				txtIdSucu_SucursalH.setValue("");
 			}
-			
 
 			try {
 				txtAsocGrupoItem.setValue(selectedDescuentoComercial
@@ -418,7 +416,7 @@ public class DescuentoComercialView {
 				// btnModify2.setDisabled(true);
 				// action_cerrar();
 				FacesUtils
-						.addErrorMessage("Seleccione Descuento Comercial a modificar");
+						.addErrorMessage("Seleccione el Descuento Comercial a Modificar");
 			}
 		}
 
@@ -429,44 +427,43 @@ public class DescuentoComercialView {
 
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
+
 		try {
 			txtEstadoPlano.setValue(null);
 		} catch (Exception e) {
 			txtEstadoPlano.setValue("");
 		}
-		
+
 		try {
 			txtIdEmpr_Empresa.setValue(null);
 		} catch (Exception e) {
 			txtIdEmpr_Empresa.setValue("");
 		}
-		
+
 		try {
 			txtIdGrpo_Grupo.setValue(null);
 		} catch (Exception e) {
 			txtIdGrpo_Grupo.setValue("");
 		}
-		
+
 		try {
 			txtIdPers_Persona.setValue(null);
 		} catch (Exception e) {
 			txtIdPers_Persona.setValue("");
 		}
-		
+
 		try {
 			txtIdSucu_Sucursal.setValue(null);
 		} catch (Exception e) {
 			txtIdSucu_Sucursal.setValue("");
 		}
-		
+
 		try {
 			txtIdSucu_SucursalH.setValue(null);
 		} catch (Exception e) {
 			txtIdSucu_SucursalH.setValue("");
 		}
-		
-		
+
 		try {
 			txtAsocGrupoItem.setValue(null);
 		} catch (Exception e) {
@@ -514,7 +511,7 @@ public class DescuentoComercialView {
 		} catch (Exception e) {
 			txtTodasSucursales.setValue("");
 		}
-		
+
 		txtFechaInicial.setValue(null);
 		txtFechaFinal.setValue(null);
 
@@ -1068,7 +1065,7 @@ public class DescuentoComercialView {
 
 			Long idDeco = new Long(selectedDescuentoComercial.getIdDeco());
 			entity = businessDelegatorView.getDescuentoComercial(idDeco);
-			
+
 			HttpSession session = (HttpSession) FacesContext
 					.getCurrentInstance().getExternalContext()
 					.getSession(false);

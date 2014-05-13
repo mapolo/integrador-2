@@ -54,48 +54,27 @@ body {
 							<p:dataTable var="car" value="#{divisionPoliticaView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{divisionPoliticaView.data}"
-								rowKey="#{car.idDipo}"						
+								rowKey="#{car.idDipo}"
 								selection="#{divisionPoliticaView.selectedDivisionPolitica}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="nombre" filterBy="nombre" headerText="Nombre"
 									sortBy="nombre" filterMatchMode="contains" style="width:100px">
-									
-											<h:outputText value="#{car.nombre}" />
-										
-								</p:column>
-
-								<p:column headerText="ID División Politica" style="width:20%"
-									filterBy="idDipo_DivisionPolitica"
-									sortBy="idDipo_DivisionPolitica">
-									
-											<h:outputText value="#{car.idDipo_DivisionPolitica}" />
-										
-								</p:column>
-
-								<p:column headerText="ID Tipo División" style="width:20%"
-									filterBy="idTidi_TipoDivision" sortBy="idTidi_TipoDivision">
-									
-											<h:outputText value="#{car.idTidi_TipoDivision}" />
-										
+									<h:outputText value="#{car.nombre}" />
 								</p:column>
 
 								<p:column id="codigoDian" filterBy="codigoDian"
 									headerText="Codigo Dian" sortBy="codigoDian"
 									filterMatchMode="contains" style="width:100px">
-									
-											<h:outputText value="#{car.codigoDian}" />
-										
+									<h:outputText value="#{car.codigoDian}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width:20%"
 									filterBy="estadoRegistro"
 									filterOptions="#{divisionPoliticaView.manufacturerOptions}"
 									filterMatchMode="exact">
-									
-											<h:outputText value="#{car.estadoRegistro}" />
-										
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
@@ -104,7 +83,7 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
+
 								<f:facet name="footer">
 									<p:commandButton id="modifyButton" value="Modificar"
 										action="#{divisionPoliticaView.action_modify2()}"
@@ -112,7 +91,6 @@ body {
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
 								</f:facet>
-								
 
 							</p:dataTable>
 
@@ -171,8 +149,7 @@ body {
 										action="#{divisionPoliticaView.action_create}"
 										binding="#{divisionPoliticaView.btnSave}"
 										update="tablaPrincipal,panel,panelBotones" />
-										
-										
+
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false"
 										action="#{divisionPoliticaView.action_modify()}"

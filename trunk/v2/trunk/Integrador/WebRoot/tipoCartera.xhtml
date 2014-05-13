@@ -48,65 +48,45 @@ body {
 						<p:panel id="msgProjectTipoCarteraTitle" header="Tipo de Cartera">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{tipoCarteraView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								editable="true" filteredValue="#{tipoCarteraView.data}">
+								editable="true" filteredValue="#{tipoCarteraView.data}"
+								rowKey="#{car.idTica}"
+								selection="#{tipoCarteraView.selectedTipoCartera}">
 
-								<p:ajax event="rowEdit" listener="#{tipoCarteraView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoCarteraView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
 									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
 								</p:column>
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoCarteraView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoCarteraView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Returado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoCarteraView.action_VCrear()}"
 										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
 										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoCarteraView.action_modify2()}"
+										binding="#{tipoCarteraView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -142,11 +122,16 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{tipoCarteraView.action_create()}"
 										binding="#{tipoCarteraView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{tipoCarteraView.action_modify()}"
+										binding="#{tipoCarteraView.btnModify}"
 										update="tablaPrincipal,panel,panelBotones" />
 								</h:panelGrid>
 

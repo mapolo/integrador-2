@@ -183,28 +183,23 @@ public class EmpresaView {
 
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
-			
-			
-			
-			
 
-			
 			try {
-				txtIdTiid_TipoIdentificacion.setValue(selectedEmpresa.getIdTiid_TipoIdentificacion());
+				txtIdTiid_TipoIdentificacion.setValue(selectedEmpresa
+						.getIdTiid_TipoIdentificacion());
 
 			} catch (Exception e) {
 				txtIdTiid_TipoIdentificacion.setValue("");
 			}
 
-			
 			try {
-				txtIdDipo_DivisionPolitica.setValue(selectedEmpresa.getIdDipo_DivisionPolitica());
+				txtIdDipo_DivisionPolitica.setValue(selectedEmpresa
+						.getIdDipo_DivisionPolitica());
 
 			} catch (Exception e) {
 				txtIdDipo_DivisionPolitica.setValue("");
 			}
 
-			
 			try {
 				txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
 
@@ -212,7 +207,6 @@ public class EmpresaView {
 				txtIdPers_Persona.setValue("");
 			}
 
-			
 			try {
 				txtApartadoAereo.setValue(selectedEmpresa.getApartadoAereo());
 
@@ -243,7 +237,7 @@ public class EmpresaView {
 
 			try {
 				txtIdentificacion.setValue(selectedEmpresa.getIdentificacion());
-				
+
 			} catch (Exception e) {
 				txtIdentificacion.setValue("");
 			}
@@ -261,43 +255,36 @@ public class EmpresaView {
 			} catch (Exception e) {
 				txtTelefono1.setValue("");
 			}
-			
+
 			try {
 				txtTelefono2.setValue(selectedEmpresa.getTelefono2());
 
 			} catch (Exception e) {
 				txtTelefono2.setValue("");
 			}
-			
+
 			try {
 				estado.setValue(selectedEmpresa.getEstadoRegistro());
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			txtIdEmpr.setValue(selectedEmpresa.getIdEmpr());
 
-			// btnSave.setDisabled(false);
-			// btnModify2.setDisabled(false);
+			txtIdEmpr.setValue(selectedEmpresa.getIdEmpr());
 
 		} catch (Exception e) {
 			if (selectedEmpresa == null) {
-				// btnCrear.setDisabled(true);
-				// btnModify2.setDisabled(true);
-				// action_cerrar();
-				FacesUtils.addErrorMessage("Seleccione Empresa a modificar");
+				FacesUtils.addErrorMessage("Seleccione la Empresa a Modificar");
 			}
 		}
 
 		return "";
 	}
-	
-	public String action_VCrear(){
-		
+
+	public String action_VCrear() {
+
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
-		
-		
+
 		try {
 			txtIdTiid_TipoIdentificacion.setValue(null);
 
@@ -305,7 +292,6 @@ public class EmpresaView {
 			txtIdTiid_TipoIdentificacion.setValue("");
 		}
 
-		
 		try {
 			txtIdDipo_DivisionPolitica.setValue(null);
 
@@ -313,15 +299,13 @@ public class EmpresaView {
 			txtIdDipo_DivisionPolitica.setValue("");
 		}
 
-		
 		try {
 			txtIdPers_Persona.setValue(null);
 
 		} catch (Exception e) {
 			txtIdPers_Persona.setValue("");
 		}
-		
-		
+
 		try {
 			txtApartadoAereo.setValue(null);
 
@@ -352,7 +336,7 @@ public class EmpresaView {
 
 		try {
 			txtIdentificacion.setValue(null);
-			
+
 		} catch (Exception e) {
 			txtIdentificacion.setValue("");
 		}
@@ -370,14 +354,14 @@ public class EmpresaView {
 		} catch (Exception e) {
 			txtTelefono1.setValue("");
 		}
-		
+
 		try {
 			txtTelefono2.setValue(null);
 
 		} catch (Exception e) {
 			txtTelefono2.setValue("");
 		}
-		
+
 		return "";
 	}
 
@@ -792,7 +776,7 @@ public class EmpresaView {
 				Long idEmpr = new Long(selectedEmpresa.getIdEmpr());
 				entity = businessDelegatorView.getEmpresa(idEmpr);
 			}
-			
+
 			Long idEmpr = new Long(selectedEmpresa.getIdEmpr());
 			entity = businessDelegatorView.getEmpresa(idEmpr);
 
@@ -803,7 +787,7 @@ public class EmpresaView {
 			String usuario = (String) session.getAttribute("Usuario");
 
 			entity.setEstadoRegistro(estadoRegistro);
-			
+
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
 
@@ -824,15 +808,13 @@ public class EmpresaView {
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
 
-
 			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 					.checkLong(txtIdPers_Persona)));
 
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
-			
-			
+
 			businessDelegatorView.updateEmpresa(entity);
 			data = businessDelegatorView.getDataEmpresa();
 			RequestContext.getCurrentInstance().reset("form:tablaPrincipal");

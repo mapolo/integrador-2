@@ -48,134 +48,40 @@ body {
 						<p:panel id="td" header="Tipo de Documento">
 
 							<p:growl id="men" />
+							<p:growl id="growl" />
 
 							<p:dataTable var="car" value="#{tipoDocumentoView.data}"
 								id="listaTDo" editable="true" scrollable="true"
-								scrollHeight="300" filteredValue="#{tipoDocumentoView.data}">
+								scrollHeight="300" filteredValue="#{tipoDocumentoView.data}"
+								rowKey="#{car.idTido}"
+								selection="#{tipoDocumentoView.selectedTipoDocumento}">
 
-								<p:ajax event="rowEdit" listener="#{tipoDocumentoView.onEdit}" />
-								<p:ajax event="rowEditCancel"
-									listener="#{tipoDocumentoView.onCancel}" />
-
-								<p:column headerText="Editar" style="width: 30px">
-									<p:rowEditor />
-								</p:column>
-
-								<p:column headerText="Codigo" style="width: 100px"
-									sortBy="codigo" filterBy="codigo">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.codigo}"
-												style="text-transform:uppercase;" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputText value="#{car.codigo}" disabled="false"
-												onkeyup="javascript:this.value=this.value.toUpperCase();" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
+								<p:column selectionMode="single" style="width:20px" />
 
 								<p:column headerText="Descripción" style="width: 100px">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputLabel value="#{car.descripcion}" />
-										</f:facet>
-										<f:facet name="input">
-											<p:inputTextarea value="#{car.descripcion}" />
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Afecta el Inventario" style="width: 100px"
-									filterBy="afectaInventario"
-									filterOptions="#{tipoDocumentoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.afectaInventario}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu
-												value="#{tipoDocumentoView.afectaInventario}">
-												<f:selectItem itemLabel="S" itemValue="S" />
-												<f:selectItem itemLabel="N" itemValue="N" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Signo del Inventario" style="width: 100px"
-									filterBy="signoInventario"
-									filterOptions="#{tipoDocumentoView.manufacturerOptions3}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.signoInventario}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoDocumentoView.signoInventario}">
-												<f:selectItem itemLabel="+" itemValue="+" />
-												<f:selectItem itemLabel="-" itemValue="-" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Afecta la Cartera" style="width: 100px"
-									filterBy="afectaCartea"
-									filterOptions="#{tipoDocumentoView.manufacturerOptions2}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.afectaCartea}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoDocumentoView.afectaCartea}">
-												<f:selectItem itemLabel="S" itemValue="S" />
-												<f:selectItem itemLabel="N" itemValue="N" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
-								</p:column>
-
-								<p:column headerText="Signo de la Cartera" style="width: 100px"
-									filterBy="signoCartera"
-									filterOptions="#{tipoDocumentoView.manufacturerOptions3}"
-									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.signoCartera}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoDocumentoView.signoCartera}">
-												<f:selectItem itemLabel="+" itemValue="+" />
-												<f:selectItem itemLabel="-" itemValue="-" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputLabel value="#{car.descripcion}" />
 								</p:column>
 
 								<p:column headerText="Estado del Registro" style="width: 100px"
 									filterBy="estadoRegistro"
 									filterOptions="#{tipoDocumentoView.manufacturerOptions}"
 									filterMatchMode="exact">
-									<p:cellEditor>
-										<f:facet name="output">
-											<h:outputText value="#{car.estadoRegistro}" />
-										</f:facet>
-										<f:facet name="input">
-											<h:selectOneMenu value="#{tipoDocumentoView.estadoRegistro}">
-												<f:selectItem itemLabel="Activo" itemValue="A" />
-												<f:selectItem itemLabel="Retirado" itemValue="R" />
-											</h:selectOneMenu>
-										</f:facet>
-									</p:cellEditor>
+									<h:outputText value="#{car.estadoRegistro}" />
 								</p:column>
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
+										action="#{tipoDocumentoView.action_VCrear()}"
 										icon="ui-icon-documen" update=":form"
 										oncomplete="PF('carDialog').show()" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{tipoDocumentoView.action_modify2()}"
+										binding="#{tipoDocumentoView.btnModify2}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
 								</f:facet>
 
 							</p:dataTable>
@@ -185,7 +91,7 @@ body {
 							<p:dialog id="dialog" header="Tipo de Documento"
 								widgetVar="carDialog" resizable="false" width="400"
 								showEffect="clip" hideEffect="fold" modal="true">
-								
+
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
 
@@ -242,11 +148,16 @@ body {
 
 								<p:separator id="separator" />
 
-								<h:panelGrid id="panelBotones" columns="1">
+								<h:panelGrid id="panelBotones" columns="2">
 
 									<p:commandButton id="btnGuardar" value="Guardar"
 										action="#{tipoDocumentoView.action_create}"
 										binding="#{tipoDocumentoView.btnSave}"
+										update="listaTDo,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{tipoDocumentoView.action_modify()}"
+										binding="#{tipoDocumentoView.btnModify}"
 										update="listaTDo,panel,panelBotones" />
 								</h:panelGrid>
 
