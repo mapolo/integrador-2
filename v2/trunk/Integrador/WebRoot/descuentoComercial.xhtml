@@ -124,7 +124,8 @@ body {
 								<h:panelGrid columns="4" id="panel">
 
 									<h:outputText id="msgFechaInicial" value="*Fecha Inicial:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2020"
 										binding="#{descuentoComercialView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoComercialView.listener_txtFechaInicial}"
@@ -132,7 +133,8 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{descuentoComercialView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoComercialView.listener_txtFechaFinal}"

@@ -116,7 +116,8 @@ body {
 								<h:panelGrid columns="4" id="panel">
 
 									<h:outputText id="msgFechaInicial" value="*Fecha Inicial:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2020"
 										binding="#{listaPreciosEspecialesView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{listaPreciosEspecialesView.listener_txtFechaInicial}"
@@ -125,7 +126,8 @@ body {
 
 									<h:outputText id="msgFechaVencimiento"
 										value="*Fecha Vencimiento:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{listaPreciosEspecialesView.txtFechaVencimiento}">
 										<p:ajax event="dateSelect"
 											listener="#{listaPreciosEspecialesView.listener_txtFechaVencimiento}"

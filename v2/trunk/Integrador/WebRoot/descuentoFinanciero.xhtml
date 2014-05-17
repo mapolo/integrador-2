@@ -146,7 +146,8 @@ body {
 										binding="#{descuentoFinancieroView.txtNombre}" />
 
 									<h:outputText id="msgFechaInicio" value="Fecha de Inicio:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2020"
 										binding="#{descuentoFinancieroView.txtFechaInicio}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoFinancieroView.listener_txtFechaInicio}"
@@ -154,7 +155,8 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgFechaFinal" value="Fecha Final:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{descuentoFinancieroView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoFinancieroView.listener_txtFechaFinal}"

@@ -110,7 +110,8 @@ body {
 									</p:selectOneMenu>
 
 									<h:outputText id="msgFechaInicial" value="Fecha Inicial:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2020"
 										binding="#{confSemanasAnoView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{confSemanasAnoView.listener_txtFechaInicial}"
@@ -118,7 +119,8 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{confSemanasAnoView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{confSemanasAnoView.listener_txtFechaFinal}"
