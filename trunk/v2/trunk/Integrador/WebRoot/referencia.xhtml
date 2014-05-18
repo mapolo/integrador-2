@@ -205,7 +205,8 @@ body {
 
 									<h:outputText id="msgFechaVigentePBodega"
 										value="Fecha Vigente P Bodega:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{referenciaView.txtFechaVigentePBodega}">
 										<p:ajax event="dateSelect"
 											listener="#{referenciaView.listener_txtFechaVigentePBodega}"
@@ -232,7 +233,8 @@ body {
 
 									<h:outputText id="msgFechaVigentePEne"
 										value="Fecha Vigente P Ene:" />
-									<p:calendar showOn="button" navigator="true" locale="en"
+									<p:calendar showOn="button" navigator="true" locale="es"
+									size="15" yearRange = "1800:2050"
 										binding="#{referenciaView.txtFechaVigentePEne}">
 										<p:ajax event="dateSelect"
 											listener="#{referenciaView.listener_txtFechaVigentePEne}"

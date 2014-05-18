@@ -475,6 +475,7 @@ public class ConfSemanasAnoView {
 			entity.setFechaModificacion(new Date());
 
 			entity.setFechaFinal(FacesUtils.checkDate(txtFechaFinal));
+			System.out.println("fecha inicial: " + FacesUtils.checkDate(txtFechaFinal));
 			entity.setFechaInicial(FacesUtils.checkDate(txtFechaInicial));
 
 			// entity.setIdCfsa(idCfsa);
