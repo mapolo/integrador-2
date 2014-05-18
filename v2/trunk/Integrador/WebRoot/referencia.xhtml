@@ -198,7 +198,7 @@ body {
 									<p:inputText id="txtPeso" value="#{referenciaView.peso}"
 										binding="#{referenciaView.txtPeso}" />
 
-									<h:outputText id="msgQPorCaja" value="Cantidad Por Caja:" />
+									<h:outputText id="msgQPorCaja" value="*Cantidad Por Caja:" />
 									<p:inputText id="txtQPorCaja"
 										value="#{referenciaView.QPorCaja}"
 										binding="#{referenciaView.txtQPorCaja}" />
@@ -213,19 +213,19 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgMargenMinimoPBodega"
-										value="Margen Minimo P Bodega:" />
+										value="*Margen Minimo P Bodega:" />
 									<p:inputText id="txtMargenMinimoPBodega"
 										value="#{referenciaView.margenMinimoPBodega}"
 										binding="#{referenciaView.txtMargenMinimoPBodega}" />
 
 									<h:outputText id="msgMargenMinimoGBodega"
-										value="Margen Minimo G Bodega:" />
+										value="*Margen Minimo G Bodega:" />
 									<p:inputText id="txtMargenMinimoGBodega"
 										value="#{referenciaView.margenMinimoGBodega}"
 										binding="#{referenciaView.txtMargenMinimoGBodega}" />
 
 									<h:outputText id="msgMargenMinimoRefBodega"
-										value="Margen Minimo Ref Bodega:" />
+										value="*Margen Minimo Ref Bodega:" />
 									<p:inputText id="txtMargenMinimoRefBodega"
 										value="#{referenciaView.margenMinimoRefBodega}"
 										binding="#{referenciaView.txtMargenMinimoRefBodega}" />
@@ -240,40 +240,40 @@ body {
 									</p:calendar>
 
 									<h:outputText id="msgMargenMinimoPEne"
-										value="Margen Minimo P Ene:" />
+										value="*Margen Minimo P Ene:" />
 									<p:inputText id="txtMargenMinimoPEne"
 										value="#{referenciaView.margenMinimoPEne}"
 										binding="#{referenciaView.txtMargenMinimoPEne}" />
 
 									<h:outputText id="msgMargenMinimoRefEne"
-										value="Margen Minimo Ref Ene:" />
+										value="*Margen Minimo Ref Ene:" />
 									<p:inputText id="txtMargenMinimoRefEne"
 										value="#{referenciaView.margenMinimoRefEne}"
 										binding="#{referenciaView.txtMargenMinimoRefEne}" />
 
 									<h:outputText id="msgMargenMinimoGEne"
-										value="Margen Minimo G Ene:" />
+										value="*Margen Minimo G Ene:" />
 									<p:inputText id="txtMargenMinimoGEne"
 										value="#{referenciaView.margenMinimoGEne}"
 										binding="#{referenciaView.txtMargenMinimoGEne}" />
 
 									<h:outputText id="msgProductoEspecial"
-										value="Producto Especial:" />
+										value="*Producto Especial:" />
 									<p:inputText id="txtProductoEspecial"
 										value="#{referenciaView.productoEspecial}"
 										binding="#{referenciaView.txtProductoEspecial}" />
 
-									<h:outputText id="msgProductoConsumo" value="Producto Consumo:" />
+									<h:outputText id="msgProductoConsumo" value="*Producto Consumo:" />
 									<p:inputText id="txtProductoConsumo"
 										value="#{referenciaView.productoConsumo}"
 										binding="#{referenciaView.txtProductoConsumo}" />
 
-									<h:outputText id="msgManejaLote" value="Maneja Lote:" />
+									<h:outputText id="msgManejaLote" value="*Maneja Lote:" />
 									<p:inputText id="txtManejaLote"
 										value="#{referenciaView.manejaLote}"
 										binding="#{referenciaView.txtManejaLote}" />
 
-									<h:outputText id="msgManejaDecimales" value="Maneja Decimales:" />
+									<h:outputText id="msgManejaDecimales" value="*Maneja Decimales:" />
 									<p:inputText id="txtManejaDecimales"
 										value="#{referenciaView.manejaDecimales}"
 										binding="#{referenciaView.txtManejaDecimales}" />
@@ -322,7 +322,7 @@ body {
 									<p:commandButton id="btnModificar" value="Editar"
 										disabled="false" action="#{referenciaView.action_modify()}"
 										binding="#{referenciaView.btnModify}"
-										update="refe,panel,panelBotones" />
+										update="refe,msg,panel,panelBotones" />
 								</h:panelGrid>
 
 							</p:dialog>

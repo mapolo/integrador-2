@@ -1549,12 +1549,18 @@ public class ReferenciaView {
 			entity.setDescripcion(FacesUtils.checkString(txtDescripcion));
 			entity.setDescripcionCorta(FacesUtils
 					.checkString(txtDescripcionCorta));
+			
+			System.out.println("Descripcion corta: " + FacesUtils.checkString(txtDescripcionCorta));
 			entity.setDescripcionTecnica(FacesUtils
 					.checkString(txtDescripcionTecnica));
+			
+			System.out.println("entro descripcion: " + FacesUtils
+					.checkString(txtDescripcionTecnica));
+			
 			entity.setEquivalente1(FacesUtils.checkString(txtEquivalente1));
 			entity.setEquivalente2(FacesUtils.checkString(txtEquivalente2));
 			entity.setEsGarantia(esGarantia);
-			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
+			
 			entity.setFechaModificacion(FacesUtils
 					.checkDate(txtFechaModificacion));
 			entity.setFechaVigentePBodega(FacesUtils
@@ -1572,49 +1578,75 @@ public class ReferenciaView {
 			entity.setPorcentajeIva(FacesUtils.checkDouble(txtPorcentajeIva));
 			entity.setCosto(FacesUtils.checkDouble(txtCosto));
 			entity.setPeso(FacesUtils.checkDouble(txtPeso));
+			
+			
 			Long QPorCaja = new Long(txtQPorCaja.getValue().toString());
 			entity.setQPorCaja(QPorCaja);
+			System.out.println("prueba= " + QPorCaja);
+			
 			Long margenMinimoGBodega = new Long(txtMargenMinimoGBodega
 					.getValue().toString());
 			entity.setMargenMinimoGBodega(margenMinimoGBodega);
+			System.out.println("prueba2= " + margenMinimoGBodega);
+			
 			Long margenMinimoGEne = new Long(txtMargenMinimoGEne.getValue()
 					.toString());
 			entity.setMargenMinimoGEne(margenMinimoGEne);
-
+			System.out.println("prueba3= " + margenMinimoGEne);
+			
 			Long margenMinimoPBodega = new Long(txtMargenMinimoPBodega
 					.getValue().toString());
 			entity.setMargenMinimoPBodega(margenMinimoPBodega);
+			System.out.println("prueba4= " + margenMinimoPBodega);
+			
+			
 			Long margenMinimoPEne = new Long(txtMargenMinimoPEne.getValue()
 					.toString());
 			entity.setMargenMinimoPEne(margenMinimoPEne);
+			
+			
 			Long margenMinimoRefBodega = new Long(txtMargenMinimoRefBodega
 					.getValue().toString());
 			entity.setMargenMinimoRefBodega(margenMinimoRefBodega);
+			
+			
 			Long margenMinimoRefEne = new Long(txtMargenMinimoRefEne.getValue()
 					.toString());
 			entity.setMargenMinimoRefEne(margenMinimoRefEne);
+			
+			
 			Long productoConsumo = new Long(txtProductoConsumo.getValue()
 					.toString());
 			entity.setProductoConsumo(productoConsumo);
+			
+			
 			Long productoEspecial = new Long(txtProductoEspecial.getValue()
 					.toString());
 			entity.setProductoEspecial(productoEspecial);
+			
+			
 			Long manejaDecimales = new Long(txtManejaDecimales.getValue()
 					.toString());
 			entity.setManejaDecimales(manejaDecimales);
+			
+			
 			Long manejaLote = new Long(txtManejaLote.getValue().toString());
 			entity.setManejaLote(manejaLote);
 
+			
+			
 			entity.setEstadoRegistro(estadoRegistro);
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
-
+			
+			System.out.println("mmmm");
 			businessDelegatorView.updateReferencia(entity);
 			data = businessDelegatorView.getDataReferencia();
 			RequestContext.getCurrentInstance().reset("form:refe");
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
 			data = null;
+			System.out.println("Excepcion");
 			FacesUtils.addErrorMessage(e.getMessage());
 		}
 
