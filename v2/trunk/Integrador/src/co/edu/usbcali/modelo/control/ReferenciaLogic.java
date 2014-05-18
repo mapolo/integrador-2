@@ -850,9 +850,13 @@ public class ReferenciaLogic implements IReferenciaLogic {
 				referenciaDTO2
 						.setMarca((referenciaTmp.getMarca() != null) ? referenciaTmp
 								.getMarca() : null);
+				
+				
 				referenciaDTO2.setMargenMinimoGBodega((referenciaTmp
 						.getMargenMinimoGBodega() != null) ? referenciaTmp
 						.getMargenMinimoGBodega() : null);
+				
+				
 				referenciaDTO2.setMargenMinimoGEne((referenciaTmp
 						.getMargenMinimoGEne() != null) ? referenciaTmp
 						.getMargenMinimoGEne() : null);

@@ -390,10 +390,11 @@ public class ReferenciaView {
 			}
 
 			try {
+				
 				txtMargenMinimoGBodega.setValue(selectedReferencia
 						.getMargenMinimoGBodega());
 			} catch (Exception e) {
-				txtMargenMinimoGBodega.setValue("");
+				System.out.println("dafuq");				
 			}
 
 			try {
