@@ -17,6 +17,7 @@ import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpSession;
 
+import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -98,7 +99,12 @@ public class SucursalView {
 	private CommandButton btnClear;
 	private List<SucursalDTO> data;
 	private SucursalDTO selectedSucursal;
+	
+	private SucursalDataModel sucusalPadreModel;
+	private SucursalDataModel sucusalModel;
+	
 	private Sucursal entity;
+	private AccordionPanel acordion;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
@@ -352,6 +358,20 @@ public class SucursalView {
 			} catch (Exception e) {
 				estado.setValue("");
 			}
+			
+			/*try {
+				for (int i = 0; i < data.size(); i++) {
+					if (data.get(i).getIdSucu() == selectedSucursal
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data.get(i);
+						break;
+					}
+
+				}
+
+			} catch (Exception e) {
+
+			}*/
 
 			txtIdSucu.setValue(selectedSucursal.getIdSucu());
 
@@ -1646,5 +1666,29 @@ public class SucursalView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public AccordionPanel getAcordion() {
+		return acordion;
+	}
+
+	public void setAcordion(AccordionPanel acordion) {
+		this.acordion = acordion;
+	}
+
+	public SucursalDataModel getSucusalPadreModel() {
+		return sucusalPadreModel;
+	}
+
+	public void setSucusalPadreModel(SucursalDataModel sucusalPadreModel) {
+		this.sucusalPadreModel = sucusalPadreModel;
+	}
+
+	public SucursalDataModel getSucusalModel() {
+		return sucusalModel;
+	}
+
+	public void setSucusalModel(SucursalDataModel sucusalModel) {
+		this.sucusalModel = sucusalModel;
 	}
 }

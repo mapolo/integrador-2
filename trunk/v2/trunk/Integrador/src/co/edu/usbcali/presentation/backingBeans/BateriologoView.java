@@ -63,6 +63,7 @@ public class BateriologoView {
 	private CommandButton btnClear;
 	private List<BateriologoDTO> data;
 	private BateriologoDTO selectedBateriologo;
+	private SucursalDTO selectedSucursal;
 	private Bateriologo entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -130,6 +131,12 @@ public class BateriologoView {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		System.out.println("Cancelado"
 				+ ((BateriologoDTO) event.getObject()).getIdBate());
+	}
+	
+	public String quitSelect(){
+		selectedSucursal = null;
+		
+		return "";
 	}
 
 	public String action_modify2() {
@@ -857,6 +864,14 @@ public class BateriologoView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public SucursalDTO getSelectedSucursal() {
+		return selectedSucursal;
+	}
+
+	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
+		this.selectedSucursal = selectedSucursal;
 	}
 
 }
