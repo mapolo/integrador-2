@@ -1,0 +1,214 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectBateriologoTitle" header="Bateriologo">
+
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{bateriologoView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								rowKey="#{car.idBate}"
+								selection="#{bateriologoView.selectedBateriologo}"
+								editable="true" filteredValue="#{bateriologoView.data}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+									sortBy="codigo" filterMatchMode="contains" style="width: 100px">
+									<h:outputText value="#{car.codigo}"
+										style="text-transform:uppercase;" />
+								</p:column>
+
+								<p:column headerText="Nombre Completo" style="width: 100px">
+									<h:outputLabel value="#{car.nombreCompleto}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{bateriologoView.manufacturerOptions}"
+									filterMatchMode="exact">
+
+									<h:outputText value="#{car.estadoRegistro}" />
+
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										action="#{bateriologoView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{bateriologoView.action_modify2()}"
+										binding="#{bateriologoView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Bateriologo" widgetVar="carDialog"
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold" modal="true">
+
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgCodigo" value="*Codigo:" />
+									<p:inputText id="txtCodigo" value="#{bateriologoView.codigo}"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										binding="#{bateriologoView.txtCodigo}" />
+
+									<h:outputText id="msgIdSucu_Sucursal" value="*ID Sucursal:" />
+									<p:selectOneMenu value="#{bateriologoView.idSucu_Sucursal}"
+										binding="#{bateriologoView.txtIdSucu_Sucursal}">
+										<f:selectItems value="#{bateriologoView.sucursal}" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgEstadoRegistro"
+										value="*Estado del Registro:" />
+									<p:selectOneMenu binding="#{bateriologoView.estado}"
+										value="#{bateriologoView.estadoRegistro}">
+										<f:selectItem itemLabel="Activo" itemValue="A" />
+										<f:selectItem itemLabel="Retirado" itemValue="R" />
+									</p:selectOneMenu>
+
+									<h:outputText id="msgNombreCompleto" value="Nombre Completo:" />
+									<p:inputTextarea rows="3" cols="33" id="txtNombreCompleto"
+										value="#{bateriologoView.nombreCompleto}"
+										binding="#{bateriologoView.txtNombreCompleto}" />
+
+								</h:panelGrid>
+
+								<p:separator id="separator" />
+								
+								
+								
+								
+								<p:accordionPanel id="acordion" activeIndex="3"
+									binding="#{sucursalView.acordion}">
+
+									<p:tab title="Sucursal">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="sucursal"
+												value="#{sucursalView.sucusalPadreModel}" var="sucursal"
+												selection="#{bateriologoView.selectedSucursal}"
+												paginator="true" rows="3">
+
+												<f:facet name="header">
+							                     Sucursal
+							                    </f:facet>
+
+												<p:column selectionMode="single" style="width:2%" />
+
+												<p:column filterBy="#{sucursal.codigo}"
+													sortBy="#{sucursal.codigo}">
+													<f:facet name="header">
+														<h:outputText value="Código" />
+													</f:facet>
+													<h:outputText value="#{sucursal.codigo}" />
+												</p:column>
+
+												<p:column filterBy="#{sucursal.nombre}"
+													sortBy="#{sucursal.nombre}">
+													<f:facet name="header">
+														<h:outputText value="Nombre" />
+													</f:facet>
+													<h:outputText value="#{sucursal.nombre}" />
+												</p:column>
+												
+												<p:column filterBy="#{sucursal.direccion}"
+													sortBy="#{sucursal.direccion}">
+													<f:facet name="header">
+														<h:outputText value="Dirección" />
+													</f:facet>
+													<h:outputText value="#{sucursal.direccion}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="noButton1" value="Quitar Selección"
+														action="#{bateriologoView.quitSelect}"
+														icon="ui-icon-circle-close" update="sucursal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
+								
+								
+								
+								
+	
+								<h:panelGrid id="panelBotones" columns="2">
+
+									<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{bateriologoView.action_create}"
+										binding="#{bateriologoView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{bateriologoView.action_modify()}"
+										binding="#{bateriologoView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+								</h:panelGrid>
+
+							</p:dialog>
+						</p:panel>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
