@@ -336,12 +336,12 @@ public class SucursalView {
 			 */
 
 			try {
-				List<PersonaDTO> data2 = businessDelegatorView.getDataPersona();
+				List<PersonaDTO> data5 = businessDelegatorView.getDataPersona();
 
-				for (int i = 0; i < data2.size(); i++) {
-					if (data.get(i).getIdPers_Persona() == selectedSucursal
+				for (int i = 0; i < data5.size(); i++) {
+					if (data5.get(i).getIdPers() == selectedSucursal
 							.getIdPers_Persona()) {
-						selectedPersona = data3.get(i);
+						selectedPersona = data5.get(i);
 						break;
 					}
 
@@ -364,8 +364,8 @@ public class SucursalView {
 						.getDataRegionalGeografica();
 
 				for (int i = 0; i < data2.size(); i++) {
-					if (data.get(i)
-							.getIdRege_RegionalGeografica()
+					if (data2.get(i)
+							.getIdRege()
 							.toString()
 							.equals(selectedSucursal
 									.getIdRege_RegionalGeografica().toString())) {
@@ -519,7 +519,8 @@ public class SucursalView {
 		 * 
 		 * }
 		 */
-
+		
+		selectedSucursal = null;
 		selectedEmpresa = null;
 		selectedPersona = null;
 		selectedSucursalPadre = null;
