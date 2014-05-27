@@ -54,7 +54,7 @@ body {
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
 								editable="true" filteredValue="#{sucursalView.data}"
 								rowKey="#{car.idSucu}"
-								selection="#{sucursalView.selectedSucursal}"> >
+								selection="#{sucursalView.selectedSucursal}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
@@ -113,12 +113,7 @@ body {
 
 								<h:panelGrid columns="4" id="panel">
 
-									<h:outputText id="msgIdSucu_Sucursal" value="Sucursal Padre:" />
-									<p:selectOneMenu value="#{sucursalView.idSucu_Sucursal}"
-										binding="#{sucursalView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{sucursalView.sucursal}" />
-									</p:selectOneMenu>
+
 
 									<h:outputText id="msgCodigo" value="Codigo:" />
 									<p:inputText id="txtCodigo" value="#{sucursalView.codigo}"
@@ -153,20 +148,6 @@ body {
 										<f:selectItem itemLabel="N" itemValue="N" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
-									<p:selectOneMenu value="#{sucursalView.idPers_Persona}"
-										binding="#{sucursalView.txtIdPers_Persona}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{sucursalView.persona}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa:" />
-									<p:selectOneMenu value="#{sucursalView.idEmpr_Empresa}"
-										binding="#{sucursalView.txtIdEmpr_Empresa}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{sucursalView.empresa}" />
-									</p:selectOneMenu>
-
 									<h:outputText id="msgIdDipo_DivisionPolitica"
 										value="ID División Politica:" />
 									<p:selectOneMenu
@@ -184,14 +165,7 @@ body {
 										<f:selectItems value="#{sucursalView.tipoSucursal}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdRege_RegionalGeografica"
-										value="ID Regional Geografica:" />
-									<p:selectOneMenu
-										value="#{sucursalView.idRege_RegionalGeografica}"
-										binding="#{sucursalView.txtIdRege_RegionalGeografica}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{sucursalView.regionalGeografica}" />
-									</p:selectOneMenu>
+
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -204,6 +178,258 @@ body {
 								</h:panelGrid>
 
 								<p:separator id="separator" />
+
+
+								<!-- Arcodion RegionalGeografica -->
+
+								<p:accordionPanel id="acordion" activeIndex="4"
+									binding="#{sucursalView.acordion}">
+
+									<p:tab title="Regional Geografica">
+
+										<p:dataTable var="rg" value="#{regionalGeograficaView.data}"
+											scrollable="true" scrollHeight="200" id="tablaRG"
+											editable="true" rowKey="#{rg.idRege}"
+											selection="#{sucursalView.selectedRegional}">
+
+
+
+
+
+											<f:facet name="header">
+							                Regional Geografica
+						                    </f:facet>
+
+											<p:column selectionMode="single" style="width:20px" />
+
+											<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+												sortBy="#{rg.codigo}" filterMatchMode="contains"
+												style="width: 100px">
+												<h:outputText value="#{rg.codigo}"
+													style="text-transform:uppercase;" />
+											</p:column>
+
+
+											<p:column headerText="Descripción" style="width: 100px">
+												<h:outputLabel value="#{rg.descripcion}" />
+											</p:column>
+
+
+											<p:column headerText="Estado del Registro"
+												style="width: 100px" filterBy="estadoRegistro"
+												filterOptions="#{regionalGeograficaView.manufacturerOptions}"
+												filterMatchMode="exact">
+												<h:outputText value="#{rg.estadoRegistro}" />
+											</p:column>
+
+
+
+											<f:facet name="footer">
+												<p:commandButton id="quitButton" value="Quitar"
+													action="#{sucursalView.selectQRG}"
+													icon="ui-icon-circle-close" update="tablaRG" />
+											</f:facet>
+
+
+
+										</p:dataTable>
+
+									</p:tab>
+
+
+
+									<!-- Arcodion SucursalPadre -->
+									<p:tab title="Sucursal Padre">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable id="tablaSucursalP" value="#{sucursalView.data}"
+												var="sp" selection="#{sucursalView.selectedSucursalPadre}"
+												editable="true" scrollable="true" scrollHeight="200"
+												rowKey="#{sp.idSucu}">
+
+
+												<f:facet name="header">
+							           Sucursal Padre
+							           </f:facet>
+
+												<p:column selectionMode="single" style="width:20px" />
+
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{sp.nombre}" />
+												</p:column>
+
+												<p:column id="direccion" filterBy="direccion"
+													headerText="Dirección" sortBy="direccion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{sp.direccion}" />
+												</p:column>
+
+												<p:column headerText="Estado del Registro"
+													style="width: 100px" filterBy="estadoRegistro"
+													filterOptions="#{sucursalView.manufacturerOptions}"
+													filterMatchMode="exact">
+													<h:outputText value="#{sp.estadoRegistro}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton2" value="Quitar"
+														action="#{sucursalView.selectSP}"
+														icon="ui-icon-circle-close" update="tablaSucursalP" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+
+									</p:tab>
+
+
+
+
+									<!-- Arcodion Persona -->
+									<p:tab title="Persona" binding="#{sucursalView.txtPpersona}">
+
+										<h:panelGrid style="margin: 0 auto">
+
+											<p:dataTable value="#{personaView.data}" id="tablaP" var="p"
+												selection="#{sucursalView.selectedPersona}" editable="true"
+												scrollable="true" scrollHeight="200" rowKey="#{p.idPers}">
+
+												<f:facet name="header">
+									      Persona
+							            </f:facet>
+
+												<p:column selectionMode="single" style="width:20px" />
+
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="Identificación" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.identificacion}" />
+												</p:column>
+
+												<p:column id="primerNombre" filterBy="primerNombre"
+													headerText="Primer Nombre" sortBy="primerNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerNombre}" />
+												</p:column>
+
+												<p:column id="segundoNombre" filterBy="segundoNombre"
+													headerText="Segundo Nombre" sortBy="segundoNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.segundoNombre}" />
+												</p:column>
+
+												<p:column id="primerApellido" filterBy="primerApellido"
+													headerText="Primer Apellido" sortBy="primerApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerApellido}" />
+												</p:column>
+
+												<p:column id="segundoApellido" filterBy="segundoApellido"
+													headerText="Segundo Apellido" sortBy="segundoApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.segundoApellido}" />
+												</p:column>
+
+
+												<p:column headerText="Estado del Registro"
+													filterBy="estadoRegistro"
+													filterOptions="#{personaView.manufacturerOptions}"
+													filterMatchMode="exact" style="width: 100px">
+													<h:outputText value="#{p.estadoRegistro}" />
+												</p:column>
+
+
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton3" value="Quitar"
+														action="#{sucursalView.selectP}"
+														icon="ui-icon-circle-close" update="tablaP" />
+												</f:facet>
+
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+
+
+									<p:tab title="Empresa" binding="#{sucursalView.txtPempresa}">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+
+											<p:dataTable id="tablaE" value="#{empresaView.data}"
+												var="p" selection="#{sucursalView.selectedEmpresa}"
+												editable="true" rowKey="#{p.idEmpr}"
+												scrollable="true" scrollHeight="200">
+
+													<f:facet name="header">
+							                    Empresa
+						                        </f:facet>
+
+													<p:column selectionMode="single" style="width:20px" />
+
+													<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+														sortBy="nombre" filterMatchMode="contains"
+														style="width: 100px">
+														<h:outputText value="#{p.nombre}" />
+													</p:column>
+
+													<p:column id="identificacion" filterBy="identificacion"
+														headerText="NIT" sortBy="identificacion"
+														filterMatchMode="contains" style="width: 100px">
+														<h:outputText value="#{p.identificacion}" />
+													</p:column>
+
+													<p:column id="telefono1" filterBy="telefono1"
+														headerText="Telefono" sortBy="telefono1"
+														filterMatchMode="contains" style="width: 100px">
+														<h:outputText value="#{p.telefono1}" />
+													</p:column>
+
+													<p:column id="direccion" filterBy="direccion"
+														headerText="Dirección" sortBy="direccion"
+														filterMatchMode="contains" style="width: 100px">
+														<h:outputText value="#{p.direccion}" />
+													</p:column>
+
+													<p:column id="email" filterBy="email" headerText="Email"
+														sortBy="email" filterMatchMode="contains"
+														style="width: 100px">
+														<h:outputText value="#{p.email}" />
+													</p:column>
+
+													<p:column headerText="Estado del Registro"
+														style="width: 100px" filterBy="estadoRegistro"
+														filterOptions="#{empresaView.manufacturerOptions}"
+														filterMatchMode="exact">
+														<h:outputText value="#{p.estadoRegistro}" />
+													</p:column>
+
+
+													<f:facet name="footer">
+														<p:commandButton id="quitButton4" value="Quitar"
+															action="#{sucursalView.selectE}"
+															icon="ui-icon-circle-close" update="tablaE" />
+													</f:facet>
+
+												</p:dataTable>
+										</h:panelGrid>
+									</p:tab>
+
+
+
+								</p:accordionPanel>
+
+
+								<p:separator id="separator2" />
 
 								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"

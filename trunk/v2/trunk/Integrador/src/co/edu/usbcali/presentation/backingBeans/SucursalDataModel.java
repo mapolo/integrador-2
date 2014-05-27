@@ -22,9 +22,9 @@ public class SucursalDataModel extends ListDataModel<SucursalDTO> implements
 	public SucursalDTO getRowData(String rowKey) {
 
 		@SuppressWarnings("unchecked")
-		List<SucursalDTO> uNegocio = (List<SucursalDTO>) getWrappedData();
+		List<SucursalDTO> sucursal = (List<SucursalDTO>) getWrappedData();
 
-		for (SucursalDTO td : uNegocio) {
+		for (SucursalDTO td : sucursal) {
 			if (td.getIdSucu().toString().equals(rowKey))
 				return td;
 		}
