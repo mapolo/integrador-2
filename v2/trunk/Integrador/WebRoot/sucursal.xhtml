@@ -191,9 +191,7 @@ body {
 											scrollable="true" scrollHeight="200" id="tablaRG"
 											editable="true" rowKey="#{rg.idRege}"
 											selection="#{sucursalView.selectedRegional}">
-
-
-
+											
 
 
 											<f:facet name="header">
@@ -298,6 +296,8 @@ body {
 											<p:dataTable value="#{personaView.data}" id="tablaP" var="p"
 												selection="#{sucursalView.selectedPersona}" editable="true"
 												scrollable="true" scrollHeight="200" rowKey="#{p.idPers}">
+												
+												
 
 												<f:facet name="header">
 									      Persona
@@ -366,8 +366,8 @@ body {
 
 
 											<p:dataTable id="tablaE" value="#{empresaView.data}"
-												var="p" selection="#{sucursalView.selectedEmpresa}"
-												editable="true" rowKey="#{p.idEmpr}"
+												var="e" selection="#{sucursalView.selectedEmpresa}"
+												editable="true" rowKey="#{e.idEmpr}"
 												scrollable="true" scrollHeight="200">
 
 													<f:facet name="header">
@@ -379,38 +379,38 @@ body {
 													<p:column id="nombre" filterBy="nombre" headerText="Nombre"
 														sortBy="nombre" filterMatchMode="contains"
 														style="width: 100px">
-														<h:outputText value="#{p.nombre}" />
+														<h:outputText value="#{e.nombre}" />
 													</p:column>
 
 													<p:column id="identificacion" filterBy="identificacion"
 														headerText="NIT" sortBy="identificacion"
 														filterMatchMode="contains" style="width: 100px">
-														<h:outputText value="#{p.identificacion}" />
+														<h:outputText value="#{e.identificacion}" />
 													</p:column>
 
 													<p:column id="telefono1" filterBy="telefono1"
 														headerText="Telefono" sortBy="telefono1"
 														filterMatchMode="contains" style="width: 100px">
-														<h:outputText value="#{p.telefono1}" />
+														<h:outputText value="#{e.telefono1}" />
 													</p:column>
 
 													<p:column id="direccion" filterBy="direccion"
 														headerText="Dirección" sortBy="direccion"
 														filterMatchMode="contains" style="width: 100px">
-														<h:outputText value="#{p.direccion}" />
+														<h:outputText value="#{e.direccion}" />
 													</p:column>
 
 													<p:column id="email" filterBy="email" headerText="Email"
 														sortBy="email" filterMatchMode="contains"
 														style="width: 100px">
-														<h:outputText value="#{p.email}" />
+														<h:outputText value="#{e.email}" />
 													</p:column>
 
 													<p:column headerText="Estado del Registro"
 														style="width: 100px" filterBy="estadoRegistro"
 														filterOptions="#{empresaView.manufacturerOptions}"
 														filterMatchMode="exact">
-														<h:outputText value="#{p.estadoRegistro}" />
+														<h:outputText value="#{e.estadoRegistro}" />
 													</p:column>
 
 
