@@ -2,6 +2,7 @@ package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +29,8 @@ import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.Bateriologo;
 import co.edu.usbcali.modelo.Sucursal;
 import co.edu.usbcali.modelo.dto.BateriologoDTO;
+import co.edu.usbcali.modelo.dto.CompaniaDTO;
+import co.edu.usbcali.modelo.dto.EmpresaDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
@@ -54,6 +57,7 @@ public class BateriologoView {
 	private String idBate;
 	private String fechaCreacion;
 	private String fechaModificacion;
+	
 	private Map<String, String> sucursal = new HashMap<String, String>();
 
 	private CommandButton btnSave;
@@ -63,8 +67,11 @@ public class BateriologoView {
 	private CommandButton btnClear;
 	private List<BateriologoDTO> data;
 	private BateriologoDTO selectedBateriologo;
+	private BateriologoDataModel bateriologoModel;
 	private SucursalDTO selectedSucursal;
+	private SucursalDataModel sucusalPadreModel;
 	private Bateriologo entity;
+	List<SucursalDTO> data5 = new ArrayList<SucursalDTO>();
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
@@ -89,6 +96,13 @@ public class BateriologoView {
 
 		return options;
 	}
+	
+	public String selectSucu(){
+		selectedSucursal = null;
+		
+		return "";
+	}
+	
 
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
 
@@ -164,8 +178,30 @@ public class BateriologoView {
 			} catch (Exception e) {
 				estado.setValue("");
 			}
+			
+			
+			
+			try {
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
 
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedBateriologo
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+						
+						System.out.println("if" + data3.get(i));
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
 			txtIdBate.setValue(selectedBateriologo.getIdBate());
+
+			
 
 		} catch (Exception e) {
 			if (selectedBateriologo == null) {
@@ -194,6 +230,13 @@ public class BateriologoView {
 		} catch (Exception e) {
 			txtNombreCompleto.setValue("");
 		}
+		
+
+		
+		
+		
+		selectedBateriologo = null;
+		selectedSucursal = null;
 
 		return "";
 	}
@@ -459,10 +502,17 @@ public class BateriologoView {
 			 * .checkLong(txtIdSucu_Sucursal)));
 			 */
 
-			Sucursal entity2 = businessDelegatorView
+			/*Sucursal entity2 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());
 
-			entity.setSucursal(entity2);
+			entity.setSucursal(entity2);*/
+			
+			
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			}
+			
 
 			businessDelegatorView.saveBateriologo(entity);
 			data = businessDelegatorView.getDataBateriologo();
@@ -520,10 +570,18 @@ public class BateriologoView {
 
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
 
-			Sucursal entity2 = businessDelegatorView
+			/*Sucursal entity2 = businessDelegatorView
 					.getSucursal(getIdSucu_Sucursal());
 
-			entity.setSucursal(entity2);
+			entity.setSucursal(entity2);*/
+			
+
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			} else {
+				entity.setSucursal(null);
+			}
 
 			businessDelegatorView.updateBateriologo(entity);
 			data = businessDelegatorView.getDataBateriologo();
@@ -872,6 +930,69 @@ public class BateriologoView {
 
 	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
 		this.selectedSucursal = selectedSucursal;
+	}
+
+	public BateriologoDataModel getBateriologoModel() {
+		return bateriologoModel;
+	}
+
+	public void setBateriologoModel(BateriologoDataModel bateriologoModel) {
+		this.bateriologoModel = bateriologoModel;
+	}
+
+	public SucursalDataModel getSucusalPadreModel() {
+		
+		if (data5.isEmpty()) {
+
+			try {
+				
+				System.out.println("entro try");
+				
+				
+				List<EmpresaDTO> data2 = businessDelegatorView.getDataEmpresa();
+				List<CompaniaDTO> data3 = businessDelegatorView
+						.getDataCompania();
+
+				List<EmpresaDTO> empresaCompania = new ArrayList<EmpresaDTO>();
+				for (int i = 0; i < data3.size(); i++) {
+					for (int j = 0; j < data2.size(); j++) {
+						if (data3.get(i).getIdEmpr_Empresa() == data2.get(j)
+								.getIdEmpr()) {
+							empresaCompania.add(data2.get(j));
+							break;
+						}
+					}
+				}
+				List<SucursalDTO> data4 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < empresaCompania.size(); i++) {
+					for (int j = 0; j < data4.size(); j++) {
+						try {
+							if (data4.get(j).getIdEmpr_Empresa() == empresaCompania
+									.get(i).getIdEmpr()) {
+								data5.add(data4.get(j));
+								break;
+							}
+						} catch (Exception e) {
+						}
+
+					}
+				}
+				sucusalPadreModel = new SucursalDataModel(data5);
+				
+			} catch (Exception e) {
+				
+				System.out.println("catch modelo");
+			}
+		}
+		
+		
+		return sucusalPadreModel;
+	}
+
+	public void setSucusalPadreModel(SucursalDataModel sucusalPadreModel) {
+		this.sucusalPadreModel = sucusalPadreModel;
 	}
 
 }
