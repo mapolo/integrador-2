@@ -167,11 +167,7 @@ body {
 									<p:inputText id="txtFax" value="#{empresaView.fax}"
 										binding="#{empresaView.txtFax}" />
 
-									<h:outputText id="msgIdPers_Persona" value="Reprentante Legal:" />
-									<p:selectOneMenu value="#{empresaView.idPers_Persona}"
-										binding="#{empresaView.txtIdPers_Persona}">
-										<f:selectItems value="#{empresaView.persona}" />
-									</p:selectOneMenu>
+									
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -182,7 +178,138 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
+
+
+
+
+
+
 								<p:separator id="separator" />
+
+
+								<p:accordionPanel id="acordion" activeIndex="3"
+									binding="#{sucursalView.acordion}">
+
+									<p:tab title="Representante Legal">
+										<h:panelGrid style="margin: 0 auto">
+
+											<p:dataTable value="#{personaView.data}" id="tablaRL"
+												var="car" selection="#{empresaView.selectedPersona}"
+												scrollable="true" scrollHeight="300" editable="true"
+												filteredValue="#{personaView.data}"
+												 rowKey="#{car.idPers}"> 
+												
+
+													<f:facet name="header">
+									            Representante Legal
+							                    </f:facet>
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="Identificación" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{car.identificacion}" />
+												</p:column>
+
+												<p:column id="primerNombre" filterBy="primerNombre"
+													headerText="Primer Nombre" sortBy="primerNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{car.primerNombre}" />
+												</p:column>
+
+												<p:column id="segundoNombre" filterBy="segundoNombre"
+													headerText="Segundo Nombre" sortBy="segundoNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{car.segundoNombre}" />
+												</p:column>
+
+												<p:column id="primerApellido" filterBy="primerApellido"
+													headerText="Primer Apellido" sortBy="primerApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{car.primerApellido}" />
+												</p:column>
+
+												<p:column id="segundoApellido" filterBy="segundoApellido"
+													headerText="Segundo Apellido" sortBy="segundoApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{car.segundoApellido}" />
+												</p:column>
+
+
+												<p:column headerText="Estado del Registro"
+													filterBy="estadoRegistro"
+													filterOptions="#{personaView.manufacturerOptions}"
+													filterMatchMode="exact" style="width: 100px">
+													<h:outputText value="#{car.estadoRegistro}" />
+												</p:column>
+
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{empresaView.selectRL}"
+														icon="ui-icon-circle-close" update="tablaRL" />
+												</f:facet>
+
+											</p:dataTable>
+
+										</h:panelGrid>
+									</p:tab>
+									
+									
+									
+									
+									
+									<p:tab title="Es Cliente">
+										<h:panelGrid style="margin: 0 auto" columns="6">
+
+											<h:outputText id="msgcliente" value=" Es Cliente:*" />
+											<p:selectOneMenu id="txtCliente"
+												value="#{empresaView.selectItemCliente}" disabled="true"
+												binding="#{empresaView.txtCliente}" style="width:140px"
+												required="true"
+												requiredMessage="Seleccion requerida Es Cliente">
+												
+												<f:selectItem itemLabel="Seleccionar" itemValue="" />
+												<f:selectItem itemLabel="Si" itemValue="S" />
+												<f:selectItem itemLabel="No" itemValue="N" />
+											</p:selectOneMenu>
+											<p:message for="txtCliente" display="icon" />
+											
+
+											<h:outputText id="msgTC" value=" Tipo Cartera:*" />
+											<p:selectOneMenu id="txtTC"
+												value="#{empresaView.selectItemTC}" disabled="true"
+												binding="#{empresaView.txtTC}" style="width:140px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="" />
+												<f:selectItems value="#{empresaView.tipoCartera}" />
+											</p:selectOneMenu>
+											<br />
+
+											<h:outputText id="msgEstadoCliente"
+												value=" EstadoRegistro Cliente:*" />
+											<p:selectOneMenu id="txtEstadoCliente"
+												value="#{empresaView.selectItemEstadoCl}" disabled="true"
+												binding="#{empresaView.txtEstadoCl}" style="width:140px">
+												<f:selectItem itemLabel="Seleccionar" itemValue="" />
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Retirado" itemValue="R" />
+											</p:selectOneMenu>
+											<br />
+
+										</h:panelGrid>
+
+									</p:tab>
+
+
+
+
+
+
+								</p:accordionPanel>
+
+								<p:separator id="separator2" />
+
 
 								<h:panelGrid id="panelBotones" columns="2">
 									<p:commandButton id="btnGuardar" value="Guardar"
