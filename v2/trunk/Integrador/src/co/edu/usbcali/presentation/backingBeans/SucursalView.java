@@ -21,6 +21,7 @@ import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
@@ -84,6 +85,7 @@ public class SucursalView {
 	private String idSucu;
 	private String fechaCreacion;
 	private String fechaModificacion;
+	private String selectItemEstado;
 
 	private Map<String, String> divisionPolitica = new HashMap<String, String>();
 	private Map<String, String> empresa = new HashMap<String, String>();
@@ -98,13 +100,23 @@ public class SucursalView {
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<SucursalDTO> data;
+	private List<RegionalGeograficaDTO> data2;
+	private List<PersonaDTO> data3;
 	private SucursalDTO selectedSucursal;
-	
-	private SucursalDataModel sucusalPadreModel;
-	private SucursalDataModel sucusalModel;
-	
-	private Sucursal entity;
+	private SucursalDTO selectedSucursalPadre;
+	private PersonaDTO selectedPersona;
+
+	private RegionalGeograficaDTO selectedRegional;
+	private EmpresaDTO selectedEmpresa;
 	private AccordionPanel acordion;
+	private Tab txtPpersona;
+	private Tab txtPempresa;
+
+	private SucursalDataModel sucursalPadreModel;
+	private SucursalDataModel sucursalModel;
+	private PersonaDataModel personaModel;
+
+	private Sucursal entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
@@ -119,6 +131,34 @@ public class SucursalView {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
+	}
+
+	public String selectQRG() {
+		selectedRegional = null;
+
+		return "";
+
+	}
+
+	public String selectSP() {
+		selectedSucursalPadre = null;
+
+		return "";
+
+	}
+
+	public String selectP() {
+		selectedPersona = null;
+
+		return "";
+
+	}
+	
+	public String selectE() {
+		selectedEmpresa = null;
+
+		return "";
+
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -250,6 +290,7 @@ public class SucursalView {
 	}
 
 	public String action_modify2() {
+
 		try {
 
 			btnSave.setDisabled(true);
@@ -263,38 +304,104 @@ public class SucursalView {
 
 			}
 
-			try {
+			/*try {
 				txtIdEmpr_Empresa
 						.setValue(selectedSucursal.getIdEmpr_Empresa());
 			} catch (Exception e) {
 				txtIdEmpr_Empresa.setValue("");
 
+			}*/
+			
+			try {
+				List<EmpresaDTO> data4 = businessDelegatorView.getDataEmpresa();
+
+				for (int i = 0; i < data4.size(); i++) {
+					if (data4.get(i).getIdEmpr() == selectedSucursal
+							.getIdEmpr_Empresa()) {
+						selectedEmpresa = data4.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
 			}
+
+			/*
+			 * try { txtIdPers_Persona
+			 * .setValue(selectedSucursal.getIdPers_Persona()); } catch
+			 * (Exception e) { txtIdPers_Persona.setValue("");
+			 * 
+			 * }
+			 */
 
 			try {
-				txtIdPers_Persona
-						.setValue(selectedSucursal.getIdPers_Persona());
+				List<PersonaDTO> data2 = businessDelegatorView.getDataPersona();
+
+				for (int i = 0; i < data2.size(); i++) {
+					if (data.get(i).getIdPers_Persona() == selectedSucursal
+							.getIdPers_Persona()) {
+						selectedPersona = data3.get(i);
+						break;
+					}
+
+				}
+
 			} catch (Exception e) {
-				txtIdPers_Persona.setValue("");
 
 			}
+
+			/*
+			 * try { txtIdRege_RegionalGeografica.setValue(selectedSucursal
+			 * .getIdRege_RegionalGeografica()); } catch (Exception e) {
+			 * txtIdRege_RegionalGeografica.setValue("");
+			 * 
+			 * }
+			 */
 
 			try {
-				txtIdRege_RegionalGeografica.setValue(selectedSucursal
-						.getIdRege_RegionalGeografica());
+				List<RegionalGeograficaDTO> data2 = businessDelegatorView
+						.getDataRegionalGeografica();
+
+				for (int i = 0; i < data2.size(); i++) {
+					if (data.get(i)
+							.getIdRege_RegionalGeografica()
+							.toString()
+							.equals(selectedSucursal
+									.getIdRege_RegionalGeografica().toString())) {
+						selectedRegional = data2.get(i);
+					}
+				}
+
 			} catch (Exception e) {
-				txtIdRege_RegionalGeografica.setValue("");
 
 			}
+
+			
+
+			/*
+			 * try { txtIdSucu_Sucursal.setValue(selectedSucursal
+			 * .getIdSucu_Sucursal()); } catch (Exception e) {
+			 * txtIdSucu_Sucursal.setValue("");
+			 * 
+			 * }
+			 */
 
 			try {
-				txtIdSucu_Sucursal.setValue(selectedSucursal
-						.getIdSucu_Sucursal());
+				for (int i = 0; i < data.size(); i++) {
+					if (data.get(i).getIdSucu() == selectedSucursal
+							.getIdSucu_Sucursal()) {
+						selectedSucursalPadre = data.get(i);
+						break;
+					}
+
+				}
+
 			} catch (Exception e) {
-				txtIdSucu_Sucursal.setValue("");
 
 			}
 
+			
 			try {
 				txtIdTisu_TipoSucursal.setValue(selectedSucursal
 						.getIdTisu_TipoSucursal());
@@ -321,9 +428,10 @@ public class SucursalView {
 			try {
 				txtDireccion.setValue(selectedSucursal.getDireccion());
 			} catch (Exception e) {
-				txtDireccion.setValue("");
 
 			}
+
+			
 
 			try {
 				txtEmail.setValue(selectedSucursal.getEmail());
@@ -358,20 +466,18 @@ public class SucursalView {
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			/*try {
-				for (int i = 0; i < data.size(); i++) {
-					if (data.get(i).getIdSucu() == selectedSucursal
-							.getIdSucu_Sucursal()) {
-						selectedSucursal = data.get(i);
-						break;
-					}
 
-				}
-
-			} catch (Exception e) {
-
-			}*/
+			/*
+			 * try { for (int i = 0; i < data.size(); i++) { if
+			 * (data.get(i).getIdSucu() == selectedSucursal
+			 * .getIdSucu_Sucursal()) { selectedSucursal = data.get(i); break; }
+			 * 
+			 * }
+			 * 
+			 * } catch (Exception e) {
+			 * 
+			 * }
+			 */
 
 			txtIdSucu.setValue(selectedSucursal.getIdSucu());
 
@@ -380,7 +486,8 @@ public class SucursalView {
 				// btnCrear.setDisabled(true);
 				// btnModify2.setDisabled(true);
 				// action_cerrar();
-				FacesUtils.addErrorMessage("Seleccione la Sucursal a Modificar");
+				FacesUtils
+						.addErrorMessage("Seleccione la Sucursal a Modificar");
 			}
 		}
 		return "";
@@ -392,47 +499,52 @@ public class SucursalView {
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
 
-		try {
-			txtIdDipo_DivisionPolitica.setValue(null);
-		} catch (Exception e) {
-			txtIdDipo_DivisionPolitica.setValue("");
+		/*
+		 * try { txtIdDipo_DivisionPolitica.setValue(null); } catch (Exception
+		 * e) { txtIdDipo_DivisionPolitica.setValue("");
+		 * 
+		 * }
+		 */
 
-		}
+		/*
+		 * try { txtIdEmpr_Empresa.setValue(null); } catch (Exception e) {
+		 * txtIdEmpr_Empresa.setValue("");
+		 * 
+		 * }
+		 */
 
-		try {
-			txtIdEmpr_Empresa.setValue(null);
-		} catch (Exception e) {
-			txtIdEmpr_Empresa.setValue("");
+		/*
+		 * try { txtIdPers_Persona.setValue(null); } catch (Exception e) {
+		 * txtIdPers_Persona.setValue("");
+		 * 
+		 * }
+		 */
 
-		}
+		selectedEmpresa = null;
+		selectedPersona = null;
+		selectedSucursalPadre = null;
+		selectedRegional = null;
 
-		try {
-			txtIdPers_Persona.setValue(null);
-		} catch (Exception e) {
-			txtIdPers_Persona.setValue("");
+		/*
+		 * try { txtIdRege_RegionalGeografica.setValue(null); } catch (Exception
+		 * e) { txtIdRege_RegionalGeografica.setValue("");
+		 * 
+		 * }
+		 */
 
-		}
+		/*
+		 * try { txtIdSucu_Sucursal.setValue(null); } catch (Exception e) {
+		 * 
+		 * 
+		 * }
+		 */
 
-		try {
-			txtIdRege_RegionalGeografica.setValue(null);
-		} catch (Exception e) {
-			txtIdRege_RegionalGeografica.setValue("");
-
-		}
-
-		try {
-			txtIdSucu_Sucursal.setValue(null);
-		} catch (Exception e) {
-			txtIdSucu_Sucursal.setValue("");
-
-		}
-
-		try {
-			txtIdTisu_TipoSucursal.setValue(null);
-		} catch (Exception e) {
-			txtIdTisu_TipoSucursal.setValue("");
-
-		}
+		/*
+		 * try { txtIdTisu_TipoSucursal.setValue(null); } catch (Exception e) {
+		 * txtIdTisu_TipoSucursal.setValue("");
+		 * 
+		 * }
+		 */
 
 		try {
 			txtEstadoSucursal.setValue(null);
@@ -898,40 +1010,67 @@ public class SucursalView {
 						.getDivisionPolitica(FacesUtils
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
+			
+			
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 
 			} else {
 
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
 						.checkLong(txtIdEmpr_Empresa)));
 
+			}*/
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
 			}
+			
+			
 
-			if (txtIdPers_Persona.getValue() == "") {
+		/*	if (txtIdPers_Persona.getValue() == "") {
 
 			} else {
 
 				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 						.checkLong(txtIdPers_Persona)));
+			}*/
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
 			}
 
-			if (txtIdRege_RegionalGeografica.getValue() == "") {
+			/*
+			 * if (txtIdRege_RegionalGeografica.getValue() == "") {
+			 * 
+			 * } else {
+			 * 
+			 * entity.setRegionalGeografica(businessDelegatorView
+			 * .getRegionalGeografica(FacesUtils
+			 * .checkLong(txtIdRege_RegionalGeografica)));
+			 * 
+			 * }
+			 */
 
-			} else {
-
+			if (selectedRegional != null) {
 				entity.setRegionalGeografica(businessDelegatorView
-						.getRegionalGeografica(FacesUtils
-								.checkLong(txtIdRege_RegionalGeografica)));
-
+						.getRegionalGeografica(selectedRegional.getIdRege()));
 			}
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * 
+			 * } else {
+			 * 
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
-			} else {
-
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+			if (selectedSucursalPadre != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursalPadre.getIdSucu()));
 			}
 
 			if (txtIdTisu_TipoSucursal.getValue() == "") {
@@ -996,39 +1135,69 @@ public class SucursalView {
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 				entity.setEmpresa(null);
 			} else {
 
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
 						.checkLong(txtIdEmpr_Empresa)));
 
+			}*/
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			} else {
+				entity.setEmpresa(null);
 			}
 
-			if (txtIdPers_Persona.getValue() == "") {
+			/*if (txtIdPers_Persona.getValue() == "") {
 				entity.setPersona(null);
 			} else {
 
 				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
 						.checkLong(txtIdPers_Persona)));
+			}*/
+			
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+				entity.setPersona(null);
 			}
 
-			if (txtIdRege_RegionalGeografica.getValue() == "") {
-				entity.setRegionalGeografica(null);
-			} else {
+			/*
+			 * if (txtIdRege_RegionalGeografica.getValue() == "") {
+			 * entity.setRegionalGeografica(null); } else {
+			 * 
+			 * entity.setRegionalGeografica(businessDelegatorView
+			 * .getRegionalGeografica(FacesUtils
+			 * .checkLong(txtIdRege_RegionalGeografica)));
+			 * 
+			 * }
+			 */
 
+			if (selectedRegional != null) {
 				entity.setRegionalGeografica(businessDelegatorView
-						.getRegionalGeografica(FacesUtils
-								.checkLong(txtIdRege_RegionalGeografica)));
-
+						.getRegionalGeografica(selectedRegional.getIdRege()));
+			} else {
+				entity.setRegionalGeografica(null);
 			}
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
-				entity.setSucursal(null);
-			} else {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * entity.setSucursal(null); } else {
+			 * 
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+			if (selectedSucursalPadre != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursalPadre.getIdSucu()));
+			} else {
+				entity.setSucursal(null);
 			}
 
 			if (txtIdTisu_TipoSucursal.getValue() == "") {
@@ -1676,19 +1845,99 @@ public class SucursalView {
 		this.acordion = acordion;
 	}
 
-	public SucursalDataModel getSucusalPadreModel() {
-		return sucusalPadreModel;
+	public RegionalGeograficaDTO getSelectedRegional() {
+		return selectedRegional;
 	}
 
-	public void setSucusalPadreModel(SucursalDataModel sucusalPadreModel) {
-		this.sucusalPadreModel = sucusalPadreModel;
+	public void setSelectedRegional(RegionalGeograficaDTO selectedRegional) {
+		this.selectedRegional = selectedRegional;
 	}
 
-	public SucursalDataModel getSucusalModel() {
-		return sucusalModel;
+	public EmpresaDTO getSelectedEmpresa() {
+		return selectedEmpresa;
 	}
 
-	public void setSucusalModel(SucursalDataModel sucusalModel) {
-		this.sucusalModel = sucusalModel;
+	public void setSelectedEmpresa(EmpresaDTO selectedEmpresa) {
+		this.selectedEmpresa = selectedEmpresa;
+	}
+
+	public Tab getTxtPpersona() {
+		return txtPpersona;
+	}
+
+	public void setTxtPpersona(Tab txtPpersona) {
+		this.txtPpersona = txtPpersona;
+	}
+
+	public Tab getTxtPempresa() {
+		return txtPempresa;
+	}
+
+	public void setTxtPempresa(Tab txtPempresa) {
+		this.txtPempresa = txtPempresa;
+	}
+
+	public String getSelectItemEstado() {
+		return selectItemEstado;
+	}
+
+	public void setSelectItemEstado(String selectItemEstado) {
+		this.selectItemEstado = selectItemEstado;
+	}
+
+	public SucursalDTO getSelectedSucursalPadre() {
+		return selectedSucursalPadre;
+	}
+
+	public void setSelectedSucursalPadre(SucursalDTO selectedSucursalPadre) {
+		this.selectedSucursalPadre = selectedSucursalPadre;
+	}
+
+	public PersonaDTO getSelectedPersona() {
+		return selectedPersona;
+	}
+
+	public void setSelectedPersona(PersonaDTO selectedPersona) {
+		this.selectedPersona = selectedPersona;
+	}
+
+	public SucursalDataModel getSucursalPadreModel() {
+		return sucursalPadreModel;
+	}
+
+	public void setSucursalPadreModel(SucursalDataModel sucursalPadreModel) {
+		this.sucursalPadreModel = sucursalPadreModel;
+	}
+
+	public SucursalDataModel getSucursalModel() {
+		return sucursalModel;
+	}
+
+	public void setSucursalModel(SucursalDataModel sucursalModel) {
+		this.sucursalModel = sucursalModel;
+	}
+
+	public PersonaDataModel getPersonaModel() {
+		return personaModel;
+	}
+
+	public void setPersonaModel(PersonaDataModel personaModel) {
+		this.personaModel = personaModel;
+	}
+
+	public List<RegionalGeograficaDTO> getData2() {
+		return data2;
+	}
+
+	public void setData2(List<RegionalGeograficaDTO> data2) {
+		this.data2 = data2;
+	}
+
+	public List<PersonaDTO> getData3() {
+		return data3;
+	}
+
+	public void setData3(List<PersonaDTO> data3) {
+		this.data3 = data3;
 	}
 }

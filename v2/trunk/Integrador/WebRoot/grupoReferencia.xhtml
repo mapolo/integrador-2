@@ -1,0 +1,183 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+
+		</ui:define>
+		<br />
+		<br />
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+
+					<h:form id="form">
+
+						<p:panel id="msgProjectGrupoReferenciaTitle"
+							header="GrupoReferencia">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<p:dataTable var="car" value="#{grupoReferenciaView.data}"
+								scrollable="true" scrollHeight="300" id="tablaPrincipal"
+								rowKey="#{car.id}"
+								selection="#{grupoReferenciaView.selectedGrupoReferencia}"
+								editable="true" filteredValue="#{grupoReferenciaView.data}">
+
+								<p:column selectionMode="single" style="width:20px" />
+
+								
+								<p:column headerText="Activo" style="width: 100px"
+									filterBy="activo"
+									filterOptions="#{grupoReferenciaView.manufacturerOptions}"
+									filterMatchMode="exact">
+									<h:outputText value="#{car.activoGR}" />
+
+								</p:column>
+								
+								
+
+								<p:column headerText="Nombre Completo" style="width: 100px">
+									<h:outputLabel value="#{car.nombreCompleto}" />
+								</p:column>
+
+								<p:column headerText="Estado del Registro" style="width: 100px"
+									filterBy="estadoRegistro"
+									filterOptions="#{bateriologoView.manufacturerOptions}"
+									filterMatchMode="exact">
+
+									<h:outputText value="#{car.estadoRegistro}" />
+
+								</p:column>
+
+								<f:facet name="footer">
+									<p:commandButton id="viewButton" value="Crear"
+										action="#{bateriologoView.action_VCrear()}"
+										icon="ui-icon-documen" oncomplete="PF('carDialog').show()"
+										update=":form" />
+								</f:facet>
+
+								<f:facet name="footer">
+									<p:commandButton id="modifyButton" value="Modificar"
+										action="#{bateriologoView.action_modify2()}"
+										binding="#{bateriologoView.btnModify2}" icon="ui-icon-documen"
+										oncomplete="PF('carDialog').show()" update=":form" />
+								</f:facet>
+
+							</p:dataTable>
+
+							<!--                          Tabla emergente           -->
+
+							<p:dialog id="dialog" header="Bateriologo" widgetVar="carDialog"
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold" modal="true">
+
+								<p:messages id="messages" autoUpdate="true" />
+								<h:panelGrid columns="2" id="panel">
+
+									<h:outputText id="msgActivo" value=" Activo" />
+									<p:inputText id="txtActivo" disabled="true"
+										binding="#{grupoReferenciaView.txtActivo}" />
+										
+										
+									<h:outputText id="msgEstadoRegistro" value=" EstadoRegistro" />
+									<p:inputText id="txtEstadoRegistro" disabled="true"
+										binding="#{grupoReferenciaView.txtEstadoRegistro}" />
+										
+										
+									<h:outputText id="msgOperCreador" value=" OperCreador" />
+									<p:inputText id="txtOperCreador" disabled="true"
+										binding="#{grupoReferenciaView.txtOperCreador}" />
+										
+										
+									<h:outputText id="msgOperModifica" value=" OperModifica" />
+									<p:inputText id="txtOperModifica" disabled="true"
+										binding="#{grupoReferenciaView.txtOperModifica}" />
+										
+										
+									<h:outputText id="msgIdGrpo_Grupo" value=" IdGrpo_Grupo" />
+									<p:inputText id="txtIdGrpo_Grupo" disabled="true"
+										binding="#{grupoReferenciaView.txtIdGrpo_Grupo}" />
+										
+										
+									<h:outputText id="msgIdRefe_Referencia"
+										value=" IdRefe_Referencia" />
+									<p:inputText id="txtIdRefe_Referencia" disabled="true"
+										binding="#{grupoReferenciaView.txtIdRefe_Referencia}" />
+								
+									
+									<h:outputText id="msgFechaInactivo" value=" FechaInactivo" />
+									<p:calendar showOn="button" navigator="true" locale="en"
+										binding="#{grupoReferenciaView.txtFechaInactivo}">
+										<p:ajax event="dateSelect"
+											listener="#{grupoReferenciaView.listener_txtFechaInactivo}"
+											update="men" />
+									</p:calendar>
+
+								</h:panelGrid>
+								
+								<p:separator id="separator" />
+
+								<h:panelGrid id="panelBotones" columns="2">
+								
+								<p:commandButton id="btnGuardar" value="Guardar"
+										action="#{bateriologoView.action_create}"
+										binding="#{bateriologoView.btnSave}"
+										update="tablaPrincipal,panel,panelBotones" />
+
+									<p:commandButton id="btnModificar" value="Editar"
+										disabled="false" action="#{bateriologoView.action_modify()}"
+										binding="#{bateriologoView.btnModify}"
+										update="tablaPrincipal,panel,panelBotones" />
+											
+
+								</h:panelGrid>
+						</p:panel>
+
+					</h:form>
+					</div>
+			</f:view>
+		</ui:define>
+
+		
+	</ui:composition>
+
+</h:body>
+
+</html>

@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.commandbutton.CommandButton;
@@ -39,6 +40,9 @@ public class RegionalGeograficaView {
 	private InputText txtIdRege;
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaModificacion;
+	
+	private String idRege;
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -49,9 +53,26 @@ public class RegionalGeograficaView {
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
+	private SelectItem[] manufacturerOptions;
+
+	String manufacturers[] = { "A", "R" };
 
 	public RegionalGeograficaView() {
 		super();
+		
+		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+	
+	
+	private SelectItem[] createFilterOptions(String[] data) {
+		SelectItem[] options = new SelectItem[data.length + 1];
+
+		options[0] = new SelectItem("", "Seleccionar");
+		for (int i = 0; i < data.length; i++) {
+			options[i + 1] = new SelectItem(data[i], data[i]);
+		}
+
+		return options;
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -533,5 +554,21 @@ public class RegionalGeograficaView {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public String getIdRege() {
+		return idRege;
+	}
+
+	public void setIdRege(String idRege) {
+		this.idRege = idRege;
+	}
+
+	public SelectItem[] getManufacturerOptions() {
+		return manufacturerOptions;
+	}
+
+	public void setManufacturerOptions(SelectItem[] manufacturerOptions) {
+		this.manufacturerOptions = manufacturerOptions;
 	}
 }
