@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<body>
+	<div align="center">
+
+		<h:form id="form">
+
+			<p:panel id="msgEvaluacionRapidaDesmpeno" header="Iniciar Sesión">
+				<p:messages id="msg" showDetail="true" />
+				<p:growl id="men" />
+
+				<p:dataTable var="ref" value="#{asignacionView.referencias}"
+					emptyMessage="No hay referencias disponibles">
+
+					
+				</p:dataTable>
+
+			</p:panel>
+		</h:form>
+	</div>
+</body>
+</html>

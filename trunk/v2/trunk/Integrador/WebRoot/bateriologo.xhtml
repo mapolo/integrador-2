@@ -95,7 +95,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Bateriologo" widgetVar="carDialog"
-								resizable="false" width="400" showEffect="clip"
+								resizable="true" width="400" showEffect="clip"
 								hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -135,7 +135,7 @@ body {
 										<h:panelGrid style="margin: 0 auto;">
 											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
 												var="s" selection="#{bateriologoView.selectedSucursal}"
-												scrollable="true" scrollHeight="200" editable="true"
+												scrollable="true" scrollHeight="100" editable="true"
 												rowKey="#{s.idSucu}"
 												>
 

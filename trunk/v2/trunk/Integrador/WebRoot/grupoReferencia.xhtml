@@ -56,35 +56,23 @@ body {
 
 							<p:dataTable var="car" value="#{grupoReferenciaView.data}"
 								scrollable="true" scrollHeight="300" id="tablaPrincipal"
-								rowKey="#{car.id}"
+								rowKey="#{car.idGrre}"
 								selection="#{grupoReferenciaView.selectedGrupoReferencia}"
 								editable="true" filteredValue="#{grupoReferenciaView.data}">
 
 								<p:column selectionMode="single" style="width:20px" />
 
 								
-								<p:column headerText="Activo" style="width: 100px"
-									filterBy="activo"
-									filterOptions="#{grupoReferenciaView.manufacturerOptions}"
-									filterMatchMode="exact">
-									<h:outputText value="#{car.activoGR}" />
-
-								</p:column>
 								
+								 
 								
 
-								<p:column headerText="Nombre Completo" style="width: 100px">
-									<h:outputLabel value="#{car.nombreCompleto}" />
+								<p:column id="activo" filterBy="activo" headerText="Activo"
+									sortBy="activo" filterMatchMode="contains" style="width: 100px">
+									<h:outputLabel value="#{car.activo}" />
 								</p:column>
 
-								<p:column headerText="Estado del Registro" style="width: 100px"
-									filterBy="estadoRegistro"
-									filterOptions="#{bateriologoView.manufacturerOptions}"
-									filterMatchMode="exact">
-
-									<h:outputText value="#{car.estadoRegistro}" />
-
-								</p:column>
+								
 
 								<f:facet name="footer">
 									<p:commandButton id="viewButton" value="Crear"
@@ -168,6 +156,7 @@ body {
 											
 
 								</h:panelGrid>
+								</p:dialog>
 						</p:panel>
 
 					</h:form>

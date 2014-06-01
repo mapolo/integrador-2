@@ -156,7 +156,7 @@ public class SucursalView {
 		return "";
 
 	}
-	
+
 	public String selectE() {
 		selectedEmpresa = null;
 
@@ -307,14 +307,14 @@ public class SucursalView {
 
 			}
 
-			/*try {
-				txtIdEmpr_Empresa
-						.setValue(selectedSucursal.getIdEmpr_Empresa());
-			} catch (Exception e) {
-				txtIdEmpr_Empresa.setValue("");
+			/*
+			 * try { txtIdEmpr_Empresa
+			 * .setValue(selectedSucursal.getIdEmpr_Empresa()); } catch
+			 * (Exception e) { txtIdEmpr_Empresa.setValue("");
+			 * 
+			 * }
+			 */
 
-			}*/
-			
 			try {
 				List<EmpresaDTO> data4 = businessDelegatorView.getDataEmpresa();
 
@@ -367,7 +367,8 @@ public class SucursalView {
 						.getDataRegionalGeografica();
 
 				for (int i = 0; i < data2.size(); i++) {
-					if (data2.get(i)
+					if (data2
+							.get(i)
 							.getIdRege()
 							.toString()
 							.equals(selectedSucursal
@@ -379,8 +380,6 @@ public class SucursalView {
 			} catch (Exception e) {
 
 			}
-
-			
 
 			/*
 			 * try { txtIdSucu_Sucursal.setValue(selectedSucursal
@@ -404,7 +403,6 @@ public class SucursalView {
 
 			}
 
-			
 			try {
 				txtIdTisu_TipoSucursal.setValue(selectedSucursal
 						.getIdTisu_TipoSucursal());
@@ -433,8 +431,6 @@ public class SucursalView {
 			} catch (Exception e) {
 
 			}
-
-			
 
 			try {
 				txtEmail.setValue(selectedSucursal.getEmail());
@@ -522,7 +518,7 @@ public class SucursalView {
 		 * 
 		 * }
 		 */
-		
+
 		selectedSucursal = null;
 		selectedEmpresa = null;
 		selectedPersona = null;
@@ -1014,33 +1010,32 @@ public class SucursalView {
 						.getDivisionPolitica(FacesUtils
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
-			
-			
 
-			/*if (txtIdEmpr_Empresa.getValue() == "") {
+			/*
+			 * if (txtIdEmpr_Empresa.getValue() == "") {
+			 * 
+			 * } else {
+			 * 
+			 * entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+			 * .checkLong(txtIdEmpr_Empresa)));
+			 * 
+			 * }
+			 */
 
-			} else {
-
-				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-						.checkLong(txtIdEmpr_Empresa)));
-
-			}*/
-			
 			if (selectedEmpresa != null) {
 				entity.setEmpresa(businessDelegatorView
 						.getEmpresa(selectedEmpresa.getIdEmpr()));
 			}
-			
-			
 
-		/*	if (txtIdPers_Persona.getValue() == "") {
+			/*
+			 * if (txtIdPers_Persona.getValue() == "") {
+			 * 
+			 * } else {
+			 * 
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona))); }
+			 */
 
-			} else {
-
-				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-						.checkLong(txtIdPers_Persona)));
-			}*/
-			
 			if (selectedPersona != null) {
 				entity.setPersona(businessDelegatorView
 						.getPersona(selectedPersona.getIdPers()));
@@ -1139,15 +1134,16 @@ public class SucursalView {
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
 
-			/*if (txtIdEmpr_Empresa.getValue() == "") {
-				entity.setEmpresa(null);
-			} else {
+			/*
+			 * if (txtIdEmpr_Empresa.getValue() == "") {
+			 * entity.setEmpresa(null); } else {
+			 * 
+			 * entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+			 * .checkLong(txtIdEmpr_Empresa)));
+			 * 
+			 * }
+			 */
 
-				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-						.checkLong(txtIdEmpr_Empresa)));
-
-			}*/
-			
 			if (selectedEmpresa != null) {
 				entity.setEmpresa(businessDelegatorView
 						.getEmpresa(selectedEmpresa.getIdEmpr()));
@@ -1155,15 +1151,14 @@ public class SucursalView {
 				entity.setEmpresa(null);
 			}
 
-			/*if (txtIdPers_Persona.getValue() == "") {
-				entity.setPersona(null);
-			} else {
+			/*
+			 * if (txtIdPers_Persona.getValue() == "") {
+			 * entity.setPersona(null); } else {
+			 * 
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona))); }
+			 */
 
-				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-						.checkLong(txtIdPers_Persona)));
-			}*/
-			
-			
 			if (selectedPersona != null) {
 				entity.setPersona(businessDelegatorView
 						.getPersona(selectedPersona.getIdPers()));
@@ -1981,7 +1976,7 @@ public class SucursalView {
 		} catch (Exception e) {
 
 		}
-		
+
 		return sucusalPadreModel;
 	}
 

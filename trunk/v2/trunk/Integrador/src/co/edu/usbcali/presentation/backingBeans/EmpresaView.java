@@ -87,29 +87,28 @@ public class EmpresaView {
 	private List<EmpresaDTO> data;
 	private EmpresaDTO selectedEmpresa;
 	private Empresa entity;
-	
-	
+
 	private String selectItemCompania;
 	private SelectOneMenu txtCompania;
-	
+
 	private String selectItemECompania;
 	private SelectOneMenu txtECompania;
-	
+
 	private String selectItemEstadoC;
 	private SelectOneMenu txtEstadoC;
-	
+
 	private String selectItemCliente;
 	private SelectOneMenu txtCliente;
 	private String selectItemTC;
 	private String selectItemEstadoCl;
-	
+
 	private SelectOneMenu txtTC;
 	private SelectOneMenu txtEstadoCl;
 
 	private InputText txtCodigo;
 
 	private Map<String, Long> tipoCartera = new HashMap<String, Long>();
-	
+
 	private PersonaDTO selectedPersona;
 	private PersonaDataModel personaModel;
 	private List<PersonaDTO> data2;
@@ -135,10 +134,10 @@ public class EmpresaView {
 
 		return options;
 	}
-	
-	public String selectRL(){
+
+	public String selectRL() {
 		selectedPersona = null;
-		
+
 		return "";
 	}
 
@@ -235,13 +234,13 @@ public class EmpresaView {
 				txtIdDipo_DivisionPolitica.setValue("");
 			}
 
-			/*try {
-				txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
+			/*
+			 * try {
+			 * txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
+			 * 
+			 * } catch (Exception e) { txtIdPers_Persona.setValue(""); }
+			 */
 
-			} catch (Exception e) {
-				txtIdPers_Persona.setValue("");
-			}*/
-			
 			for (int i = 0; i < data2.size(); i++) {
 				if (data2.get(i).getIdPers() == selectedEmpresa
 						.getIdPers_Persona()) {
@@ -343,13 +342,12 @@ public class EmpresaView {
 			txtIdDipo_DivisionPolitica.setValue("");
 		}
 
-		/*try {
-			txtIdPers_Persona.setValue(null);
+		/*
+		 * try { txtIdPers_Persona.setValue(null);
+		 * 
+		 * } catch (Exception e) { txtIdPers_Persona.setValue(""); }
+		 */
 
-		} catch (Exception e) {
-			txtIdPers_Persona.setValue("");
-		}*/
-		
 		selectedPersona = null;
 
 		try {
@@ -798,26 +796,26 @@ public class EmpresaView {
 			 * .checkLong(txtIdDipo_DivisionPolitica)));
 			 */
 
-			/*entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));*/
-			
-			if(selectedPersona==null){
+			/*
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona)));
+			 */
+
+			if (selectedPersona == null) {
 				entity.setPersona(null);
-			}else{
-				entity.setPersona(businessDelegatorView.getPersona(selectedPersona
-						.getIdPers()));
+			} else {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
 			}
-			
 
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
-			
-			
-businessDelegatorView.saveEmpresa(entity);
-			
+
+			businessDelegatorView.saveEmpresa(entity);
+
 			if (selectItemCompania.equals("S")) {
-				Compania entity2=new Compania();
+				Compania entity2 = new Compania();
 				entity2.setCodigo((String) txtCodigo.getValue());
 				entity2.setEstadoCompania(selectItemECompania);
 				entity2.setEstadoRegistro(selectItemEstadoC);
@@ -826,31 +824,32 @@ businessDelegatorView.saveEmpresa(entity);
 				entity2.setOperCreador(usuario);
 				entity2.setOperModifica(usuario);
 				entity2.setEmpresa(entity);
-				
+
 				businessDelegatorView.saveCompania(entity2);
 			}
-			
+
 			if (selectItemCliente.equals("S")) {
-				Cliente entity2=new Cliente();
-				
-				if(selectItemTC.equals("")){
-					FacesUtils.addErrorMessage("El campo Tipo Cartera es requerido");
+				Cliente entity2 = new Cliente();
+
+				if (selectItemTC.equals("")) {
+					FacesUtils
+							.addErrorMessage("El campo Tipo Cartera es requerido");
 					return "";
 				}
 
 				entity2.setEstadoRegistro(selectItemEstadoCl);
-				entity2.setTipoCartera(businessDelegatorView.getTipoCartera(Long.parseLong(selectItemTC)));
+				entity2.setTipoCartera(businessDelegatorView
+						.getTipoCartera(Long.parseLong(selectItemTC)));
 				entity2.setFechaCreacion(new Date());
 				entity2.setFechaModificacion(new Date());
 				entity2.setOperCreador(usuario);
 				entity2.setOperModifica(usuario);
 				entity2.setEmpresa(entity);
-				
+
 				businessDelegatorView.saveCliente(entity2);
 			}
-			
+
 			txtIdEmpr.setValue(entity.getIdEmpr());
-			
 
 			businessDelegatorView.saveEmpresa(entity);
 			data = businessDelegatorView.getDataEmpresa();
@@ -901,14 +900,16 @@ businessDelegatorView.saveEmpresa(entity);
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
 
-			/*entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));*/
-			
-			if(selectedPersona==null){
+			/*
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona)));
+			 */
+
+			if (selectedPersona == null) {
 				entity.setPersona(null);
-			}else{
-				entity.setPersona(businessDelegatorView.getPersona(selectedPersona
-						.getIdPers()));
+			} else {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
 			}
 
 			entity.setTipoIdentificacion(businessDelegatorView
@@ -1568,26 +1569,26 @@ businessDelegatorView.saveEmpresa(entity);
 	}
 
 	public Map<String, Long> getTipoCartera() {
-		
-		try {
-			   List<TipoCarteraDTO> data2 = businessDelegatorView
-			     .getDataTipoCartera();
-			   for (int i = 0; i < data2.size(); i++) {
-			    
-			    tipoCartera.put(data2.get(i).getCodigo()+" "+data2.get(i).getDescripcion(), data2.get(i)
-			      .getIdTica());
-			    
-			    }
-			  } catch (Exception e) {
 
-			  }
-		
+		try {
+			List<TipoCarteraDTO> data2 = businessDelegatorView
+					.getDataTipoCartera();
+			for (int i = 0; i < data2.size(); i++) {
+
+				tipoCartera.put(data2.get(i).getCodigo() + " "
+						+ data2.get(i).getDescripcion(), data2.get(i)
+						.getIdTica());
+
+			}
+		} catch (Exception e) {
+
+		}
+
 		return tipoCartera;
 	}
 
 	public void setTipoCartera(Map<String, Long> tipoCartera) {
 		this.tipoCartera = tipoCartera;
 	}
-	
-	
+
 }
