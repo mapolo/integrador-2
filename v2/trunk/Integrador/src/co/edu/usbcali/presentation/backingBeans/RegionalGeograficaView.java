@@ -40,9 +40,9 @@ public class RegionalGeograficaView {
 	private InputText txtIdRege;
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaModificacion;
-	
+
 	private String idRege;
-	
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -59,11 +59,10 @@ public class RegionalGeograficaView {
 
 	public RegionalGeograficaView() {
 		super();
-		
+
 		setManufacturerOptions(createFilterOptions(manufacturers));
 	}
-	
-	
+
 	private SelectItem[] createFilterOptions(String[] data) {
 		SelectItem[] options = new SelectItem[data.length + 1];
 

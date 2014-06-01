@@ -41,6 +41,18 @@ public class GrupoReferenciaView {
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaInactivo;
 	private Calendar txtFechaModificacion;
+
+	private String activo;
+	private String estadoRegistro;
+	private String operCreador;
+	private String operModifica;
+	private String idGrpo_Grupo;
+	private String idRefe_Referencia;
+	private String idGrre;
+	private String fechaCreacion;
+	private String fechaInactivo;
+	private String fechaModificacion;
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -596,4 +608,85 @@ public class GrupoReferenciaView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public String getActivo() {
+		return activo;
+	}
+
+	public void setActivo(String activo) {
+		this.activo = activo;
+	}
+
+	public String getEstadoRegistro() {
+		return estadoRegistro;
+	}
+
+	public void setEstadoRegistro(String estadoRegistro) {
+		this.estadoRegistro = estadoRegistro;
+	}
+
+	public String getOperCreador() {
+		return operCreador;
+	}
+
+	public void setOperCreador(String operCreador) {
+		this.operCreador = operCreador;
+	}
+
+	public String getOperModifica() {
+		return operModifica;
+	}
+
+	public void setOperModifica(String operModifica) {
+		this.operModifica = operModifica;
+	}
+
+	public String getIdGrpo_Grupo() {
+		return idGrpo_Grupo;
+	}
+
+	public void setIdGrpo_Grupo(String idGrpo_Grupo) {
+		this.idGrpo_Grupo = idGrpo_Grupo;
+	}
+
+	public String getIdRefe_Referencia() {
+		return idRefe_Referencia;
+	}
+
+	public void setIdRefe_Referencia(String idRefe_Referencia) {
+		this.idRefe_Referencia = idRefe_Referencia;
+	}
+
+	public String getIdGrre() {
+		return idGrre;
+	}
+
+	public void setIdGrre(String idGrre) {
+		this.idGrre = idGrre;
+	}
+
+	public String getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(String fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public String getFechaInactivo() {
+		return fechaInactivo;
+	}
+
+	public void setFechaInactivo(String fechaInactivo) {
+		this.fechaInactivo = fechaInactivo;
+	}
+
+	public String getFechaModificacion() {
+		return fechaModificacion;
+	}
+
+	public void setFechaModificacion(String fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
 }

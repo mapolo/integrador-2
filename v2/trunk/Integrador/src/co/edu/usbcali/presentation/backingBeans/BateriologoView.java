@@ -57,7 +57,7 @@ public class BateriologoView {
 	private String idBate;
 	private String fechaCreacion;
 	private String fechaModificacion;
-	
+
 	private Map<String, String> sucursal = new HashMap<String, String>();
 
 	private CommandButton btnSave;
@@ -96,13 +96,12 @@ public class BateriologoView {
 
 		return options;
 	}
-	
-	public String selectSucu(){
+
+	public String selectSucu() {
 		selectedSucursal = null;
-		
+
 		return "";
 	}
-	
 
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
 
@@ -146,10 +145,10 @@ public class BateriologoView {
 		System.out.println("Cancelado"
 				+ ((BateriologoDTO) event.getObject()).getIdBate());
 	}
-	
-	public String quitSelect(){
+
+	public String quitSelect() {
 		selectedSucursal = null;
-		
+
 		return "";
 	}
 
@@ -178,9 +177,7 @@ public class BateriologoView {
 			} catch (Exception e) {
 				estado.setValue("");
 			}
-			
-			
-			
+
 			try {
 				List<SucursalDTO> data3 = businessDelegatorView
 						.getDataSucursal();
@@ -189,7 +186,7 @@ public class BateriologoView {
 					if (data3.get(i).getIdSucu() == selectedBateriologo
 							.getIdSucu_Sucursal()) {
 						selectedSucursal = data3.get(i);
-						
+
 						System.out.println("if" + data3.get(i));
 						break;
 					}
@@ -198,10 +195,8 @@ public class BateriologoView {
 			} catch (Exception e) {
 
 			}
-			
-			txtIdBate.setValue(selectedBateriologo.getIdBate());
 
-			
+			txtIdBate.setValue(selectedBateriologo.getIdBate());
 
 		} catch (Exception e) {
 			if (selectedBateriologo == null) {
@@ -230,11 +225,7 @@ public class BateriologoView {
 		} catch (Exception e) {
 			txtNombreCompleto.setValue("");
 		}
-		
 
-		
-		
-		
 		selectedBateriologo = null;
 		selectedSucursal = null;
 
@@ -502,17 +493,17 @@ public class BateriologoView {
 			 * .checkLong(txtIdSucu_Sucursal)));
 			 */
 
-			/*Sucursal entity2 = businessDelegatorView
-					.getSucursal(getIdSucu_Sucursal());
+			/*
+			 * Sucursal entity2 = businessDelegatorView
+			 * .getSucursal(getIdSucu_Sucursal());
+			 * 
+			 * entity.setSucursal(entity2);
+			 */
 
-			entity.setSucursal(entity2);*/
-			
-			
 			if (selectedSucursal != null) {
 				entity.setSucursal(businessDelegatorView
 						.getSucursal(selectedSucursal.getIdSucu()));
 			}
-			
 
 			businessDelegatorView.saveBateriologo(entity);
 			data = businessDelegatorView.getDataBateriologo();
@@ -570,11 +561,12 @@ public class BateriologoView {
 
 			entity.setNombreCompleto(FacesUtils.checkString(txtNombreCompleto));
 
-			/*Sucursal entity2 = businessDelegatorView
-					.getSucursal(getIdSucu_Sucursal());
-
-			entity.setSucursal(entity2);*/
-			
+			/*
+			 * Sucursal entity2 = businessDelegatorView
+			 * .getSucursal(getIdSucu_Sucursal());
+			 * 
+			 * entity.setSucursal(entity2);
+			 */
 
 			if (selectedSucursal != null) {
 				entity.setSucursal(businessDelegatorView
@@ -941,14 +933,13 @@ public class BateriologoView {
 	}
 
 	public SucursalDataModel getSucusalPadreModel() {
-		
+
 		if (data5.isEmpty()) {
 
 			try {
-				
+
 				System.out.println("entro try");
-				
-				
+
 				List<EmpresaDTO> data2 = businessDelegatorView.getDataEmpresa();
 				List<CompaniaDTO> data3 = businessDelegatorView
 						.getDataCompania();
@@ -980,14 +971,13 @@ public class BateriologoView {
 					}
 				}
 				sucusalPadreModel = new SucursalDataModel(data5);
-				
+
 			} catch (Exception e) {
-				
+
 				System.out.println("catch modelo");
 			}
 		}
-		
-		
+
 		return sucusalPadreModel;
 	}
 

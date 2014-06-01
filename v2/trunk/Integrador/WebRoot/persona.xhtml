@@ -191,8 +191,11 @@ body {
 										binding="#{personaView.txtApartadoAereo}" />
 
 									<h:outputText id="msgEmail" value="Email:" />
-									<p:inputText id="txtEmail" value="#{personaView.email}"
-										binding="#{personaView.txtEmail}" />
+									<p:inputText id="txtEmail" value="#{personaView.email}" validatorMessage="Email Incorrecto"
+										binding="#{personaView.txtEmail}">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText>
 
 									<h:outputText id="msgDigitoVerificacion"
 										value="Digito de Verificación:" />

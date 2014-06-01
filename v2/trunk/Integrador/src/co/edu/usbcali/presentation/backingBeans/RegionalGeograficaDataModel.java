@@ -8,7 +8,8 @@ import org.primefaces.model.SelectableDataModel;
 
 import co.edu.usbcali.modelo.dto.RegionalGeograficaDTO;
 
-public class RegionalGeograficaDataModel extends ListDataModel<RegionalGeograficaDTO> implements
+public class RegionalGeograficaDataModel extends
+		ListDataModel<RegionalGeograficaDTO> implements
 		SelectableDataModel<RegionalGeograficaDTO> {
 
 	public RegionalGeograficaDataModel() {
@@ -38,7 +39,3 @@ public class RegionalGeograficaDataModel extends ListDataModel<RegionalGeografic
 	}
 
 }
-
-
-
-
