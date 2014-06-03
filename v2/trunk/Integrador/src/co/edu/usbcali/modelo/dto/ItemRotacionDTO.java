@@ -33,7 +33,6 @@ public class ItemRotacionDTO implements Serializable {
 	private String operModifica;
 	private Long idClfa_ClaveFabricacion;
 	private Long idDocu_Documento;
-	private Long idRefe_Referencia;
 
 	public String getAutorizado() {
 		return autorizado;

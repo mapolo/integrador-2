@@ -28,7 +28,6 @@ public class MovimientoInventarioDTO implements Serializable {
 	private Long idCusa_Causal;
 	private Long idDocu_Documento;
 	private Long idResu_ReferenciaSucursal;
-	private Long idSucu_Sucursal;
 
 	public Double getCantidad() {
 		return cantidad;

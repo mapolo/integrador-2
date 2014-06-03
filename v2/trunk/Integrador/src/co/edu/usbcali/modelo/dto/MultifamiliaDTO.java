@@ -16,8 +16,6 @@ public class MultifamiliaDTO implements Serializable {
 	private Long idMufa;
 	private String operCreador;
 	private String operModifica;
-	private Long idClie_Cliente;
-
 	private Long idSucu_Sucursal;
 
 	public String getEstadoRegistro() {

@@ -84,6 +84,12 @@ public class ListaPreciosEspecialesView {
 	private Map<String, String> sucursal2 = new HashMap<String, String>();
 	private Map<String, String> referencia = new HashMap<String, String>();
 
+	private SucursalDTO selectedSucursal;
+	private SucursalDTO selectedSucursalH;
+	private PersonaDTO selectedPersona;
+	private EmpresaDTO selectedEmpresa;
+	private ReferenciaDTO selectedReferencia;
+
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnModify2;
@@ -102,6 +108,37 @@ public class ListaPreciosEspecialesView {
 	public ListaPreciosEspecialesView() {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	public String selectSucu() {
+		selectedSucursal = null;
+		return "";
+	}
+
+	public String selectSucuH() {
+		selectedSucursalH = null;
+		return "";
+	}
+
+	public String selectP() {
+		selectedPersona = null;
+
+		return "";
+
+	}
+
+	public String selectE() {
+		selectedEmpresa = null;
+
+		return "";
+
+	}
+
+	public String selectrefe() {
+
+		selectedReferencia = null;
+
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -291,7 +328,7 @@ public class ListaPreciosEspecialesView {
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
-			try {
+			/*try {
 				txtIdEmpr_Empresa.setValue(selectedListaPreciosEspeciales
 						.getIdEmpr_Empresa());
 
@@ -329,6 +366,86 @@ public class ListaPreciosEspecialesView {
 
 			} catch (Exception e) {
 				txtIdSucu_Sucursal2.setValue("");
+			}*/
+			
+			try {
+				List<EmpresaDTO> data11 = businessDelegatorView.getDataEmpresa();
+
+				for (int i = 0; i < data11.size(); i++) {
+					if (data11.get(i).getIdEmpr() == selectedListaPreciosEspeciales
+							.getIdEmpr_Empresa()) {
+						selectedEmpresa = data11.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<PersonaDTO> data10 = businessDelegatorView.getDataPersona();
+
+				for (int i = 0; i < data10.size(); i++) {
+					if (data10.get(i).getIdPers() == selectedListaPreciosEspeciales
+							.getIdPers_Persona()) {
+						selectedPersona = data10.get(i);
+						break;
+					}
+
+				}
+
+			} catch (Exception e) {
+
+			}
+
+			try {
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedListaPreciosEspeciales
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<SucursalDTO> data5 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data5.size(); i++) {
+					if (data5.get(i).getIdSucu() == selectedListaPreciosEspeciales
+							.getIdSucu_Sucursal2()) {
+						selectedSucursalH = data5.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<ReferenciaDTO> data999 = businessDelegatorView
+						.getDataReferencia();
+
+				for (int i = 0; i < data999.size(); i++) {
+					if (data999.get(i).getIdRefe() == selectedListaPreciosEspeciales
+							.getIdRefe_Referencia()) {
+						setSelectedReferencia(data999.get(i));
+
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
 			}
 
 			try {
@@ -388,8 +505,14 @@ public class ListaPreciosEspecialesView {
 
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
+		
+		selectedSucursal = null;
+		selectedSucursalH = null;
+		selectedEmpresa = null;
+		selectedPersona = null;
+		selectedReferencia = null;
 
-		try {
+		/*try {
 			txtIdEmpr_Empresa.setValue(null);
 
 		} catch (Exception e) {
@@ -422,7 +545,7 @@ public class ListaPreciosEspecialesView {
 
 		} catch (Exception e) {
 			txtIdSucu_Sucursal2.setValue("");
-		}
+		}*/
 
 		try {
 			txtConcepto.setValue(null);
@@ -865,7 +988,7 @@ public class ListaPreciosEspecialesView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 
 			} else {
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
@@ -895,7 +1018,32 @@ public class ListaPreciosEspecialesView {
 			}
 
 			entity.setSucursalBySucursal(businessDelegatorView
-					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));*/
+			
+			if (selectedSucursalH != null) {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(selectedSucursalH.getIdSucu()));
+			}
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			}
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			}
+
+			if (selectedSucursal != null) {
+				entity.setSucursalBySucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			}
+			
+			if (selectedReferencia != null) {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(selectedReferencia.getIdRefe()));
+			}
 
 			businessDelegatorView.saveListaPreciosEspeciales(entity);
 			data = businessDelegatorView.getDataListaPreciosEspeciales();
@@ -941,7 +1089,7 @@ public class ListaPreciosEspecialesView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 				System.out.println("entro null empresa");
 				entity.setEmpresa(null);
 			} else {
@@ -975,7 +1123,40 @@ public class ListaPreciosEspecialesView {
 			}
 
 			entity.setSucursalBySucursal(businessDelegatorView
-					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));*/
+			if (selectedSucursal != null) {
+				entity.setSucursalBySucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			}
+			
+			if (selectedSucursalH != null) {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(selectedSucursalH.getIdSucu()));
+			}else {
+				entity.setSucursalByIdSucu(null);
+			}
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			} else {
+				entity.setEmpresa(null);
+			}
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+				entity.setPersona(null);
+			}
+			
+			if (selectedReferencia != null) {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(selectedReferencia.getIdRefe()));
+			} else {
+
+				entity.setReferencia(null);
+			}
 
 			businessDelegatorView.updateListaPreciosEspeciales(entity);
 			data = businessDelegatorView.getDataListaPreciosEspeciales();
@@ -1538,6 +1719,46 @@ public class ListaPreciosEspecialesView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public SucursalDTO getSelectedSucursalH() {
+		return selectedSucursalH;
+	}
+
+	public void setSelectedSucursalH(SucursalDTO selectedSucursalH) {
+		this.selectedSucursalH = selectedSucursalH;
+	}
+
+	public SucursalDTO getSelectedSucursal() {
+		return selectedSucursal;
+	}
+
+	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
+		this.selectedSucursal = selectedSucursal;
+	}
+
+	public EmpresaDTO getSelectedEmpresa() {
+		return selectedEmpresa;
+	}
+
+	public void setSelectedEmpresa(EmpresaDTO selectedEmpresa) {
+		this.selectedEmpresa = selectedEmpresa;
+	}
+
+	public ReferenciaDTO getSelectedReferencia() {
+		return selectedReferencia;
+	}
+
+	public void setSelectedReferencia(ReferenciaDTO selectedReferencia) {
+		this.selectedReferencia = selectedReferencia;
+	}
+
+	public PersonaDTO getSelectedPersona() {
+		return selectedPersona;
+	}
+
+	public void setSelectedPersona(PersonaDTO selectedPersona) {
+		this.selectedPersona = selectedPersona;
 	}
 
 }

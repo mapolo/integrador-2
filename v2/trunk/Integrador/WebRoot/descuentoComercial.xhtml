@@ -116,7 +116,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Descuento Comercial"
-								widgetVar="carDialog" resizable="false" width="800"
+								widgetVar="carDialog" resizable="true" width="800"
 								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -125,7 +125,7 @@ body {
 
 									<h:outputText id="msgFechaInicial" value="*Fecha Inicial:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2020"
+										size="15" yearRange="1800:2020"
 										binding="#{descuentoComercialView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoComercialView.listener_txtFechaInicial}"
@@ -134,7 +134,7 @@ body {
 
 									<h:outputText id="msgFechaFinal" value="*Fecha Final:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2050"
+										size="15" yearRange="1800:2050"
 										binding="#{descuentoComercialView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoComercialView.listener_txtFechaFinal}"
@@ -191,38 +191,6 @@ body {
 										value="#{descuentoComercialView.porcDescMaxItem}"
 										binding="#{descuentoComercialView.txtPorcDescMaxItem}" />
 
-									<h:outputText id="msgIdSucu_Sucursal" value="*ID Sucursal:" />
-									<p:selectOneMenu
-										value="#{descuentoComercialView.idSucu_Sucursal}"
-										binding="#{descuentoComercialView.txtIdSucu_Sucursal}">
-										<f:selectItems value="#{descuentoComercialView.sucursal}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdSucu_Sucursal2"
-										value="ID Sucursal Hija:" />
-									<p:selectOneMenu
-										value="#{descuentoComercialView.idSucu_SucursalH}"
-										binding="#{descuentoComercialView.txtIdSucu_SucursalH}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{descuentoComercialView.sucursal2}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa:" />
-									<p:selectOneMenu
-										value="#{descuentoComercialView.idEmpr_Empresa}"
-										binding="#{descuentoComercialView.txtIdEmpr_Empresa}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{descuentoComercialView.empresa}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
-									<p:selectOneMenu
-										value="#{descuentoComercialView.idPers_Persona}"
-										binding="#{descuentoComercialView.txtIdPers_Persona}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{descuentoComercialView.persona}" />
-									</p:selectOneMenu>
-
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{descuentoComercialView.estado}"
@@ -231,18 +199,198 @@ body {
 										<f:selectItem itemLabel="Retirado" itemValue="R" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo:" />
-									<p:selectOneMenu value="#{descuentoComercialView.idGrpo_Grupo}"
-										binding="#{descuentoComercialView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{descuentoComercialView.grupo}" />
-									</p:selectOneMenu>
-
 									<h:outputText id="msgEspacios" value="Espacios:" />
 									<p:inputTextarea rows="6" cols="33" id="txtEspacios"
 										disabled="false" value="#{descuentoComercialView.espacios}"
 										binding="#{descuentoComercialView.txtEspacios}" />
 
 								</h:panelGrid>
+
+								<!-- arcodion  -->
+
+								<p:accordionPanel id="acordion" activeIndex="1">
+
+									<p:tab title="*Sucursal">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+												var="s"
+												selection="#{descuentoComercialView.selectedSucursal}"
+												scrollable="true" scrollHeight="100" editable="true"
+												rowKey="#{s.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s.nombre}" />
+												</p:column>
+
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{descuentoComercialView.selectSucu}"
+														icon="ui-icon-circle-close" update="tablaSucursal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+									<p:tab title="Sucursal Hija">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursalH" value="#{sucursalView.data}"
+												var="s2"
+												selection="#{descuentoComercialView.selectedSucursalH}"
+												scrollable="true" scrollHeight="100" editable="true"
+												rowKey="#{s2.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s2.nombre}" />
+												</p:column>
+
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s2.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButtonSH" value="Quitar"
+														action="#{descuentoComercialView.selectSucuH}"
+														icon="ui-icon-circle-close" update="tablaSucursalH" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+									<p:tab title="Empresa">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable id="tablaE" value="#{empresaView.data}" var="e"
+												selection="#{descuentoComercialView.selectedEmpresa}"
+												editable="true" rowKey="#{e.idEmpr}" scrollable="true"
+												scrollHeight="100">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{e.nombre}" />
+												</p:column>
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="NIT" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{e.identificacion}" />
+												</p:column>
+
+												<p:column id="telefono1" filterBy="telefono1"
+													headerText="Telefono" sortBy="telefono1"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{e.telefono1}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton4" value="Quitar"
+														action="#{descuentoComercialView.selectE}"
+														icon="ui-icon-circle-close" update="tablaE" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+									</p:tab>
+
+									<!-- Arcodion Persona -->
+									<p:tab title="Persona">
+
+										<h:panelGrid style="margin: 0 auto">
+
+											<p:dataTable value="#{personaView.data}" id="tablaP" var="p"
+												selection="#{descuentoComercialView.selectedPersona}"
+												editable="true" scrollable="true" scrollHeight="100"
+												rowKey="#{p.idPers}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="Identificación" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.identificacion}" />
+												</p:column>
+
+												<p:column id="primerNombre" filterBy="primerNombre"
+													headerText="Primer Nombre" sortBy="primerNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerNombre}" />
+												</p:column>
+
+												<p:column id="primerApellido" filterBy="primerApellido"
+													headerText="Primer Apellido" sortBy="primerApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerApellido}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton3" value="Quitar"
+														action="#{descuentoComercialView.selectP}"
+														icon="ui-icon-circle-close" update="tablaP" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+									<p:tab title="*Grupo">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable value="#{grupoView.data}" id="tablaPrincipal"
+												var="g" selection="#{descuentoComercialView.selectedGrupo}"
+												editable="true" scrollable="true" scrollHeight="100"
+												rowKey="#{g.idGrpo}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column headerText="Nombre" filterBy="nombre"
+													sortBy="nombre" style="width:100px">
+													<h:outputText value="#{g.nombre}" />
+												</p:column>
+
+												<p:column headerText="División" filterBy="division"
+													sortBy="division" style="width:100px">
+													<h:outputText value="#{g.division}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton2" value="Quitar"
+														action="#{descuentoComercialView.selectGR}"
+														icon="ui-icon-circle-close" update="tablaPrincipal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
 
 								<p:separator id="separator" />
 
