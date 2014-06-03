@@ -150,13 +150,6 @@ body {
 										<f:selectItems value="#{clavesParaRotarView.claveFabricacion}" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdSucu_Sucursal" value="ID Sucursal:" />
-									<p:selectOneMenu value="#{clavesParaRotarView.idSucu_Sucursal}"
-										binding="#{clavesParaRotarView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{clavesParaRotarView.sucursal}" />
-									</p:selectOneMenu>
-
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{clavesParaRotarView.estado}"
@@ -166,6 +159,45 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
+
+								<!-- arcodeon Sucursal -->
+
+								<p:accordionPanel id="acordion" activeIndex="1">
+
+									<p:tab title="Sucursal">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+												var="s" selection="#{clavesParaRotarView.selectedSucursal}"
+												scrollable="true" scrollHeight="200" editable="true"
+												rowKey="#{s.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s.nombre}" />
+												</p:column>
+
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{clavesParaRotarView.selectSucu}"
+														icon="ui-icon-circle-close" update="tablaSucursal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
 
 								<p:separator id="separator" />
 

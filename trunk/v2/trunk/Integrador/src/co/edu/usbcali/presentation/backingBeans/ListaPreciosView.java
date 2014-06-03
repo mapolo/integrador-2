@@ -78,6 +78,10 @@ public class ListaPreciosView {
 	private CommandButton btnClear;
 	private List<ListaPreciosDTO> data;
 	private ListaPreciosDTO selectedListaPrecios;
+
+	private SucursalDTO selectedSucursal;
+	private ReferenciaDTO selectedReferencia;
+
 	private ListaPrecios entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -90,6 +94,20 @@ public class ListaPreciosView {
 		super();
 
 		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	public String selectSucu() {
+
+		selectedSucursal = null;
+
+		return "";
+	}
+
+	public String selectrefe() {
+
+		setSelectedReferencia(null);
+
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -204,18 +222,50 @@ public class ListaPreciosView {
 				txtIdTili_TipoLista.setValue("");
 			}
 
-			try {
-				txtIdRefe_Referencia.setValue(selectedListaPrecios
-						.getIdRefe_Referencia());
-			} catch (Exception e) {
-				txtIdRefe_Referencia.setValue("");
-			}
+			/*
+			 * try { txtIdRefe_Referencia.setValue(selectedListaPrecios
+			 * .getIdRefe_Referencia()); } catch (Exception e) {
+			 * txtIdRefe_Referencia.setValue(""); }
+			 */
 
 			try {
-				txtIdSucu_Sucursal.setValue(selectedListaPrecios
-						.getIdSucu_Sucursal());
+				List<ReferenciaDTO> data4 = businessDelegatorView
+						.getDataReferencia();
+
+				for (int i = 0; i < data4.size(); i++) {
+					if (data4.get(i).getIdRefe() == selectedListaPrecios
+							.getIdRefe_Referencia()) {
+						setSelectedReferencia(data4.get(i));
+
+						break;
+					}
+				}
+
 			} catch (Exception e) {
-				txtIdSucu_Sucursal.setValue("");
+
+			}
+
+			/*
+			 * try { txtIdSucu_Sucursal.setValue(selectedListaPrecios
+			 * .getIdSucu_Sucursal()); } catch (Exception e) {
+			 * txtIdSucu_Sucursal.setValue(""); }
+			 */
+
+			try {
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedListaPrecios
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
 			}
 
 			try {
@@ -271,17 +321,19 @@ public class ListaPreciosView {
 			txtIdTili_TipoLista.setValue("");
 		}
 
-		try {
-			txtIdRefe_Referencia.setValue(null);
-		} catch (Exception e) {
-			txtIdRefe_Referencia.setValue("");
-		}
+		/*
+		 * try { txtIdRefe_Referencia.setValue(null); } catch (Exception e) {
+		 * txtIdRefe_Referencia.setValue(""); }
+		 */
 
-		try {
-			txtIdSucu_Sucursal.setValue(null);
-		} catch (Exception e) {
-			txtIdSucu_Sucursal.setValue("");
-		}
+		/*
+		 * try { txtIdSucu_Sucursal.setValue(null); } catch (Exception e) {
+		 * txtIdSucu_Sucursal.setValue(""); }
+		 */
+
+		selectedReferencia = null;
+		selectedSucursal = null;
+		selectedListaPrecios = null;
 
 		try {
 			txtFechaInicial.setValue(null);
@@ -663,17 +715,30 @@ public class ListaPreciosView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
-					.checkLong(txtIdRefe_Referencia)));
+			/*
+			 * entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
+			 * .checkLong(txtIdRefe_Referencia)));
+			 */
+
+			if (selectedReferencia != null) {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(selectedReferencia.getIdRefe()));
+			}
 
 			entity.setTipoLista(businessDelegatorView.getTipoLista(FacesUtils
 					.checkLong(txtIdTili_TipoLista)));
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
-			} else {
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
 			}
 
 			businessDelegatorView.saveListaPrecios(entity);
@@ -715,17 +780,36 @@ public class ListaPreciosView {
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
 
-			entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
-					.checkLong(txtIdRefe_Referencia)));
+			/*
+			 * entity.setReferencia(businessDelegatorView.getReferencia(FacesUtils
+			 * .checkLong(txtIdRefe_Referencia)));
+			 */
+
+			if (selectedReferencia != null) {
+				entity.setReferencia(businessDelegatorView
+						.getReferencia(selectedReferencia.getIdRefe()));
+			} else {
+
+				entity.setReferencia(null);
+			}
 
 			entity.setTipoLista(businessDelegatorView.getTipoLista(FacesUtils
 					.checkLong(txtIdTili_TipoLista)));
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
 			} else {
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+
+				entity.setSucursal(null);
 			}
 
 			businessDelegatorView.updateListaPrecios(entity);
@@ -1194,6 +1278,22 @@ public class ListaPreciosView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public SucursalDTO getSelectedSucursal() {
+		return selectedSucursal;
+	}
+
+	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
+		this.selectedSucursal = selectedSucursal;
+	}
+
+	public ReferenciaDTO getSelectedReferencia() {
+		return selectedReferencia;
+	}
+
+	public void setSelectedReferencia(ReferenciaDTO selectedReferencia) {
+		this.selectedReferencia = selectedReferencia;
 	}
 
 }

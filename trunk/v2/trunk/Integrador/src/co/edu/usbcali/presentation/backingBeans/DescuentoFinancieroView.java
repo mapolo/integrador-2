@@ -80,6 +80,7 @@ public class DescuentoFinancieroView {
 	private CommandButton btnClear;
 	private List<DescuentoFinancieroDTO> data;
 	private DescuentoFinancieroDTO selectedDescuentoFinanciero;
+	private GrupoDTO selectedGrupo;
 	private DescuentoFinanciero entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -92,6 +93,12 @@ public class DescuentoFinancieroView {
 		super();
 
 		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	public String selectGR() {
+		selectedGrupo = null;
+
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -185,12 +192,27 @@ public class DescuentoFinancieroView {
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
+			/*
+			 * try { txtIdGrpo_Grupo.setValue(selectedDescuentoFinanciero
+			 * .getIdGrpo_Grupo());
+			 * 
+			 * } catch (Exception e) { txtIdGrpo_Grupo.setValue(""); }
+			 */
+
 			try {
-				txtIdGrpo_Grupo.setValue(selectedDescuentoFinanciero
-						.getIdGrpo_Grupo());
+				List<GrupoDTO> data4 = businessDelegatorView.getDataGrupo();
+
+				for (int i = 0; i < data4.size(); i++) {
+					if (data4.get(i).getIdGrpo() == selectedDescuentoFinanciero
+							.getIdGrpo_Grupo()) {
+						setSelectedGrupo(data4.get(i));
+
+						break;
+					}
+				}
 
 			} catch (Exception e) {
-				txtIdGrpo_Grupo.setValue("");
+
 			}
 
 			try {
@@ -260,12 +282,13 @@ public class DescuentoFinancieroView {
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
 
-		try {
-			txtIdGrpo_Grupo.setValue(null);
+		/*
+		 * try { txtIdGrpo_Grupo.setValue(null);
+		 * 
+		 * } catch (Exception e) { txtIdGrpo_Grupo.setValue(""); }
+		 */
 
-		} catch (Exception e) {
-			txtIdGrpo_Grupo.setValue("");
-		}
+		selectedGrupo = null;
 
 		try {
 			txtIdTfpa_TipoFormaPago.setValue(null);
@@ -714,8 +737,15 @@ public class DescuentoFinancieroView {
 			entity.setPorcentajeDescuento(FacesUtils
 					.checkDouble(txtPorcentajeDescuento));
 
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
+			/*
+			 * entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+			 * .checkLong(txtIdGrpo_Grupo)));
+			 */
+
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			}
 
 			if (txtIdTfpa_TipoFormaPago.getValue() == "") {
 
@@ -768,8 +798,15 @@ public class DescuentoFinancieroView {
 			entity.setPorcentajeDescuento(FacesUtils
 					.checkDouble(txtPorcentajeDescuento));
 
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
+			/*
+			 * entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+			 * .checkLong(txtIdGrpo_Grupo)));
+			 */
+
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			}
 
 			if (txtIdTfpa_TipoFormaPago.getValue() == "") {
 				entity.setTipoFormaPago(null);
@@ -1276,6 +1313,14 @@ public class DescuentoFinancieroView {
 	public void setDescuentoFinancieroDataModel(
 			DescuentoFinancieroDataModel descuentoFinancieroDataModel) {
 		this.descuentoFinancieroDataModel = descuentoFinancieroDataModel;
+	}
+
+	public GrupoDTO getSelectedGrupo() {
+		return selectedGrupo;
+	}
+
+	public void setSelectedGrupo(GrupoDTO selectedGrupo) {
+		this.selectedGrupo = selectedGrupo;
 	}
 
 }

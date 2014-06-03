@@ -46,4 +46,8 @@ public interface IGrupoReferenciaLogic {
 	public Long findTotalNumberGrupoReferencia() throws Exception;
 
 	public List<GrupoReferenciaDTO> getDataGrupoReferencia() throws Exception;
+
+	public List<GrupoReferencia> consultarPorGrupo(String propertyName,
+			Object value) throws Exception;
+
 }

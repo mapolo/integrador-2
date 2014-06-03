@@ -62,6 +62,7 @@ public class PeriodoGarantiaView {
 	private CommandButton btnClear;
 	private List<PeriodoGarantiaDTO> data;
 	private PeriodoGarantiaDTO selectedPeriodoGarantia;
+	private GrupoDTO selectedGrupo;
 	private PeriodoGarantia entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -74,6 +75,11 @@ public class PeriodoGarantiaView {
 		super();
 
 		setManufacturerOptions(createFilterOptions(manufacturers));
+	}
+
+	public String selectGR() {
+		selectedGrupo = null;
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -134,12 +140,27 @@ public class PeriodoGarantiaView {
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
 
+			/*
+			 * try { txtIdGrpo_Grupo.setValue(selectedPeriodoGarantia
+			 * .getIdGrpo_Grupo());
+			 * 
+			 * } catch (Exception e) { txtIdGrpo_Grupo.setValue(""); }
+			 */
+
 			try {
-				txtIdGrpo_Grupo.setValue(selectedPeriodoGarantia
-						.getIdGrpo_Grupo());
+				List<GrupoDTO> data3 = businessDelegatorView.getDataGrupo();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdGrpo() == selectedPeriodoGarantia
+							.getIdGrpo_Grupo()) {
+						selectedGrupo = data3.get(i);
+
+						break;
+					}
+				}
 
 			} catch (Exception e) {
-				txtIdGrpo_Grupo.setValue("");
+
 			}
 
 			try {
@@ -181,12 +202,13 @@ public class PeriodoGarantiaView {
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
 
-		try {
-			txtIdGrpo_Grupo.setValue(null);
+		/*
+		 * try { txtIdGrpo_Grupo.setValue(null);
+		 * 
+		 * } catch (Exception e) { txtIdGrpo_Grupo.setValue(""); }
+		 */
 
-		} catch (Exception e) {
-			txtIdGrpo_Grupo.setValue("");
-		}
+		selectedGrupo = null;
 
 		try {
 			txtMesesParticular.setValue(null);
@@ -467,8 +489,15 @@ public class PeriodoGarantiaView {
 			entity.setOperCreador(usuario);
 			entity.setOperModifica(usuario);
 
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
+			/*
+			 * entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+			 * .checkLong(txtIdGrpo_Grupo)));
+			 */
+
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			}
 
 			businessDelegatorView.savePeriodoGarantia(entity);
 			data = businessDelegatorView.getDataPeriodoGarantia();
@@ -504,8 +533,18 @@ public class PeriodoGarantiaView {
 			entity.setFechaModificacion(new Date());
 			entity.setOperModifica(usuario);
 
-			entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
-					.checkLong(txtIdGrpo_Grupo)));
+			/*
+			 * entity.setGrupo(businessDelegatorView.getGrupo(FacesUtils
+			 * .checkLong(txtIdGrpo_Grupo)));
+			 */
+
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			} else {
+
+				entity.setGrupo(null);
+			}
 
 			businessDelegatorView.updatePeriodoGarantia(entity);
 			data = businessDelegatorView.getDataPeriodoGarantia();
@@ -847,6 +886,14 @@ public class PeriodoGarantiaView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public GrupoDTO getSelectedGrupo() {
+		return selectedGrupo;
+	}
+
+	public void setSelectedGrupo(GrupoDTO selectedGrupo) {
+		this.selectedGrupo = selectedGrupo;
 	}
 
 }

@@ -127,7 +127,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Descuento Financiero"
-								widgetVar="carDialog" resizable="false" width="400"
+								widgetVar="carDialog" resizable="true" width="400"
 								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -147,7 +147,7 @@ body {
 
 									<h:outputText id="msgFechaInicio" value="Fecha de Inicio:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2020"
+										size="15" yearRange="1800:2020"
 										binding="#{descuentoFinancieroView.txtFechaInicio}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoFinancieroView.listener_txtFechaInicio}"
@@ -156,7 +156,7 @@ body {
 
 									<h:outputText id="msgFechaFinal" value="Fecha Final:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2050"
+										size="15" yearRange="1800:2050"
 										binding="#{descuentoFinancieroView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{descuentoFinancieroView.listener_txtFechaFinal}"
@@ -179,13 +179,6 @@ body {
 										value="#{descuentoFinancieroView.diaHasta}"
 										binding="#{descuentoFinancieroView.txtDiaHasta}" />
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*ID Grupo:" />
-									<p:selectOneMenu
-										value="#{descuentoFinancieroView.idGrpo_Grupo}"
-										binding="#{descuentoFinancieroView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{descuentoFinancieroView.grupo}" />
-									</p:selectOneMenu>
-
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
 									<p:selectOneMenu binding="#{descuentoFinancieroView.estado}"
@@ -205,6 +198,40 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
+
+								<!-- arcodion Grupo -->
+
+								<p:accordionPanel id="acordion" activeIndex="1">
+
+									<p:tab title="*Grupo">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable var="g" value="#{grupoView.data}"
+												scrollable="true" rowKey="#{g.idGrpo}" scrollHeight="300"
+												id="tablaPrincipal" editable="true"
+												filteredValue="#{grupoView.data}"
+												selection="#{descuentoFinancieroView.selectedGrupo}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column headerText="Nombre" filterBy="nombre"
+													sortBy="nombre" style="width:100px">
+													<h:outputText value="#{g.nombre}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{descuentoFinancieroView.selectGR}"
+														icon="ui-icon-circle-close" update="tablaPrincipal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
 
 								<p:separator id="separator" />
 

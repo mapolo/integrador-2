@@ -114,7 +114,7 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 					&& entity.getSucursalBySucursalHija() == null) {
 
 				throw new Exception(
-						"Empresa, persona y sucursal hija no pueden ser nullos");
+						"Empresa, persona y sucursal hija no pueden ser nulos");
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null
@@ -327,7 +327,7 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 					&& entity.getSucursalBySucursalHija() == null) {
 
 				throw new Exception(
-						"Empresa, persona y sucursal hija no pueden ser nullos");
+						"Empresa, persona y sucursal hija no pueden ser nulos");
 			}
 
 			if (entity.getEmpresa() != null && entity.getPersona() != null

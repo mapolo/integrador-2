@@ -106,7 +106,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Lista de Precios"
-								widgetVar="carDialog" resizable="false" width="400"
+								widgetVar="carDialog" resizable="true" width="400"
 								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -122,7 +122,7 @@ body {
 
 									<h:outputText id="msgFechaInicial" value="Fecha Inicial:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2020"
+										size="15" yearRange="1800:2020"
 										binding="#{listaPreciosView.txtFechaInicial}">
 										<p:ajax event="dateSelect"
 											listener="#{listaPreciosView.listener_txtFechaInicial}"
@@ -131,7 +131,7 @@ body {
 
 									<h:outputText id="msgFechaFinal" value="Fecha Final:" />
 									<p:calendar showOn="button" navigator="true" locale="es"
-									size="15" yearRange = "1800:2050"
+										size="15" yearRange="1800:2050"
 										binding="#{listaPreciosView.txtFechaFinal}">
 										<p:ajax event="dateSelect"
 											listener="#{listaPreciosView.listener_txtFechaFinal}"
@@ -157,21 +157,86 @@ body {
 										<f:selectItem itemLabel="Retirado" itemValue="R" />
 									</p:selectOneMenu>
 
-									<h:outputText id="msgIdRefe_Referencia"
-										value="*ID de Referencia:" />
-									<p:selectOneMenu value="#{listaPreciosView.idRefe_Referencia}"
-										binding="#{listaPreciosView.txtIdRefe_Referencia}">
-										<f:selectItems value="#{listaPreciosView.referencia}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdSucu_Sucursal" value="ID Sucursal:" />
-									<p:selectOneMenu value="#{listaPreciosView.idSucu_Sucursal}"
-										binding="#{listaPreciosView.txtIdSucu_Sucursal}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{listaPreciosView.sucursal}" />
-									</p:selectOneMenu>
-
 								</h:panelGrid>
+								
+								<p:accordionPanel id="acordion" activeIndex="1">
+									
+									<!-- arcodion Referenuica -->
+
+									<p:tab title="*Referencia">
+
+										<p:dataTable var="car" value="#{referenciaView.data}"
+											scrollable="true" scrollHeight="300" id="refe"
+											editable="true" filteredValue="#{referenciaView.data}"
+											rowKey="#{car.idRefe}"
+											selection="#{listaPreciosView.selectedReferencia}">
+
+											<p:column selectionMode="single" style="width:20px" />
+
+											<p:column id="codigo" filterBy="codigo" headerText="Codigo"
+												sortBy="codigo" filterMatchMode="contains"
+												style="width: 100px">
+												<h:outputText value="#{car.codigo}"
+													style="text-transform:uppercase;" />
+											</p:column>
+
+											<p:column id="marca" filterBy="marca" headerText="Marca"
+												sortBy="marca" filterMatchMode="contains"
+												style="width: 100px">
+												<h:outputText value="#{car.marca}" />
+											</p:column>
+
+											<p:column id="costo" filterBy="costo" headerText="Costo"
+												sortBy="costo" filterMatchMode="contains"
+												style="width: 100px">
+												<h:outputText value="#{car.costo}" />
+											</p:column>
+
+											<f:facet name="footer">
+												<p:commandButton id="quitButton" value="Quitar"
+													action="#{listaPreciosView.selectrefe}"
+													icon="ui-icon-circle-close" update="refe" />
+											</f:facet>
+										</p:dataTable>
+
+									</p:tab>
+
+									<!-- arcodion Sucursal -->
+
+									<p:tab title="Sucursal">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+												var="s" selection="#{listaPreciosView.selectedSucursal}"
+												scrollable="true" scrollHeight="200" editable="true"
+												rowKey="#{s.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s.nombre}" />
+												</p:column>
+												
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{listaPreciosView.selectSucu}"
+														icon="ui-icon-circle-close" update="tablaSucursal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
 
 								<p:separator id="separator" />
 

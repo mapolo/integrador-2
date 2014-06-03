@@ -4647,4 +4647,10 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 	public List<VisitaDTO> getDataVisita() throws Exception {
 		return visitaLogic.getDataVisita();
 	}
+
+	public List<GrupoReferencia> consultarPorGrupo(String propertyName,
+			Object value) throws Exception {
+		return grupoReferenciaLogic.consultarPorGrupo(propertyName, value);
+	}
+
 }

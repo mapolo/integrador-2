@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 
@@ -30,6 +31,7 @@ import org.springframework.orm.hibernate3.SessionFactoryUtils;
  * @date Nov 01, 2013
  * 
  */
+@Transactional
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class HibernateDaoImpl<T, PK extends Serializable> implements Dao<T, PK> {
 	private static final String DETACHED_CRITERIA_MUST_NOT_BE_NULL = "DetachedCriteria must not be null";

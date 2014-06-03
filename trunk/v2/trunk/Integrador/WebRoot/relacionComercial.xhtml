@@ -105,30 +105,13 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Relacion Comercial"
-								widgetVar="carDialog" resizable="false" width="400"
+								widgetVar="carDialog" resizable="true" width="400"
 								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
-
-									<h:outputText id="msgIdSucu_Sucursal"
-										value="*ID Sucursal Padre:" />
-									<p:selectOneMenu
-										value="#{relacionComercialView.idSucu_Sucursal}"
-										binding="#{relacionComercialView.txtIdSucu_Sucursal}">
-										<f:selectItems value="#{relacionComercialView.sucursal}" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdSucu_SucursalH"
-										value="ID Sucursal Hija:" />
-									<p:selectOneMenu
-										value="#{relacionComercialView.idSucu_SucursalH}"
-										binding="#{relacionComercialView.txtIdSucu_SucursalH}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{relacionComercialView.sucursal2}" />
-									</p:selectOneMenu>
-
+				
 									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa Hija:" />
 									<p:selectOneMenu
 										value="#{relacionComercialView.idEmpr_Empresa}"
@@ -172,7 +155,79 @@ body {
 										binding="#{relacionComercialView.txtObservacion}" />
 
 								</h:panelGrid>
+								
+								<!-- arcodion  -->
 
+								<p:accordionPanel id="acordion" activeIndex="1">
+								
+								<p:tab title="*Sucursal Padre">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+												var="s" selection="#{relacionComercialView.selectedSucursal}"
+												scrollable="true" scrollHeight="100" editable="true"
+												rowKey="#{s.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s.nombre}" />
+												</p:column>
+
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{relacionComercialView.selectSucu}"
+														icon="ui-icon-circle-close" update="tablaSucursal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+									
+									<p:tab title="Sucursal Hija">
+
+										<h:panelGrid style="margin: 0 auto;">
+											<p:dataTable id="tablaSucursalH" value="#{sucursalView.data}"
+												var="s2" selection="#{relacionComercialView.selectedSucursalH}"
+												scrollable="true" scrollHeight="100" editable="true"
+												rowKey="#{s2.idSucu}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{s2.nombre}" />
+												</p:column>
+
+												<p:column id="telefono" filterBy="telefono"
+													headerText="Telefono" sortBy="telefono"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s2.telefono}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButtonSH" value="Quitar"
+														action="#{relacionComercialView.selectSucuH}"
+														icon="ui-icon-circle-close" update="tablaSucursalH" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+								
+								</p:accordionPanel>
+								
 								<p:separator id="separator" />
 
 								<h:panelGrid id="panelBotones" columns="2">
