@@ -68,6 +68,7 @@ public class ClavesParaRotarView {
 	private CommandButton btnClear;
 	private List<ClavesParaRotarDTO> data;
 	private ClavesParaRotarDTO selectedClavesParaRotar;
+	private SucursalDTO selectedSucursal;
 	private ClavesParaRotar entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -89,6 +90,13 @@ public class ClavesParaRotarView {
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
 		setManufacturerOptions3(createFilterOptions(manufacturers3));
+	}
+
+	public String selectSucu() {
+
+		selectedSucursal = null;
+
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -198,11 +206,27 @@ public class ClavesParaRotarView {
 				txtIdClfa_ClaveFabricacion.setValue("");
 			}
 
+			/*
+			 * try { txtIdSucu_Sucursal.setValue(selectedClavesParaRotar
+			 * .getIdSucu_Sucursal()); } catch (Exception e) {
+			 * txtIdSucu_Sucursal.setValue(""); }
+			 */
+
 			try {
-				txtIdSucu_Sucursal.setValue(selectedClavesParaRotar
-						.getIdSucu_Sucursal());
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedClavesParaRotar
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+
+						break;
+					}
+				}
+
 			} catch (Exception e) {
-				txtIdSucu_Sucursal.setValue("");
+
 			}
 
 			try {
@@ -249,11 +273,12 @@ public class ClavesParaRotarView {
 			txtIdClfa_ClaveFabricacion.setValue("");
 		}
 
-		try {
-			txtIdSucu_Sucursal.setValue(null);
-		} catch (Exception e) {
-			txtIdSucu_Sucursal.setValue("");
-		}
+		/*
+		 * try { txtIdSucu_Sucursal.setValue(null); } catch (Exception e) {
+		 * txtIdSucu_Sucursal.setValue(""); }
+		 */
+
+		selectedSucursal = null;
 
 		try {
 			estado.setValue(null);
@@ -545,11 +570,17 @@ public class ClavesParaRotarView {
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion());
 			entity.setClaveFabricacion(entity2);
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
-			} else {
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
 			}
 
 			businessDelegatorView.saveClavesParaRotar(entity);
@@ -593,11 +624,20 @@ public class ClavesParaRotarView {
 					.getClaveFabricacion(getIdClfa_ClaveFabricacion());
 			entity.setClaveFabricacion(entity2);
 
-			if (txtIdSucu_Sucursal.getValue() == "") {
+			/*
+			 * if (txtIdSucu_Sucursal.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
+			 * .checkLong(txtIdSucu_Sucursal))); }
+			 */
 
+			if (selectedSucursal != null) {
+				entity.setSucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
 			} else {
-				entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-						.checkLong(txtIdSucu_Sucursal)));
+
+				entity.setSucursal(null);
 			}
 
 			businessDelegatorView.updateClavesParaRotar(entity);
@@ -995,6 +1035,14 @@ public class ClavesParaRotarView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public SucursalDTO getSelectedSucursal() {
+		return selectedSucursal;
+	}
+
+	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
+		this.selectedSucursal = selectedSucursal;
 	}
 
 }

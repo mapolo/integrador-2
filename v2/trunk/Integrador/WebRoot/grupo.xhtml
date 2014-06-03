@@ -115,7 +115,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Grupo" widgetVar="carDialog"
-								resizable="false" width="800" showEffect="clip"
+								resizable="true" width="800" showEffect="clip"
 								hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -125,12 +125,6 @@ body {
 									<h:outputText id="msgGrupo_1" value="Grupo:" />
 									<p:inputText id="txtGrupo_1" value="#{grupoView.grupo_1}"
 										binding="#{grupoView.txtGrupo_1}" />
-
-									<h:outputText id="msgIdGrpo_Grupo" value="ID Grupo Padre:" />
-									<p:selectOneMenu value="#{grupoView.idGrpo_Grupo}"
-										binding="#{grupoView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{grupoView.grupos}" />
-									</p:selectOneMenu>
 
 									<h:outputText id="msgNombre" value="Nombre:" />
 									<p:inputText id="txtNombre" value="#{grupoView.nombre}"
@@ -213,6 +207,40 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
+
+								<!-- arcodion GrupoPadre -->
+
+								<p:accordionPanel id="acordion" activeIndex="1">
+
+									<p:tab title="Grupo Padre">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable var="g" value="#{grupoView.data}"
+												scrollable="true" rowKey="#{g.idGrpo}" scrollHeight="300"
+												id="tablaPrincipal" editable="true"
+												filteredValue="#{grupoView.data}"
+												selection="#{grupoView.selectedGrupoP}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column headerText="Nombre" filterBy="nombre"
+													sortBy="nombre" style="width:100px">
+													<h:outputText value="#{g.nombre}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{grupoView.selectGR}" icon="ui-icon-circle-close"
+														update="tablaPrincipal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
 
 								<p:separator id="separator" />
 

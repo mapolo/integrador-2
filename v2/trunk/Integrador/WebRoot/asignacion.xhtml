@@ -9,22 +9,136 @@
 </h:head>
 
 <body>
-	<div align="center">
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+		<ui:define name="header">
+		</ui:define>
 
-		<h:form id="form">
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
 
-			<p:panel id="msgEvaluacionRapidaDesmpeno" header="Iniciar Sesión">
-				<p:messages id="msg" showDetail="true" />
-				<p:growl id="men" />
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
 
-				<p:dataTable var="ref" value="#{asignacionView.referencias}"
-					emptyMessage="No hay referencias disponibles">
+				<h:form id="form">
 
-					
-				</p:dataTable>
+					<p:panel id="panelGeneral" header="Ingresar Grupo Referencia">
 
-			</p:panel>
-		</h:form>
-	</div>
+						<p:messages id="msg" showDetail="true" />
+						<p:growl id="men" />
+
+						<h:panelGrid id="panelSeleccion">
+							<p:selectOneMenu id="cmbGrupos" value="#{asignacionView.grupo}">
+								<f:selectItem itemLabel="Seleccione" itemValue="" />
+								<f:selectItems value="#{asignacionView.items}" />
+								<p:ajax update=":form:panelGeneral"
+									listener="#{asignacionView.consultarReferencia}" />
+							</p:selectOneMenu>
+
+
+							<p:commandLink id="ingresaGrupoReferencia"
+								oncomplete="ingresaGrupoRef.show()"
+								value="Asiganar grupo a referencia">
+							</p:commandLink>
+						</h:panelGrid>
+
+						<p:dataTable value="#{asignacionView.tablaGrupoReferencias}"
+							var="ref" paginator="true" rows="5" widgetVar="refTable"
+							binding="#{asignacionView.dttGrupoReferncia}">
+
+							<f:facet name="header">
+								<p:outputPanel>
+									<h:outputText value="Search all fields:" />
+									<p:inputText id="globalFilter"
+										onkeyup="PF('refTable').filter()" style="width:150px"
+										placeholder="Enter keyword" />
+								</p:outputPanel>
+							</f:facet>
+
+							<p:column filterBy="#{ref.idRefe}" headerText="Id">
+								<h:outputText value="#{ref.idRefe}" />
+							</p:column>
+
+							<p:column filterBy="#{ref.descripcion}" headerText="Descripcion">
+								<h:outputText value="#{ref.descripcion}" />
+							</p:column>
+
+							<p:column headerText="Marca" >
+								<h:outputText value="#{ref.marca}" />
+							</p:column>
+
+							<p:column headerText="Id grupo">
+								<h:outputText value="#{ref.idGrpo}" />
+							</p:column>
+
+							<p:column headerText="nombre">
+								<h:outputText value="#{ref.nombre}" />
+							</p:column>
+
+							<p:column headerText="Estado">
+								<h:outputText value="#{ref.estadoRegistro}" />
+							</p:column>
+
+							<p:column headerText="Activar">
+								<p:commandButton id="cmdActivarReferencia"
+									actionListener="#{asignacionView.activarReferencia}" title="Activar" value="Activar">
+								</p:commandButton>
+							</p:column>
+
+
+						</p:dataTable>
+
+						<h:panelGrid id="panelAgregarReferenciaGrupo" columns="1"
+							style="margin: 0 auto;">
+
+							<p:dialog id="ingresaRefGrupo" header="Igresar Grupo Referencia"
+								widgetVar="ingresaGrupoRef" resizable="false"
+								showEffect="explode" hideEffect="explode" modal="true">
+								<p:messages id="msg2" showDetail="true" />
+								<h:panelGrid columns="3" id="panelIngresaRefGrupo"
+									cellpadding="4" style="margin:0 auto;">
+									<h:panelGrid columns="2" id="panelIngresaRefGrupo2"
+										style="margin: 0 auto;">
+
+										<h:panelGrid columns="2" id="panel">
+
+											<h:outputText id="msgIdGrre" value="referencia:" />
+											<p:inputText id="txtIdGrre"
+												binding="#{asignacionView.txtReferencia}">
+											</p:inputText>
+											<h:outputText id="idEstado" value="Estado:" />
+											<p:selectOneRadio id="console"
+												value="#{asignacionView.sorActivo}" defaultValue="Activo">
+												<f:selectItem itemLabel="Activo" itemValue="A" />
+												<f:selectItem itemLabel="Inactivo" itemValue="R" />
+											</p:selectOneRadio>
+										</h:panelGrid>
+									</h:panelGrid>
+									<br />
+								</h:panelGrid>
+
+								<h:panelGrid id="panelBotones" columns="1"
+									style="margin: 0 auto;">
+
+									<p:commandButton id="btnSaveGrupoRef" value="Guardar"
+										action="#{asignacionView.guardarRef}"
+										update=":form:panelGeneral" />
+
+								</h:panelGrid>
+
+							</p:dialog>
+						</h:panelGrid>
+					</p:panel>
+				</h:form>
+			</f:view>
+		</ui:define>
+	</ui:composition>
 </body>
 </html>

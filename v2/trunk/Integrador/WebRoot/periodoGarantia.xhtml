@@ -98,7 +98,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Periodo de Garantía"
-								widgetVar="carDialog" resizable="false" width="400"
+								widgetVar="carDialog" resizable="true" width="400"
 								showEffect="clip" hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -116,11 +116,6 @@ body {
 										value="#{periodoGarantiaView.mesesPublico}"
 										binding="#{periodoGarantiaView.txtMesesPublico}" />
 
-									<h:outputText id="msgIdGrpo_Grupo" value="*Nombre del Grupo:" />
-									<p:selectOneMenu value="#{periodoGarantiaView.idGrpo_Grupo}"
-										binding="#{periodoGarantiaView.txtIdGrpo_Grupo}">
-										<f:selectItems value="#{periodoGarantiaView.grupo}" />
-									</p:selectOneMenu>
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -131,6 +126,46 @@ body {
 									</p:selectOneMenu>
 
 								</h:panelGrid>
+
+								<!-- arcodion GrupoPadre -->
+
+								<p:accordionPanel id="acordion" activeIndex="1">
+
+									<p:tab title="*Grupo">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable var="g" value="#{grupoView.data}"
+												scrollable="true" rowKey="#{g.idGrpo}" scrollHeight="300"
+												id="tablaPrincipal" editable="true"
+												filteredValue="#{grupoView.data}"
+												selection="#{periodoGarantiaView.selectedGrupo}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column headerText="Nombre" filterBy="nombre"
+													sortBy="nombre" style="width:100px">
+													<h:outputText value="#{g.nombre}" />
+												</p:column>
+
+												<p:column headerText="División" filterBy="division"
+													sortBy="division" style="width:100px">
+													<h:outputText value="#{g.division}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton" value="Quitar"
+														action="#{grupoView.selectGR}" icon="ui-icon-circle-close"
+														update="tablaPrincipal" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+
+								</p:accordionPanel>
+
 								<p:separator id="separator" />
 
 								<h:panelGrid id="panelBotones" columns="2">

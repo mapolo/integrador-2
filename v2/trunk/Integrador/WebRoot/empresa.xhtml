@@ -110,7 +110,7 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Empresa" widgetVar="carDialog"
-								resizable="false" width="800" showEffect="clip"
+								resizable="true" width="800" showEffect="clip"
 								hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
@@ -160,8 +160,9 @@ body {
 										binding="#{empresaView.txtApartadoAereo}" />
 
 									<h:outputText id="msgEmail" value="Email:" />
-									<p:inputText id="txtEmail" value="#{empresaView.email}" validatorMessage="Email Incorrecto"
-										binding="#{empresaView.txtEmail}" > 
+									<p:inputText id="txtEmail" value="#{empresaView.email}"
+										validatorMessage="Email Incorrecto"
+										binding="#{empresaView.txtEmail}">
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 									</p:inputText>
@@ -169,8 +170,6 @@ body {
 									<h:outputText id="msgFax" value="Fax:" />
 									<p:inputText id="txtFax" value="#{empresaView.fax}"
 										binding="#{empresaView.txtFax}" />
-
-									
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -182,14 +181,6 @@ body {
 
 								</h:panelGrid>
 
-
-
-
-
-
-								<p:separator id="separator" />
-
-
 								<p:accordionPanel id="acordion" activeIndex="3"
 									binding="#{sucursalView.acordion}">
 
@@ -199,13 +190,7 @@ body {
 											<p:dataTable value="#{personaView.data}" id="tablaRL"
 												var="car" selection="#{empresaView.selectedPersona}"
 												scrollable="true" scrollHeight="100" editable="true"
-												filteredValue="#{personaView.data}"
-												 rowKey="#{car.idPers}"> 
-												
-
-													<f:facet name="header">
-									            Representante Legal
-							                    </f:facet>
+												filteredValue="#{personaView.data}" rowKey="#{car.idPers}">
 
 												<p:column selectionMode="single" style="width:20px" />
 
@@ -221,32 +206,11 @@ body {
 													<h:outputText value="#{car.primerNombre}" />
 												</p:column>
 
-												<p:column id="segundoNombre" filterBy="segundoNombre"
-													headerText="Segundo Nombre" sortBy="segundoNombre"
-													filterMatchMode="contains" style="width: 100px">
-													<h:outputText value="#{car.segundoNombre}" />
-												</p:column>
-
 												<p:column id="primerApellido" filterBy="primerApellido"
 													headerText="Primer Apellido" sortBy="primerApellido"
 													filterMatchMode="contains" style="width: 100px">
 													<h:outputText value="#{car.primerApellido}" />
 												</p:column>
-
-												<p:column id="segundoApellido" filterBy="segundoApellido"
-													headerText="Segundo Apellido" sortBy="segundoApellido"
-													filterMatchMode="contains" style="width: 100px">
-													<h:outputText value="#{car.segundoApellido}" />
-												</p:column>
-
-
-												<p:column headerText="Estado del Registro"
-													filterBy="estadoRegistro"
-													filterOptions="#{personaView.manufacturerOptions}"
-													filterMatchMode="exact" style="width: 100px">
-													<h:outputText value="#{car.estadoRegistro}" />
-												</p:column>
-
 
 												<f:facet name="footer">
 													<p:commandButton id="quitButton" value="Quitar"
@@ -258,29 +222,23 @@ body {
 
 										</h:panelGrid>
 									</p:tab>
-									
-									
-									
-									
-									
+
 									<p:tab title="Es Cliente">
 										<h:panelGrid style="margin: 0 auto" columns="6">
 
-											<h:outputText id="msgcliente" value=" Es Cliente:*" />
+											<h:outputText id="msgcliente" value="*Es Cliente:" />
 											<p:selectOneMenu id="txtCliente"
 												value="#{empresaView.selectItemCliente}" disabled="false"
 												binding="#{empresaView.txtCliente}" style="width:140px"
 												required="true"
 												requiredMessage="Seleccion requerida Es Cliente">
-												
 												<f:selectItem itemLabel="Seleccionar" itemValue="" />
 												<f:selectItem itemLabel="Si" itemValue="S" />
 												<f:selectItem itemLabel="No" itemValue="N" />
 											</p:selectOneMenu>
 											<p:message for="txtCliente" display="icon" />
-											
 
-											<h:outputText id="msgTC" value=" Tipo Cartera:*" />
+											<h:outputText id="msgTC" value="*Tipo Cartera:" />
 											<p:selectOneMenu id="txtTC"
 												value="#{empresaView.selectItemTC}" disabled="true"
 												binding="#{empresaView.txtTC}" style="width:140px">
@@ -290,7 +248,7 @@ body {
 											<br />
 
 											<h:outputText id="msgEstadoCliente"
-												value=" EstadoRegistro Cliente:*" />
+												value="*Estado del Registro Cliente:" />
 											<p:selectOneMenu id="txtEstadoCliente"
 												value="#{empresaView.selectItemEstadoCl}" disabled="true"
 												binding="#{empresaView.txtEstadoCl}" style="width:140px">
@@ -304,14 +262,9 @@ body {
 
 									</p:tab>
 
-
-
-
-
-
 								</p:accordionPanel>
 
-								<p:separator id="separator2" />
+								<p:separator id="separator" />
 
 
 								<h:panelGrid id="panelBotones" columns="2">

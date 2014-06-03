@@ -550,4 +550,11 @@ public class GrupoReferenciaLogic implements IGrupoReferenciaLogic {
 
 		return list;
 	}
+
+	public List<GrupoReferencia> consultarPorGrupo(String propertyName,
+			Object value) throws Exception {
+
+		return grupoReferenciaDAO.findByProperty(propertyName, value);
+
+	}
 }

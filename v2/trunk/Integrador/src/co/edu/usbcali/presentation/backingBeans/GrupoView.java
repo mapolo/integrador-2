@@ -86,6 +86,7 @@ public class GrupoView {
 	private CommandButton btnClear;
 	private List<GrupoDTO> data;
 	private GrupoDTO selectedGrupo;
+	private GrupoDTO selectedGrupoP;
 	private Grupo entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -101,6 +102,11 @@ public class GrupoView {
 		super();
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
+	}
+
+	public String selectGR() {
+		selectedGrupoP = null;
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -260,11 +266,27 @@ public class GrupoView {
 
 			}
 
+			/*
+			 * try { txtIdGrpo_Grupo.setValue(selectedGrupo.getIdGrpo_Grupo());
+			 * 
+			 * } catch (Exception e) { txtIdGrpo_Grupo.setValue("");
+			 * 
+			 * }
+			 */
+
 			try {
-				txtIdGrpo_Grupo.setValue(selectedGrupo.getIdGrpo_Grupo());
+				List<GrupoDTO> data3 = businessDelegatorView.getDataGrupo();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdGrpo() == selectedGrupo
+							.getIdGrpo_Grupo()) {
+						selectedGrupoP = data3.get(i);
+
+						break;
+					}
+				}
 
 			} catch (Exception e) {
-				txtIdGrpo_Grupo.setValue("");
 
 			}
 
@@ -402,13 +424,13 @@ public class GrupoView {
 
 		}
 
-		try {
-			txtIdGrpo_Grupo.setValue(null);
-
-		} catch (Exception e) {
-			txtIdGrpo_Grupo.setValue("");
-
-		}
+		/*
+		 * try { txtIdGrpo_Grupo.setValue(null);
+		 * 
+		 * } catch (Exception e) { txtIdGrpo_Grupo.setValue("");
+		 * 
+		 * }
+		 */
 
 		try {
 			txtAsociado.setValue(null);
@@ -433,6 +455,9 @@ public class GrupoView {
 			txtGrupo_1.setValue("");
 
 		}
+
+		selectedGrupoP = null;
+		selectedGrupo = null;
 
 		try {
 			txtMargenMinimoBodega.setValue(null);
@@ -907,8 +932,16 @@ public class GrupoView {
 						.checkLong(txtIdFlia_Familia)));
 			}
 
-			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
-			entity.setGrupo(entity3);
+			/*
+			 * Grupo entity3 =
+			 * businessDelegatorView.getGrupo(getIdGrpo_Grupo());
+			 * entity.setGrupo(entity3);
+			 */
+
+			if (selectedGrupoP != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupoP
+						.getIdGrpo()));
+			}
 
 			businessDelegatorView.saveGrupo(entity);
 			data = businessDelegatorView.getDataGrupo();
@@ -965,8 +998,19 @@ public class GrupoView {
 						.checkLong(txtIdFlia_Familia)));
 			}
 
-			Grupo entity3 = businessDelegatorView.getGrupo(getIdGrpo_Grupo());
-			entity.setGrupo(entity3);
+			/*
+			 * Grupo entity3 =
+			 * businessDelegatorView.getGrupo(getIdGrpo_Grupo());
+			 * entity.setGrupo(entity3);
+			 */
+
+			if (selectedGrupoP != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupoP
+						.getIdGrpo()));
+			} else {
+				System.out.println("entro null");
+				entity.setGrupo(null);
+			}
 
 			businessDelegatorView.updateGrupo(entity);
 			data = businessDelegatorView.getDataGrupo();
@@ -1539,5 +1583,13 @@ public class GrupoView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public GrupoDTO getSelectedGrupoP() {
+		return selectedGrupoP;
+	}
+
+	public void setSelectedGrupoP(GrupoDTO selectedGrupoP) {
+		this.selectedGrupoP = selectedGrupoP;
 	}
 }

@@ -2065,4 +2065,7 @@ public interface IBusinessDelegatorView {
 	public Long findTotalNumberVisita() throws Exception;
 
 	public List<VisitaDTO> getDataVisita() throws Exception;
+
+	public List<GrupoReferencia> consultarPorGrupo(String propertyName,
+			Object value) throws Exception;
 }
