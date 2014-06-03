@@ -83,6 +83,9 @@ public class RelacionComercialView {
 	private boolean showDialog;
 	private SucursalDTO selectedSucursal;
 	private SucursalDTO selectedSucursalH;
+	private PersonaDTO selectedPersona;
+	private EmpresaDTO selectedEmpresa;
+
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 	private SelectItem[] manufacturerOptions;
@@ -106,6 +109,20 @@ public class RelacionComercialView {
 	public String selectSucuH() {
 		selectedSucursalH = null;
 		return "";
+	}
+
+	public String selectP() {
+		setSelectedPersona(null);
+
+		return "";
+
+	}
+
+	public String selectE() {
+		setSelectedEmpresa(null);
+
+		return "";
+
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -268,6 +285,22 @@ public class RelacionComercialView {
 			btnModify.setDisabled(false);
 
 			try {
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedRelacionComercial
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+
+			try {
 				txtLimiteCredito.setValue(selectedRelacionComercial
 						.getLimiteCredito());
 
@@ -291,19 +324,15 @@ public class RelacionComercialView {
 				txtObservacion.setValue("");
 			}
 
-			try {
-				txtIdEmpr_Empresa.setValue(selectedRelacionComercial
-						.getIdEmpr_Empresa());
-			} catch (Exception e) {
-				txtIdEmpr_Empresa.setValue("");
-			}
-
-			try {
-				txtIdPers_Persona.setValue(selectedRelacionComercial
-						.getIdPers_Persona());
-			} catch (Exception e) {
-				txtIdPers_Persona.setValue("");
-			}
+			/*
+			 * try { txtIdEmpr_Empresa.setValue(selectedRelacionComercial
+			 * .getIdEmpr_Empresa()); } catch (Exception e) {
+			 * txtIdEmpr_Empresa.setValue(""); }
+			 * 
+			 * try { txtIdPers_Persona.setValue(selectedRelacionComercial
+			 * .getIdPers_Persona()); } catch (Exception e) {
+			 * txtIdPers_Persona.setValue(""); }
+			 */
 
 			/*
 			 * try { txtIdSucu_Sucursal.setValue(selectedRelacionComercial
@@ -312,15 +341,32 @@ public class RelacionComercialView {
 			 */
 
 			try {
-				List<SucursalDTO> data3 = businessDelegatorView
-						.getDataSucursal();
+				List<EmpresaDTO> data11 = businessDelegatorView
+						.getDataEmpresa();
 
-				for (int i = 0; i < data3.size(); i++) {
-					if (data3.get(i).getIdSucu() == selectedRelacionComercial
-							.getIdSucu_Sucursal()) {
-						selectedSucursal = data3.get(i);
+				for (int i = 0; i < data11.size(); i++) {
+					if (data11.get(i).getIdEmpr() == selectedRelacionComercial
+							.getIdEmpr_Empresa()) {
+						selectedEmpresa = data11.get(i);
 						break;
 					}
+				}
+
+			} catch (Exception e) {
+
+			}
+
+			try {
+				List<PersonaDTO> data10 = businessDelegatorView
+						.getDataPersona();
+
+				for (int i = 0; i < data10.size(); i++) {
+					if (data10.get(i).getIdPers() == selectedRelacionComercial
+							.getIdPers_Persona()) {
+						selectedPersona = data10.get(i);
+						break;
+					}
+
 				}
 
 			} catch (Exception e) {
@@ -363,6 +409,7 @@ public class RelacionComercialView {
 						.addErrorMessage("Seleccione la Relación Comercial a Modificar");
 			}
 		}
+		
 		return "";
 
 	}
@@ -393,26 +440,23 @@ public class RelacionComercialView {
 			txtObservacion.setValue("");
 		}
 
-		try {
-			txtIdEmpr_Empresa.setValue(null);
-		} catch (Exception e) {
-			txtIdEmpr_Empresa.setValue("");
-		}
-
-		try {
-			txtIdPers_Persona.setValue(null);
-		} catch (Exception e) {
-			txtIdPers_Persona.setValue("");
-		}
-
 		/*
+		 * try { txtIdEmpr_Empresa.setValue(null); } catch (Exception e) {
+		 * txtIdEmpr_Empresa.setValue(""); }
+		 * 
+		 * try { txtIdPers_Persona.setValue(null); } catch (Exception e) {
+		 * txtIdPers_Persona.setValue(""); }
+		 * 
+		 * 
 		 * try { txtIdSucu_Sucursal.setValue(null); } catch (Exception e) {
 		 * txtIdSucu_Sucursal.setValue(""); }
 		 */
 
-		selectedRelacionComercial = null;
 		selectedSucursal = null;
 		selectedSucursalH = null;
+		selectedEmpresa = null;
+		selectedPersona = null;
+		selectedRelacionComercial = null;
 
 		/*
 		 * try { txtIdSucu_SucursalH.setValue(null); } catch (Exception e) {
@@ -747,21 +791,20 @@ public class RelacionComercialView {
 
 			// Llaves foraneas
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
-
-			} else {
-				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-						.checkLong(txtIdEmpr_Empresa)));
-			}
-
-			if (txtIdPers_Persona.getValue() == "") {
-
-			} else {
-				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-						.checkLong(txtIdPers_Persona)));
-			}
-
 			/*
+			 * if (txtIdEmpr_Empresa.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+			 * .checkLong(txtIdEmpr_Empresa))); }
+			 * 
+			 * if (txtIdPers_Persona.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona))); }
+			 * 
+			 * 
 			 * if (txtIdSucu_SucursalH.getValue() == "") {
 			 * 
 			 * } else { entity.setSucursalBySucursalHija(businessDelegatorView
@@ -777,6 +820,16 @@ public class RelacionComercialView {
 			 * entity.setSucursalBySucursalPadre(businessDelegatorView
 			 * .getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
 			 */
+
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			}
+
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			}
 
 			if (selectedSucursal != null) {
 				entity.setSucursalBySucursalPadre(businessDelegatorView
@@ -822,21 +875,20 @@ public class RelacionComercialView {
 
 			// Llaves foraneas
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
-
-			} else {
-				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
-						.checkLong(txtIdEmpr_Empresa)));
-			}
-
-			if (txtIdPers_Persona.getValue() == "") {
-
-			} else {
-				entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-						.checkLong(txtIdPers_Persona)));
-			}
-
 			/*
+			 * if (txtIdEmpr_Empresa.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
+			 * .checkLong(txtIdEmpr_Empresa))); }
+			 * 
+			 * if (txtIdPers_Persona.getValue() == "") {
+			 * 
+			 * } else {
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona))); }
+			 * 
+			 * 
 			 * if (txtIdSucu_SucursalH.getValue() == "") {
 			 * 
 			 * } else { entity.setSucursalBySucursalHija(businessDelegatorView
@@ -846,6 +898,22 @@ public class RelacionComercialView {
 			if (selectedSucursalH != null) {
 				entity.setSucursalBySucursalHija(businessDelegatorView
 						.getSucursal(selectedSucursalH.getIdSucu()));
+			} else {
+				entity.setSucursalBySucursalHija(null);
+			}
+
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			} else {
+				entity.setEmpresa(null);
+			}
+
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+				entity.setPersona(null);
 			}
 
 			/*
@@ -1355,6 +1423,22 @@ public class RelacionComercialView {
 
 	public void setSelectedSucursalH(SucursalDTO selectedSucursalH) {
 		this.selectedSucursalH = selectedSucursalH;
+	}
+
+	public EmpresaDTO getSelectedEmpresa() {
+		return selectedEmpresa;
+	}
+
+	public void setSelectedEmpresa(EmpresaDTO selectedEmpresa) {
+		this.selectedEmpresa = selectedEmpresa;
+	}
+
+	public PersonaDTO getSelectedPersona() {
+		return selectedPersona;
+	}
+
+	public void setSelectedPersona(PersonaDTO selectedPersona) {
+		this.selectedPersona = selectedPersona;
 	}
 
 }

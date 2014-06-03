@@ -26,7 +26,6 @@ public class DocumentoDTO implements Serializable {
 	private Long idReco_RelacionComercial;
 	private Long idSucu_Sucursal;
 	private Long idTido_TipoDocumento;
-	private Long idUnve_UnidadVenta;
 
 	public String getEstadoRegistro() {
 		return estadoRegistro;

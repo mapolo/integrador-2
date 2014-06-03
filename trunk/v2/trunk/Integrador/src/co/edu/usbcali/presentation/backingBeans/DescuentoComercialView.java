@@ -103,6 +103,14 @@ public class DescuentoComercialView {
 	private DescuentoComercialDTO selectedDescuentoComercial;
 	private DescuentoComercial entity;
 	private boolean showDialog;
+	
+	private SucursalDTO selectedSucursal;
+	private SucursalDTO selectedSucursalH;
+	private PersonaDTO selectedPersona;
+	private EmpresaDTO selectedEmpresa;
+	private GrupoDTO selectedGrupo;
+	
+	
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
 	private SelectItem[] manufacturerOptions;
@@ -116,6 +124,35 @@ public class DescuentoComercialView {
 
 		setManufacturerOptions(createFilterOptions(manufacturers));
 		setManufacturerOptions2(createFilterOptions(manufacturers2));
+	}
+	
+	public String selectSucu() {
+		selectedSucursal = null;
+		return "";
+	}
+
+	public String selectSucuH() {
+		selectedSucursalH = null;
+		return "";
+	}
+	
+	public String selectP() {
+		selectedPersona = null;
+
+		return "";
+
+	}
+
+	public String selectE() {
+		selectedEmpresa = null;
+
+		return "";
+
+	}
+	
+	public String selectGR() {
+		selectedGrupo = null;
+		return "";
 	}
 
 	private SelectItem[] createFilterOptions(String[] data) {
@@ -308,7 +345,7 @@ public class DescuentoComercialView {
 				txtEstadoPlano.setValue("");
 			}
 
-			try {
+			/*try {
 				txtIdEmpr_Empresa.setValue(selectedDescuentoComercial
 						.getIdEmpr_Empresa());
 			} catch (Exception e) {
@@ -341,6 +378,85 @@ public class DescuentoComercialView {
 						.getIdSucu_SucursalH());
 			} catch (Exception e) {
 				txtIdSucu_SucursalH.setValue("");
+			}*/
+			
+			try {
+				List<GrupoDTO> data99 = businessDelegatorView.getDataGrupo();
+
+				for (int i = 0; i < data99.size(); i++) {
+					if (data99.get(i).getIdGrpo() == selectedDescuentoComercial
+							.getIdGrpo_Grupo()) {
+						selectedGrupo = data99.get(i);
+
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<EmpresaDTO> data11 = businessDelegatorView.getDataEmpresa();
+
+				for (int i = 0; i < data11.size(); i++) {
+					if (data11.get(i).getIdEmpr() == selectedDescuentoComercial
+							.getIdEmpr_Empresa()) {
+						selectedEmpresa = data11.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<PersonaDTO> data10 = businessDelegatorView.getDataPersona();
+
+				for (int i = 0; i < data10.size(); i++) {
+					if (data10.get(i).getIdPers() == selectedDescuentoComercial
+							.getIdPers_Persona()) {
+						selectedPersona = data10.get(i);
+						break;
+					}
+
+				}
+
+			} catch (Exception e) {
+
+			}
+
+			try {
+				List<SucursalDTO> data3 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data3.size(); i++) {
+					if (data3.get(i).getIdSucu() == selectedDescuentoComercial
+							.getIdSucu_Sucursal()) {
+						selectedSucursal = data3.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
+			}
+			
+			try {
+				List<SucursalDTO> data5 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < data5.size(); i++) {
+					if (data5.get(i).getIdSucu() == selectedDescuentoComercial
+							.getIdSucu_SucursalH()) {
+						selectedSucursalH = data5.get(i);
+						break;
+					}
+				}
+
+			} catch (Exception e) {
+
 			}
 
 			try {
@@ -419,7 +535,7 @@ public class DescuentoComercialView {
 						.addErrorMessage("Seleccione el Descuento Comercial a Modificar");
 			}
 		}
-
+		
 		return "";
 	}
 
@@ -433,8 +549,15 @@ public class DescuentoComercialView {
 		} catch (Exception e) {
 			txtEstadoPlano.setValue("");
 		}
+		
+		selectedSucursal = null;
+		selectedSucursalH = null;
+		selectedEmpresa = null;
+		selectedPersona = null;
+		selectedGrupo = null;
+		selectedDescuentoComercial = null;
 
-		try {
+		/*try {
 			txtIdEmpr_Empresa.setValue(null);
 		} catch (Exception e) {
 			txtIdEmpr_Empresa.setValue("");
@@ -462,7 +585,7 @@ public class DescuentoComercialView {
 			txtIdSucu_SucursalH.setValue(null);
 		} catch (Exception e) {
 			txtIdSucu_SucursalH.setValue("");
-		}
+		}*/
 
 		try {
 			txtAsocGrupoItem.setValue(null);
@@ -1012,7 +1135,7 @@ public class DescuentoComercialView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 
 			} else {
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
@@ -1039,10 +1162,35 @@ public class DescuentoComercialView {
 				entity.setSucursalByIdSucu(businessDelegatorView
 						.getSucursal(FacesUtils.checkLong(txtIdSucu_SucursalH)));
 
+			}*/
+			
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			}
+			
+			if (selectedSucursalH != null) {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(selectedSucursalH.getIdSucu()));
+			}
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			}
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
 			}
 
-			entity.setSucursalBySucursal(businessDelegatorView
-					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
+			if (selectedSucursal != null) {
+				entity.setSucursalBySucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			}
+
+			/*entity.setSucursalBySucursal(businessDelegatorView
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));*/
 
 			businessDelegatorView.saveDescuentoComercial(entity);
 			data = businessDelegatorView.getDataDescuentoComercial();
@@ -1095,7 +1243,7 @@ public class DescuentoComercialView {
 			entity.setOperModifica(usuario);
 			entity.setEstadoRegistro(estadoRegistro);
 
-			if (txtIdEmpr_Empresa.getValue() == "") {
+			/*if (txtIdEmpr_Empresa.getValue() == "") {
 				entity.setEmpresa(null);
 			} else {
 				entity.setEmpresa(businessDelegatorView.getEmpresa(FacesUtils
@@ -1125,7 +1273,41 @@ public class DescuentoComercialView {
 			}
 
 			entity.setSucursalBySucursal(businessDelegatorView
-					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));
+					.getSucursal(FacesUtils.checkLong(txtIdSucu_Sucursal)));*/
+			
+			if (selectedSucursal != null) {
+				entity.setSucursalBySucursal(businessDelegatorView
+						.getSucursal(selectedSucursal.getIdSucu()));
+			}
+			
+			if (selectedSucursalH != null) {
+				entity.setSucursalByIdSucu(businessDelegatorView
+						.getSucursal(selectedSucursalH.getIdSucu()));
+			}else {
+				entity.setSucursalByIdSucu(null);
+			}
+			
+			if (selectedEmpresa != null) {
+				entity.setEmpresa(businessDelegatorView
+						.getEmpresa(selectedEmpresa.getIdEmpr()));
+			} else {
+				entity.setEmpresa(null);
+			}
+			
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+				entity.setPersona(null);
+			}
+
+			if (selectedGrupo != null) {
+				entity.setGrupo(businessDelegatorView.getGrupo(selectedGrupo
+						.getIdGrpo()));
+			} else {
+
+				entity.setGrupo(null);
+			}
 
 			businessDelegatorView.updateDescuentoComercial(entity);
 			data = businessDelegatorView.getDataDescuentoComercial();
@@ -1782,6 +1964,46 @@ public class DescuentoComercialView {
 
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
+	}
+
+	public SucursalDTO getSelectedSucursal() {
+		return selectedSucursal;
+	}
+
+	public void setSelectedSucursal(SucursalDTO selectedSucursal) {
+		this.selectedSucursal = selectedSucursal;
+	}
+
+	public SucursalDTO getSelectedSucursalH() {
+		return selectedSucursalH;
+	}
+
+	public void setSelectedSucursalH(SucursalDTO selectedSucursalH) {
+		this.selectedSucursalH = selectedSucursalH;
+	}
+
+	public PersonaDTO getSelectedPersona() {
+		return selectedPersona;
+	}
+
+	public void setSelectedPersona(PersonaDTO selectedPersona) {
+		this.selectedPersona = selectedPersona;
+	}
+
+	public EmpresaDTO getSelectedEmpresa() {
+		return selectedEmpresa;
+	}
+
+	public void setSelectedEmpresa(EmpresaDTO selectedEmpresa) {
+		this.selectedEmpresa = selectedEmpresa;
+	}
+
+	public GrupoDTO getSelectedGrupo() {
+		return selectedGrupo;
+	}
+
+	public void setSelectedGrupo(GrupoDTO selectedGrupo) {
+		this.selectedGrupo = selectedGrupo;
 	}
 
 }

@@ -19,7 +19,6 @@ public class LogisticaReversivaDTO implements Serializable {
 	private Long idLore;
 	private String operCreador;
 	private String operModifica;
-	private Long idDocu_Documento;
 
 	private Long idRrec_RutaRelacionComercial;
 

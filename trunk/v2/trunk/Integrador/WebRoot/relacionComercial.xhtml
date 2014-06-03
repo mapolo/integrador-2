@@ -111,14 +111,6 @@ body {
 								<p:messages id="messages" autoUpdate="true" />
 
 								<h:panelGrid columns="2" id="panel">
-				
-									<h:outputText id="msgIdEmpr_Empresa" value="ID Empresa Hija:" />
-									<p:selectOneMenu
-										value="#{relacionComercialView.idEmpr_Empresa}"
-										binding="#{relacionComercialView.txtIdEmpr_Empresa}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{relacionComercialView.empresa}" />
-									</p:selectOneMenu>
 
 									<h:outputText id="msgLiquidaIva" value="Liquida Iva:" />
 									<p:selectOneMenu
@@ -126,14 +118,6 @@ body {
 										value="#{relacionComercialView.liquidaIva}">
 										<f:selectItem itemLabel="S" itemValue="S" />
 										<f:selectItem itemLabel="N" itemValue="N" />
-									</p:selectOneMenu>
-
-									<h:outputText id="msgIdPers_Persona" value="ID Persona:" />
-									<p:selectOneMenu
-										value="#{relacionComercialView.idPers_Persona}"
-										binding="#{relacionComercialView.txtIdPers_Persona}">
-										<f:selectItem itemLabel="Seleccionar" itemValue="" />
-										<f:selectItems value="#{relacionComercialView.persona}" />
 									</p:selectOneMenu>
 
 									<h:outputText id="msgLimiteCredito" value="Limite Credito:" />
@@ -219,6 +203,84 @@ body {
 													<p:commandButton id="quitButtonSH" value="Quitar"
 														action="#{relacionComercialView.selectSucuH}"
 														icon="ui-icon-circle-close" update="tablaSucursalH" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+
+									</p:tab>
+									
+									<p:tab title="Empresa Hija">
+
+										<h:panelGrid style="margin: 0 auto;">
+
+											<p:dataTable id="tablaE" value="#{empresaView.data}" var="e"
+												selection="#{relacionComercialView.selectedEmpresa}" editable="true"
+												rowKey="#{e.idEmpr}" scrollable="true" scrollHeight="100">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="nombre" filterBy="nombre" headerText="Nombre"
+													sortBy="nombre" filterMatchMode="contains"
+													style="width: 100px">
+													<h:outputText value="#{e.nombre}" />
+												</p:column>
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="NIT" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{e.identificacion}" />
+												</p:column>
+
+												<p:column id="telefono1" filterBy="telefono1"
+													headerText="Telefono" sortBy="telefono1"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{e.telefono1}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton4" value="Quitar"
+														action="#{relacionComercialView.selectE}"
+														icon="ui-icon-circle-close" update="tablaE" />
+												</f:facet>
+
+											</p:dataTable>
+										</h:panelGrid>
+									</p:tab>
+									
+									<!-- Arcodion Persona -->
+									<p:tab title="Persona">
+
+										<h:panelGrid style="margin: 0 auto">
+
+											<p:dataTable value="#{personaView.data}" id="tablaP" var="p"
+												selection="#{relacionComercialView.selectedPersona}" editable="true"
+												scrollable="true" scrollHeight="100" rowKey="#{p.idPers}">
+
+												<p:column selectionMode="single" style="width:20px" />
+
+												<p:column id="identificacion" filterBy="identificacion"
+													headerText="Identificación" sortBy="identificacion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.identificacion}" />
+												</p:column>
+
+												<p:column id="primerNombre" filterBy="primerNombre"
+													headerText="Primer Nombre" sortBy="primerNombre"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerNombre}" />
+												</p:column>
+
+												<p:column id="primerApellido" filterBy="primerApellido"
+													headerText="Primer Apellido" sortBy="primerApellido"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{p.primerApellido}" />
+												</p:column>
+
+												<f:facet name="footer">
+													<p:commandButton id="quitButton3" value="Quitar"
+														action="#{relacionComercialView.selectP}"
+														icon="ui-icon-circle-close" update="tablaP" />
 												</f:facet>
 
 											</p:dataTable>
