@@ -1,0 +1,204 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+						<br />
+						<p:panel id="msgPanelGeneral" header="Multifamilia">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<h:panelGrid id="panelDataMultifamilia" style="margin: 0 auto;">
+								<p:dataTable id="tableDateMultifamiliar"
+									value="#{multifamiliaView.dataTableMultifamiliars}" var="clien"
+									scrollable="true" scrollHeight="300">
+
+									<p:column headerText="ID Multifamilia">
+										<h:outputText value="#{clien.idMufa}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.identificacionPadre}"
+										headerText="Identificación Cliente Padre">
+										<h:outputText value="#{clien.identificacionPadre}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.primerNombre}"
+										headerText="Nombre Cliente Padre">
+										<h:outputText value="#{clien.nombreEmpresa}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.identificacionHijo}"
+										headerText="Identificación Cliente Hijo">
+										<h:outputText value="#{clien.identificacionHijo}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.primerNombre}"
+										headerText="Nombre Cliente Hijo">
+										<h:outputText value="#{clien.primerNombre}" />
+									</p:column>
+
+								</p:dataTable>
+							</h:panelGrid>
+							<p:separator id="separator" />
+
+							<p:accordionPanel id="acordion" activeIndex="1">
+
+								<p:tab title="Cliente">
+									<h:panelGrid id="panel" style="margin: 0 auto;">
+
+										<p:dataTable id="tableDate"
+											value="#{multifamiliaView.clientes}" var="clien"
+											scrollable="true" scrollHeight="300" widgetVar="clienTable"
+											binding="#{multifamiliaView.dttClientes}">
+
+											<p:column headerText="ID cliente">
+												<h:outputText value="#{clien.idClie}" />
+											</p:column>
+
+											<p:column headerText="Identificación">
+												<h:outputText value="#{clien.identificacion}" />
+											</p:column>
+
+											<p:column headerText="Primer Nombre">
+												<h:outputText value="#{clien.primerNombre}" />
+											</p:column>
+
+											<p:column headerText="Segundo Nombre">
+												<h:outputText value="#{clien.segundoNombre}" />
+											</p:column>
+
+											<p:column headerText="Primer Apellido">
+												<h:outputText value="#{clien.primerApellido}" />
+											</p:column>
+
+											<p:column headerText="Segundo Apellido">
+												<h:outputText value="#{clien.segundoApellido}" />
+											</p:column>
+
+											<p:column headerText="Nombre Empresa">
+												<h:outputText value="#{clien.nombre}" />
+											</p:column>
+
+											<p:column headerText="NIT">
+												<h:outputText value="#{clien.identificacionEmpresa}" />
+											</p:column>
+
+											<p:column headerText="Asignar">
+												<p:commandButton title="asignar" value="Asignar Hijo"
+													oncomplete="asignarHijo.show()"
+													actionListener="#{multifamiliaView.adiccionarCodigoReferenciaHijo}">
+												</p:commandButton>
+											</p:column>
+										</p:dataTable>
+									</h:panelGrid>
+								</p:tab>
+							</p:accordionPanel>
+
+						</p:panel>
+						<h:panelGrid id="panelAsignar" columns="1" style="margin: 0 auto;">
+							<p:dialog id="conAsignarHijo" header="Asignar Hijo"
+								widgetVar="asignarHijo" resizable="false" showEffect="explode"
+								hideEffect="explode" modal="true">
+								<p:messages id="msg1" showDetail="true" />
+
+								<h:panelGrid id="panelAsignarHijo" columns="1"
+									style="margin: 0 auto;">
+
+									<p:dataTable id="tableDate2"
+										value="#{multifamiliaView.clientes2}" var="clien"
+										scrollable="true" scrollHeight="300" widgetVar="clienTable"
+										binding="#{multifamiliaView.dttClientes2}">
+
+										<p:column headerText="ID cliente">
+											<h:outputText value="#{clien.idClie}" />
+										</p:column>
+
+										<p:column headerText="Identificación">
+											<h:outputText value="#{clien.identificacion}" />
+										</p:column>
+
+										<p:column headerText="Primer Nombre">
+											<h:outputText value="#{clien.primerNombre}" />
+										</p:column>
+
+										<p:column headerText="Segundo Nombre">
+											<h:outputText value="#{clien.segundoNombre}" />
+										</p:column>
+
+										<p:column headerText="Primer Apellido">
+											<h:outputText value="#{clien.primerApellido}" />
+										</p:column>
+
+										<p:column headerText="Segundo Apellido">
+											<h:outputText value="#{clien.segundoApellido}" />
+										</p:column>
+
+										<p:column headerText="Nombre Empresa">
+											<h:outputText value="#{clien.nombre}" />
+										</p:column>
+
+										<p:column headerText="NIT">
+											<h:outputText value="#{clien.identificacionEmpresa}" />
+										</p:column>
+
+										<p:column headerText="Asignar">
+											<p:commandButton title="asignar" value="Asignar Hijo"
+												oncomplete="asignarHijo.hide()"
+												update=":form:panelDataMultifamilia"
+												actionListener="#{multifamiliaView.crearMultifamilia}">
+											</p:commandButton>
+										</p:column>
+
+									</p:dataTable>
+
+								</h:panelGrid>
+							</p:dialog>
+						</h:panelGrid>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

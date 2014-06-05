@@ -1,11 +1,31 @@
 package co.edu.usbcali.presentation.backingBeans;
 
+import co.edu.usbcali.exceptions.*;
+import co.edu.usbcali.modelo.*;
+import co.edu.usbcali.modelo.dto.MultifamiliaDTO;
+import co.edu.usbcali.presentation.businessDelegate.*;
+import co.edu.usbcali.utilities.*;
+
+import org.primefaces.component.calendar.*;
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.inputtext.InputText;
+
+import org.primefaces.event.RowEditEvent;
+
+import co.edu.usbcali.dtt.DataTableCliente;
+import co.edu.usbcali.dtt.DataTableMultifamiliar;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -13,20 +33,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.primefaces.component.calendar.Calendar;
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.event.RowEditEvent;
-
-import co.edu.usbcali.exceptions.ZMessManager;
-import co.edu.usbcali.modelo.Multifamilia;
-import co.edu.usbcali.modelo.dto.MultifamiliaDTO;
-import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
-import co.edu.usbcali.utilities.FacesUtils;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura
- * 
+ *
  */
 @ManagedBean
 @ViewScoped
@@ -39,11 +49,18 @@ public class MultifamiliaView {
 	private InputText txtIdMufa;
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaModificacion;
+	private DataTable dttClientes;
+	private DataTable dttClientes2;
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
+	private static DataTableCliente codigoReferenciaPadre;
 	private List<MultifamiliaDTO> data;
+	private List<DataTableCliente> clientes;
+	private List<Multifamilia> multifamilias;
+	private List<DataTableCliente> clientes2;
+	private List<DataTableMultifamiliar> dataTableMultifamiliars;
 	private MultifamiliaDTO selectedMultifamilia;
 	private Multifamilia entity;
 	private boolean showDialog;
@@ -53,7 +70,17 @@ public class MultifamiliaView {
 	public MultifamiliaView() {
 		super();
 	}
-
+	@PostConstruct
+	public void construMultif(){
+		llenarCleintes2();
+		llenarClientes();
+		multiFamiliar();
+	}
+	
+	public void  adiccionarCodigoReferenciaHijo() {
+		codigoReferenciaPadre  =  (DataTableCliente) dttClientes.getRowData();
+	}
+	
 	public void rowEventListener(RowEditEvent e) {
 		try {
 			MultifamiliaDTO multifamiliaDTO = (MultifamiliaDTO) e.getObject();
@@ -80,6 +107,8 @@ public class MultifamiliaView {
 				txtIdClie_Cliente = new InputText();
 			}
 
+			//            txtIdClie_Cliente.setValue(multifamiliaDTO.getIdClie_Cliente());
+
 			if (txtIdSucu_Sucursal == null) {
 				txtIdSucu_Sucursal = new InputText();
 			}
@@ -102,8 +131,7 @@ public class MultifamiliaView {
 				txtFechaModificacion = new Calendar();
 			}
 
-			txtFechaModificacion.setValue(multifamiliaDTO
-					.getFechaModificacion());
+			txtFechaModificacion.setValue(multifamiliaDTO.getFechaModificacion());
 
 			action_modify();
 		} catch (Exception ex) {
@@ -172,19 +200,52 @@ public class MultifamiliaView {
 	public void listener_txtFechaCreacion() {
 		Date inputDate = (Date) txtFechaCreacion.getValue();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		FacesContext.getCurrentInstance().addMessage(
-				"",
-				new FacesMessage("Selected Date "
-						+ dateFormat.format(inputDate)));
+		FacesContext.getCurrentInstance()
+		.addMessage("",
+				new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
 	}
 
 	public void listener_txtFechaModificacion() {
 		Date inputDate = (Date) txtFechaModificacion.getValue();
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		FacesContext.getCurrentInstance().addMessage(
-				"",
-				new FacesMessage("Selected Date "
-						+ dateFormat.format(inputDate)));
+		FacesContext.getCurrentInstance()
+		.addMessage("",
+				new FacesMessage("Selected Date " + dateFormat.format(inputDate)));
+	}
+
+	public void crearMultifamilia(){
+
+		try {
+
+			DataTableCliente clienePadre   =  codigoReferenciaPadre;
+			DataTableCliente clieneHijo    =  (DataTableCliente) dttClientes2.getRowData();
+
+			Cliente padre  =  businessDelegatorView.getCliente(clienePadre.getIdClie());
+			Cliente hijo   =  businessDelegatorView.getCliente(clieneHijo.getIdClie());
+
+			List<Multifamilia> listmMultifamilias  = businessDelegatorView.getMultifamilia();
+
+			Multifamilia multifamiliaEjemplo  =  businessDelegatorView.getMultifamilia(listmMultifamilias.get(0).getIdMufa());
+
+			Multifamilia multifamilia  =  new Multifamilia();
+
+			multifamilia.setClienteByClienteHijo(hijo);
+			multifamilia.setClienteByClientePadre(padre);
+			multifamilia.setFechaCreacion(multifamiliaEjemplo.getFechaCreacion());
+			multifamilia.setFechaModificacion(multifamiliaEjemplo.getFechaModificacion());
+			multifamilia.setEstadoRegistro("A");
+			multifamilia.setOperCreador(multifamiliaEjemplo.getOperCreador());
+			multifamilia.setOperModifica(multifamiliaEjemplo.getOperModifica());
+			multifamilia.setSucursal(multifamilia.getSucursal());
+
+			businessDelegatorView.saveMultifamilia(multifamilia);
+
+			multiFamiliar();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
 	}
 
 	public void listener_txtId() {
@@ -216,7 +277,7 @@ public class MultifamiliaView {
 			txtOperCreador.setDisabled(false);
 			txtOperModifica.setValue(entity.getOperModifica());
 			txtOperModifica.setDisabled(false);
-
+			//            txtIdClie_Cliente.setValue(entity.getCliente().getIdClie());
 			txtIdClie_Cliente.setDisabled(false);
 			txtIdSucu_Sucursal.setValue(entity.getSucursal().getIdSucu());
 			txtIdSucu_Sucursal.setDisabled(false);
@@ -228,19 +289,19 @@ public class MultifamiliaView {
 
 	public String action_edit(ActionEvent evt) {
 		selectedMultifamilia = (MultifamiliaDTO) (evt.getComponent()
-				.getAttributes().get("selectedMultifamilia"));
+				.getAttributes()
+				.get("selectedMultifamilia"));
 		txtEstadoRegistro.setValue(selectedMultifamilia.getEstadoRegistro());
 		txtEstadoRegistro.setDisabled(false);
 		txtFechaCreacion.setValue(selectedMultifamilia.getFechaCreacion());
 		txtFechaCreacion.setDisabled(false);
-		txtFechaModificacion.setValue(selectedMultifamilia
-				.getFechaModificacion());
+		txtFechaModificacion.setValue(selectedMultifamilia.getFechaModificacion());
 		txtFechaModificacion.setDisabled(false);
 		txtOperCreador.setValue(selectedMultifamilia.getOperCreador());
 		txtOperCreador.setDisabled(false);
 		txtOperModifica.setValue(selectedMultifamilia.getOperModifica());
 		txtOperModifica.setDisabled(false);
-
+		//        txtIdClie_Cliente.setValue(selectedMultifamilia.getIdClie_Cliente());
 		txtIdClie_Cliente.setDisabled(false);
 		txtIdSucu_Sucursal.setValue(selectedMultifamilia.getIdSucu_Sucursal());
 		txtIdSucu_Sucursal.setDisabled(false);
@@ -276,14 +337,17 @@ public class MultifamiliaView {
 
 			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			entity.setFechaModificacion(FacesUtils.checkDate(
+					txtFechaModificacion));
 			entity.setIdMufa(idMufa);
 			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
+			//            entity.setClienteByClienteHijo(businessDelegatorView.getClienteByClienteHijo(
+			//                    FacesUtils.checkLong(txtIdClie_Cliente)));
+			//            entity.setClienteByClientePadre(businessDelegatorView.getClienteByClientePadre(
+			//                    FacesUtils.checkLong(txtIdClie_Cliente)));
+			entity.setSucursal(businessDelegatorView.getSucursal(
+					FacesUtils.checkLong(txtIdSucu_Sucursal)));
 			businessDelegatorView.saveMultifamilia(entity);
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
@@ -303,13 +367,16 @@ public class MultifamiliaView {
 
 			entity.setEstadoRegistro(FacesUtils.checkString(txtEstadoRegistro));
 			entity.setFechaCreacion(FacesUtils.checkDate(txtFechaCreacion));
-			entity.setFechaModificacion(FacesUtils
-					.checkDate(txtFechaModificacion));
+			entity.setFechaModificacion(FacesUtils.checkDate(
+					txtFechaModificacion));
 			entity.setOperCreador(FacesUtils.checkString(txtOperCreador));
 			entity.setOperModifica(FacesUtils.checkString(txtOperModifica));
-
-			entity.setSucursal(businessDelegatorView.getSucursal(FacesUtils
-					.checkLong(txtIdSucu_Sucursal)));
+			//            entity.setClienteByClienteHijo(businessDelegatorView.getClienteByClienteHijo(
+			//                    FacesUtils.checkLong(txtIdClie_Cliente)));
+			//            entity.setClienteByClientePadre(businessDelegatorView.getClienteByClientePadre(
+			//                    FacesUtils.checkLong(txtIdClie_Cliente)));
+			entity.setSucursal(businessDelegatorView.getSucursal(
+					FacesUtils.checkLong(txtIdSucu_Sucursal)));
 			businessDelegatorView.updateMultifamilia(entity);
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
@@ -323,7 +390,8 @@ public class MultifamiliaView {
 	public String action_delete(ActionEvent evt) {
 		try {
 			selectedMultifamilia = (MultifamiliaDTO) (evt.getComponent()
-					.getAttributes().get("selectedMultifamilia"));
+					.getAttributes()
+					.get("selectedMultifamilia"));
 
 			Long idMufa = new Long(selectedMultifamilia.getIdMufa());
 			entity = businessDelegatorView.getMultifamilia(idMufa);
@@ -348,7 +416,8 @@ public class MultifamiliaView {
 	public String actionDeleteDataTableEditable(ActionEvent evt) {
 		try {
 			selectedMultifamilia = (MultifamiliaDTO) (evt.getComponent()
-					.getAttributes().get("selectedMultifamilia"));
+					.getAttributes()
+					.get("selectedMultifamilia"));
 
 			Long idMufa = new Long(selectedMultifamilia.getIdMufa());
 			entity = businessDelegatorView.getMultifamilia(idMufa);
@@ -376,12 +445,153 @@ public class MultifamiliaView {
 			businessDelegatorView.updateMultifamilia(entity);
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYMODIFIED);
 		} catch (Exception e) {
-			// renderManager.getOnDemandRenderer("MultifamiliaView").requestRender();
+			//renderManager.getOnDemandRenderer("MultifamiliaView").requestRender();
 			FacesUtils.addErrorMessage(e.getMessage());
 			throw e;
 		}
 
 		return "";
+	}
+
+	public void llenarClientes(){
+		try {
+			List<Cliente> clientesList  =  businessDelegatorView.getCliente(); 
+			clientes  =  new ArrayList<DataTableCliente>();
+
+			if (clientesList != null) {
+				for (int i = 0; i < clientesList.size(); i++) {
+					DataTableCliente dataTableCliente  = new DataTableCliente();
+
+					if (clientesList.get(i).getEmpresa() != null) {
+						dataTableCliente.setIdClie(clientesList.get(i).getIdClie());
+						Empresa empresa  =  businessDelegatorView.getEmpresa(clientesList.get(i).getEmpresa().getIdEmpr());
+						dataTableCliente.setIdentificacionEmpresa(empresa.getIdentificacion());
+						dataTableCliente.setNombre(empresa.getNombre());
+
+					}
+
+					if (clientesList.get(i).getPersona() != null) {
+						Persona persona  =  businessDelegatorView.getPersona(clientesList.get(i).getPersona().getIdPers());
+
+						dataTableCliente.setIdClie(clientesList.get(i).getIdClie());
+
+						dataTableCliente.setIdentificacion(persona.getIdentificacion());
+						dataTableCliente.setPrimerApellido(persona.getPrimerApellido());
+						dataTableCliente.setPrimerNombre(persona.getPrimerNombre());
+						dataTableCliente.setSegundoApellido(persona.getSegundoApellido());
+						dataTableCliente.setSegundoNombre(persona.getSegundoNombre());
+					}
+					clientes.add(dataTableCliente);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void llenarCleintes2() {
+		try {
+			List<Cliente> clientesList  =  businessDelegatorView.getCliente(); 
+			clientes2  =  new ArrayList<DataTableCliente>();
+
+			if (clientesList != null) {
+				for (int i = 0; i < clientesList.size(); i++) {
+					DataTableCliente dataTableCliente  = new DataTableCliente();
+
+					if (clientesList.get(i).getEmpresa() != null) {
+						dataTableCliente.setIdClie(clientesList.get(i).getIdClie());
+						Empresa empresa  =  businessDelegatorView.getEmpresa(clientesList.get(i).getEmpresa().getIdEmpr());
+						dataTableCliente.setIdentificacionEmpresa(empresa.getIdentificacion());
+						dataTableCliente.setNombre(empresa.getNombre());
+
+					}
+
+					if (clientesList.get(i).getPersona() != null) {
+						Persona persona  =  businessDelegatorView.getPersona(clientesList.get(i).getPersona().getIdPers());
+
+						dataTableCliente.setIdClie(clientesList.get(i).getIdClie());
+
+						dataTableCliente.setIdentificacion(persona.getIdentificacion());
+						dataTableCliente.setPrimerApellido(persona.getPrimerApellido());
+						dataTableCliente.setPrimerNombre(persona.getPrimerNombre());
+						dataTableCliente.setSegundoApellido(persona.getSegundoApellido());
+						dataTableCliente.setSegundoNombre(persona.getSegundoNombre());
+					}
+					clientes2.add(dataTableCliente);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void multiFamiliar(){
+		try {
+			multifamilias = businessDelegatorView.getMultifamilia();
+			dataTableMultifamiliars  =  new ArrayList<DataTableMultifamiliar>();
+			for (int i = 0; i < multifamilias.size(); i++) {
+				DataTableMultifamiliar dataTableMultifamiliar  =  new DataTableMultifamiliar();
+
+				dataTableMultifamiliar.setIdMufa(multifamilias.get(i).getIdMufa());
+
+				Cliente hijo  =  businessDelegatorView.getCliente(multifamilias.get(i).getClienteByClienteHijo().getIdClie());
+				Cliente padre  =  businessDelegatorView.getCliente(multifamilias.get(i).getClienteByClientePadre().getIdClie());
+
+				Persona personaHijo = null;
+
+				Persona personapadre  = null;
+
+				Empresa empresaHijo = null;
+
+				Empresa empresaPadre = null;
+
+				if (hijo.getPersona() != null) {
+					personaHijo  = businessDelegatorView.getPersona(hijo.getPersona().getIdPers());
+				}
+
+				if (padre.getPersona() != null) {
+					personapadre  = businessDelegatorView.getPersona(padre.getPersona().getIdPers());
+				}
+
+				if (hijo.getEmpresa() != null) {
+					empresaHijo  =  businessDelegatorView.getEmpresa(hijo.getEmpresa().getIdEmpr());
+				}
+
+				if (padre.getEmpresa() != null) {
+					empresaPadre  =  businessDelegatorView.getEmpresa(padre.getEmpresa().getIdEmpr());
+				}
+
+
+
+				if (personaHijo !=  null) {
+
+					dataTableMultifamiliar.setIdentificacionHijo(personaHijo.getIdentificacion());
+					dataTableMultifamiliar.setPrimerNombre(personaHijo.getPrimerNombre());
+				}
+
+				if (empresaHijo != null) {
+
+					dataTableMultifamiliar.setIdentificacionHijo(empresaHijo.getIdentificacion());
+					dataTableMultifamiliar.setPrimerNombre(empresaHijo.getNombre());
+				}
+
+				if (personapadre != null) {
+
+					dataTableMultifamiliar.setIdentificacionPadre(personapadre.getIdentificacion());
+					dataTableMultifamiliar.setNombreEmpresa(personapadre.getPrimerNombre());
+				}
+
+				if (empresaPadre != null) {
+
+					dataTableMultifamiliar.setIdentificacionPadre(empresaPadre.getIdentificacion());
+					dataTableMultifamiliar.setNombreEmpresa(empresaPadre.getNombre());
+				}
+
+				dataTableMultifamiliars.add(dataTableMultifamiliar);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	public InputText getTxtEstadoRegistro() {
@@ -450,9 +660,11 @@ public class MultifamiliaView {
 
 	public List<MultifamiliaDTO> getData() {
 		try {
+
 			if (data == null) {
 				data = businessDelegatorView.getDataMultifamilia();
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -524,4 +736,56 @@ public class MultifamiliaView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public List<DataTableCliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<DataTableCliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public DataTable getDttClientes() {
+		return dttClientes;
+	}
+
+	public void setDttClientes(DataTable dttClientes) {
+		this.dttClientes = dttClientes;
+	}
+
+	public DataTable getDttClientes2() {
+		return dttClientes2;
+	}
+
+	public void setDttClientes2(DataTable dttClientes2) {
+		this.dttClientes2 = dttClientes2;
+	}
+
+	public List<Multifamilia> getMultifamilias() {
+
+		return multifamilias;
+	}
+
+	public void setMultifamilias(List<Multifamilia> multifamilias) {
+		this.multifamilias = multifamilias;
+	}
+
+	public List<DataTableMultifamiliar> getDataTableMultifamiliars() {
+		return dataTableMultifamiliars;
+	}
+
+	public void setDataTableMultifamiliars(
+			List<DataTableMultifamiliar> dataTableMultifamiliars) {
+		this.dataTableMultifamiliars = dataTableMultifamiliars;
+	}
+
+	public List<DataTableCliente> getClientes2() {
+		return clientes2;
+	}
+
+	public void setClientes2(List<DataTableCliente> clientes2) {
+		this.clientes2 = clientes2;
+	}
+
+
 }

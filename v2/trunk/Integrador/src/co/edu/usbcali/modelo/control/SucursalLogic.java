@@ -1197,4 +1197,11 @@ public class SucursalLogic implements ISucursalLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<Sucursal> consultarPorIdEmpr(String propertyName, Object value)
+			throws Exception {
+		return sucursalDAO.findByProperty(propertyName, value);
+	}
+
 }

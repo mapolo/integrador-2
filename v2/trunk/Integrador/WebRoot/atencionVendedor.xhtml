@@ -1,0 +1,168 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+						<br />
+						<p:panel id="msgPanelGeneral" header="Atencion Vendedor">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+							<h:panelGrid id="panelComboEmpresas">
+								<p:selectOneMenu id="cmbGrupos"
+									value="#{atencionVendedorView.empresa}">
+									<f:selectItem itemLabel="Seleccione" itemValue="" />
+									<f:selectItems value="#{atencionVendedorView.items}" />
+									<p:ajax
+										listener="#{atencionVendedorView.llenarRelacionComercial}"
+										update=":form:panelDataRelacionComercial"></p:ajax>
+								</p:selectOneMenu>
+							</h:panelGrid>
+
+							<h:panelGrid id="panelDataAtencionVendedor"
+								style="margin: 0 auto;">
+								<p:dataTable id="tableDateAtencionVendedor"
+									value="#{atencionVendedorView.atencionVendedors2}" var="clien"
+									widgetVar="clienTable">
+
+									<p:column headerText="Id Atencion Vendedor">
+										<h:outputText value="#{clien.idAtve}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.idVend}" headerText="Id Vendedor">
+										<h:outputText value="#{clien.idVend}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.primerNombre}"
+										headerText="Nom. Vend.">
+										<h:outputText value="#{clien.primerNombre}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.identificacion}"
+										headerText="Ident. Vend.">
+										<h:outputText value="#{clien.identificacion}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.idReco}"
+										headerText="Id Rel. Comer.">
+										<h:outputText value="#{clien.idReco}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.idEmpr}" headerText="Id Empresa">
+										<h:outputText value="#{clien.idEmpr}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.nombre}"
+										headerText="Nombre Empresa">
+										<h:outputText value="#{clien.nombre}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.identificacionEmpresa}"
+										headerText="Identificacion Empresa">
+										<h:outputText value="#{clien.identificacionEmpresa}" />
+									</p:column>
+								</p:dataTable>
+							</h:panelGrid>
+							
+							
+							
+							
+							
+							
+							<h:panelGrid id="panelDataRelacionComercial"
+								style="margin: 0 auto;">
+								
+						
+								<p:dataTable id="tableDateRelacionComercial"
+									value="#{atencionVendedorView.comercials}" var="clien"
+									scrollable="true" scrollHeight="300"
+									binding="#{atencionVendedorView.dttRelacionComercial}">
+
+									<p:column headerText="Id Relacion Comercial">
+										<h:outputText value="#{clien.idReco}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.nombre}"
+										headerText="Nombre Empresa">
+										<h:outputText value="#{clien.nombre}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.identificacion}"
+										headerText="Identificacion Vendedor">
+										<h:outputText value="#{clien.identificacion}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.telefono1}" headerText="Telefono">
+										<h:outputText value="#{clien.telefono1}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.direccion}" headerText="Direccion">
+										<h:outputText value="#{clien.direccion}" />
+									</p:column>
+									<p:column headerText="Asignar Vend.">
+										<f:facet name="header">
+											<h:outputText value="" />
+										</f:facet>
+										<p:commandButton title="asignar" value="Asignar Vendedor"
+											actionListener="#{atencionVendedorView.adiccionarCodigoRelacionComercial}"
+											update=":form:panelGeneral">
+										</p:commandButton>
+									</p:column>
+
+								</p:dataTable>
+								
+								
+								
+								
+							</h:panelGrid>
+							
+						
+
+						</p:panel>
+
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

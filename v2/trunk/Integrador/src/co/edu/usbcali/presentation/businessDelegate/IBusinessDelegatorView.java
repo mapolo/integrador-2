@@ -2068,4 +2068,12 @@ public interface IBusinessDelegatorView {
 
 	public List<GrupoReferencia> consultarPorGrupo(String propertyName,
 			Object value) throws Exception;
+
+	public List<Empresa> consultarEmpresa() throws Exception;
+
+	public List<Sucursal> consultarPorIdEmpr(String propertyName, Object value)
+			throws Exception;
+
+	public List<RelacionComercial> consultarRelacionPropiedad(
+			String propertyName, Object value) throws Exception;
 }

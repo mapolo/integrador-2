@@ -23,14 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * 
- * @author <a href="mailto:dgomez@vortexbird.com">Diego A Gomez</a>
- * @project zathuracode
- * @class HibernateDaoImpl
- * @date Nov 01, 2013
- * 
- */
 @Transactional
 @SuppressWarnings({ "unchecked", "rawtypes" })
 public class HibernateDaoImpl<T, PK extends Serializable> implements Dao<T, PK> {
@@ -604,23 +596,39 @@ public class HibernateDaoImpl<T, PK extends Serializable> implements Dao<T, PK> 
 		}
 	}
 
+	 @Override
+	 public List<T> findByProperty(String propertyName, Object value) {
+		 log.debug("finding " + entityClass.getName()
+				 + " instance with property: " + propertyName + ", value: "
+				 + value);
+
+		 try {
+			 String queryString = "from " + entityClass.getName()
+					 + " as model where model." + propertyName + " = ?";
+			 Query queryObject = getSession().createQuery(queryString);
+			 queryObject.setParameter(0, value);
+
+			 return queryObject.list();
+		 } catch (RuntimeException re) {
+			 log.error("La busqueda por nombre fallo, reintente", re);
+			 throw re;
+		 }
+	 }
+
+	
 	@Override
-	public List<T> findByProperty(String propertyName, Object value) {
-		log.debug("finding " + entityClass.getName()
-				+ " instance with property: " + propertyName + ", value: "
-				+ value);
+	 public List<T> consultarEmpresa() {
+		 log.debug("Error en la consulta, reintente");
 
-		try {
-			String queryString = "from " + entityClass.getName()
-					+ " as model where model." + propertyName + "= ?";
-			Query queryObject = sessionFactory.getCurrentSession().createQuery(
-					queryString);
-			queryObject.setParameter(0, value);
+		 try {
+			 String queryString = "select model from Empresa as model, Compania as comp where model.idEmpr = comp.empresa.idEmpr";
+			 Query queryObject = getSession().createQuery(queryString);
 
-			return queryObject.list();
-		} catch (RuntimeException re) {
-			log.error("find by property name failed", re);
-			throw re;
-		}
-	}
+			 return queryObject.list();
+		 } catch (RuntimeException re) {
+			 log.error("La busqueda por nombre fallo, reintente", re);
+			 throw re;
+		 }
+	 }
+
 }

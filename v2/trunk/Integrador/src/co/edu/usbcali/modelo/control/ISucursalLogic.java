@@ -46,4 +46,7 @@ public interface ISucursalLogic {
 	public Long findTotalNumberSucursal() throws Exception;
 
 	public List<SucursalDTO> getDataSucursal() throws Exception;
+
+	public List<Sucursal> consultarPorIdEmpr(String propertyName, Object value)
+			throws Exception;
 }

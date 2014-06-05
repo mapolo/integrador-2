@@ -3,37 +3,41 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <!-- Generated 21-feb-2014 23:07:23 by Hibernate Tools 3.2.4.GA -->
 <hibernate-mapping>
-    <class name="co.edu.usbcali.modelo.GrupoReferencia" table="GRUPO_REFERENCIA" >
-        <id name="idGrre" type="java.lang.Long">
-            <column name="ID_GRRE" precision="10" scale="0" />
-            <generator class="assigned" />
-        </id>
-        <many-to-one name="grupo" class="co.edu.usbcali.modelo.Grupo" fetch="select">
-            <column name="ID_GRPO" precision="10" scale="0" not-null="true" />
-        </many-to-one>
-        <many-to-one name="referencia" class="co.edu.usbcali.modelo.Referencia" fetch="select">
-            <column name="ID_REFE" precision="10" scale="0" not-null="true" />
-        </many-to-one>
-        <property name="activo" type="java.lang.String">
-            <column name="ACTIVO" length="1" />
-        </property>
-        <property name="fechaInactivo" type="java.util.Date">
-            <column name="FECHA_INACTIVO" length="7" />
-        </property>
-        <property name="fechaCreacion" type="java.util.Date">
-            <column name="FECHA_CREACION" length="7" not-null="true" />
-        </property>
-        <property name="operCreador" type="java.lang.String">
-            <column name="OPER_CREADOR" length="10" not-null="true" />
-        </property>
-        <property name="fechaModificacion" type="java.util.Date">
-            <column name="FECHA_MODIFICACION" length="7" not-null="true" />
-        </property>
-        <property name="operModifica" type="java.lang.String">
-            <column name="OPER_MODIFICA" length="10" not-null="true" />
-        </property>
-        <property name="estadoRegistro" type="java.lang.String">
-            <column name="ESTADO_REGISTRO" length="1" not-null="true" />
-        </property>
-    </class>
+	<class name="co.edu.usbcali.modelo.GrupoReferencia" table="GRUPO_REFERENCIA">
+		<id name="idGrre" type="java.lang.Long">
+			<column name="ID_GRRE" precision="10" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">gruporef_SEQ</param>
+			</generator>
+		</id>
+		<many-to-one name="grupo" class="co.edu.usbcali.modelo.Grupo"
+			fetch="select">
+			<column name="ID_GRPO" precision="10" scale="0" not-null="true" />
+		</many-to-one>
+		<many-to-one name="referencia" class="co.edu.usbcali.modelo.Referencia"
+			fetch="select">
+			<column name="ID_REFE" precision="10" scale="0" not-null="true" />
+		</many-to-one>
+		<property name="activo" type="java.lang.String">
+			<column name="ACTIVO" length="1" />
+		</property>
+		<property name="fechaInactivo" type="java.util.Date">
+			<column name="FECHA_INACTIVO" length="7" />
+		</property>
+		<property name="fechaCreacion" type="java.util.Date">
+			<column name="FECHA_CREACION" length="7" not-null="true" />
+		</property>
+		<property name="operCreador" type="java.lang.String">
+			<column name="OPER_CREADOR" length="10" not-null="true" />
+		</property>
+		<property name="fechaModificacion" type="java.util.Date">
+			<column name="FECHA_MODIFICACION" length="7" not-null="true" />
+		</property>
+		<property name="operModifica" type="java.lang.String">
+			<column name="OPER_MODIFICA" length="10" not-null="true" />
+		</property>
+		<property name="estadoRegistro" type="java.lang.String">
+			<column name="ESTADO_REGISTRO" length="1" not-null="true" />
+		</property>
+	</class>
 </hibernate-mapping>

@@ -783,4 +783,12 @@ public class RelacionComercialLogic implements IRelacionComercialLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<RelacionComercial> consultarRelacionPropiedad(
+			String propertyName, Object value) throws Exception {
+
+		return relacionComercialDAO.findByProperty(propertyName, value);
+	}
+
 }
