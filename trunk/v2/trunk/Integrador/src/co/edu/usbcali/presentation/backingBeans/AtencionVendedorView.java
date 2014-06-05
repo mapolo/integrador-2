@@ -1,28 +1,38 @@
 package co.edu.usbcali.presentation.backingBeans;
 
+import co.edu.usbcali.exceptions.*;
+import co.edu.usbcali.modelo.*;
+import co.edu.usbcali.modelo.dto.AtencionVendedorDTO;
+import co.edu.usbcali.presentation.businessDelegate.*;
+import co.edu.usbcali.utilities.*;
+
+import org.primefaces.component.calendar.*;
+import org.primefaces.component.commandbutton.CommandButton;
+import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.inputtext.InputText;
+
+import org.primefaces.event.RowEditEvent;
+
+import co.edu.usbcali.dtt.DataTableAtencionVendedor;
+import co.edu.usbcali.dtt.DataTableRelacionComercial;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.TimeZone;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-
-import org.primefaces.component.calendar.Calendar;
-import org.primefaces.component.commandbutton.CommandButton;
-import org.primefaces.component.inputtext.InputText;
-import org.primefaces.event.RowEditEvent;
-
-import co.edu.usbcali.exceptions.ZMessManager;
-import co.edu.usbcali.modelo.AtencionVendedor;
-import co.edu.usbcali.modelo.dto.AtencionVendedorDTO;
-import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
-import co.edu.usbcali.utilities.FacesUtils;
+import javax.faces.model.SelectItem;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura
@@ -44,6 +54,14 @@ public class AtencionVendedorView {
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
 	private List<AtencionVendedorDTO> data;
+	private List<Empresa> empresas;
+	private List<SelectItem> items;
+	private List<DataTableRelacionComercial> comercials;
+	private List<AtencionVendedor> atencionVendedors;
+	private List<DataTableAtencionVendedor> atencionVendedors2;
+	private DataTable dttRelacionComercial;
+	private static DataTableRelacionComercial tableRelacionComercial;
+	private String empresa;
 	private AtencionVendedorDTO selectedAtencionVendedor;
 	private AtencionVendedor entity;
 	private boolean showDialog;
@@ -52,6 +70,115 @@ public class AtencionVendedorView {
 
 	public AtencionVendedorView() {
 		super();
+	}
+
+	@PostConstruct
+	public void constructor() {
+		try {
+			empresas = new ArrayList<Empresa>();
+			empresas = businessDelegatorView.consultarEmpresa();
+
+			items = new ArrayList<SelectItem>();
+
+			for (int i = 0; i < empresas.size(); i++) {
+				List<Sucursal> sucursal = businessDelegatorView
+						.consultarPorIdEmpr("empresa.idEmpr", empresas.get(i)
+								.getIdEmpr());
+
+				if (sucursal != null) {
+					if (sucursal.size() != 0) {
+						SelectItem item = new SelectItem(empresas.get(i)
+								.getIdEmpr(), empresas.get(i).getNombre());
+						items.add(item);
+					}
+				}
+
+			}
+
+			llenarAtencioCliente();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public void adiccionarCodigoRelacionComercial() {
+
+		tableRelacionComercial = (DataTableRelacionComercial) dttRelacionComercial
+				.getRowData();
+		System.out.println("hola");
+
+	}
+
+	public void llenarRelacionComercial() {
+		try {
+			List<RelacionComercial> comercialsDatos = businessDelegatorView
+					.consultarRelacionPropiedad("empresa.idEmpr", new Long(
+							empresa));
+			comercials = new ArrayList<DataTableRelacionComercial>();
+
+			for (int i = 0; i < comercialsDatos.size(); i++) {
+				DataTableRelacionComercial comercial = new DataTableRelacionComercial();
+
+				Empresa empresa = businessDelegatorView
+						.getEmpresa(comercialsDatos.get(i).getEmpresa()
+								.getIdEmpr());
+
+				comercial.setDireccion(empresa.getDireccion());
+				comercial.setIdentificacion(empresa.getIdentificacion());
+				comercial.setIdReco(comercialsDatos.get(i).getIdReco());
+				comercial.setNombre(empresa.getNombre());
+				comercial.setTelefono1(empresa.getTelefono1());
+
+				comercials.add(comercial);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void llenarAtencioCliente() {
+
+		try {
+			atencionVendedors = businessDelegatorView.getAtencionVendedor();
+			atencionVendedors2 = new ArrayList<DataTableAtencionVendedor>();
+
+			for (int i = 0; i < atencionVendedors.size(); i++) {
+				DataTableAtencionVendedor atencionVendedor = new DataTableAtencionVendedor();
+
+				Vendedor vendedor = businessDelegatorView
+						.getVendedor(atencionVendedors.get(i).getVendedor()
+								.getIdVend());
+				RelacionComercial relacionComercial = businessDelegatorView
+						.getRelacionComercial(atencionVendedors.get(i)
+								.getRelacionComercial().getIdReco());
+
+				Persona persona = businessDelegatorView.getPersona(vendedor
+						.getPersona().getIdPers());
+				Empresa empresa = businessDelegatorView
+						.getEmpresa(relacionComercial.getEmpresa().getIdEmpr());
+
+				atencionVendedor
+						.setIdAtve(atencionVendedors.get(i).getIdAtve());
+				atencionVendedor.setIdEmpr(empresa.getIdEmpr());
+				atencionVendedor.setIdentificacion(persona.getIdentificacion());
+				atencionVendedor.setIdentificacionEmpresa(empresa
+						.getIdentificacion());
+				atencionVendedor.setIdReco(relacionComercial.getIdReco());
+				atencionVendedor.setIdVend(vendedor.getIdVend());
+				atencionVendedor.setNombre(empresa.getNombre());
+				atencionVendedor.setPrimerNombre(persona.getPrimerNombre());
+
+				atencionVendedors2.add(atencionVendedor);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void llenarVendedor() {
+
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -541,4 +668,62 @@ public class AtencionVendedorView {
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
 	}
+
+	public List<Empresa> getEmpresas() {
+		return empresas;
+	}
+
+	public void setEmpresas(List<Empresa> empresas) {
+		this.empresas = empresas;
+	}
+
+	public List<SelectItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<SelectItem> items) {
+		this.items = items;
+	}
+
+	public String getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(String empresa) {
+		this.empresa = empresa;
+	}
+
+	public List<DataTableRelacionComercial> getComercials() {
+		return comercials;
+	}
+
+	public void setComercials(List<DataTableRelacionComercial> comercials) {
+		this.comercials = comercials;
+	}
+
+	public List<AtencionVendedor> getAtencionVendedors() {
+		return atencionVendedors;
+	}
+
+	public void setAtencionVendedors(List<AtencionVendedor> atencionVendedors) {
+		this.atencionVendedors = atencionVendedors;
+	}
+
+	public List<DataTableAtencionVendedor> getAtencionVendedors2() {
+		return atencionVendedors2;
+	}
+
+	public void setAtencionVendedors2(
+			List<DataTableAtencionVendedor> atencionVendedors2) {
+		this.atencionVendedors2 = atencionVendedors2;
+	}
+
+	public DataTable getDttRelacionComercial() {
+		return dttRelacionComercial;
+	}
+
+	public void setDttRelacionComercial(DataTable dttRelacionComercial) {
+		this.dttRelacionComercial = dttRelacionComercial;
+	}
+
 }

@@ -46,4 +46,6 @@ public interface IEmpresaLogic {
 	public Long findTotalNumberEmpresa() throws Exception;
 
 	public List<EmpresaDTO> getDataEmpresa() throws Exception;
+
+	public List<Empresa> consultarEmpresa() throws Exception;
 }

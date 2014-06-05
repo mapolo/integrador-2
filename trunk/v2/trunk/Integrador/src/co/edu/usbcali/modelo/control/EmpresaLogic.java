@@ -863,4 +863,10 @@ public class EmpresaLogic implements IEmpresaLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<Empresa> consultarEmpresa() throws Exception {
+		return empresaDAO.consultarEmpresa();
+	}
+
 }

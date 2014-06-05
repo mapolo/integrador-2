@@ -4653,4 +4653,21 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 		return grupoReferenciaLogic.consultarPorGrupo(propertyName, value);
 	}
 
+	@Override
+	public List<Empresa> consultarEmpresa() throws Exception {
+		return empresaLogic.consultarEmpresa();
+	}
+
+	@Override
+	public List<Sucursal> consultarPorIdEmpr(String propertyName, Object value)
+			throws Exception {
+		return sucursalLogic.consultarPorIdEmpr(propertyName, value);
+	}
+
+	@Override
+	public List<RelacionComercial> consultarRelacionPropiedad(
+			String propertyName, Object value) throws Exception {
+		return relacionComercialLogic.consultarRelacionPropiedad(propertyName,
+				value);
+	}
 }

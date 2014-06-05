@@ -303,4 +303,7 @@ public interface Dao<T, PK extends Serializable> {
 	 * @return
 	 */
 	public List<T> findByCriteria(String whereCondition);
+	
+	public List<T> consultarEmpresa();
+
 }

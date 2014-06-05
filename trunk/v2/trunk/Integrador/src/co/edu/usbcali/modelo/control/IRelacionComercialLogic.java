@@ -50,4 +50,7 @@ public interface IRelacionComercialLogic {
 
 	public List<RelacionComercialDTO> getDataRelacionComercial()
 			throws Exception;
+
+	public List<RelacionComercial> consultarRelacionPropiedad(
+			String propertyName, Object value) throws Exception;
 }
