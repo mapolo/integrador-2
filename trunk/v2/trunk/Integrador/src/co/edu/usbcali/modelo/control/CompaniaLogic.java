@@ -98,9 +98,9 @@ public class CompaniaLogic implements ICompaniaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCia() == null) {
+			/*if (entity.getIdCia() == null) {
 				throw new ZMessManager().new EmptyFieldException("idCia");
-			}
+			}*/
 
 			if ((entity.getIdCia() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
@@ -142,9 +142,9 @@ public class CompaniaLogic implements ICompaniaLogic {
 						"idEmpr_Empresa");
 			}
 
-			if (getCompania(entity.getIdCia()) != null) {
+			/*if (getCompania(entity.getIdCia()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			companiaDAO.save(entity);
 		} catch (Exception e) {
@@ -221,15 +221,15 @@ public class CompaniaLogic implements ICompaniaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdCia() == null) {
+			/*if (entity.getIdCia() == null) {
 				throw new ZMessManager().new EmptyFieldException("idCia");
-			}
+			}*/
 
-			if ((entity.getIdCia() != null)
+			/*if ((entity.getIdCia() != null)
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdCia(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idCia");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");

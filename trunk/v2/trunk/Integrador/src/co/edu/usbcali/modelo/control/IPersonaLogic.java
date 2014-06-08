@@ -46,4 +46,7 @@ public interface IPersonaLogic {
 	public Long findTotalNumberPersona() throws Exception;
 
 	public List<PersonaDTO> getDataPersona() throws Exception;
+
+	public List<Persona> consultarPersonVendedor() throws Exception;
+
 }

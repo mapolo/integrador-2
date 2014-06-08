@@ -87,9 +87,9 @@ public class ClienteLogic implements IClienteLogic {
 				throw new ZMessManager().new ForeignException("empresa");
 			}
 
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
-			}
+			}*/
 
 			if (entity.getTipoCartera() == null) {
 				throw new ZMessManager().new ForeignException("tipoCartera");
@@ -117,7 +117,7 @@ public class ClienteLogic implements IClienteLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdClie() == null) {
+			/*if (entity.getIdClie() == null) {
 				throw new ZMessManager().new EmptyFieldException("idClie");
 			}
 
@@ -125,7 +125,7 @@ public class ClienteLogic implements IClienteLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdClie(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idClie");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -149,7 +149,7 @@ public class ClienteLogic implements IClienteLogic {
 						"operModifica");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
+			/*if (entity.getEmpresa().getIdEmpr() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idEmpr_Empresa");
 			}
@@ -159,9 +159,9 @@ public class ClienteLogic implements IClienteLogic {
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
-			}
+			}*/
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -171,7 +171,7 @@ public class ClienteLogic implements IClienteLogic {
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			if (entity.getTipoCartera().getIdTica() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -185,9 +185,9 @@ public class ClienteLogic implements IClienteLogic {
 						"idTica_TipoCartera");
 			}
 
-			if (getCliente(entity.getIdClie()) != null) {
+			/*if (getCliente(entity.getIdClie()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			clienteDAO.save(entity);
 		} catch (Exception e) {
@@ -244,9 +244,9 @@ public class ClienteLogic implements IClienteLogic {
 				throw new ZMessManager().new ForeignException("empresa");
 			}
 
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
-			}
+			}*/
 
 			if (entity.getTipoCartera() == null) {
 				throw new ZMessManager().new ForeignException("tipoCartera");
@@ -274,7 +274,7 @@ public class ClienteLogic implements IClienteLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdClie() == null) {
+			/*if (entity.getIdClie() == null) {
 				throw new ZMessManager().new EmptyFieldException("idClie");
 			}
 
@@ -282,7 +282,7 @@ public class ClienteLogic implements IClienteLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdClie(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idClie");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -306,7 +306,7 @@ public class ClienteLogic implements IClienteLogic {
 						"operModifica");
 			}
 
-			if (entity.getEmpresa().getIdEmpr() == null) {
+			/*if (entity.getEmpresa().getIdEmpr() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idEmpr_Empresa");
 			}
@@ -316,9 +316,9 @@ public class ClienteLogic implements IClienteLogic {
 							+ entity.getEmpresa().getIdEmpr(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idEmpr_Empresa");
-			}
+			}*/
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -328,7 +328,7 @@ public class ClienteLogic implements IClienteLogic {
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			if (entity.getTipoCartera().getIdTica() == null) {
 				throw new ZMessManager().new EmptyFieldException(

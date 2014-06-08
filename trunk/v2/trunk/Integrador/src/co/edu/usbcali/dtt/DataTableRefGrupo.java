@@ -5,7 +5,6 @@ import java.io.Serializable;
 
 public class DataTableRefGrupo implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
 	private Long idRefe;    
     private String descripcion;
     private String marca;
@@ -14,14 +13,14 @@ public class DataTableRefGrupo implements Serializable{
     private String nombre;
   
     private Long idGrre;
-    private String estadoRegistro;
+    private String activo;
     
 	public DataTableRefGrupo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public DataTableRefGrupo(Long idRefe, String descripcion, String marca,
-			Long idGrpo, String nombre, Long idGrre, String estadoRegistro) {
+			Long idGrpo, String nombre, Long idGrre, String activo) {
 		super();
 		this.idRefe = idRefe;
 		this.descripcion = descripcion;
@@ -29,7 +28,7 @@ public class DataTableRefGrupo implements Serializable{
 		this.idGrpo = idGrpo;
 		this.nombre = nombre;
 		this.idGrre = idGrre;
-		this.estadoRegistro = estadoRegistro;
+		this.activo = activo;
 	}
 	public Long getIdRefe() {
 		return idRefe;
@@ -67,10 +66,10 @@ public class DataTableRefGrupo implements Serializable{
 	public void setIdGrre(Long idGrre) {
 		this.idGrre = idGrre;
 	}
-	public String getEstadoRegistro() {
-		return estadoRegistro;
+	public String getActivo() {
+		return activo;
 	}
-	public void setEstadoRegistro(String estadoRegistro) {
-		this.estadoRegistro = estadoRegistro;
+	public void setActivo(String activo) {
+		this.activo = activo;
 	}
 }

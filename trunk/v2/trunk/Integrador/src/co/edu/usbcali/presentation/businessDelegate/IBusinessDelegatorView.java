@@ -2076,4 +2076,16 @@ public interface IBusinessDelegatorView {
 
 	public List<RelacionComercial> consultarRelacionPropiedad(
 			String propertyName, Object value) throws Exception;
+
+	public List<AtencionVendedor> consultarAtencionVendedor(Object value)
+			throws Exception;
+
+	public List<Persona> consultarPersonVendedor() throws Exception;
+
+	public Vendedor consultarVendedorPorIdPers(String propertyName, Object value)
+			throws Exception;
+
+	public List<UnidadVenta> consultarUnidadVentaPorIdVen(String propertyName,
+			Object value) throws Exception;
+
 }

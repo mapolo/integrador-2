@@ -166,7 +166,7 @@ public class UnidadVentaLogic implements IUnidadVentaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdUnve() == null) {
+		/*	if (entity.getIdUnve() == null) {
 				throw new ZMessManager().new EmptyFieldException("idUnve");
 			}
 
@@ -174,7 +174,7 @@ public class UnidadVentaLogic implements IUnidadVentaLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdUnve(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idUnve");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -222,9 +222,9 @@ public class UnidadVentaLogic implements IUnidadVentaLogic {
 						"idVend_Vendedor");
 			}
 
-			if (getUnidadVenta(entity.getIdUnve()) != null) {
+		/*	if (getUnidadVenta(entity.getIdUnve()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			unidadVentaDAO.save(entity);
 		} catch (Exception e) {
@@ -688,4 +688,11 @@ public class UnidadVentaLogic implements IUnidadVentaLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<UnidadVenta> consultarUnidadVentaPorIdVen(String propertyName,
+			Object value) throws Exception {
+		return unidadVentaDAO.findByProperty(propertyName, value);
+	}
+
 }

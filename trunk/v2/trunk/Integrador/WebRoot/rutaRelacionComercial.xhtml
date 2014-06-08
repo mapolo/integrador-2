@@ -43,7 +43,7 @@ body {
 
 					<h:form id="form">
 
-						<p:panel id="msgPanelGeneral" header="Atención Vendedor">
+						<p:panel id="msgPanelGeneral" header="Ruta Relación Comercial">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 							<h:panelGrid id="panelComboEmpresas">
@@ -57,19 +57,33 @@ body {
 								</p:selectOneMenu>
 							</h:panelGrid>
 
-							<h:panelGrid id="panelDataAtencionVendedor"
-								style="margin: 0 auto;">
-								<p:dataTable id="tableDateAtencionVendedor"
-									value="#{atencionVendedorView.atencionVendedors2}" var="clien"
-									widgetVar="clienTable">
+							<h:panelGrid id="panelDataRutaRelacion" style="margin: 0 auto;">
+								<p:dataTable id="tableDateRutaRelacion"
+									value="#{atencionVendedorView.dataTableRutaRelacions}"
+									var="clien" widgetVar="clienTable">
+
+									<p:column filterBy="#{clien.descripcion}"
+										headerText="Descripción Ruta">
+										<h:outputText value="#{clien.descripcion}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.tiempoEntrega}"
+										headerText="Tiempo Entrega">
+										<h:outputText value="#{clien.tiempoEntrega}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.tiempoTransporte}"
+										headerText="Tiempo Transporte">
+										<h:outputText value="#{clien.tiempoTransporte}" />
+									</p:column>
 
 									<p:column filterBy="#{clien.identificacion}"
-										headerText="Identificación del Vendedor">
+										headerText="Identificación Vendedor">
 										<h:outputText value="#{clien.identificacion}" />
 									</p:column>
 
 									<p:column filterBy="#{clien.primerNombre}"
-										headerText="Nombre del Vendedor">
+										headerText="Nombre Vendedor">
 										<h:outputText value="#{clien.primerNombre}" />
 									</p:column>
 
@@ -87,7 +101,6 @@ body {
 							</h:panelGrid>
 							<h:panelGrid id="panelAsignar" columns="1"
 								style="margin: 0 auto;">
-
 								<h:panelGrid id="panelDataRelacionComercial"
 									style="margin: 0 auto;">
 									<p:dataTable id="tableDateRelacionComercial"
@@ -98,7 +111,8 @@ body {
 											<h:outputText value="#{clien2.identificacion}" />
 										</p:column>
 
-										<p:column filterBy="#{clien2.nombre}" headerText="Nombre">
+										<p:column filterBy="#{clien2.nombre}"
+											headerText="Nombre Empresa">
 											<h:outputText value="#{clien2.nombre}" />
 										</p:column>
 
@@ -110,9 +124,10 @@ body {
 											headerText="Dirección">
 											<h:outputText value="#{clien2.direccion}" />
 										</p:column>
-										<p:column headerText="Asignar Vendedor">
+
+										<p:column headerText="Asignar Relación Comercial">
 											<p:commandButton title="asignar" value="Seleccionar"
-												action="#{atencionVendedorView.adiccionarCodigoRelacionComercial}"
+												action="#{atencionVendedorView.rutallenarAtencioVendedor}"
 												update=":form:panelAsignarVendedor"
 												oncomplete="asignarVendedor.show()">
 												<f:setPropertyActionListener value="#{clien2}"
@@ -122,46 +137,90 @@ body {
 
 									</p:dataTable>
 								</h:panelGrid>
+
 							</h:panelGrid>
 
 						</p:panel>
 						<h:panelGrid id="panelAsignarVendedor" columns="1"
 							style="margin: 0 auto;">
 							<p:dialog id="conAsignarVendedor"
-								header="Asignación de Vendedor a Compañia" widgetVar="asignarVendedor"
-								resizable="false" showEffect="explode" hideEffect="explode"
-								modal="true">
+								header="Asignación Relación Comercial"
+								widgetVar="asignarVendedor" resizable="false"
+								showEffect="explode" hideEffect="explode" modal="true">
 
-								<h:panelGrid id="panelAsignarVendedor2" columns="1"
+								<h:panelGrid id="panelDataAtencionVendedor"
 									style="margin: 0 auto;">
-
-									<p:dataTable id="tableVendedor"
-										value="#{atencionVendedorView.dataTableVendedors}" var="clien"
-										rows="5" widgetVar="clienTable">
+									<p:dataTable id="tableDateAtencionVendedor"
+										value="#{atencionVendedorView.rutaAtencionVendedor}"
+										var="clien" widgetVar="clienTable">
 
 										<p:column filterBy="#{clien.identificacion}"
-											headerText="Identificación">
+											headerText="Identificación Vendedor">
 											<h:outputText value="#{clien.identificacion}" />
 										</p:column>
 
-										<p:column filterBy="#{clien.primerNombre}" headerText="Nombre">
+										<p:column filterBy="#{clien.primerNombre}"
+											headerText="Nombre Vendedor">
 											<h:outputText value="#{clien.primerNombre}" />
 										</p:column>
 
-										<p:column headerText="Email">
-											<h:outputText value="#{clien.email}" />
+										<p:column filterBy="#{clien.identificacionEmpresa}"
+											headerText="NIT">
+											<h:outputText value="#{clien.identificacionEmpresa}" />
 										</p:column>
 
-										<p:column headerText="Asignar Vendedor">
-											<p:commandButton title="asignar" value="Asignar"
-												oncomplete="asignarVendedor.hide()"
-												action="#{atencionVendedorView.adiccionarVendedorRelacioncomercial}"
-												update=":form:msgPanelGeneral">
+										<p:column filterBy="#{clien.nombre}"
+											headerText="Nombre Empresa">
+											<h:outputText value="#{clien.nombre}" />
+										</p:column>
+
+										<p:column headerText="Asignar Ruta">
+											<p:commandButton title="asignar" value="Seleccionar"
+												update=":form:panelRutas" oncomplete="asignarRutas.show()">
 												<f:setPropertyActionListener value="#{clien}"
-													target="#{atencionVendedorView.rowAtencionVendedor}" />
+													target="#{atencionVendedorView.rowdaDataTableRutaAtencionVen}" />
 											</p:commandButton>
 										</p:column>
+									</p:dataTable>
+								</h:panelGrid>
+							</p:dialog>
+						</h:panelGrid>
 
+						<h:panelGrid id="panelRutas" columns="1" style="margin: 0 auto;">
+							<p:dialog id="conAsignarRutas" header="Asignación de Rutas"
+								widgetVar="asignarRutas" resizable="false" showEffect="explode"
+								hideEffect="explode" modal="true">
+
+								<h:panelGrid id="panelRutasDialog" style="margin: 0 auto;">
+									<p:dataTable id="tableDateRutas"
+										value="#{atencionVendedorView.distribucions}" var="clien"
+										widgetVar="clienTable">
+
+										<p:column filterBy="#{clien.descripcion}"
+											headerText="Descripción">
+											<h:outputText value="#{clien.descripcion}" />
+										</p:column>
+
+										<p:column filterBy="#{clien.tiempoEntrega}"
+											headerText="Tiempo Entrega">
+											<h:outputText value="#{clien.tiempoEntrega}" />
+										</p:column>
+
+										<p:column filterBy="#{clien.tiempoTransporte}"
+											headerText="Tiempo Transporte">
+											<h:outputText value="#{clien.tiempoTransporte}" />
+										</p:column>
+
+										<p:column headerText="Asignar Ruta">
+											<p:commandButton title="asignar" value="Asignar"
+												action="#{atencionVendedorView.guardarRutaAtencion}"
+												update=":form:panelDataRutaRelacion"
+												oncomplete="asignarRutas.hide(),asignarVendedor.hide()">
+												<f:setPropertyActionListener value="#{clien}"
+													target="#{atencionVendedorView.rowDistribucion}" />
+											</p:commandButton>
+
+										</p:column>
 									</p:dataTable>
 								</h:panelGrid>
 							</p:dialog>

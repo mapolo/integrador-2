@@ -27,7 +27,6 @@
 
 				<p:megaMenu autoDisplay="false">
 
-
 					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
 
 					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
@@ -42,138 +41,106 @@ body {
 </style>
 				<div id="logo" align="center">
 
+
 					<h:form id="form">
 
-						<p:panel id="panelGeneral" header="Grupo Referencia">
+						<p:panel id="panelGeneral" header="Grupo Referencia"
+							style="margin: 0 auto;">
 
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
 
-							<h:panelGrid id="panelMaster" style="margin: 0 auto;">
-								<f:facet name="header">
-									<h:panelGrid id="panelSeleccion">
+							<h:panelGrid id="datosTablaGrupoRef">
+								<p:dataTable id="tableDate"
+									value="#{asignacionView.tablaGrupoReferencias}" var="ref"
+									widgetVar="refTable">
 
-									</h:panelGrid>
-								</f:facet>
-								<p:remoteCommand name="updateTableDiv"
-									update=":form:datosTablaGrupoRef" />
-								<h:panelGrid id="datosTablaGrupoRef">
+									<p:column headerText="Nombre del Grupo">
+										<h:outputText value="#{ref.nombre}" />
+									</p:column>
 
-									<p:dataTable id="tableDate"
-										value="#{asignacionView.tablaGrupoReferencias}" var="ref"
-										scrollable="true" scrollHeight="300" widgetVar="refTable"
-										binding="#{asignacionView.dttGrupoReferncia}">
+									<p:column filterBy="#{ref.idRefe}" headerText="ID Referencia">
+										<h:outputText value="#{ref.idRefe}" />
+									</p:column>
 
-										<p:column headerText="ID Grupo">
-											<h:outputText value="#{ref.idGrpo}" />
-										</p:column>
+									<p:column filterBy="#{ref.descripcion}"
+										headerText="Descripción">
+										<h:outputText value="#{ref.descripcion}" />
+									</p:column>
 
-										<p:column headerText="Nombre">
-											<h:outputText value="#{ref.nombre}" />
-										</p:column>
+									<p:column headerText="Marca">
+										<h:outputText value="#{ref.marca}" />
+									</p:column>
 
-										<p:column headerText="ID Referencia">
-											<h:outputText value="#{ref.idRefe}" />
-										</p:column>
+									<p:column headerText="Estado">
+										<h:outputText value="#{ref.activo}" />
+									</p:column>
 
-										<p:column headerText="Descripción">
-											<h:outputText value="#{ref.descripcion}" />
-										</p:column>
+									<p:column headerText="Activar Referencia">
+										<p:commandButton title="Activar" value="Activar"
+											action="#{asignacionView.activarReferencia}"
+											update=":form:panelGeneral">
+											<f:setPropertyActionListener value="#{ref}"
+												target="#{asignacionView.rowDataTableRefGrupo}" />
+										</p:commandButton>
+									</p:column>
 
-										<p:column headerText="Marca">
-											<h:outputText value="#{ref.marca}" />
-										</p:column>
+									<f:facet name="footer">
+										<p:commandButton id="ingresaGrupoR"
+											value="Asignar Grupo a Referencia" icon="ui-icon-documen"
+											oncomplete="ingresaGrupoRef.show()" update=":form" />
+									</f:facet>
 
-										<p:column headerText="Estado del Registro">
-											<h:outputText value="#{ref.estadoRegistro}" />
-										</p:column>
-
-										<p:column headerText="Activar">
-										
-											<p:commandButton id="btnActivarRefe" title="Activar"
-												value="Activar Referencia"
-												actionListener="#{asignacionView.activarReferencia}">
-											</p:commandButton>
-										</p:column>
-
-										<f:facet name="footer">
-											<p:commandButton id="btnActivarRefe2"
-												title="asiganarGrupoReferencia"
-												value="Asignar Referencia a Grupo"
-												oncomplete="ingresaGrupoRef.show()">
-											</p:commandButton>
-										</f:facet>
-									</p:dataTable>
-								</h:panelGrid>
-
-								<h:panelGrid id="panelAgregarReferenciaGrupo" columns="1"
-									style="margin: 0 auto;">
-
-									<p:dialog id="ingresaRefGrupo"
-										header="Igresar Referencia a Grupo"
-										widgetVar="ingresaGrupoRef" resizable="false"
-										showEffect="explode" hideEffect="explode" modal="true">
-										<p:messages id="msg2" showDetail="true" />
-										<h:panelGrid columns="3" id="panelIngresaRefGrupo"
-											cellpadding="4" style="margin:0 auto;">
-											<h:panelGrid columns="2" id="panelIngresaRefGrupo2"
-												style="margin: 0 auto;">
-
-												<h:panelGrid columns="2" id="panel">
-													<h:outputText id="msgGrupo" value="Grupo:" />
-													<p:selectOneMenu id="cmbGrupos"
-														value="#{asignacionView.grupo}"
-														binding="#{asignacionView.cmbGrupos}">
-														<f:selectItem itemLabel="Seleccionar" itemValue="" />
-														<f:selectItems value="#{asignacionView.items}" />
-													</p:selectOneMenu>
-													<h:outputText id="msgIdGrre" value="Referencia:" />
-													<p:inputText id="txtIdGrre"
-														binding="#{asignacionView.txtReferencia}">
-													</p:inputText>
-													<h:outputText id="idEstado" value="Estado del Registro:" />
-													<p:selectOneRadio id="console"
-														value="#{asignacionView.sorActivo}" defaultValue="Activo">
-														<f:selectItem itemLabel="Activo" itemValue="A" />
-														<f:selectItem itemLabel="Inactivo" itemValue="R" />
-													</p:selectOneRadio>
-												</h:panelGrid>
-											</h:panelGrid>
-
-										</h:panelGrid>
-										<p:separator id="separator99" />
-
-										<h:panelGrid id="panelBotones" columns="1"
-											style="margin: 0 auto;">
-
-											<p:commandButton id="btnSaveGrupoRef" value="Guardar"
-												actionListener="#{asignacionView.guardarRef}"
-												update=":form:panelGeneral" />
-
-										</h:panelGrid>
-									</p:dialog>
-								</h:panelGrid>
-
-								<h:panelGrid id="panelConfirmarRefe" columns="1"
-									style="margin: 0 auto;">
-
-									<p:dialog id="confirmaRef" header="Confirmar Referencia"
-										widgetVar="confirmaReferencia" resizable="false" showEffect=""
-										hideEffect="" modal="true">
-										<p:messages id="msg3" showDetail="true" />
-
-										<h:panelGrid id="panelBotonesConfirmar" columns="1"
-											style="margin: 0 auto;">
-
-											<p:commandButton id="btnConfirmarGrupoRef" value="Activar"
-												actionListener="#{asignacionView.activarReferencia}"
-												update=":form:panelGeneral" />
-										</h:panelGrid>
-
-									</p:dialog>
-								</h:panelGrid>
+								</p:dataTable>
 							</h:panelGrid>
 						</p:panel>
+
+						<h:panelGrid id="panelAgregarReferenciaGrupo" columns="1"
+							style="margin: 0 auto;">
+
+							<p:dialog id="ingresaRefGrupo"
+								header="Asignación de un Grupo a una Referencia"
+								widgetVar="ingresaGrupoRef" resizable="false"
+								showEffect="explode" hideEffect="explode" modal="true">
+								<p:messages id="msg2" showDetail="true" />
+								<h:panelGrid columns="3" id="panelIngresaRefGrupo"
+									cellpadding="4" style="margin:0 auto;">
+									<h:panelGrid columns="2" id="panelIngresaRefGrupo2"
+										style="margin: 0 auto;">
+
+										<h:panelGrid columns="2" id="panel">
+											<h:outputText id="msgGrupo" value="*Nombre del Grupo:" />
+											<p:selectOneMenu id="cmbGrupos"
+												value="#{asignacionView.grupo}"
+												binding="#{asignacionView.cmbGrupos}">
+												<f:selectItems value="#{asignacionView.items}" />
+											</p:selectOneMenu>
+											<h:outputText id="msgIdGrre" value="*ID Referencia:" />
+											<p:inputText id="txtIdGrre"
+												binding="#{asignacionView.txtReferencia}">
+											</p:inputText>
+											<h:outputText id="idEstado" value="*Estado:" />
+											<p:selectOneRadio id="console"
+												value="#{asignacionView.sorActivo}" defaultValue="Activo">
+												<f:selectItem itemLabel="Activo" itemValue="S" />
+												<f:selectItem itemLabel="Inactivo" itemValue="N" />
+											</p:selectOneRadio>
+										</h:panelGrid>
+									</h:panelGrid>
+									<br />
+								</h:panelGrid>
+
+								<h:panelGrid id="panelBotones" columns="1"
+									style="margin: 0 auto;">
+
+									<p:commandButton id="btnSaveGrupoRef" value="Guardar"
+										actionListener="#{asignacionView.guardarRef}"
+										update=":form:datosTablaGrupoRef"
+										oncomplete="ingresaGrupoRef.hide()" />
+
+								</h:panelGrid>
+							</p:dialog>
+						</h:panelGrid>
 					</h:form>
 				</div>
 			</f:view>

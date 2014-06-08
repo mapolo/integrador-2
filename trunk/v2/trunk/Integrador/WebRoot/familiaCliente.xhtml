@@ -15,7 +15,7 @@
 			<f:view>
 				<p:ajaxStatus onstart="statusDialog.show();"
 					onsuccess="statusDialog.hide();" />
-				<p:dialog modal="true" widgetVar="statusDialog" header="Loading"
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
 					draggable="false" closable="false">
 					<p:graphicImage
 						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
@@ -26,7 +26,6 @@
 				</div>
 
 				<p:megaMenu autoDisplay="false">
-
 
 					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
 
@@ -43,7 +42,7 @@ body {
 				<div id="logo" align="center">
 
 					<h:form id="form">
-						<br />
+
 						<p:panel id="msgPanelGeneral" header="Multifamilia">
 							<p:messages id="msg" showDetail="true" />
 							<p:growl id="men" />
@@ -53,12 +52,8 @@ body {
 									value="#{multifamiliaView.dataTableMultifamiliars}" var="clien"
 									scrollable="true" scrollHeight="300">
 
-									<p:column headerText="ID Multifamilia">
-										<h:outputText value="#{clien.idMufa}" />
-									</p:column>
-
 									<p:column filterBy="#{clien.identificacionPadre}"
-										headerText="Identificación Cliente Padre">
+										headerText="NIT Padre">
 										<h:outputText value="#{clien.identificacionPadre}" />
 									</p:column>
 
@@ -68,7 +63,7 @@ body {
 									</p:column>
 
 									<p:column filterBy="#{clien.identificacionHijo}"
-										headerText="Identificación Cliente Hijo">
+										headerText="NIT Hijo">
 										<h:outputText value="#{clien.identificacionHijo}" />
 									</p:column>
 
@@ -91,40 +86,28 @@ body {
 											scrollable="true" scrollHeight="300" widgetVar="clienTable"
 											binding="#{multifamiliaView.dttClientes}">
 
-											<p:column headerText="ID cliente">
-												<h:outputText value="#{clien.idClie}" />
-											</p:column>
-
 											<p:column headerText="Identificación">
 												<h:outputText value="#{clien.identificacion}" />
 											</p:column>
 
-											<p:column headerText="Primer Nombre">
+											<p:column headerText="Nombre">
 												<h:outputText value="#{clien.primerNombre}" />
 											</p:column>
 
-											<p:column headerText="Segundo Nombre">
-												<h:outputText value="#{clien.segundoNombre}" />
-											</p:column>
-
-											<p:column headerText="Primer Apellido">
+											<p:column headerText="Apellido">
 												<h:outputText value="#{clien.primerApellido}" />
-											</p:column>
-
-											<p:column headerText="Segundo Apellido">
-												<h:outputText value="#{clien.segundoApellido}" />
-											</p:column>
-
-											<p:column headerText="Nombre Empresa">
-												<h:outputText value="#{clien.nombre}" />
 											</p:column>
 
 											<p:column headerText="NIT">
 												<h:outputText value="#{clien.identificacionEmpresa}" />
 											</p:column>
 
-											<p:column headerText="Asignar">
-												<p:commandButton title="asignar" value="Asignar Hijo"
+											<p:column headerText="Nombre Empresa">
+												<h:outputText value="#{clien.nombre}" />
+											</p:column>
+
+											<p:column headerText="Asignar Hijo">
+												<p:commandButton title="asignar" value="Seleccionar"
 													oncomplete="asignarHijo.show()"
 													actionListener="#{multifamiliaView.adiccionarCodigoReferenciaHijo}">
 												</p:commandButton>
@@ -136,7 +119,7 @@ body {
 
 						</p:panel>
 						<h:panelGrid id="panelAsignar" columns="1" style="margin: 0 auto;">
-							<p:dialog id="conAsignarHijo" header="Asignar Hijo"
+							<p:dialog id="conAsignarHijo" header="Asignación Cliente Hijo a Padre"
 								widgetVar="asignarHijo" resizable="false" showEffect="explode"
 								hideEffect="explode" modal="true">
 								<p:messages id="msg1" showDetail="true" />
@@ -149,40 +132,28 @@ body {
 										scrollable="true" scrollHeight="300" widgetVar="clienTable"
 										binding="#{multifamiliaView.dttClientes2}">
 
-										<p:column headerText="ID cliente">
-											<h:outputText value="#{clien.idClie}" />
-										</p:column>
-
 										<p:column headerText="Identificación">
 											<h:outputText value="#{clien.identificacion}" />
 										</p:column>
 
-										<p:column headerText="Primer Nombre">
+										<p:column headerText="Nombre">
 											<h:outputText value="#{clien.primerNombre}" />
 										</p:column>
 
-										<p:column headerText="Segundo Nombre">
-											<h:outputText value="#{clien.segundoNombre}" />
-										</p:column>
-
-										<p:column headerText="Primer Apellido">
+										<p:column headerText="Apellido">
 											<h:outputText value="#{clien.primerApellido}" />
-										</p:column>
-
-										<p:column headerText="Segundo Apellido">
-											<h:outputText value="#{clien.segundoApellido}" />
-										</p:column>
-
-										<p:column headerText="Nombre Empresa">
-											<h:outputText value="#{clien.nombre}" />
 										</p:column>
 
 										<p:column headerText="NIT">
 											<h:outputText value="#{clien.identificacionEmpresa}" />
 										</p:column>
 
-										<p:column headerText="Asignar">
-											<p:commandButton title="asignar" value="Asignar Hijo"
+										<p:column headerText="Nombre Empresa">
+											<h:outputText value="#{clien.nombre}" />
+										</p:column>
+
+										<p:column headerText="Asignar Hijo">
+											<p:commandButton title="asignar" value="Asignar"
 												oncomplete="asignarHijo.hide()"
 												update=":form:panelDataMultifamilia"
 												actionListener="#{multifamiliaView.crearMultifamilia}">
@@ -190,11 +161,9 @@ body {
 										</p:column>
 
 									</p:dataTable>
-
 								</h:panelGrid>
 							</p:dialog>
 						</h:panelGrid>
-
 					</h:form>
 				</div>
 			</f:view>

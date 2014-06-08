@@ -146,9 +146,9 @@ public class EmpresaLogic implements IEmpresaLogic {
 			 * ZMessManager().new ForeignException( "divisionPolitica"); }
 			 */
 
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
-			}
+			}*/
 
 			if (entity.getTipoIdentificacion() == null) {
 				throw new ZMessManager().new ForeignException(
@@ -274,7 +274,7 @@ public class EmpresaLogic implements IEmpresaLogic {
 						"idDipo_DivisionPolitica");
 			}
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -284,7 +284,7 @@ public class EmpresaLogic implements IEmpresaLogic {
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			if (entity.getTipoIdentificacion().getIdTiid() == null) {
 				throw new ZMessManager().new EmptyFieldException(
@@ -406,9 +406,9 @@ public class EmpresaLogic implements IEmpresaLogic {
 			 * ZMessManager().new ForeignException( "divisionPolitica"); }
 			 */
 
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
-			}
+			}*/
 
 			if (entity.getTipoIdentificacion() == null) {
 				throw new ZMessManager().new ForeignException(
@@ -534,7 +534,7 @@ public class EmpresaLogic implements IEmpresaLogic {
 						"idDipo_DivisionPolitica");
 			}
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -544,7 +544,7 @@ public class EmpresaLogic implements IEmpresaLogic {
 							+ entity.getPersona().getIdPers(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idPers_Persona");
-			}
+			}*/
 
 			if (entity.getTipoIdentificacion().getIdTiid() == null) {
 				throw new ZMessManager().new EmptyFieldException(

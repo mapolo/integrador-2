@@ -4670,4 +4670,28 @@ public class BusinessDelegatorView implements IBusinessDelegatorView {
 		return relacionComercialLogic.consultarRelacionPropiedad(propertyName,
 				value);
 	}
+
+	@Override
+	public List<AtencionVendedor> consultarAtencionVendedor(Object value)
+			throws Exception {
+		return atencionVendedorLogic.consultarAtencionVendedor(value);
+	}
+
+	@Override
+	public List<Persona> consultarPersonVendedor() throws Exception {
+		return personaLogic.consultarPersonVendedor();
+	}
+
+	@Override
+	public Vendedor consultarVendedorPorIdPers(String propertyName, Object value)
+			throws Exception {
+		return vendedorLogic.consultarVendedorPorIdPers(propertyName, value);
+	}
+
+	@Override
+	public List<UnidadVenta> consultarUnidadVentaPorIdVen(String propertyName,
+			Object value) throws Exception {
+		return unidadVentaLogic.consultarUnidadVentaPorIdVen(propertyName,
+				value);
+	}
 }

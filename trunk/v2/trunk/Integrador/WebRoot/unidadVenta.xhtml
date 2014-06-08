@@ -1,0 +1,164 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</h:head>
+
+<h:body>
+	<ui:composition template="/XHTML/CommonColumnsContent.xhtml">
+
+		<ui:define name="body">
+			<f:view>
+				<p:ajaxStatus onstart="statusDialog.show();"
+					onsuccess="statusDialog.hide();" />
+				<p:dialog modal="true" widgetVar="statusDialog" header="Cargando"
+					draggable="false" closable="false">
+					<p:graphicImage
+						value="#{facesContext.externalContext.request.scheme}://#{facesContext.externalContext.request.serverName}:#{facesContext.externalContext.request.serverPort}#{facesContext.externalContext.request.contextPath}/images/ajaxloadingbar.gif" />
+				</p:dialog>
+
+				<div id="logo" align="center">
+					<img src="http://www.mac.com.co/themes/mac/images/logo04.gif"></img>
+				</div>
+
+				<p:megaMenu autoDisplay="false">
+
+					<p:menuitem value="Menú" icon="ui-icon-contact" url="menu.xhtml" />
+
+					<p:menuitem value="Cerrar Sesión" url="login.xhtml"
+						icon="ui-icon-close" />
+
+				</p:megaMenu>
+
+				<style type="text/css">
+body {
+	background: black;
+}
+</style>
+				<div id="logo" align="center">
+
+					<h:form id="form">
+
+						<p:panel id="msgPanelGeneral" header="Unidad de Ventas">
+							<p:messages id="msg" showDetail="true" />
+							<p:growl id="men" />
+
+							<h:panelGrid id="panelDataUnidadVentas" style="margin: 0 auto;">
+								<p:dataTable id="tableDateUnidadVentas"
+									value="#{unidadVentaView.dataTableUnidadVentas}" var="clien"
+									widgetVar="clienTable">
+
+									<p:column filterBy="#{clien.identificacion}"
+										headerText="Identificacion Vendedor">
+										<h:outputText value="#{clien.identificacion}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.primerNombre}"
+										headerText="Nombre Vendedor">
+										<h:outputText value="#{clien.primerNombre}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.telefono1}"
+										headerText="Telefono Vendedor">
+										<h:outputText value="#{clien.telefono1}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.descripcion}"
+										headerText="Descripcion Unidad de Ventas">
+										<h:outputText value="#{clien.descripcion}" />
+									</p:column>
+
+									<p:column filterBy="#{clien.activo}" headerText="Estado">
+										<h:outputText value="#{clien.activo}" />
+									</p:column>
+
+									<p:column headerText="Activar Unidad">
+										<p:commandButton title="asignar" value="Activar"
+											action="#{unidadVentaView.activarUnidadVenta}"
+											update=":form:panelDataUnidadVentas">
+											<f:setPropertyActionListener value="#{clien}"
+												target="#{unidadVentaView.rowDataTableUnidadVenta}" />
+										</p:commandButton>
+									</p:column>
+
+								</p:dataTable>
+							</h:panelGrid>
+							<h:panelGrid id="panelAsignar" columns="1"
+								style="margin: 0 auto;">
+								<h:panelGrid id="panelDataVendedor" style="margin: 0 auto;">
+									<p:dataTable id="tableDateVendedor"
+										value="#{unidadVentaView.personas}" var="clien2"
+										widgetVar="clienTable">
+
+										<p:column headerText="Identificación">
+											<h:outputText value="#{clien2.identificacion}" />
+										</p:column>
+
+										<p:column filterBy="#{clien2.primerNombre}"
+											headerText="Nombre">
+											<h:outputText value="#{clien2.primerNombre}" />
+										</p:column>
+
+										<p:column filterBy="#{clien2.direccion}"
+											headerText="Dirección">
+											<h:outputText value="#{clien2.direccion}" />
+										</p:column>
+
+										<p:column filterBy="#{clien2.telefono1}" headerText="Telefono">
+											<h:outputText value="#{clien2.telefono1}" />
+										</p:column>
+
+										<p:column headerText="Asignar Unidad de Negocio">
+											<p:commandButton title="asignar" value="Seleccionar"
+												oncomplete="asignarUnidad.show()">
+												<f:setPropertyActionListener value="#{clien2}"
+													target="#{unidadVentaView.rowPersona}" />
+											</p:commandButton>
+										</p:column>
+										
+									</p:dataTable>
+								</h:panelGrid>
+
+							</h:panelGrid>
+
+						</p:panel>
+
+						<h:panelGrid id="panelUnidad" columns="1" style="margin: 0 auto;">
+							<p:dialog id="conUnidadNegocio" header="Asignación Unidad de Negocio"
+								widgetVar="asignarUnidad" resizable="false" showEffect="explode"
+								hideEffect="explode" modal="true">
+
+								<h:panelGrid id="panelUnidadDialog" style="margin: 0 auto;">
+									<p:dataTable id="tableDateUnidad"
+										value="#{unidadVentaView.unidadNegocios}" var="clien"
+										widgetVar="clienTable">
+
+										<p:column filterBy="#{clien.descripcion}"
+											headerText="Descripción Unidad de Negocio">
+											<h:outputText value="#{clien.descripcion}" />
+										</p:column>
+										<p:column headerText="Asignar Unidad de Negocio">
+											<p:commandButton title="asignar" value="Asignar"
+												action="#{unidadVentaView.guardarUnidadVentas}"
+												update=":form:msgPanelGeneral"
+												oncomplete="asignarUnidad.hide()">
+												<f:setPropertyActionListener value="#{clien}"
+													target="#{unidadVentaView.rowUnidadNegocio}" />
+											</p:commandButton>
+										</p:column>
+
+									</p:dataTable>
+								</h:panelGrid>
+							</p:dialog>
+						</h:panelGrid>
+					</h:form>
+				</div>
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

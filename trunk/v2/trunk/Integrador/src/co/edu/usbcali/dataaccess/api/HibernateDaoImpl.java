@@ -596,39 +596,87 @@ public class HibernateDaoImpl<T, PK extends Serializable> implements Dao<T, PK> 
 		}
 	}
 
-	 @Override
-	 public List<T> findByProperty(String propertyName, Object value) {
-		 log.debug("finding " + entityClass.getName()
-				 + " instance with property: " + propertyName + ", value: "
-				 + value);
-
-		 try {
-			 String queryString = "from " + entityClass.getName()
-					 + " as model where model." + propertyName + " = ?";
-			 Query queryObject = getSession().createQuery(queryString);
-			 queryObject.setParameter(0, value);
-
-			 return queryObject.list();
-		 } catch (RuntimeException re) {
-			 log.error("La busqueda por nombre fallo, reintente", re);
-			 throw re;
-		 }
-	 }
-
-	
 	@Override
-	 public List<T> consultarEmpresa() {
-		 log.debug("Error en la consulta, reintente");
+	public List<T> findByProperty(String propertyName, Object value) {
+		log.debug("finding " + entityClass.getName()
+				+ " instance with property: " + propertyName + ", value: "
+				+ value);
 
-		 try {
-			 String queryString = "select model from Empresa as model, Compania as comp where model.idEmpr = comp.empresa.idEmpr";
-			 Query queryObject = getSession().createQuery(queryString);
+		try {
+			String queryString = "from " + entityClass.getName()
+					+ " as model where model." + propertyName + " = ?";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
 
-			 return queryObject.list();
-		 } catch (RuntimeException re) {
-			 log.error("La busqueda por nombre fallo, reintente", re);
-			 throw re;
-		 }
-	 }
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("La busqueda por nombre fallo, reintente", re);
+			throw re;
+		}
+	}
 
+	@Override
+	public List<T> consultarEmpresa() {
+		log.debug("Error en la consulta, reintente");
+
+		try {
+			String queryString = "select model from Empresa as model, Compania as comp where model.idEmpr = comp.empresa.idEmpr";
+			Query queryObject = getSession().createQuery(queryString);
+
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("La busqueda por nombre fallo, reintente", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public List<T> consultarAtencionVendedor(Object value) {
+		log.debug("Erro al consultar en la base de datos");
+
+		try {
+			String queryString = "from AtencionVendedor as aten where aten.relacionComercial.idReco = ?";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public List<T> consultarPersonVendedor() {
+		log.debug("Erro al consultar en la base de datos");
+
+		try {
+			String queryString = "select pers from Vendedor as vende, Persona as pers where vende.persona.idPers = pers.idPers";
+			Query queryObject = getSession().createQuery(queryString);
+
+			return queryObject.list();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
+
+	@Override
+	public T findByPropertySingle(String propertyName, Object value) {
+		log.debug("finding " + entityClass.getName()
+				+ " instance with property: " + propertyName + ", value: "
+				+ value);
+
+		try {
+			String queryString = "from " + entityClass.getName()
+					+ " as model where model." + propertyName + " = ?";
+			Query queryObject = getSession().createQuery(queryString);
+			queryObject.setParameter(0, value);
+
+			return (T) queryObject.uniqueResult();
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 }

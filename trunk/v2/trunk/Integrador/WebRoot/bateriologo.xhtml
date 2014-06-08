@@ -95,8 +95,8 @@ body {
 							<!--                          Tabla emergente           -->
 
 							<p:dialog id="dialog" header="Bateriologo" widgetVar="carDialog"
-								resizable="false" width="400" showEffect="clip" hideEffect="fold"
-								modal="true">
+								resizable="false" width="400" showEffect="clip"
+								hideEffect="fold" modal="true">
 
 								<p:messages id="messages" autoUpdate="true" />
 								<h:panelGrid columns="2" id="panel">
@@ -105,6 +105,8 @@ body {
 									<p:inputText id="txtCodigo" value="#{bateriologoView.codigo}"
 										onkeyup="javascript:this.value=this.value.toUpperCase();"
 										binding="#{bateriologoView.txtCodigo}" />
+
+
 
 									<h:outputText id="msgEstadoRegistro"
 										value="*Estado del Registro:" />
@@ -121,17 +123,25 @@ body {
 
 								</h:panelGrid>
 
-								<!-- arcodeon sucursal -->
+								<p:separator id="separator" />
+
+
+								<!-- arcodion sucursalesquesonempresas -->
 
 								<p:accordionPanel id="acordion" activeIndex="1">
 
-									<p:tab title="*Sucursal">
+									<p:tab title="Sucursal">
 
 										<h:panelGrid style="margin: 0 auto;">
-											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+											<p:dataTable id="tablaSucursal" value="#{bateriologoView.sucusalPadreModel}"
 												var="s" selection="#{bateriologoView.selectedSucursal}"
-												scrollable="true" scrollHeight="100" editable="true"
-												rowKey="#{s.idSucu}">
+												scrollable="true" scrollHeight="200" editable="true"
+												rowKey="#{s.idSucu}"
+												>
+
+												<f:facet name="header">
+							                     Sucursal
+							                    </f:facet>
 
 												<p:column selectionMode="single" style="width:20px" />
 
@@ -141,11 +151,27 @@ body {
 													<h:outputText value="#{s.nombre}" />
 												</p:column>
 
+												<p:column id="direccion" filterBy="direccion"
+													headerText="Dirección" sortBy="direccion"
+													filterMatchMode="contains" style="width: 100px">
+													<h:outputText value="#{s.direccion}" />
+												</p:column>
+
 												<p:column id="telefono" filterBy="telefono"
 													headerText="Telefono" sortBy="telefono"
 													filterMatchMode="contains" style="width: 100px">
 													<h:outputText value="#{s.telefono}" />
 												</p:column>
+
+
+												<p:column headerText="Estado del Registro"
+													style="width: 100px" filterBy="estadoRegistro"
+													filterOptions="#{sucursalView.manufacturerOptions}"
+													filterMatchMode="exact">
+													<h:outputText value="#{s.estadoRegistro}" />
+												</p:column>
+
+
 
 												<f:facet name="footer">
 													<p:commandButton id="quitButton" value="Quitar"
@@ -160,7 +186,10 @@ body {
 
 								</p:accordionPanel>
 
-								<p:separator id="separator" />
+
+
+
+								<p:separator id="separator2" />
 
 								<h:panelGrid id="panelBotones" columns="2">
 
