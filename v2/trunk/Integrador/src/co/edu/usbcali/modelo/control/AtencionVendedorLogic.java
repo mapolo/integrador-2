@@ -129,15 +129,15 @@ public class AtencionVendedorLogic implements IAtencionVendedorLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdAtve() == null) {
-				throw new ZMessManager().new EmptyFieldException("idAtve");
-			}
-
-			if ((entity.getIdAtve() != null)
-					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
-							+ entity.getIdAtve(), 10, 0) == false)) {
-				throw new ZMessManager().new NotValidFormatException("idAtve");
-			}
+//			if (entity.getIdAtve() == null) {
+//				throw new ZMessManager().new EmptyFieldException("idAtve");
+//			}
+//
+//			if ((entity.getIdAtve() != null)
+//					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
+//							+ entity.getIdAtve(), 10, 0) == false)) {
+//				throw new ZMessManager().new NotValidFormatException("idAtve");
+//			}
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -185,9 +185,9 @@ public class AtencionVendedorLogic implements IAtencionVendedorLogic {
 						"idVend_Vendedor");
 			}
 
-			if (getAtencionVendedor(entity.getIdAtve()) != null) {
-				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+//			if (getAtencionVendedor(entity.getIdAtve()) != null) {
+//				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
+//			}
 
 			atencionVendedorDAO.save(entity);
 		} catch (Exception e) {
@@ -612,4 +612,11 @@ public class AtencionVendedorLogic implements IAtencionVendedorLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<AtencionVendedor> consultarAtencionVendedor(Object value)
+			throws Exception {
+		return atencionVendedorDAO.consultarAtencionVendedor(value);
+	}
+
 }

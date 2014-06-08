@@ -105,7 +105,7 @@ public class RutaRelacionComercialLogic implements IRutaRelacionComercialLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdRrec() == null) {
+		/*	if (entity.getIdRrec() == null) {
 				throw new ZMessManager().new EmptyFieldException("idRrec");
 			}
 
@@ -113,7 +113,7 @@ public class RutaRelacionComercialLogic implements IRutaRelacionComercialLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdRrec(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idRrec");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -161,9 +161,9 @@ public class RutaRelacionComercialLogic implements IRutaRelacionComercialLogic {
 						"idRudi_RutaDistribucion");
 			}
 
-			if (getRutaRelacionComercial(entity.getIdRrec()) != null) {
+			/*if (getRutaRelacionComercial(entity.getIdRrec()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			rutaRelacionComercialDAO.save(entity);
 		} catch (Exception e) {

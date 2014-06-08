@@ -46,4 +46,7 @@ public interface IUnidadVentaLogic {
 	public Long findTotalNumberUnidadVenta() throws Exception;
 
 	public List<UnidadVentaDTO> getDataUnidadVenta() throws Exception;
+
+	public List<UnidadVenta> consultarUnidadVentaPorIdVen(String propertyName,
+			Object value) throws Exception;
 }

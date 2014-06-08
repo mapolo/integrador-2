@@ -46,4 +46,7 @@ public interface IVendedorLogic {
 	public Long findTotalNumberVendedor() throws Exception;
 
 	public List<VendedorDTO> getDataVendedor() throws Exception;
+
+	public Vendedor consultarVendedorPorIdPers(String propertyName, Object value)
+			throws Exception;
 }

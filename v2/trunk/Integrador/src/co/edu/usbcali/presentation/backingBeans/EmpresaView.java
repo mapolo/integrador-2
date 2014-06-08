@@ -24,11 +24,16 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.exceptions.ZMessManager;
+import co.edu.usbcali.modelo.Cliente;
+import co.edu.usbcali.modelo.Compania;
 import co.edu.usbcali.modelo.DivisionPolitica;
 import co.edu.usbcali.modelo.Empresa;
+import co.edu.usbcali.modelo.dto.ClienteDTO;
+import co.edu.usbcali.modelo.dto.CompaniaDTO;
 import co.edu.usbcali.modelo.dto.DivisionPoliticaDTO;
 import co.edu.usbcali.modelo.dto.EmpresaDTO;
 import co.edu.usbcali.modelo.dto.PersonaDTO;
+import co.edu.usbcali.modelo.dto.TipoCarteraDTO;
 import co.edu.usbcali.modelo.dto.TipoIdentificacionDTO;
 import co.edu.usbcali.presentation.businessDelegate.IBusinessDelegatorView;
 import co.edu.usbcali.utilities.FacesUtils;
@@ -68,6 +73,7 @@ public class EmpresaView {
 	private String idDipo_DivisionPolitica;
 	private Long idPers_Persona;
 	private String idTiid_TipoIdentificacion;
+	private String selectItemEstado;
 	private String idEmpr;
 	private String fechaCreacion;
 	private String fechaModificacion;
@@ -84,6 +90,31 @@ public class EmpresaView {
 	private List<EmpresaDTO> data;
 	private EmpresaDTO selectedEmpresa;
 	private Empresa entity;
+
+	private String selectItemCompania;
+	private SelectOneMenu txtCompania;
+
+	private String selectItemECompania;
+	private SelectOneMenu txtECompania;
+
+	private String selectItemEstadoC;
+	private SelectOneMenu txtEstadoC;
+
+	private String selectItemCliente;
+	private SelectOneMenu txtCliente;
+	private String selectItemECl;
+	private String selectItemEstadoCl;
+
+	private SelectOneMenu txtTC;
+	private SelectOneMenu txtEstadoCl;
+
+	private InputText txtCodigo;
+
+	private Map<String, Long> tipoCartera = new HashMap<String, Long>();
+
+	private PersonaDTO selectedPersona;
+	private PersonaDataModel personaModel;
+	private List<PersonaDTO> data2;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
 	private IBusinessDelegatorView businessDelegatorView;
@@ -105,6 +136,18 @@ public class EmpresaView {
 		}
 
 		return options;
+	}
+
+	public String selectRL() {
+		selectedPersona = null;
+
+		return "";
+	}
+
+	public String action_quitar() {
+		selectedPersona = null;
+
+		return "";
 	}
 
 	public void onEdit(org.primefaces.event.RowEditEvent event) {
@@ -183,6 +226,69 @@ public class EmpresaView {
 
 			btnSave.setDisabled(true);
 			btnModify.setDisabled(false);
+			List<ClienteDTO> data4 = businessDelegatorView.getDataCliente();
+			List<CompaniaDTO> data3 = businessDelegatorView.getDataCompania();
+			Long idCompañia = 0L;
+			Long idCliente = 0L;
+			selectItemCliente = "";
+			selectItemCompania = "";
+
+			for (int i = 0; i < data4.size(); i++) {
+				if (selectedEmpresa.getIdEmpr() == data4.get(i)
+						.getIdEmpr_Empresa()) {
+					idCliente = data4.get(i).getIdClie();
+					selectItemCliente = "S";
+					break;
+				}
+			}
+
+			for (int i = 0; i < data3.size(); i++) {
+				if (selectedEmpresa.getIdEmpr() == data3.get(i)
+						.getIdEmpr_Empresa()) {
+					selectItemCompania = "S";
+					idCompañia = data3.get(i).getIdCia();
+					break;
+				}
+			}
+
+			if (selectItemCliente.equals("S")) {
+				selectItemECl = businessDelegatorView.getCliente(idCliente)
+						.getTipoCartera().getIdTica()
+						+ "";
+				selectItemEstadoCl = businessDelegatorView
+						.getCliente(idCliente).getEstadoRegistro();
+
+			} else {
+				selectItemCliente = "N";
+				selectItemECl = "";
+				selectItemEstadoCl = "";
+			}
+
+			if (selectItemCompania.equals("S")) {
+				Compania entity2 = businessDelegatorView
+						.getCompania(idCompañia);
+				txtCodigo.setValue(entity2.getCodigo());
+				selectItemECompania = entity2.getEstadoCompania();
+				selectItemEstadoC = entity2.getEstadoRegistro();
+
+			} else {
+				selectItemCompania = "N";
+				txtCodigo.setValue("");
+				selectItemECompania = "";
+				selectItemEstadoC = "";
+			}
+
+			selectItemEstado = selectedEmpresa.getEstadoRegistro();
+
+			txtNombre.setValue(selectedEmpresa.getNombre());
+
+			txtIdentificacion.setValue(selectedEmpresa.getIdentificacion());
+
+			txtIdDipo_DivisionPolitica.setValue(selectedEmpresa
+					.getIdDipo_DivisionPolitica());
+
+			txtIdTiid_TipoIdentificacion.setValue(selectedEmpresa
+					.getIdTiid_TipoIdentificacion());
 
 			try {
 				txtIdTiid_TipoIdentificacion.setValue(selectedEmpresa
@@ -200,11 +306,37 @@ public class EmpresaView {
 				txtIdDipo_DivisionPolitica.setValue("");
 			}
 
+			/*
+			 * try {
+			 * txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
+			 * 
+			 * } catch (Exception e) { txtIdPers_Persona.setValue(""); }
+			 */
+
 			try {
-				txtIdPers_Persona.setValue(selectedEmpresa.getIdPers_Persona());
+				
+
+					List<PersonaDTO> data7 = businessDelegatorView
+							.getDataPersona();					
+
+					for (int i = 0; i < data7.size(); i++) {
+						if (data7.get(i).getIdPers() == selectedEmpresa
+								.getIdPers_Persona()) {
+							setSelectedPersona(data7.get(i));
+							
+							break;
+						}else {
+							selectedPersona = null;
+							
+						}
+					}
+
+					
+					
+				
 
 			} catch (Exception e) {
-				txtIdPers_Persona.setValue("");
+				System.out.println("entro cacht");
 			}
 
 			try {
@@ -285,6 +417,19 @@ public class EmpresaView {
 		btnModify.setDisabled(true);
 		btnSave.setDisabled(false);
 
+		txtCompania.setDisabled(false);
+		txtCliente.setDisabled(false);
+
+		selectItemCompania = null;
+		selectItemECompania = null;
+		selectItemEstadoC = null;
+
+		selectItemCliente = null;
+		selectItemEstadoCl = null;
+		selectItemECl = null;
+
+		txtCodigo.setValue(null);
+
 		try {
 			txtIdTiid_TipoIdentificacion.setValue(null);
 
@@ -299,12 +444,13 @@ public class EmpresaView {
 			txtIdDipo_DivisionPolitica.setValue("");
 		}
 
-		try {
-			txtIdPers_Persona.setValue(null);
+		/*
+		 * try { txtIdPers_Persona.setValue(null);
+		 * 
+		 * } catch (Exception e) { txtIdPers_Persona.setValue(""); }
+		 */
 
-		} catch (Exception e) {
-			txtIdPers_Persona.setValue("");
-		}
+		selectedPersona = null;
 
 		try {
 			txtApartadoAereo.setValue(null);
@@ -564,6 +710,11 @@ public class EmpresaView {
 			// txtIdEmpr.setDisabled(false);
 		}
 
+		if (txtCodigo != null) {
+			txtCodigo.setValue(null);
+
+		}
+
 		if (btnSave != null) {
 			btnSave.setDisabled(false);
 		}
@@ -651,6 +802,7 @@ public class EmpresaView {
 			txtIdEmpr.setValue(entity.getIdEmpr());
 			txtIdEmpr.setDisabled(true);
 			btnSave.setDisabled(false);
+
 		}
 	}
 
@@ -752,19 +904,89 @@ public class EmpresaView {
 			 * .checkLong(txtIdDipo_DivisionPolitica)));
 			 */
 
-			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));
+			/*
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona)));
+			 */
+
+			/*
+			 * if(selectedPersona==null){ entity.setPersona(null); }else{
+			 * entity.
+			 * setPersona(businessDelegatorView.getPersona(selectedPersona
+			 * .getIdPers())); }
+			 */
+
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+
+				System.out.println("entro null");
+				entity.setPersona(null);
+			}
 
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
 
 			businessDelegatorView.saveEmpresa(entity);
+			
+			if (selectItemCompania.equals("S") && selectItemCliente.equals("S")) {
+				FacesUtils.addErrorMessage("Una empresa puede ser Compañia o Cliente, pero no las dos.");
+				
+				return "";
+			}
+
+			if (selectItemCompania.equals("S")) {
+				System.out.println("entro es compañia");
+
+				Compania entity2 = new Compania();
+				entity2.setCodigo((String) txtCodigo.getValue());
+				entity2.setEstadoCompania(selectItemECompania);
+				entity2.setEstadoRegistro(selectItemEstadoC);
+				entity2.setFechaCreacion(new Date());
+				entity2.setFechaModificacion(new Date());
+				entity2.setOperCreador(usuario);
+				entity2.setOperModifica(usuario);
+				entity2.setEmpresa(entity);
+
+				businessDelegatorView.saveCompania(entity2);
+			}
+
+			if (selectItemCliente.equals("S")) {
+				System.out.println("entro es cliente");
+
+				Cliente entity3 = new Cliente();
+
+				entity3.setEstadoRegistro(selectItemEstadoCl);
+				// System.out.println("estado registro " + selectItemEstadoCl);
+
+				entity3.setTipoCartera(businessDelegatorView
+						.getTipoCartera(Long.parseLong(selectItemECl)));
+				// System.out.println("tipo cartera " + selectItemECl);
+
+				entity3.setFechaCreacion(new Date());
+				entity3.setFechaModificacion(new Date());
+				entity3.setOperCreador(usuario);
+				entity3.setOperModifica(usuario);
+				entity3.setPersona(null);
+				entity3.setEmpresa(entity);
+
+				businessDelegatorView.saveCliente(entity3);
+			}
+
+			// txtIdEmpr.setValue(entity.getIdEmpr());
+
+			// businessDelegatorView.saveEmpresa(entity);
 			data = businessDelegatorView.getDataEmpresa();
 			FacesUtils.addInfoMessage(ZMessManager.ENTITY_SUCCESFULLYSAVED);
 			action_clear();
 		} catch (Exception e) {
 			FacesUtils.addErrorMessage(e.getMessage());
+			try {
+				businessDelegatorView.deleteEmpresa(entity);
+			} catch (Exception e1) {
+			}
 		}
 
 		return "";
@@ -808,12 +1030,120 @@ public class EmpresaView {
 								.checkLong(txtIdDipo_DivisionPolitica)));
 			}
 
-			entity.setPersona(businessDelegatorView.getPersona(FacesUtils
-					.checkLong(txtIdPers_Persona)));
+			/*
+			 * entity.setPersona(businessDelegatorView.getPersona(FacesUtils
+			 * .checkLong(txtIdPers_Persona)));
+			 */
+
+			if (selectedPersona != null) {
+				entity.setPersona(businessDelegatorView
+						.getPersona(selectedPersona.getIdPers()));
+			} else {
+
+				System.out.println("entro null");
+				entity.setPersona(null);
+			}
 
 			entity.setTipoIdentificacion(businessDelegatorView
 					.getTipoIdentificacion(FacesUtils
 							.checkLong(txtIdTiid_TipoIdentificacion)));
+			
+			if (selectItemCompania.equals("S") && selectItemCliente.equals("S")) {
+				FacesUtils.addErrorMessage("Una empresa puede ser Compañia o Cliente, pero no las dos.");
+				
+				return "";
+			}
+
+			List<ClienteDTO> data4 = businessDelegatorView.getDataCliente();
+			List<CompaniaDTO> data3 = businessDelegatorView.getDataCompania();
+
+			String compania = "";
+			String cliente = "";
+			Long idCompañia = 0L;
+			Long idCliente = 0L;
+
+			for (int i = 0; i < data4.size(); i++) {
+				if (selectedEmpresa.getIdEmpr() == data4.get(i)
+						.getIdEmpr_Empresa()) {
+					cliente = "S";
+					idCliente = data4.get(i).getIdClie();
+					break;
+				}
+			}
+
+			for (int i = 0; i < data3.size(); i++) {
+				if (selectedEmpresa.getIdEmpr() == data3.get(i)
+						.getIdEmpr_Empresa()) {
+					compania = "S";
+					idCompañia = data3.get(i).getIdCia();
+					break;
+				}
+			}
+
+			if (selectItemCompania.equals("S") && compania.equals("")) {
+				Compania entity2 = new Compania();
+				entity2.setCodigo((String) txtCodigo.getValue());
+				entity2.setEstadoCompania(selectItemECompania);
+				entity2.setEstadoRegistro(selectItemEstadoC);
+				entity2.setFechaCreacion(new Date());
+				entity2.setFechaModificacion(new Date());
+				entity2.setOperCreador(usuario);
+				entity2.setOperModifica(usuario);
+				entity2.setEmpresa(entity);
+
+				businessDelegatorView.saveCompania(entity2);
+
+			} else if (selectItemCompania.equals("S") && compania.equals("S")) {
+
+				Compania entity2 = businessDelegatorView
+						.getCompania(idCompañia);
+				entity2.setCodigo((String) txtCodigo.getValue());
+				entity2.setEstadoCompania(selectItemECompania);
+				entity2.setEstadoRegistro(selectItemEstadoC);
+				entity2.setFechaModificacion(new Date());
+				entity2.setOperModifica(usuario);
+				entity2.setEmpresa(entity);
+
+				businessDelegatorView.updateCompania(entity2);
+
+			}
+
+			if (selectItemCliente.equals("S") && cliente.equals("")) {
+				Cliente entity2 = new Cliente();
+
+				if (selectItemECl.equals("")) {
+					FacesUtils
+							.addErrorMessage("El campo Tipo Cartera es requerido");
+					return "";
+				}
+				entity2.setEstadoRegistro(selectItemEstadoCl);
+				entity2.setTipoCartera(businessDelegatorView
+						.getTipoCartera(Long.parseLong(selectItemECl)));
+				entity2.setFechaCreacion(new Date());
+				entity2.setFechaModificacion(new Date());
+				entity2.setOperCreador(usuario);
+				entity2.setOperModifica(usuario);
+				entity2.setEmpresa(entity);
+
+				businessDelegatorView.saveCliente(entity2);
+
+			} else if (selectItemCliente.equals("S") && cliente.equals("S")) {
+				Cliente entity2 = businessDelegatorView.getCliente(idCliente);
+
+				if (selectItemECl.equals("")) {
+					FacesUtils
+							.addErrorMessage("El campo Tipo Cartera es requerido");
+					return "";
+				}
+				entity2.setEstadoRegistro(selectItemEstadoCl);
+				entity2.setTipoCartera(businessDelegatorView
+						.getTipoCartera(Long.parseLong(selectItemECl)));
+				entity2.setFechaModificacion(new Date());
+				entity2.setOperModifica(usuario);
+				entity2.setEmpresa(entity);
+
+				businessDelegatorView.saveCliente(entity2);
+			}
 
 			businessDelegatorView.updateEmpresa(entity);
 			data = businessDelegatorView.getDataEmpresa();
@@ -1338,4 +1668,164 @@ public class EmpresaView {
 	public void setBtnModify2(CommandButton btnModify2) {
 		this.btnModify2 = btnModify2;
 	}
+
+	public PersonaDTO getSelectedPersona() {
+		return selectedPersona;
+	}
+
+	public void setSelectedPersona(PersonaDTO selectedPersona) {
+		this.selectedPersona = selectedPersona;
+	}
+
+	public PersonaDataModel getPersonaModel() {
+		return personaModel;
+	}
+
+	public void setPersonaModel(PersonaDataModel personaModel) {
+		this.personaModel = personaModel;
+	}
+
+	public List<PersonaDTO> getData2() {
+		return data2;
+	}
+
+	public void setData2(List<PersonaDTO> data2) {
+		this.data2 = data2;
+	}
+
+	public String getSelectItemCompania() {
+		return selectItemCompania;
+	}
+
+	public void setSelectItemCompania(String selectItemCompania) {
+		this.selectItemCompania = selectItemCompania;
+	}
+
+	public SelectOneMenu getTxtCompania() {
+		return txtCompania;
+	}
+
+	public void setTxtCompania(SelectOneMenu txtCompania) {
+		this.txtCompania = txtCompania;
+	}
+
+	public String getSelectItemECompania() {
+		return selectItemECompania;
+	}
+
+	public void setSelectItemECompania(String selectItemECompania) {
+		this.selectItemECompania = selectItemECompania;
+	}
+
+	public SelectOneMenu getTxtECompania() {
+		return txtECompania;
+	}
+
+	public void setTxtECompania(SelectOneMenu txtECompania) {
+		this.txtECompania = txtECompania;
+	}
+
+	public String getSelectItemEstadoC() {
+		return selectItemEstadoC;
+	}
+
+	public void setSelectItemEstadoC(String selectItemEstadoC) {
+		this.selectItemEstadoC = selectItemEstadoC;
+	}
+
+	public SelectOneMenu getTxtEstadoC() {
+		return txtEstadoC;
+	}
+
+	public void setTxtEstadoC(SelectOneMenu txtEstadoC) {
+		this.txtEstadoC = txtEstadoC;
+	}
+
+	public String getSelectItemCliente() {
+		return selectItemCliente;
+	}
+
+	public void setSelectItemCliente(String selectItemCliente) {
+		this.selectItemCliente = selectItemCliente;
+	}
+
+	public SelectOneMenu getTxtCliente() {
+		return txtCliente;
+	}
+
+	public void setTxtCliente(SelectOneMenu txtCliente) {
+		this.txtCliente = txtCliente;
+	}
+
+	public String getSelectItemEstadoCl() {
+		return selectItemEstadoCl;
+	}
+
+	public void setSelectItemEstadoCl(String selectItemEstadoCl) {
+		this.selectItemEstadoCl = selectItemEstadoCl;
+	}
+
+	public SelectOneMenu getTxtTC() {
+		return txtTC;
+	}
+
+	public void setTxtTC(SelectOneMenu txtTC) {
+		this.txtTC = txtTC;
+	}
+
+	public SelectOneMenu getTxtEstadoCl() {
+		return txtEstadoCl;
+	}
+
+	public void setTxtEstadoCl(SelectOneMenu txtEstadoCl) {
+		this.txtEstadoCl = txtEstadoCl;
+	}
+
+	public InputText getTxtCodigo() {
+		return txtCodigo;
+	}
+
+	public void setTxtCodigo(InputText txtCodigo) {
+		this.txtCodigo = txtCodigo;
+	}
+
+	public Map<String, Long> getTipoCartera() {
+
+		try {
+			List<TipoCarteraDTO> data2 = businessDelegatorView
+					.getDataTipoCartera();
+			for (int i = 0; i < data2.size(); i++) {
+
+				tipoCartera.put(data2.get(i).getCodigo() + " "
+						+ data2.get(i).getDescripcion(), data2.get(i)
+						.getIdTica());
+
+			}
+		} catch (Exception e) {
+
+		}
+
+		return tipoCartera;
+	}
+
+	public void setTipoCartera(Map<String, Long> tipoCartera) {
+		this.tipoCartera = tipoCartera;
+	}
+
+	public String getSelectItemEstado() {
+		return selectItemEstado;
+	}
+
+	public void setSelectItemEstado(String selectItemEstado) {
+		this.selectItemEstado = selectItemEstado;
+	}
+
+	public String getSelectItemECl() {
+		return selectItemECl;
+	}
+
+	public void setSelectItemECl(String selectItemECl) {
+		this.selectItemECl = selectItemECl;
+	}
+
 }

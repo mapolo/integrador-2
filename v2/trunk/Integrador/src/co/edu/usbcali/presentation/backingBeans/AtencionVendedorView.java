@@ -15,6 +15,8 @@ import org.primefaces.event.RowEditEvent;
 
 import co.edu.usbcali.dtt.DataTableAtencionVendedor;
 import co.edu.usbcali.dtt.DataTableRelacionComercial;
+import co.edu.usbcali.dtt.DataTableRutaRelacion;
+import co.edu.usbcali.dtt.DataTableVendedor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -41,6 +42,7 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @ViewScoped
 public class AtencionVendedorView {
+
 	private InputText txtEstadoRegistro;
 	private InputText txtOperCreador;
 	private InputText txtOperModifica;
@@ -53,14 +55,26 @@ public class AtencionVendedorView {
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
 	private CommandButton btnClear;
+	private DataTableRelacionComercial rowDataTableRelacionComercial;
 	private List<AtencionVendedorDTO> data;
 	private List<Empresa> empresas;
 	private List<SelectItem> items;
 	private List<DataTableRelacionComercial> comercials;
+	private List<RutaDistribucion> distribucions;
+	private RutaDistribucion rowDistribucion;
 	private List<AtencionVendedor> atencionVendedors;
+	private List<AtencionVendedor> rutaAtencionVendedors;
+	private DataTableAtencionVendedor rowdaDataTableRutaAtencionVen;
+	private DataTableAtencionVendedor rowAtencionVendedor2;
 	private List<DataTableAtencionVendedor> atencionVendedors2;
+	private List<DataTableAtencionVendedor> rutaAtencionVendedor;
+	private List<DataTableVendedor> dataTableVendedors;
+
+	private List<DataTableRutaRelacion> dataTableRutaRelacions;
+
+	private DataTableVendedor rowAtencionVendedor;
 	private DataTable dttRelacionComercial;
-	private static DataTableRelacionComercial tableRelacionComercial;
+	private DataTableRelacionComercial dataTableRelacionComercial;
 	private String empresa;
 	private AtencionVendedorDTO selectedAtencionVendedor;
 	private AtencionVendedor entity;
@@ -77,6 +91,8 @@ public class AtencionVendedorView {
 		try {
 			empresas = new ArrayList<Empresa>();
 			empresas = businessDelegatorView.consultarEmpresa();
+
+			distribucions = businessDelegatorView.getRutaDistribucion();
 
 			items = new ArrayList<SelectItem>();
 
@@ -95,8 +111,66 @@ public class AtencionVendedorView {
 
 			}
 
-			llenarAtencioCliente();
+			llenarAtencionVendedor();
+			llenarRutaRelacionComercial();
+			llenarRelacionComercial();
 
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public void llenarRutaRelacionComercial() {
+
+		try {
+
+			List<RutaRelacionComercial> rutas = businessDelegatorView
+					.getRutaRelacionComercial();
+			dataTableRutaRelacions = new ArrayList<DataTableRutaRelacion>();
+
+			for (int i = 0; i < rutas.size(); i++) {
+				RutaDistribucion distribucion = businessDelegatorView
+						.getRutaDistribucion(rutas.get(i).getRutaDistribucion()
+								.getIdRudi());
+				AtencionVendedor atencionVendedor = businessDelegatorView
+						.getAtencionVendedor(rutas.get(i).getAtencionVendedor()
+								.getIdAtve());
+
+				Vendedor vendedor = businessDelegatorView
+						.getVendedor(atencionVendedor.getVendedor().getIdVend());
+				RelacionComercial relacionComercial = businessDelegatorView
+						.getRelacionComercial(atencionVendedor
+								.getRelacionComercial().getIdReco());
+
+				Empresa empresa = businessDelegatorView
+						.getEmpresa(relacionComercial.getEmpresa().getIdEmpr());
+				Persona persona = businessDelegatorView.getPersona(vendedor
+						.getPersona().getIdPers());
+
+				DataTableRutaRelacion dataTableRutaRelacion = new DataTableRutaRelacion();
+
+				dataTableRutaRelacion.setIdRrec(rutas.get(i).getIdRrec());
+				dataTableRutaRelacion.setIdRudi(distribucion.getIdRudi());
+				dataTableRutaRelacion.setDescripcion(distribucion
+						.getDescripcion());
+				dataTableRutaRelacion.setTiempoEntrega(distribucion
+						.getTiempoEntrega());
+				dataTableRutaRelacion.setTiempoTransporte(distribucion
+						.getTiempoTransporte());
+				dataTableRutaRelacion.setIdAtve(atencionVendedor.getIdAtve());
+				dataTableRutaRelacion.setIdVend(vendedor.getIdVend());
+				dataTableRutaRelacion.setIdentificacion(persona
+						.getIdentificacion());
+				dataTableRutaRelacion
+						.setPrimerNombre(persona.getPrimerNombre());
+				dataTableRutaRelacion.setIdReco(relacionComercial.getIdReco());
+				dataTableRutaRelacion.setNombre(empresa.getNombre());
+				dataTableRutaRelacion.setIdentificacionEmpresa(empresa
+						.getIdentificacion());
+
+				dataTableRutaRelacions.add(dataTableRutaRelacion);
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -104,42 +178,57 @@ public class AtencionVendedorView {
 	}
 
 	public void adiccionarCodigoRelacionComercial() {
-
-		tableRelacionComercial = (DataTableRelacionComercial) dttRelacionComercial
-				.getRowData();
-		System.out.println("hola");
-
-	}
-
-	public void llenarRelacionComercial() {
 		try {
-			List<RelacionComercial> comercialsDatos = businessDelegatorView
-					.consultarRelacionPropiedad("empresa.idEmpr", new Long(
-							empresa));
-			comercials = new ArrayList<DataTableRelacionComercial>();
+			List<Vendedor> vendedors = businessDelegatorView.getVendedor();
+			dataTableVendedors = new ArrayList<DataTableVendedor>();
+			for (int i = 0; i < vendedors.size(); i++) {
+				DataTableVendedor vendedor = new DataTableVendedor();
+				Persona persona = businessDelegatorView.getPersona(vendedors
+						.get(i).getPersona().getIdPers());
+				vendedor.setEmail(persona.getEmail());
+				vendedor.setIdentificacion(persona.getIdentificacion());
+				vendedor.setPrimerNombre(persona.getPrimerNombre());
+				vendedor.setIdVend(vendedors.get(i).getIdVend());
 
-			for (int i = 0; i < comercialsDatos.size(); i++) {
-				DataTableRelacionComercial comercial = new DataTableRelacionComercial();
-
-				Empresa empresa = businessDelegatorView
-						.getEmpresa(comercialsDatos.get(i).getEmpresa()
-								.getIdEmpr());
-
-				comercial.setDireccion(empresa.getDireccion());
-				comercial.setIdentificacion(empresa.getIdentificacion());
-				comercial.setIdReco(comercialsDatos.get(i).getIdReco());
-				comercial.setNombre(empresa.getNombre());
-				comercial.setTelefono1(empresa.getTelefono1());
-
-				comercials.add(comercial);
+				dataTableVendedors.add(vendedor);
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
+
 	}
 
-	public void llenarAtencioCliente() {
+	public void adiccionarVendedorRelacioncomercial() {
 
+		try {
+			AtencionVendedor atencionVendedor = new AtencionVendedor();
+
+			RelacionComercial relacionComercial = businessDelegatorView
+					.getRelacionComercial(rowDataTableRelacionComercial
+							.getIdReco());
+
+			Vendedor vendedor = businessDelegatorView
+					.getVendedor(rowAtencionVendedor.getIdVend());
+
+			atencionVendedor.setRelacionComercial(relacionComercial);
+			atencionVendedor.setVendedor(vendedor);
+			atencionVendedor.setFechaCreacion(new Date());
+			atencionVendedor.setFechaModificacion(new Date());
+			atencionVendedor.setOperCreador("default");
+			atencionVendedor.setOperModifica("defautl");
+			atencionVendedor.setEstadoRegistro("A");
+
+			businessDelegatorView.saveAtencionVendedor(atencionVendedor);
+
+			llenarAtencionVendedor();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
+
+	public void llenarAtencionVendedor() {
 		try {
 			atencionVendedors = businessDelegatorView.getAtencionVendedor();
 			atencionVendedors2 = new ArrayList<DataTableAtencionVendedor>();
@@ -172,13 +261,107 @@ public class AtencionVendedorView {
 
 				atencionVendedors2.add(atencionVendedor);
 			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
-	public void llenarVendedor() {
+	public void llenarRelacionComercial() {
+		try {
+			List<RelacionComercial> comercialsDatos = businessDelegatorView
+					.consultarRelacionPropiedad("empresa.idEmpr", new Long(
+							empresa));
+			comercials = new ArrayList<DataTableRelacionComercial>();
 
+			for (int i = 0; i < comercialsDatos.size(); i++) {
+				DataTableRelacionComercial comercial = new DataTableRelacionComercial();
+
+				Empresa empresa = businessDelegatorView
+						.getEmpresa(comercialsDatos.get(i).getEmpresa()
+								.getIdEmpr());
+
+				comercial.setDireccion(empresa.getDireccion());
+				comercial.setIdentificacion(empresa.getIdentificacion());
+				comercial.setIdReco(comercialsDatos.get(i).getIdReco());
+				comercial.setNombre(empresa.getNombre());
+				comercial.setTelefono1(empresa.getTelefono1());
+
+				comercials.add(comercial);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void guardarRutaAtencion() {
+
+		try {
+
+			AtencionVendedor atencionVendedor = businessDelegatorView
+					.getAtencionVendedor(rowdaDataTableRutaAtencionVen
+							.getIdAtve());
+			RutaDistribucion distribucion = businessDelegatorView
+					.getRutaDistribucion(rowDistribucion.getIdRudi());
+
+			RutaRelacionComercial comercial = new RutaRelacionComercial();
+
+			comercial.setAtencionVendedor(atencionVendedor);
+			comercial.setEstadoRegistro("A");
+			comercial.setFechaCreacion(new Date());
+			comercial.setFechaModificacion(new Date());
+			comercial.setOperCreador("jsvargas");
+			comercial.setOperModifica("jsvargas");
+			comercial.setRutaDistribucion(distribucion);
+
+			businessDelegatorView.saveRutaRelacionComercial(comercial);
+
+			llenarRutaRelacionComercial();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public void rutallenarAtencioVendedor() {
+
+		try {
+			rutaAtencionVendedors = businessDelegatorView
+					.consultarAtencionVendedor(rowDataTableRelacionComercial
+							.getIdReco());
+			rutaAtencionVendedor = new ArrayList<DataTableAtencionVendedor>();
+
+			for (int i = 0; i < atencionVendedors.size(); i++) {
+				DataTableAtencionVendedor atencionVendedor = new DataTableAtencionVendedor();
+
+				Vendedor vendedor = businessDelegatorView
+						.getVendedor(atencionVendedors.get(i).getVendedor()
+								.getIdVend());
+				RelacionComercial relacionComercial = businessDelegatorView
+						.getRelacionComercial(atencionVendedors.get(i)
+								.getRelacionComercial().getIdReco());
+
+				Persona persona = businessDelegatorView.getPersona(vendedor
+						.getPersona().getIdPers());
+				Empresa empresa = businessDelegatorView
+						.getEmpresa(relacionComercial.getEmpresa().getIdEmpr());
+
+				atencionVendedor
+						.setIdAtve(atencionVendedors.get(i).getIdAtve());
+				atencionVendedor.setIdEmpr(empresa.getIdEmpr());
+				atencionVendedor.setIdentificacion(persona.getIdentificacion());
+				atencionVendedor.setIdentificacionEmpresa(empresa
+						.getIdentificacion());
+				atencionVendedor.setIdReco(relacionComercial.getIdReco());
+				atencionVendedor.setIdVend(vendedor.getIdVend());
+				atencionVendedor.setNombre(empresa.getNombre());
+				atencionVendedor.setPrimerNombre(persona.getPrimerNombre());
+
+				rutaAtencionVendedor.add(atencionVendedor);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	public void rowEventListener(RowEditEvent e) {
@@ -678,6 +861,10 @@ public class AtencionVendedorView {
 	}
 
 	public List<SelectItem> getItems() {
+		if (dataTableRelacionComercial != null) {
+			System.out.println(dataTableRelacionComercial.getNombre());
+		}
+
 		return items;
 	}
 
@@ -724,6 +911,101 @@ public class AtencionVendedorView {
 
 	public void setDttRelacionComercial(DataTable dttRelacionComercial) {
 		this.dttRelacionComercial = dttRelacionComercial;
+	}
+
+	public DataTableRelacionComercial getDataTableRelacionComercial() {
+		return dataTableRelacionComercial;
+	}
+
+	public void setDataTableRelacionComercial(
+			DataTableRelacionComercial dataTableRelacionComercial) {
+		this.dataTableRelacionComercial = dataTableRelacionComercial;
+	}
+
+	public DataTableRelacionComercial getRowDataTableRelacionComercial() {
+		return rowDataTableRelacionComercial;
+	}
+
+	public void setRowDataTableRelacionComercial(
+			DataTableRelacionComercial rowDataTableRelacionComercial) {
+		this.rowDataTableRelacionComercial = rowDataTableRelacionComercial;
+	}
+
+	public List<DataTableVendedor> getDataTableVendedors() {
+		return dataTableVendedors;
+	}
+
+	public void setDataTableVendedors(List<DataTableVendedor> dataTableVendedors) {
+		this.dataTableVendedors = dataTableVendedors;
+	}
+
+	public DataTableVendedor getRowAtencionVendedor() {
+		return rowAtencionVendedor;
+	}
+
+	public void setRowAtencionVendedor(DataTableVendedor rowAtencionVendedor) {
+		this.rowAtencionVendedor = rowAtencionVendedor;
+	}
+
+	public List<DataTableRutaRelacion> getDataTableRutaRelacions() {
+		return dataTableRutaRelacions;
+	}
+
+	public void setDataTableRutaRelacions(
+			List<DataTableRutaRelacion> dataTableRutaRelacions) {
+		this.dataTableRutaRelacions = dataTableRutaRelacions;
+	}
+
+	public DataTableAtencionVendedor getRowAtencionVendedor2() {
+		return rowAtencionVendedor2;
+	}
+
+	public void setRowAtencionVendedor2(
+			DataTableAtencionVendedor rowAtencionVendedor2) {
+		this.rowAtencionVendedor2 = rowAtencionVendedor2;
+	}
+
+	public List<DataTableAtencionVendedor> getRutaAtencionVendedor() {
+		return rutaAtencionVendedor;
+	}
+
+	public void setRutaAtencionVendedor(
+			List<DataTableAtencionVendedor> rutaAtencionVendedor) {
+		this.rutaAtencionVendedor = rutaAtencionVendedor;
+	}
+
+	public List<AtencionVendedor> getRutaAtencionVendedors() {
+		return rutaAtencionVendedors;
+	}
+
+	public void setRutaAtencionVendedors(
+			List<AtencionVendedor> rutaAtencionVendedors) {
+		this.rutaAtencionVendedors = rutaAtencionVendedors;
+	}
+
+	public DataTableAtencionVendedor getRowdaDataTableRutaAtencionVen() {
+		return rowdaDataTableRutaAtencionVen;
+	}
+
+	public void setRowdaDataTableRutaAtencionVen(
+			DataTableAtencionVendedor rowdaDataTableRutaAtencionVen) {
+		this.rowdaDataTableRutaAtencionVen = rowdaDataTableRutaAtencionVen;
+	}
+
+	public List<RutaDistribucion> getDistribucions() {
+		return distribucions;
+	}
+
+	public void setDistribucions(List<RutaDistribucion> distribucions) {
+		this.distribucions = distribucions;
+	}
+
+	public RutaDistribucion getRowDistribucion() {
+		return rowDistribucion;
+	}
+
+	public void setRowDistribucion(RutaDistribucion rowDistribucion) {
+		this.rowDistribucion = rowDistribucion;
 	}
 
 }

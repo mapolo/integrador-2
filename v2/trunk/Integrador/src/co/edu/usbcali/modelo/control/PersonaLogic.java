@@ -917,4 +917,10 @@ public class PersonaLogic implements IPersonaLogic {
 
 		return list;
 	}
+
+	@Override
+	public List<Persona> consultarPersonVendedor() throws Exception {
+		return personaDAO.consultarPersonVendedor();
+	}
+
 }

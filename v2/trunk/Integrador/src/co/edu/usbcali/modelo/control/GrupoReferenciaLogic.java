@@ -98,7 +98,7 @@ public class GrupoReferenciaLogic implements IGrupoReferenciaLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdGrre() == null) {
+		/*	if (entity.getIdGrre() == null) {
 				throw new ZMessManager().new EmptyFieldException("idGrre");
 			}
 
@@ -106,7 +106,7 @@ public class GrupoReferenciaLogic implements IGrupoReferenciaLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdGrre(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idGrre");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -153,9 +153,9 @@ public class GrupoReferenciaLogic implements IGrupoReferenciaLogic {
 						"idRefe_Referencia");
 			}
 
-			if (getGrupoReferencia(entity.getIdGrre()) != null) {
+		/*	if (getGrupoReferencia(entity.getIdGrre()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			grupoReferenciaDAO.save(entity);
 		} catch (Exception e) {

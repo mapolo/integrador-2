@@ -681,4 +681,11 @@ public class VendedorLogic implements IVendedorLogic {
 
 		return list;
 	}
+
+	@Override
+	public Vendedor consultarVendedorPorIdPers(String propertyName, Object value)
+			throws Exception {
+		return vendedorDAO.findByPropertySingle(propertyName, value);
+	}
+
 }

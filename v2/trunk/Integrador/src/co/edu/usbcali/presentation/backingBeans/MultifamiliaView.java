@@ -22,7 +22,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.TimeZone;
 
 import javax.annotation.PostConstruct;
@@ -223,19 +222,15 @@ public class MultifamiliaView {
 			Cliente padre  =  businessDelegatorView.getCliente(clienePadre.getIdClie());
 			Cliente hijo   =  businessDelegatorView.getCliente(clieneHijo.getIdClie());
 
-			List<Multifamilia> listmMultifamilias  = businessDelegatorView.getMultifamilia();
-
-			Multifamilia multifamiliaEjemplo  =  businessDelegatorView.getMultifamilia(listmMultifamilias.get(0).getIdMufa());
-
 			Multifamilia multifamilia  =  new Multifamilia();
 
 			multifamilia.setClienteByClienteHijo(hijo);
 			multifamilia.setClienteByClientePadre(padre);
-			multifamilia.setFechaCreacion(multifamiliaEjemplo.getFechaCreacion());
-			multifamilia.setFechaModificacion(multifamiliaEjemplo.getFechaModificacion());
+			multifamilia.setFechaCreacion(new Date());
+			multifamilia.setFechaModificacion(new Date());
 			multifamilia.setEstadoRegistro("A");
-			multifamilia.setOperCreador(multifamiliaEjemplo.getOperCreador());
-			multifamilia.setOperModifica(multifamiliaEjemplo.getOperModifica());
+			multifamilia.setOperCreador("jsvargas");
+			multifamilia.setOperModifica("jsvargas");
 			multifamilia.setSucursal(multifamilia.getSucursal());
 
 			businessDelegatorView.saveMultifamilia(multifamilia);

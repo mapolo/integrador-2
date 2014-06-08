@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.validator.EmailValidator;
+import org.apache.commons.validator.*;
 
 /**
  * @author Zathura Code Generator http://code.google.com/p/zathura/

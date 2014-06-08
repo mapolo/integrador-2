@@ -294,6 +294,20 @@ public interface Dao<T, PK extends Serializable> {
 	 * @param maxResults
 	 * @return
 	 */
+	T findByPropertySingle(String propertyName, Object value);
+
+	/**
+	 * Busca por like todas las entidades que tienen una propertyName con un
+	 * valor text. Permite buscar por un texto en una columna de tipo String.
+	 * 
+	 * @param propertyName
+	 *            : nombre de la propiedad por la cual filtrar.
+	 * @param text
+	 *            : valor a buscar
+	 * @param page
+	 * @return
+	 */
+
 	public List<T> findPage(String sortColumnName, boolean sortAscending,
 			int startRow, int maxResults);
 
@@ -303,7 +317,11 @@ public interface Dao<T, PK extends Serializable> {
 	 * @return
 	 */
 	public List<T> findByCriteria(String whereCondition);
-	
+
 	public List<T> consultarEmpresa();
+
+	public List<T> consultarAtencionVendedor(Object value);
+
+	public List<T> consultarPersonVendedor();
 
 }

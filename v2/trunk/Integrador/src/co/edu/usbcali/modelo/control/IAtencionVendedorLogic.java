@@ -48,4 +48,8 @@ public interface IAtencionVendedorLogic {
 	public Long findTotalNumberAtencionVendedor() throws Exception;
 
 	public List<AtencionVendedorDTO> getDataAtencionVendedor() throws Exception;
+
+	public List<AtencionVendedor> consultarAtencionVendedor(Object value)
+			throws Exception;
+
 }
