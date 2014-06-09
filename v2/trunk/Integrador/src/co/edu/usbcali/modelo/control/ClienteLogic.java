@@ -83,9 +83,9 @@ public class ClienteLogic implements IClienteLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveCliente(Cliente entity) throws Exception {
 		try {
-			if (entity.getEmpresa() == null) {
+			/*if (entity.getEmpresa() == null) {
 				throw new ZMessManager().new ForeignException("empresa");
-			}
+			}*/
 
 			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
@@ -240,9 +240,9 @@ public class ClienteLogic implements IClienteLogic {
 				throw new ZMessManager().new NullEntityExcepcion("Cliente");
 			}
 
-			if (entity.getEmpresa() == null) {
+			/*if (entity.getEmpresa() == null) {
 				throw new ZMessManager().new ForeignException("empresa");
-			}
+			}*/
 
 			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
@@ -330,7 +330,7 @@ public class ClienteLogic implements IClienteLogic {
 						"idPers_Persona");
 			}*/
 
-			if (entity.getTipoCartera().getIdTica() == null) {
+			/*if (entity.getTipoCartera().getIdTica() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idTica_TipoCartera");
 			}
@@ -340,7 +340,7 @@ public class ClienteLogic implements IClienteLogic {
 							+ entity.getTipoCartera().getIdTica(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idTica_TipoCartera");
-			}
+			}*/
 
 			clienteDAO.update(entity);
 		} catch (Exception e) {

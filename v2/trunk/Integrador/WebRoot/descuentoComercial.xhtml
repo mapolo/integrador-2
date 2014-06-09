@@ -210,10 +210,10 @@ body {
 
 								<p:accordionPanel id="acordion" activeIndex="1">
 
-									<p:tab title="*Sucursal">
+									<p:tab title="*Sucursal padre">
 
 										<h:panelGrid style="margin: 0 auto;">
-											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+											<p:dataTable id="tablaSucursal" value="#{descuentoComercialView.sucusalPadreModel}"
 												var="s"
 												selection="#{descuentoComercialView.selectedSucursal}"
 												scrollable="true" scrollHeight="100" editable="true"

@@ -117,8 +117,9 @@ public class SucursalView {
 	private SucursalDataModel sucursalPadreModel;
 	private SucursalDataModel sucursalModel;
 	private PersonaDataModel personaModel;
+	
 	private SucursalDataModel sucusalPadreModel;
-
+	List<SucursalDTO> data5 = new ArrayList<SucursalDTO>();
 	private Sucursal entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -323,7 +324,10 @@ public class SucursalView {
 							.getIdEmpr_Empresa()) {
 						selectedEmpresa = data4.get(i);
 						break;
+					}else {
+						selectedEmpresa = null;
 					}
+					
 				}
 
 			} catch (Exception e) {
@@ -346,6 +350,8 @@ public class SucursalView {
 							.getIdPers_Persona()) {
 						selectedPersona = data5.get(i);
 						break;
+					}else {
+						selectedPersona = null;
 					}
 
 				}
@@ -374,6 +380,8 @@ public class SucursalView {
 							.equals(selectedSucursal
 									.getIdRege_RegionalGeografica().toString())) {
 						selectedRegional = data2.get(i);
+					} else {
+						selectedRegional = null;
 					}
 				}
 
@@ -395,6 +403,8 @@ public class SucursalView {
 							.getIdSucu_Sucursal()) {
 						selectedSucursalPadre = data.get(i);
 						break;
+					}else {
+						selectedSucursalPadre = null;
 					}
 
 				}

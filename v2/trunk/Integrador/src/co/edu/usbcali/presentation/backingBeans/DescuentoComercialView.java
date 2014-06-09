@@ -2,6 +2,7 @@ package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,7 @@ import co.edu.usbcali.modelo.Empresa;
 import co.edu.usbcali.modelo.Grupo;
 import co.edu.usbcali.modelo.Persona;
 import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.dto.CompaniaDTO;
 import co.edu.usbcali.modelo.dto.DescuentoComercialDTO;
 import co.edu.usbcali.modelo.dto.EmpresaDTO;
 import co.edu.usbcali.modelo.dto.GrupoDTO;
@@ -101,6 +103,9 @@ public class DescuentoComercialView {
 	private CommandButton btnClear;
 	private List<DescuentoComercialDTO> data;
 	private DescuentoComercialDTO selectedDescuentoComercial;
+	private SucursalDataModel sucusalPadreModel;
+	List<SucursalDTO> data5 = new ArrayList<SucursalDTO>();
+	
 	private DescuentoComercial entity;
 	private boolean showDialog;
 	
@@ -389,6 +394,8 @@ public class DescuentoComercialView {
 						selectedGrupo = data99.get(i);
 
 						break;
+					}else {
+						selectedGrupo = null;
 					}
 				}
 
@@ -404,6 +411,9 @@ public class DescuentoComercialView {
 							.getIdEmpr_Empresa()) {
 						selectedEmpresa = data11.get(i);
 						break;
+					}else {
+						selectedEmpresa = null;
+						
 					}
 				}
 
@@ -419,6 +429,8 @@ public class DescuentoComercialView {
 							.getIdPers_Persona()) {
 						selectedPersona = data10.get(i);
 						break;
+					}else {
+						selectedPersona = null;
 					}
 
 				}
@@ -436,6 +448,8 @@ public class DescuentoComercialView {
 							.getIdSucu_Sucursal()) {
 						selectedSucursal = data3.get(i);
 						break;
+					}else {
+						selectedSucursal = null;
 					}
 				}
 
@@ -452,6 +466,8 @@ public class DescuentoComercialView {
 							.getIdSucu_SucursalH()) {
 						selectedSucursalH = data5.get(i);
 						break;
+					} else {
+						selectedSucursalH = null;
 					}
 				}
 
@@ -2004,6 +2020,60 @@ public class DescuentoComercialView {
 
 	public void setSelectedGrupo(GrupoDTO selectedGrupo) {
 		this.selectedGrupo = selectedGrupo;
+	}
+
+	public SucursalDataModel getSucusalPadreModel() {
+		if (data5.isEmpty()) {
+
+			try {
+				
+				System.out.println("entro try");
+				
+				
+				List<EmpresaDTO> data2 = businessDelegatorView.getDataEmpresa();
+				List<CompaniaDTO> data3 = businessDelegatorView
+						.getDataCompania();
+
+				List<EmpresaDTO> empresaCompania = new ArrayList<EmpresaDTO>();
+				for (int i = 0; i < data3.size(); i++) {
+					for (int j = 0; j < data2.size(); j++) {
+						if (data3.get(i).getIdEmpr_Empresa() == data2.get(j)
+								.getIdEmpr()) {
+							empresaCompania.add(data2.get(j));
+							break;
+						}
+					}
+				}
+				List<SucursalDTO> data4 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < empresaCompania.size(); i++) {
+					for (int j = 0; j < data4.size(); j++) {
+						try {
+							if (data4.get(j).getIdEmpr_Empresa() == empresaCompania
+									.get(i).getIdEmpr()) {
+								data5.add(data4.get(j));
+								break;
+							}
+						} catch (Exception e) {
+						}
+
+					}
+				}
+				sucusalPadreModel = new SucursalDataModel(data5);
+				
+			} catch (Exception e) {
+				
+				System.out.println("catch modelo");
+			}
+		}
+		
+		
+		return sucusalPadreModel;
+	}
+
+	public void setSucusalPadreModel(SucursalDataModel sucusalPadreModel) {
+		this.sucusalPadreModel = sucusalPadreModel;
 	}
 
 }

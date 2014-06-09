@@ -222,6 +222,8 @@ public class ClavesParaRotarView {
 						selectedSucursal = data3.get(i);
 
 						break;
+					}else {
+						selectedSucursal = null;
 					}
 				}
 

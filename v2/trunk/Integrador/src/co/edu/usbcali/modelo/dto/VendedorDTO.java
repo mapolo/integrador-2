@@ -19,8 +19,11 @@ public class VendedorDTO implements Serializable {
 	private String operCreador;
 	private String operModifica;
 	private Long idPers_Persona;
-	private Long idSucu_Sucursal;
-	private Long idVend_Vendedor;
+	private String idPers_Persona2;
+    private Long idSucu_Sucursal;
+    private String idSucu_Sucursal2;
+    private Long idVend_Vendedor;
+    private String idVend_Vendedor2;
 
 	public String getCodigo() {
 		return codigo;
@@ -108,5 +111,29 @@ public class VendedorDTO implements Serializable {
 
 	public void setIdVend_Vendedor(Long idVend_Vendedor) {
 		this.idVend_Vendedor = idVend_Vendedor;
+	}
+
+	public String getIdPers_Persona2() {
+		return idPers_Persona2;
+	}
+
+	public void setIdPers_Persona2(String idPers_Persona2) {
+		this.idPers_Persona2 = idPers_Persona2;
+	}
+
+	public String getIdSucu_Sucursal2() {
+		return idSucu_Sucursal2;
+	}
+
+	public void setIdSucu_Sucursal2(String idSucu_Sucursal2) {
+		this.idSucu_Sucursal2 = idSucu_Sucursal2;
+	}
+
+	public String getIdVend_Vendedor2() {
+		return idVend_Vendedor2;
+	}
+
+	public void setIdVend_Vendedor2(String idVend_Vendedor2) {
+		this.idVend_Vendedor2 = idVend_Vendedor2;
 	}
 }

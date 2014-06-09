@@ -2,6 +2,7 @@ package co.edu.usbcali.presentation.backingBeans;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +28,8 @@ import org.primefaces.event.RowEditEvent;
 import co.edu.usbcali.exceptions.ZMessManager;
 import co.edu.usbcali.modelo.ListaPrecios;
 import co.edu.usbcali.modelo.Sucursal;
+import co.edu.usbcali.modelo.dto.CompaniaDTO;
+import co.edu.usbcali.modelo.dto.EmpresaDTO;
 import co.edu.usbcali.modelo.dto.ListaPreciosDTO;
 import co.edu.usbcali.modelo.dto.ReferenciaDTO;
 import co.edu.usbcali.modelo.dto.SucursalDTO;
@@ -81,7 +84,10 @@ public class ListaPreciosView {
 
 	private SucursalDTO selectedSucursal;
 	private ReferenciaDTO selectedReferencia;
-
+	
+	private SucursalDataModel sucusalPadreModel;
+	List<SucursalDTO> data5 = new ArrayList<SucursalDTO>();
+	
 	private ListaPrecios entity;
 	private boolean showDialog;
 	@ManagedProperty(value = "#{BusinessDelegatorView}")
@@ -238,7 +244,11 @@ public class ListaPreciosView {
 						setSelectedReferencia(data4.get(i));
 
 						break;
+					}else {
+						
+						selectedReferencia = null;
 					}
+				
 				}
 
 			} catch (Exception e) {
@@ -261,6 +271,8 @@ public class ListaPreciosView {
 						selectedSucursal = data3.get(i);
 
 						break;
+					}else {
+						selectedSucursal = null;
 					}
 				}
 
@@ -1294,6 +1306,59 @@ public class ListaPreciosView {
 
 	public void setSelectedReferencia(ReferenciaDTO selectedReferencia) {
 		this.selectedReferencia = selectedReferencia;
+	}
+
+	public SucursalDataModel getSucusalPadreModel() {
+		if (data5.isEmpty()) {
+
+			try {
+				
+				System.out.println("entro try");
+				
+				
+				List<EmpresaDTO> data2 = businessDelegatorView.getDataEmpresa();
+				List<CompaniaDTO> data3 = businessDelegatorView
+						.getDataCompania();
+
+				List<EmpresaDTO> empresaCompania = new ArrayList<EmpresaDTO>();
+				for (int i = 0; i < data3.size(); i++) {
+					for (int j = 0; j < data2.size(); j++) {
+						if (data3.get(i).getIdEmpr_Empresa() == data2.get(j)
+								.getIdEmpr()) {
+							empresaCompania.add(data2.get(j));
+							break;
+						}
+					}
+				}
+				List<SucursalDTO> data4 = businessDelegatorView
+						.getDataSucursal();
+
+				for (int i = 0; i < empresaCompania.size(); i++) {
+					for (int j = 0; j < data4.size(); j++) {
+						try {
+							if (data4.get(j).getIdEmpr_Empresa() == empresaCompania
+									.get(i).getIdEmpr()) {
+								data5.add(data4.get(j));
+								break;
+							}
+						} catch (Exception e) {
+						}
+
+					}
+				}
+				sucusalPadreModel = new SucursalDataModel(data5);
+				
+			} catch (Exception e) {
+				
+				System.out.println("catch modelo");
+			}
+		}
+		
+		return sucusalPadreModel;
+	}
+
+	public void setSucusalPadreModel(SucursalDataModel sucusalPadreModel) {
+		this.sucusalPadreModel = sucusalPadreModel;
 	}
 
 }

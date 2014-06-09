@@ -42,6 +42,9 @@ public class VendedorView {
 	private InputText txtIdVend;
 	private Calendar txtFechaCreacion;
 	private Calendar txtFechaModificacion;
+	
+	private String idVend;
+	
 	private CommandButton btnSave;
 	private CommandButton btnModify;
 	private CommandButton btnDelete;
@@ -611,5 +614,13 @@ public class VendedorView {
 
 	public void setShowDialog(boolean showDialog) {
 		this.showDialog = showDialog;
+	}
+
+	public String getIdVend() {
+		return idVend;
+	}
+
+	public void setIdVend(String idVend) {
+		this.idVend = idVend;
 	}
 }
