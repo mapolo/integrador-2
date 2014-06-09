@@ -147,7 +147,7 @@ body {
 								<p:tab title="*Sucursal Padre">
 
 										<h:panelGrid style="margin: 0 auto;">
-											<p:dataTable id="tablaSucursal" value="#{sucursalView.data}"
+											<p:dataTable id="tablaSucursal" value="#{relacionComercialView.sucusalPadreModel}"
 												var="s" selection="#{relacionComercialView.selectedSucursal}"
 												scrollable="true" scrollHeight="100" editable="true"
 												rowKey="#{s.idSucu}">

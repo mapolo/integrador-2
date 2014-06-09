@@ -101,7 +101,7 @@ public class VendedorLogic implements IVendedorLogic {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void saveVendedor(Vendedor entity) throws Exception {
 		try {
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
 			}
 
@@ -111,7 +111,7 @@ public class VendedorLogic implements IVendedorLogic {
 
 			if (entity.getVendedor() == null) {
 				throw new ZMessManager().new ForeignException("vendedor");
-			}
+			}*/
 
 			if (entity.getCodigo() == null) {
 				throw new ZMessManager().new EmptyFieldException("codigo");
@@ -151,7 +151,7 @@ public class VendedorLogic implements IVendedorLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdVend() == null) {
+			/*if (entity.getIdVend() == null) {
 				throw new ZMessManager().new EmptyFieldException("idVend");
 			}
 
@@ -159,7 +159,7 @@ public class VendedorLogic implements IVendedorLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdVend(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idVend");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -183,7 +183,7 @@ public class VendedorLogic implements IVendedorLogic {
 						"operModifica");
 			}
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -217,11 +217,11 @@ public class VendedorLogic implements IVendedorLogic {
 							+ entity.getVendedor().getIdVend(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idVend_Vendedor");
-			}
+			}*/
 
-			if (getVendedor(entity.getIdVend()) != null) {
+			/*if (getVendedor(entity.getIdVend()) != null) {
 				throw new ZMessManager(ZMessManager.ENTITY_WITHSAMEKEY);
-			}
+			}*/
 
 			vendedorDAO.save(entity);
 		} catch (Exception e) {
@@ -290,7 +290,7 @@ public class VendedorLogic implements IVendedorLogic {
 				throw new ZMessManager().new NullEntityExcepcion("Vendedor");
 			}
 
-			if (entity.getPersona() == null) {
+			/*if (entity.getPersona() == null) {
 				throw new ZMessManager().new ForeignException("persona");
 			}
 
@@ -300,7 +300,7 @@ public class VendedorLogic implements IVendedorLogic {
 
 			if (entity.getVendedor() == null) {
 				throw new ZMessManager().new ForeignException("vendedor");
-			}
+			}*/
 
 			if (entity.getCodigo() == null) {
 				throw new ZMessManager().new EmptyFieldException("codigo");
@@ -340,7 +340,7 @@ public class VendedorLogic implements IVendedorLogic {
 						"fechaModificacion");
 			}
 
-			if (entity.getIdVend() == null) {
+			/*if (entity.getIdVend() == null) {
 				throw new ZMessManager().new EmptyFieldException("idVend");
 			}
 
@@ -348,7 +348,7 @@ public class VendedorLogic implements IVendedorLogic {
 					&& (Utilities.checkNumberAndCheckWithPrecisionAndScale(""
 							+ entity.getIdVend(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException("idVend");
-			}
+			}*/
 
 			if (entity.getOperCreador() == null) {
 				throw new ZMessManager().new EmptyFieldException("operCreador");
@@ -372,7 +372,7 @@ public class VendedorLogic implements IVendedorLogic {
 						"operModifica");
 			}
 
-			if (entity.getPersona().getIdPers() == null) {
+			/*if (entity.getPersona().getIdPers() == null) {
 				throw new ZMessManager().new EmptyFieldException(
 						"idPers_Persona");
 			}
@@ -406,7 +406,7 @@ public class VendedorLogic implements IVendedorLogic {
 							+ entity.getVendedor().getIdVend(), 10, 0) == false)) {
 				throw new ZMessManager().new NotValidFormatException(
 						"idVend_Vendedor");
-			}
+			}*/
 
 			vendedorDAO.update(entity);
 		} catch (Exception e) {

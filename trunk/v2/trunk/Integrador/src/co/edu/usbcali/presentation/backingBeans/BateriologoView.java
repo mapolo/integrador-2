@@ -193,8 +193,11 @@ public class BateriologoView {
 							.getIdSucu_Sucursal()) {
 						selectedSucursal = data3.get(i);
 						
-						System.out.println("if" + data3.get(i));
+						
 						break;
+					}else {
+						selectedSucursal = null;
+						
 					}
 				}
 
